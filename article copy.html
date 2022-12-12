@@ -1,0 +1,598 @@
+<dt-article>
+<header class="site-header px2 px-responsive l-middle">
+  <div class="mt2 wrap">
+      <div class="measure">
+          <a href="https://developmentalsystems.org" class="site-title" style="border-bottom:none;">
+              <img src="https://developmentalsystems.org/flowers-logo.png">
+          </a>
+      <nav class="site-nav" style="line-height:2;">
+        
+
+
+        <a class="nav-link" href="https://flowers.inria.fr/" target="_blank">Flowers Lab</a>
+
+
+    
+    
+
+    
+        <a class="nav-link" href="https://developmentalsystems.org/publications/">Publications</a>
+    
+
+    
+
+    
+    
+
+    
+        <a class="nav-link" href="https://developmentalsystems.org/about">About</a>
+    
+
+    
+
+
+      </nav>
+      <div class="clearfix"></div>
+      
+        <div class="social-icons" style="line-height:2;float:right;border-bottom:none;">
+  <div class="social-icons-right">
+    
+      <a class="fa fa-github" href="https://github.com/flowersteam"></a>
+    
+    
+    
+    
+    <a class="fa fa-rss" href="/feed.xml"></a>
+    
+      <a class="fa fa-twitter" href="https://twitter.com/FlowersINRIA"></a>
+    
+    
+    
+    
+    
+      <a class="fa fa-envelope" href="mailto:pierre-yves.oudeyer@inria.fr"></a>
+
+    
+    
+  </div>
+  <div class="right">
+    
+    
+    
+  </div>
+</div>
+<div class="clearfix"></div>
+   
+    </div>
+  </div>
+</header>
+
+
+   
+
+
+<h1>Ecological Artificial Intelligence </h1>
+<h2 id='subtitle'> Grounding Artificial Intelligence in the Origins of Human Behavior </h2>
+
+
+<p> 'Can machines think?' When Turing posed this question in his seminal paper
+    <a href="https://psycnet.apa.org/record/1951-02887-001"> Computing machinery and intelligence </a>
+    <dt-cite key="turing_computing_1950"></dt-cite> in the '50s,  he inadvertently laid the ground for what was to
+    become the field of Artificial Intelligence (AI). The ground was set firmly: generations of researchers have been
+    engineering cognitive architectures and introducing objective functions that we evaluate on carefully selected
+    benchmarks, abiding to the Turing-test tradition. </p>
+
+
+<p> We call this the <em> cognition-centric </em> approach and want to contrast it to the <em> ecological </em>
+        approach. Under this alternative attitude towards creating AI, intelligence is viewed as an emergent product
+        of adaptive systems interacting with their environments. While cognition-centric approaches attempt to reverse-engineer
+    intelligent behavior by searching in the space of cognitive functions, ecological approaches search in the space of
+    environmental properties to reverse-engineer the conditions that drive intelligent behavior.
+</p>
+
+
+    <p> Ecological perspectives abide in the study of biological organisms. From the emergence of vision systems <dt-cite key="gibson"> </dt-cite>
+        to that of  religious beliefs <dt-cite key="religious"></dt-cite> the environments encountered in a species' evolutionary trajectory have been used to explain why
+        certain functions persist over others. <dt-cite key="autopoiesisBeer1754"></dt-cite>
+    </p>
+
+    <h4> In this blog post, we will discuss why and how we should pursue an ecological approach to AI. In particular, we will: </h4>
+
+
+    <ul>
+        <li > <b> review recent progress and challenges in cognition-centric AI </b> </li>
+        <li > <b> present a conceptual framework for grounding an ecological approach to AI in Human
+            Behavioral Ecology (HBE), a research field studying the evolution of humans in interaction with their environments</b> </li>
+        <li > <b> illustrate how an ecological perspective to AI looks in practise through two of our recent
+            computational studies. </b> </li>
+    </ul>
+
+
+<table cellpadding="15">
+<tbody>
+<tr>
+<td style="text-align: center" ><img src="public/earth.gif" height="85" width="85"  alt="" class="center"/></td>
+<td style="text-align: center"><img src="public/earth.gif" height="85" width="85"  alt="" class="center"/></td>
+</tr>
+<tr>
+<td style="text-align: center"> <h4>  How does environmental variability affect the evolution of adaptability? </h4>
+    <p style="text-align: justify">   In a world with temporal and spatial variability, a population of agents evolves its adaptability
+        in order to survive. Agents can adapt using evolvability and phenotypic plasticity and the fittest ones in a
+        niche leave offspring. Can these agents survive in the face of extreme climatic variability? In this work,
+        we will see how populations adapt, diversify and disperse under different climatic conditions. </p></td>
+<td style="text-align: center"> <h4> How does social connectivity affect collective innovation? </h4>
+<p style="text-align: justify">  From drug discovery to music composition, our human cultural repertoire relies on innovations produced
+    by collectives that jointly explore, communicate and recombine solutions. Can artificial agents also innovate in
+    collectives? In the learning paradigm of distributed RL, groups of agents solve tasks in parallel and share their
+    experiences with observed benefits to performance. But, while biological organisms exhibit a variety of social
+    network structures,, distributed RL agents always share with everyone. Here, we study the effect of social network
+    structure in a group of DQN agents playing the <a href='https://littlealchemy2.com/'> Little Alchemy game </a>.
+</p></td>
+</tr>
+</tbody>
+</table>
+
+
+<p> At a first glance these two studies have nothing in common, except perhaps for their ecological attitude towards
+    skill acquisition. At the end of this post we will see, however, that there is room for exchanging ideas between
+    the two: recent ecological theories posit that elements in our environment such as the Sahara desert act as
+    ecological barriers that prohibit immigration but can disappear during periods of extreme climatic variability
+    (<a href="https://www.youtube.com/watch?v=ZQP-7BPvvq0"> did you know the Sahara was green a few tens of thousands
+        of years ago?  </a> <dt-cite key="10.1371/journal.pone.0076514"> </dt-cite>  This means that climatic
+    variability may have affected social network structure,
+    with interesting implications for the populations that needed to survive at the time  ...
+</p>
+
+
+
+<h2 id="open-ended-skills-in"> Open-ended skills in biological and artificial agents </h2>
+
+<p> What is the first thing that comes to mind when you hear the word "open-endedness"? For many scientists,
+    engineers and artists, it is "life" or "evolution", words that conjure images of biological agents with a wide
+    diversity of forms and functions, entangled in a complex web of interactions. What makes biological
+    open-endedness particularly mind-boggling is not just the diversity and complexity of solutions, but the
+    apparent simplicity of the algorithm that continuously gives rise to them: evolution. </p>
+
+<p> AI researchers were also inspired from the open-endedness of biological evolution and attempted to imitate it by
+    building artificial agents with large behavioral repertoires. Largely owing to achievements in deep learning,
+    optimization using  reinforcement learning and evolutionary algorithms managed to produce agents with impressive
+    behavioral repertoires:  populations of RL agents co-adapting with their environments managed to develop
+    morphologies that can walk on challenging terrains <dt-cite key="poet"> </dt-cite> <a href="/www.uber.com/en-FR/blog/poet-open-ended-deep-learning/"> (Wang et
+    al) </a>, a single RL agent trained using techniques developed for language models managed to play Atari games,
+    chat and control a robotic arm <a href="https://www.deepmind.com/publications/a-generalist-agent"> (Reed et
+        al) </a> [](), a team of RL agents playing Hide-and-Seek learned how to manipulate items in their
+    environment to continuously pose new challenges to another team <a href="https://openai.com/blog/emergent-tool-use/"> (Baker et
+    al) </a>  and evolutionary algorithms that optimize for both diversity and quality managed to solve deceptive
+    maze-navigation tasks <a href="https://www.frontiersin.org/articles/10.3389/frobt.2016.00040/full"> (Pugh et
+        al) </a>. Today, open-ended skill acquisition is considered an important pursuit in AI for driving the
+    field forward <a href="https://www.oreilly.com/radar/open-endedness-the-last-grand-challenge-youve-never-heard-of/">(Stanley et al,
+    2017) </a> <a href="https://arxiv.org/abs/1905.10985"> (Clune, 2020) </a>
+</p>
+
+
+
+
+<script type="text/bibliography">
+
+@article{autopoiesisBeer1754,
+author    = {Randall D. Beer},
+title     = {Autopoiesis and Cognition in the Game of Life.},
+journal   = {Artif Life},
+volume    = {10(3)},
+year      = {1754},
+url       = { https://doi.org/10.1162/1064546041255539},
+
+}
+@article{religious,
+author = {Botero, Carlos and Gardner, Beth and Kirby, Kathryn and Bulbulia, Joseph and Gavin, Michael and Gray, Russell},
+year = {2014},
+month = {11},
+pages = {},
+title = {The ecology of religious beliefs},
+volume = {111},
+journal = {Proceedings of the National Academy of Sciences},
+doi = {10.1073/pnas.1408701111}
+}
+@book{gibson,
+  added-at = {2010-06-10T21:41:08.000+0200},
+  address = {Boston},
+  author = {Gibson, James J.},
+  biburl = {https://www.bibsonomy.org/bibtex/2c8f7e74508c2da45622a8338b1906a4f/orestesmantra},
+  description = {plasticity consciousness},
+  interhash = {ae01af32262c06f33374a599c2ca278f},
+  intrahash = {c8f7e74508c2da45622a8338b1906a4f},
+  keywords = {Gibson perception plasticq},
+  publisher = {Houghton Mifflin},
+  timestamp = {2010-06-10T21:48:26.000+0200},
+  title = {The Ecological Approach to Visual Perception},
+  year = 1979
+}
+@article{poet,
+  author    = {Rui Wang and
+               Joel Lehman and
+               Jeff Clune and
+               Kenneth O. Stanley},
+  title     = {Paired Open-Ended Trailblazer {(POET):} Endlessly Generating Increasingly
+               Complex and Diverse Learning Environments and Their Solutions},
+  journal   = {CoRR},
+  volume    = {abs/1901.01753},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1901.01753},
+  eprinttype = {arXiv},
+  eprint    = {1901.01753},
+  timestamp = {Tue, 29 Sep 2020 10:47:58 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1901-01753.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+@article{10.1371/journal.pone.0076514,
+    doi = {10.1371/journal.pone.0076514},
+    author = {Larrasoaña, Juan C. AND Roberts, Andrew P. AND Rohling, Eelco J.},
+    journal = {PLOS ONE},
+    publisher = {Public Library of Science},
+    title = {Dynamics of Green Sahara Periods and Their Role in Hominin Evolution},
+    year = {2013},
+    month = {10},
+    volume = {8},
+    url = {https://doi.org/10.1371/journal.pone.0076514},
+    pages = {1-12},
+    abstract = {Astronomically forced insolation changes have driven monsoon dynamics and recurrent humid episodes in North Africa, resulting in green Sahara Periods (GSPs) with savannah expansion throughout most of the desert. Despite their potential for expanding the area of prime hominin habitats and favouring out-of-Africa dispersals, GSPs have not been incorporated into the narrative of hominin evolution due to poor knowledge of their timing, dynamics and landscape composition at evolutionary timescales. We present a compilation of continental and marine paleoenvironmental records from within and around North Africa, which enables identification of over 230 GSPs within the last 8 million years. By combining the main climatological determinants of woody cover in tropical Africa with paleoenvironmental and paleoclimatic data for representative (Holocene and Eemian) GSPs, we estimate precipitation regimes and habitat distributions during GSPs. Their chronology is consistent with the ages of Saharan archeological and fossil hominin sites. Each GSP took 2–3 kyr to develop, peaked over 4–8 kyr, biogeographically connected the African tropics to African and Eurasian mid latitudes, and ended within 2–3 kyr, which resulted in rapid habitat fragmentation. We argue that the well-dated succession of GSPs presented here may have played an important role in migration and evolution of hominins.},
+    number = {10},
+
+}
+@article{derrico_evolution_2011,
+	title = {Evolution, revolution or saltation scenario for the emergence of modern cultures?},
+	volume = {366},
+	issn = {0962-8436, 1471-2970},
+	url = {https://royalsocietypublishing.org/doi/10.1098/rstb.2010.0340},
+	doi = {10.1098/rstb.2010.0340},
+	language = {en},
+	number = {1567},
+	urldate = {2022-11-30},
+	journal = {Philosophical Transactions of the Royal Society B: Biological Sciences},
+	author = {d'Errico, Francesco and Stringer, Chris B.},
+	month = apr,
+	year = {2011},
+	pages = {1060--1069},
+	file = {d'Errico and Stringer - 2011 - Evolution, revolution or saltation scenario for th.pdf:/home/elena/Zotero/storage/VRYEAMST/d'Errico and Stringer - 2011 - Evolution, revolution or saltation scenario for th.pdf:application/pdf},
+}
+@article{derrico_identifying_2013,
+	title = {Identifying {Mechanisms} behind {Middle} {Paleolithic} and {Middle} {Stone} {Age} {Cultural} {Trajectories}},
+	volume = {54},
+	issn = {0011-3204, 1537-5382},
+	url = {https://www.journals.uchicago.edu/doi/10.1086/673388},
+	doi = {10.1086/673388},
+	language = {en},
+	number = {S8},
+	urldate = {2022-11-30},
+	journal = {Current Anthropology},
+	author = {d’Errico, Francesco and Banks, William E.},
+	month = dec,
+	year = {2013},
+	pages = {S371--S387},
+	file = {d’Errico and Banks - 2013 - Identifying Mechanisms behind Middle Paleolithic a.pdf:/home/elena/Zotero/storage/MCKLJKWZ/d’Errico and Banks - 2013 - Identifying Mechanisms behind Middle Paleolithic a.pdf:application/pdf},
+}
+@article{derrico_identifying_2017,
+	title = {Identifying early modern human ecological niche expansions and associated cultural dynamics in the {South} {African} {Middle} {Stone} {Age}},
+	volume = {114},
+	issn = {0027-8424, 1091-6490},
+	url = {https://pnas.org/doi/full/10.1073/pnas.1620752114},
+	doi = {10.1073/pnas.1620752114},
+	language = {en},
+	number = {30},
+	urldate = {2022-11-30},
+	journal = {Proceedings of the National Academy of Sciences},
+	author = {d’Errico, Francesco and Banks, William E. and Warren, Dan L. and Sgubin, Giovanni and van Niekerk, Karen and Henshilwood, Christopher and Daniau, Anne-Laure and Sánchez Goñi, María Fernanda},
+	month = jul,
+	year = {2017},
+	pages = {7869--7876},
+	file = {d’Errico et al. - 2017 - Identifying early modern human ecological niche ex.pdf:/home/elena/Zotero/storage/QCTZQ3LW/d’Errico et al. - 2017 - Identifying early modern human ecological niche ex.pdf:application/pdf},
+}
+@article{
+reed2022a,
+title={A Generalist Agent},
+author={Scott Reed and Konrad Zolna and Emilio Parisotto and Sergio G{\'o}mez Colmenarejo and Alexander Novikov and Gabriel Barth-maron and Mai Gim{\'e}nez and Yury Sulsky and Jackie Kay and Jost Tobias Springenberg and Tom Eccles and Jake Bruce and Ali Razavi and Ashley Edwards and Nicolas Heess and Yutian Chen and Raia Hadsell and Oriol Vinyals and Mahyar Bordbar and Nando de Freitas},
+journal={Transactions on Machine Learning Research},
+year={2022},
+url={https://openreview.net/forum?id=1ikK0kHjvj},
+note={Featured Certification}
+}
+@misc{https://doi.org/10.48550/arxiv.1810.03548,
+  doi = {10.48550/ARXIV.1810.03548},
+
+  url = {https://arxiv.org/abs/1810.03548},
+
+  author = {Vanschoren, Joaquin},
+
+  keywords = {Machine Learning (cs.LG), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences},
+
+  title = {Meta-Learning: A Survey},
+
+  publisher = {arXiv},
+
+  year = {2018},
+
+  copyright = {Creative Commons Attribution 4.0 International}
+}
+@article{potts_hominin_2013,
+	title = {Hominin evolution in settings of strong environmental variability},
+	volume = {73},
+	issn = {0277-3791},
+	url = {http://www.sciencedirect.com/science/article/pii/S0277379113001340},
+	doi = {10.1016/j.quascirev.2013.04.003},
+	abstract = {Investigations into how climate change shaped human evolution have begun to focus on environmental dynamics, i.e., the nature and tempo of climate and landscape variability, an approach that de-emphasizes static reconstructions of early hominin habitats. The interaction among insolation cycles is especially apparent in the paleoenvironmental records of the East African Rift System, where the longest records of human evolution are preserved. However, environmental indicators such as deep-sea oxygen isotopes, terrestrial dust flux, paleosol carbon isotopes, and lake sediments do not point consistently to any simple trend or climate driver of evolutionary change. Comparison of environmental indicators cautions against an exclusive focus on any given end-member of environmental fluctuation (driest or wettest, warmest or coolest), and argues for the impact of the entire range of variability in shaping evolutionary change. A model of alternating high and low climate variability for tropical Africa further implies that specific environmental indicators reflect different aspects of East African environmental dynamics. The model may thus help reconcile some of the conflicting interpretations about the environmental drivers of hominin evolution. First and last appearances of hominin lineages, benchmark biogeographic events, and the emergence of key adaptations and capacities to alter the surroundings are consistently concentrated in the predicted longest intervals of high climate variability. The view that emerges is that important changes in stone technology, sociality, and other aspects of hominin behavior can now be understood as adaptive responses to heightened habitat instability.},
+	language = {en},
+	urldate = {2020-10-15},
+	journal = {Quaternary Science Reviews},
+	author = {Potts, Richard},
+	month = aug,
+	year = {2013},
+	keywords = {Adaptability, Africa, Environment, Human evolution, Olorgesailie, Paleoclimate, Variability selection},
+	pages = {1--13},
+	file = {ScienceDirect Snapshot:/home/elena/Zotero/storage/IDNQ6EAF/S0277379113001340.html:text/html},
+}
+@article{groveEvolutionDispersalClimatic2014,
+	title = {Evolution and dispersal under climatic instability: a simple evolutionary algorithm},
+	volume = {22},
+	issn = {1059-7123, 1741-2633},
+	shorttitle = {Evolution and dispersal under climatic instability},
+	url = {http://journals.sagepub.com/doi/10.1177/1059712314533573},
+	doi = {10.1177/1059712314533573},
+	abstract = {It has long been known that temporally unstable environments are likely to promote the evolution of plastic adaptations, whilst it is equally clear that such adaptations are precisely those that characterize successful colonizers. These two established findings, however, are rarely related within a single framework. This article bridges this gap via the development of a very simple evolutionary algorithm that tracks both directional selection and the evolution of plasticity under various synthetic climatic regimes. The output of the model allows for the construction of a dispersal index that provides a measure of population-level dispersal potential under each particular climatic regime. The output thus establishes both the timing and extent of selection for plasticity and the consequences of that plasticity for the timing of probable dispersal events in the context of climatic instability. Results suggest that periods of low climatic instability abruptly following extended periods of higher climatic instability are particularly conducive to dispersal, leading to the formulation of the Accumulated Plasticity Hypothesis. These results, and the hypothesis they support, are discussed in relation to the varied manifestations of plasticity in biological systems and their relevance to human evolution.},
+	language = {en},
+	number = {4},
+	urldate = {2021-05-10},
+	journal = {Adaptive Behavior},
+	author = {Grove, Matt},
+	month = aug,
+	year = {2014},
+	pages = {235--254},
+	file = {Grove - 2014 - Evolution and dispersal under climatic instability.pdf:/home/elena/Zotero/storage/VG3VLAWK/Grove - 2014 - Evolution and dispersal under climatic instability.pdf:application/pdf},
+}
+@article{turing_computing_1950,
+	title = {Computing {Machinery} and {Intelligence}},
+	volume = {59},
+	url = {http://www.jstor.org/stable/2251299},
+	number = {236},
+	journal = {Mind, New Series},
+	author = {Turing, A. M.},
+	year = {1950},
+	pages = {433--460},
+}
+@article{maslin_synthesis_2015,
+	title = {A synthesis of the theories and concepts of early human evolution},
+	volume = {370},
+	url = {https://royalsocietypublishing.org/doi/10.1098/rstb.2014.0064},
+	doi = {10.1098/rstb.2014.0064},
+	number = {1663},
+	urldate = {2021-11-10},
+	journal = {Philosophical Transactions of the Royal Society B: Biological Sciences},
+	author = {Maslin, Mark A. and Shultz, Susanne and Trauth, Martin H.},
+	month = mar,
+	year = {2015},
+	note = {Publisher: Royal Society},
+	keywords = {East Africa, hominin, human evolution, palaeoclimatology, pulsed climate variability framework},
+	pages = {20140064},
+}
+@article{sánchez goñi_2020,
+ title={Regional impacts of climate change and its relevance to human evolution},
+  volume={2},
+   DOI={10.1017/ehs.2020.56},
+    journal={Evolutionary Human Sciences},
+       publisher={Cambridge University Press},
+        author={Sánchez Goñi, María Fernanda}, year={2020}, pages={e55}}
+@inproceedings{10.1145/3512290.3528826,
+author = {Nisioti, Eleni and Moulin-Frier, Cl\'{e}ment},
+title = {Plasticity and Evolvability under Environmental Variability: The Joint Role of Fitness-Based Selection and Niche-Limited Competition},
+year = {2022},
+isbn = {9781450392372},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3512290.3528826},
+doi = {10.1145/3512290.3528826},
+abstract = {The diversity and quality of natural systems have been a puzzle and inspiration for communities studying artificial life. It is now widely admitted that the adaptation mechanisms enabling these properties are largely influenced by the environments they inhabit. Organisms facing environmental variability have two alternative adaptation mechanisms operating at different timescales: plasticity, the ability of a phenotype to survive in diverse environments and evolvability, the ability to adapt through mutations. Although vital under environmental variability both mechanisms are associated with fitness costs hypothesized to render them unnecessary in stable environments. In this work, we study the interplay between environmental dynamics and adaptation in a minimal model of the evolution of plasticity and evolvability. We experiment with different types of environments characterized by the presence of niches and a climate function that determines the fitness landscape. We empirically show that environmental dynamics affect plasticity and evolvability differently and that the presence of diverse ecological niches favors adaptability even in stable environments. We perform ablation studies of the selection mechanisms to separate the role of fitness-based selection and niche-limited competition. Results obtained from our minimal model allow us to propose promising research directions in the study of open-endedness in biological and artificial systems.},
+booktitle = {Proceedings of the Genetic and Evolutionary Computation Conference},
+pages = {113–121},
+numpages = {9},
+location = {Boston, Massachusetts},
+series = {GECCO '22}
+}
+@article{varela1997patterns,
+  title={Patterns of life: Intertwining identity and cognition},
+  author={Varela, Francisco J},
+  journal={Brain and cognition},
+  volume={34},
+  number={1},
+  pages={72--87},
+  year={1997},
+  publisher={Academic Press},
+url={https://lifecognitionschool.ias-research.net/files/2010/06/Varela-1997-Brain-and-Cognition-34.pdf}
+}
+
+</script>
+<script type="text/javascript">
+ "use strict";
+/*
+  var sliderSpeed = document.getElementById("rangeSpeed");
+  var outputSpeed = document.getElementById("valueSpeed");
+  var videos=document.getElementsByClassName("videoShow");
+  outputSpeed.innerHTML = sliderSpeed.value; // Display the default slider value
+
+  // Update the current slider value (each time you drag the slider handle)
+  sliderSpeed.oninput = function() {
+  outputSpeed.innerHTML = this.value;
+  for (var i = 0; i < videos.length; i++) {
+  	videos[i].playbackRate = this.value;
+  }}
+*/
+  function changeImgIMGEP(img)
+        {
+            var schemeIMGEP=document.getElementById("schemeIMGEP");
+            schemeIMGEP.src=img;
+        }
+function changeVideo(className,nb)
+   {
+ 	var vids=document.getElementsByClassName(className);
+	for(var i=0;i<vids.length;i++){
+       vids[i].style.display="none";
+}
+console.log(className+nb);
+var vid=document.getElementById(className+nb);
+console.log(vid);
+vid.style.display="block";
+vid.currentTime = '0';
+
+ }
+
+</script>
+<style>
+button {
+display: inline-block;
+background-color: #7b38d8;
+border-radius: 10px;
+border: 4px double #cccccc;
+color: #eeeeee;
+text-align: center;
+font-size: 15px;
+padding: 10px;
+width: 80px;
+-webkit-transition: all 0.5s;
+-moz-transition: all 0.5s;
+-o-transition: all 0.5s;
+transition: all 0.5s;
+cursor: pointer;
+margin: 5px;
+}
+button:hover {
+background-color: lightgreen;
+}
+
+.radio-toolbar input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
+}
+
+.titleGetStarted{
+margin-top:0px;
+margin-bottom:0px;
+text-align:center;
+}
+
+.radio-toolbar label {
+    display: inline-block;
+    background-color: #cbc;
+    border-radius: 10px;
+    border: 4px double #cccccc;
+    color: #eeeeee;
+    text-align: center;
+    font-size: 15px;
+    padding: 10px;
+    width: 80px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.radio-toolbar input[type="radio"]:checked + label {
+    background-color:green;
+    border-color: #4c4;
+}
+
+.radio-toolbar input[type="radio"]:focus + label {
+    border: 2px dashed #444;
+}
+
+.radio-toolbar label:hover {
+  background-color: lightgreen;
+}
+
+.figcaption{
+  font-size: 22px;
+  color:#A0A0A0;
+}
+
+d-content li{
+  font-size: 14px;
+  color:#A0A0A0;
+}
+
+d-content {
+    clear: both;
+    float: right;
+    line-height:1.4;
+    padding-top: 1em;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    margin-top: 0;
+    margin-left: 10px;
+    margin-right: calc((100vw - 1500px) / 2 + 168px);
+    width: calc((1500px - 648px) / 2 - 24px);
+}
+
+d-content h5{
+  margin-block-start: 1.5em;
+  margin-block-end: 0em;
+}
+
+d-content ul{
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+}
+
+d-content h2{
+  margin-top:10px;
+}
+@media (max-width: 1300px)
+d-content {
+    display: none;
+}
+.icon {
+    width: 30px;
+    height: 30px;
+    background: steelblue;
+    fill: white;
+    border-radius: 20px;
+    padding: 5px;
+    margin: 2px;
+    cursor: pointer;
+}
+def{
+clear: both;
+float: left;
+margin-top: 0;
+margin-left: 24px;
+width: calc(50% - 1384px / 2);
+padding: 0 0 0 24px;
+border-radius: 20px 20px 20px 20px;
+background-color: rgba(0,0,0,0.05);
+color: rgba(0,0,0,0.5);
+font-size:14px;
+}
+
+/*
+.code {
+white-space: nowrap;
+border-radius: 2px;
+padding: 4px 25px;
+font-size: 15px;
+color: rgba(0, 0, 0, 0.6);
+display: block;
+background: white;
+border-left: 3px solid rgba(0, 0, 0, 0.05);
+text-shadow: 0 1px white;
+font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+text-align: left;
+white-space: pre;
+word-spacing: normal;
+word-break: normal;
+word-wrap: normal;
+line-height: 0.00001;
+tab-size: 4;
+}*/
+
+
+
+
+</style>
