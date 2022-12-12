@@ -90,8 +90,6 @@
     environmental properties to reverse-engineer the conditions that drive intelligent behavior.
 </p>
 
-    <p>Novel classes of Cellular Automata (CA) have been recently introduced in the Artificial Life  (ALife) community, able to generate a high diversity of complex self-organized patterns from local update rules. These patterns can display certain properties of biological systems such as a spatially localized organization, directional or rotational movements, etc. In fact, CA have a long relationship with biology and especially the origins of life&#x2F;cognition as it is a self-organizing system that can serve as a computational testbed and toy model for such theories <dt-cite key="autopoiesisBeer1754"></dt-cite> but also as a source of inspiration on what are the basic building block of "life". However, while the notions of embodiment within an environment, individuality<dt-fn>  <strong>individuality:</strong> ability of an informational&#x2F;physical structure to preserve its coherence and integrity</dt-fn> and self-maintenance<dt-fn> <strong>self-maintenance:</strong> capacity of a structure to modify its interactions with the rest of the environment  for maintaining its integrity</dt-fn> are central in theoretical biology and in particular in the definition of agency (e.g. Maturana &amp; Varela <dt-cite key="maturana1980autopoiesis"></dt-cite> , Varela <dt-cite key="varela1997patterns"></dt-cite>), it remains unclear how such mechanisms and properties can emerge from a set of local update rules in a CA. In this blogpost, we propose an approach enabling to learn self-organizing agents capable of reacting to the perturbations induced by the environment, i.e. robust agents with sensorimotor capabilities. We provide a method based on curriculum learning, on diversity search and on gradient descent over a differentiable CA able to discover the rules leading to the emergence of such creatures. The creatures obtained, using only local update rules, are able to regenerate and preserve their integrity and structure while dealing with the obstacles or other creatures in their way. They also show great generalization, with robustness to changes of scale, random updates or  perturbations from the environment not seen during training. We believe that the field of artificial intelligence could benefit from these capabilities of self-organizing systems to make robust intelligent systems that can quickly adapt to new environments and to perturbations.</p>
-
 
     <p> Ecological perspectives abide in the study of biological organisms. From the emergence of vision systems <dt-cite key="gibson"> </dt-cite>
         to that of  religious beliefs <dt-cite key="religious"></dt-cite> the environments encountered in a species' evolutionary trajectory have been used to explain why
@@ -176,16 +174,15 @@
 
 <script type="text/bibliography">
 
-  @article{autopoiesisBeer1754,
-    author    = {Randall D. Beer},
-    title     = {Autopoiesis and Cognition in the Game of Life.},
-    journal   = {Artif Life},
-    volume    = {10(3)},
-    year      = {1754},
-    url       = { https://doi.org/10.1162/1064546041255539},
+@article{autopoiesisBeer1754,
+author    = {Randall D. Beer},
+title     = {Autopoiesis and Cognition in the Game of Life.},
+journal   = {Artif Life},
+volume    = {10(3)},
+year      = {1754},
+url       = { https://doi.org/10.1162/1064546041255539},
 
-  }
-
+}
 @article{religious,
 author = {Botero, Carlos and Gardner, Beth and Kirby, Kathryn and Bulbulia, Joseph and Gavin, Michael and Gray, Russell},
 year = {2014},
@@ -196,7 +193,6 @@ volume = {111},
 journal = {Proceedings of the National Academy of Sciences},
 doi = {10.1073/pnas.1408701111}
 }
-
 @book{gibson,
   added-at = {2010-06-10T21:41:08.000+0200},
   address = {Boston},
@@ -211,9 +207,6 @@ doi = {10.1073/pnas.1408701111}
   title = {The Ecological Approach to Visual Perception},
   year = 1979
 }
-
-
-
 @article{poet,
   author    = {Rui Wang and
                Joel Lehman and
@@ -231,7 +224,6 @@ doi = {10.1073/pnas.1408701111}
   biburl    = {https://dblp.org/rec/journals/corr/abs-1901-01753.bib},
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
-
 @article{10.1371/journal.pone.0076514,
     doi = {10.1371/journal.pone.0076514},
     author = {Larrasoaña, Juan C. AND Roberts, Andrew P. AND Rohling, Eelco J.},
@@ -247,7 +239,6 @@ doi = {10.1073/pnas.1408701111}
     number = {10},
 
 }
-
 @article{derrico_evolution_2011,
 	title = {Evolution, revolution or saltation scenario for the emergence of modern cultures?},
 	volume = {366},
@@ -264,7 +255,6 @@ doi = {10.1073/pnas.1408701111}
 	pages = {1060--1069},
 	file = {d'Errico and Stringer - 2011 - Evolution, revolution or saltation scenario for th.pdf:/home/elena/Zotero/storage/VRYEAMST/d'Errico and Stringer - 2011 - Evolution, revolution or saltation scenario for th.pdf:application/pdf},
 }
-
 @article{derrico_identifying_2013,
 	title = {Identifying {Mechanisms} behind {Middle} {Paleolithic} and {Middle} {Stone} {Age} {Cultural} {Trajectories}},
 	volume = {54},
@@ -281,7 +271,6 @@ doi = {10.1073/pnas.1408701111}
 	pages = {S371--S387},
 	file = {d’Errico and Banks - 2013 - Identifying Mechanisms behind Middle Paleolithic a.pdf:/home/elena/Zotero/storage/MCKLJKWZ/d’Errico and Banks - 2013 - Identifying Mechanisms behind Middle Paleolithic a.pdf:application/pdf},
 }
-
 @article{derrico_identifying_2017,
 	title = {Identifying early modern human ecological niche expansions and associated cultural dynamics in the {South} {African} {Middle} {Stone} {Age}},
 	volume = {114},
@@ -298,7 +287,6 @@ doi = {10.1073/pnas.1408701111}
 	pages = {7869--7876},
 	file = {d’Errico et al. - 2017 - Identifying early modern human ecological niche ex.pdf:/home/elena/Zotero/storage/QCTZQ3LW/d’Errico et al. - 2017 - Identifying early modern human ecological niche ex.pdf:application/pdf},
 }
-
 @article{
 reed2022a,
 title={A Generalist Agent},
@@ -308,7 +296,6 @@ year={2022},
 url={https://openreview.net/forum?id=1ikK0kHjvj},
 note={Featured Certification}
 }
-
 @misc{https://doi.org/10.48550/arxiv.1810.03548,
   doi = {10.48550/ARXIV.1810.03548},
 
@@ -326,8 +313,6 @@ note={Featured Certification}
 
   copyright = {Creative Commons Attribution 4.0 International}
 }
-
-
 @article{potts_hominin_2013,
 	title = {Hominin evolution in settings of strong environmental variability},
 	volume = {73},
@@ -345,8 +330,6 @@ note={Featured Certification}
 	pages = {1--13},
 	file = {ScienceDirect Snapshot:/home/elena/Zotero/storage/IDNQ6EAF/S0277379113001340.html:text/html},
 }
-
-
 @article{groveEvolutionDispersalClimatic2014,
 	title = {Evolution and dispersal under climatic instability: a simple evolutionary algorithm},
 	volume = {22},
@@ -365,7 +348,6 @@ note={Featured Certification}
 	pages = {235--254},
 	file = {Grove - 2014 - Evolution and dispersal under climatic instability.pdf:/home/elena/Zotero/storage/VG3VLAWK/Grove - 2014 - Evolution and dispersal under climatic instability.pdf:application/pdf},
 }
-
 @article{turing_computing_1950,
 	title = {Computing {Machinery} and {Intelligence}},
 	volume = {59},
@@ -376,8 +358,6 @@ note={Featured Certification}
 	year = {1950},
 	pages = {433--460},
 }
-
-
 @article{maslin_synthesis_2015,
 	title = {A synthesis of the theories and concepts of early human evolution},
 	volume = {370},
@@ -393,7 +373,6 @@ note={Featured Certification}
 	keywords = {East Africa, hominin, human evolution, palaeoclimatology, pulsed climate variability framework},
 	pages = {20140064},
 }
-
 @article{sánchez goñi_2020,
  title={Regional impacts of climate change and its relevance to human evolution},
   volume={2},
@@ -401,9 +380,7 @@ note={Featured Certification}
     journal={Evolutionary Human Sciences},
        publisher={Cambridge University Press},
         author={Sánchez Goñi, María Fernanda}, year={2020}, pages={e55}}
-
-
- @inproceedings{10.1145/3512290.3528826,
+@inproceedings{10.1145/3512290.3528826,
 author = {Nisioti, Eleni and Moulin-Frier, Cl\'{e}ment},
 title = {Plasticity and Evolvability under Environmental Variability: The Joint Role of Fitness-Based Selection and Niche-Limited Competition},
 year = {2022},
@@ -419,7 +396,17 @@ numpages = {9},
 location = {Boston, Massachusetts},
 series = {GECCO '22}
 }
-
+@article{varela1997patterns,
+  title={Patterns of life: Intertwining identity and cognition},
+  author={Varela, Francisco J},
+  journal={Brain and cognition},
+  volume={34},
+  number={1},
+  pages={72--87},
+  year={1997},
+  publisher={Academic Press},
+url={https://lifecognitionschool.ias-research.net/files/2010/06/Varela-1997-Brain-and-Cognition-34.pdf}
+}
 
 </script>
 <script type="text/javascript">
