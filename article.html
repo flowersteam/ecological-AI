@@ -90,11 +90,8 @@
     environmental properties to reverse-engineer the conditions that drive intelligent behavior.
 </p>
 
-    <p> Ecological perspectives abide in the study of biological organisms. From the emergence of vision systems <a
-            href="https://www.taylorfrancis.com/books/mono/10.4324/9781315740218/ecological-approach-visual-perception-james-gibson">
-        (Gibson et al) </a> to that of religious beliefs
-        <a href="https://www.google.com/search?channel=fs&client=ubuntu&q=the+ecology+of+religious+beliefs"> Botero et
-        al </a>, the environments encountered in a species' evolutionary trajectory have been used to explain why
+    <p> Ecological perspectives abide in the study of biological organisms. From the emergence of vision systems <dt-cite key="gibson"> </dt-cite>
+        to that of religious beliefs <dt-cite key="religious"> </dt-cite>, the environments encountered in a species' evolutionary trajectory have been used to explain why
         certain functions persist over others.
     </p>
 
@@ -147,11 +144,80 @@
 
 
 
+<h2 id="open-ended-skills-in"> Open-ended skills in biological and artificial agents </h2>
+
+<p> What is the first thing that comes to mind when you hear the word "open-endedness"? For many scientists,
+    engineers and artists, it is "life" or "evolution", words that conjure images of biological agents with a wide
+    diversity of forms and functions, entangled in a complex web of interactions. What makes biological
+    open-endedness particularly mind-boggling is not just the diversity and complexity of solutions, but the
+    apparent simplicity of the algorithm that continuously gives rise to them: evolution. </p>
+
+<p> AI researchers were also inspired from the open-endedness of biological evolution and attempted to imitate it by
+    building artificial agents with large behavioral repertoires. Largely owing to achievements in deep learning,
+    optimization using  reinforcement learning and evolutionary algorithms managed to produce agents with impressive
+    behavioral repertoires:  populations of RL agents co-adapting with their environments managed to develop
+    morphologies that can walk on challenging terrains <dt-cite key="poet"> </dt-cite> <a href="/www.uber.com/en-FR/blog/poet-open-ended-deep-learning/"> (Wang et
+    al) </a>, a single RL agent trained using techniques developed for language models managed to play Atari games,
+    chat and control a robotic arm <a href="https://www.deepmind.com/publications/a-generalist-agent"> (Reed et
+        al) </a> [](), a team of RL agents playing Hide-and-Seek learned how to manipulate items in their
+    environment to continuously pose new challenges to another team <a href="https://openai.com/blog/emergent-tool-use/"> (Baker et
+    al) </a>  and evolutionary algorithms that optimize for both diversity and quality managed to solve deceptive
+    maze-navigation tasks <a href="https://www.frontiersin.org/articles/10.3389/frobt.2016.00040/full"> (Pugh et
+        al) </a>. Today, open-ended skill acquisition is considered an important pursuit in AI for driving the
+    field forward <a href="https://www.oreilly.com/radar/open-endedness-the-last-grand-challenge-youve-never-heard-of/">(Stanley et al,
+    2017) </a> <a href="https://arxiv.org/abs/1905.10985"> (Clune, 2020) </a>
+</p>
 
 
 
 
 <script type="text/bibliography">
+
+@article{religious,
+author = {Botero, Carlos and Gardner, Beth and Kirby, Kathryn and Bulbulia, Joseph and Gavin, Michael and Gray, Russell},
+year = {2014},
+month = {11},
+pages = {},
+title = {The ecology of religious beliefs},
+volume = {111},
+journal = {Proceedings of the National Academy of Sciences},
+doi = {10.1073/pnas.1408701111}
+}
+
+@book{gibson,
+  added-at = {2010-06-10T21:41:08.000+0200},
+  address = {Boston},
+  author = {Gibson, James J.},
+  biburl = {https://www.bibsonomy.org/bibtex/2c8f7e74508c2da45622a8338b1906a4f/orestesmantra},
+  description = {plasticity consciousness},
+  interhash = {ae01af32262c06f33374a599c2ca278f},
+  intrahash = {c8f7e74508c2da45622a8338b1906a4f},
+  keywords = {Gibson perception plasticq},
+  publisher = {Houghton Mifflin},
+  timestamp = {2010-06-10T21:48:26.000+0200},
+  title = {The Ecological Approach to Visual Perception},
+  year = 1979
+}
+
+
+
+@article{poet,
+  author    = {Rui Wang and
+               Joel Lehman and
+               Jeff Clune and
+               Kenneth O. Stanley},
+  title     = {Paired Open-Ended Trailblazer {(POET):} Endlessly Generating Increasingly
+               Complex and Diverse Learning Environments and Their Solutions},
+  journal   = {CoRR},
+  volume    = {abs/1901.01753},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1901.01753},
+  eprinttype = {arXiv},
+  eprint    = {1901.01753},
+  timestamp = {Tue, 29 Sep 2020 10:47:58 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1901-01753.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
 
 @article{10.1371/journal.pone.0076514,
     doi = {10.1371/journal.pone.0076514},
