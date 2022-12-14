@@ -297,7 +297,7 @@ width: calc((1500px - 648px) / 2 - 24px);">
     we will zoom in in two different parts of the framework, discuss the ecological hypotheses they were inspired from,
     and then present the artificial ecologies we implemented to study them. </p>
 
-    <h2 id="Study-A"> Study A: Evolution of plasticity and evolvability in variable environments </h2>
+<h2 id="Study-A"> Study A: Evolution of plasticity and evolvability in variable environments </h2>
 
 <h3> Background in HBE </h3>
 <p> What makes us human? For HBE researchers, this is not a philosophical inquiry, but a rather pressing scientific
@@ -308,16 +308,16 @@ width: calc((1500px - 648px) / 2 - 24px);">
     large-amplitude climatic cycles have taken place in the last few milliion years, leading to high levels of climate
     change that must have significantly shaped populations at a global and local scale. Our own hominin space appeared
     and dispersed during such periods, competing and reproducing with other species.
-    <dt-cite key="maslin_synthesis_2015"> </dt-cite> <dt-cite key="sánchez goñi_2020"> </dt-cite>
+    <dt-cite key="maslin_synthesis_2015"> </dt-cite> <dt-cite key="sanchez_goni_regional_2020"> </dt-cite>
     <dt-cite key="potts_hominin_2013"> </dt-cite>
 </p>
 
-    <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
 width: calc((1500px - 648px) / 2 - 24px);">
-  <img src="public/climate_maslin.png" alt="scheme" style="width:94%">
+  <img src="public/climate_Maslin.png" alt="scheme" style="width:94%">
     <p> Paleoclimatology records indicate that periods of high climatic variability were linked to the formation of
         lakes and the appearance of new hominin species.
-        <a href="https://www.sciencedirect.com/science/article/pii/S0277379114002418"> Image source </a>   </p>
+        <dt-cite key="maslin_east_2014"> </dt-cite> Image source </a>   </p>
 </div>
 
 <p> How exactly did climatic conditions affect the evolution of the human species? The Pulsed Climate Variability
@@ -335,7 +335,7 @@ width: calc((1500px - 648px) / 2 - 24px);">
 
 <p> A similar story has been unfolding in AI: in its quest for artificial agents that can generalize and quickly
     adapt to new tasks, the meta RL paradigm trains agents in a wide distribution of environments
-    <dt-cite key="https://doi.org/10.48550/arxiv.1810.03548"> </dt-cite>.
+    <dt-cite key="vanschoren_meta-learning_2018"> </dt-cite>.
  </p>
 
 
@@ -359,7 +359,7 @@ width: calc((1500px - 648px) / 2 - 24px);">
 </p>
 
 <div align="center" style="margin-bottom:40px">
-<img class="80" src="public/meta_RL.png" height="465" width="765" alt="ORIGINS" />
+<img class="80" src="public/meta_RL.png" height="265" width="465" alt="metaRL" />
 <div>
 <sub style="display: block; line-height: 1.5em">
 <i> In meta-RL an agent is trained on a distribution of environments. </i></sub>
@@ -375,7 +375,7 @@ width: calc((1500px - 648px) / 2 - 24px);">
 <h3> A simple eco-evo-devo model </h3>
 
 <p> Recently  we proposed a simple model for studying how populations of adaptive agents evolve  in variable
-    environments <dt-cite key="10.1145/3512290.3528826"> </dt-cite>. Our objective was to provide a computational
+    environments <dt-cite key="nisioti_plasticity_2022"> </dt-cite>. Our objective was to provide a computational
     study of the hypotheses described under the PCV framework, drawing conclusions that in their turn can prove useful
     for evolutionary optimization and meta learning.</p>
 
@@ -390,7 +390,7 @@ width: calc((1500px - 648px) / 2 - 24px);">
 <p> In AI, quantifying plasticity requires to simulate the interaction between an agent and the environment over many
 timesteps (as e.g. in RL).  To avoid this complexity  of introducing an intra-lifetime loop for evaluation tasks, we
     have adopted tolerance curves, a tool originally  developed in ecology to model biological organisms <dt-cite
-            key="groveEvolutionDispersalClimatic2014"> </dt-cite>.
+            key="grove_evolution_2014"> </dt-cite>.
 </p>
 
 
@@ -399,7 +399,7 @@ timesteps (as e.g. in RL).  To avoid this complexity  of introducing an intra-li
     variance its plasticity, i.e., its ability to survive under different environmental conditions: </p>
 
 <div align="center" style="margin-bottom:40px">
-<img class="80" src="public/tolerance_curves.png" width="55%" alt="ORIGINS" />
+<img class="80" src="public/tolerance_curves.png" width="55%" alt="toleranceCurve" />
 <div>
 <sub style="display: block; line-height: 1.5em">
 <i> An agent with low plasticity (on the left) has small &\sigma; and a high peak at their preferred niche, while a
@@ -466,6 +466,132 @@ To decide which agents in a population survive in the following generation we im
 
 
 <script type="text/bibliography">
+
+
+@article{grove_evolution_2014,
+	title = {Evolution and dispersal under climatic instability: a simple evolutionary algorithm},
+	volume = {22},
+	issn = {1059-7123, 1741-2633},
+	shorttitle = {Evolution and dispersal under climatic instability},
+	url = {http://journals.sagepub.com/doi/10.1177/1059712314533573},
+	doi = {10.1177/1059712314533573},
+	abstract = {It has long been known that temporally unstable environments are likely to promote the evolution of plastic adaptations, whilst it is equally clear that such adaptations are precisely those that characterize successful colonizers. These two established findings, however, are rarely related within a single framework. This article bridges this gap via the development of a very simple evolutionary algorithm that tracks both directional selection and the evolution of plasticity under various synthetic climatic regimes. The output of the model allows for the construction of a dispersal index that provides a measure of population-level dispersal potential under each particular climatic regime. The output thus establishes both the timing and extent of selection for plasticity and the consequences of that plasticity for the timing of probable dispersal events in the context of climatic instability. Results suggest that periods of low climatic instability abruptly following extended periods of higher climatic instability are particularly conducive to dispersal, leading to the formulation of the Accumulated Plasticity Hypothesis. These results, and the hypothesis they support, are discussed in relation to the varied manifestations of plasticity in biological systems and their relevance to human evolution.},
+	language = {en},
+	number = {4},
+	urldate = {2021-05-10},
+	journal = {Adaptive Behavior},
+	author = {Grove, Matt},
+	month = aug,
+	year = {2014},
+	pages = {235--254},
+	file = {Grove - 2014 - Evolution and dispersal under climatic instability.pdf:/Users/eleninisioti/Zotero/storage/IKGJXSPT/Grove - 2014 - Evolution and dispersal under climatic instability.pdf:application/pdf},
+}
+
+@inproceedings{nisioti_plasticity_2022,
+	address = {Boston / Hybrid, United States},
+	title = {Plasticity and evolvability under environmental variability: the joint role of fitness-based selection and niche-limited competition},
+	shorttitle = {Plasticity and evolvability under environmental variability},
+	url = {https://hal.archives-ouvertes.fr/hal-03715928},
+	abstract = {The diversity and quality of natural systems have been a puzzle and inspiration for communities studying artificial life. It is now widely admitted that the adaptation mechanisms enabling these properties are largely influenced by the environments they inhabit. Organisms facing environmental variability have two alternative adaptation mechanisms operating at different timescales: {\textbackslash}textit\{plasticity\}, the ability of a phenotype to survive in diverse environments and {\textbackslash}textit\{evolvability\}, the ability to adapt through mutations. Although vital under environmental variability, both mechanisms are associated with fitness costs hypothesized to render them unnecessary in stable environments. In this work, we study the interplay between environmental dynamics and adaptation in a minimal model of the evolution of plasticity and evolvability. We experiment with different types of environments characterized by the presence of niches and a climate function that determines the fitness landscape. We empirically show that environmental dynamics affect plasticity and evolvability differently and that the presence of diverse ecological niches favors adaptability even in stable environments. We perform ablation studies of the selection mechanisms to separate the role of fitness-based selection and niche-limited competition. Results obtained from our minimal model allow us to propose promising research directions in the study of open-endedness in biological and artificial systems.},
+	urldate = {2022-12-14},
+	booktitle = {{GECCO} 2022 - {The} {Genetic} and {Evolutionary} {Computation} {Conference}},
+	author = {Nisioti, Eleni and Moulin-Frier, Clément},
+	month = jul,
+	year = {2022},
+	file = {HAL Snapshot:/Users/eleninisioti/Zotero/storage/QSYL26PA/hal-03715928.html:text/html},
+}
+
+
+@misc{vanschoren_meta-learning_2018,
+	title = {Meta-{Learning}: {A} {Survey}},
+	shorttitle = {Meta-{Learning}},
+	url = {http://arxiv.org/abs/1810.03548},
+	doi = {10.48550/arXiv.1810.03548},
+	abstract = {Meta-learning, or learning to learn, is the science of systematically observing how different machine learning approaches perform on a wide range of learning tasks, and then learning from this experience, or meta-data, to learn new tasks much faster than otherwise possible. Not only does this dramatically speed up and improve the design of machine learning pipelines or neural architectures, it also allows us to replace hand-engineered algorithms with novel approaches learned in a data-driven way. In this chapter, we provide an overview of the state of the art in this fascinating and continuously evolving field.},
+	urldate = {2022-12-14},
+	publisher = {arXiv},
+	author = {Vanschoren, Joaquin},
+	month = oct,
+	year = {2018},
+	note = {arXiv:1810.03548 [cs, stat]},
+	keywords = {Computer Science - Machine Learning, Statistics - Machine Learning},
+	file = {arXiv Fulltext PDF:/Users/eleninisioti/Zotero/storage/VLE24W27/Vanschoren - 2018 - Meta-Learning A Survey.pdf:application/pdf;arXiv.org Snapshot:/Users/eleninisioti/Zotero/storage/K9ECMX5X/1810.html:text/html},
+}
+
+
+@article{potts_hominin_2013,
+	title = {Hominin evolution in settings of strong environmental variability},
+	volume = {73},
+	issn = {02773791},
+	url = {https://linkinghub.elsevier.com/retrieve/pii/S0277379113001340},
+	doi = {10.1016/j.quascirev.2013.04.003},
+	abstract = {Investigations into how climate change shaped human evolution have begun to focus on environmental dynamics, i.e., the nature and tempo of climate and landscape variability, an approach that de-emphasizes static reconstructions of early hominin habitats. The interaction among insolation cycles is especially apparent in the paleoenvironmental records of the East African Rift System, where the longest records of human evolution are preserved. However, environmental indicators such as deep-sea oxygen isotopes, terrestrial dust ﬂux, paleosol carbon isotopes, and lake sediments do not point consistently to any simple trend or climate driver of evolutionary change. Comparison of environmental indicators cautions against an exclusive focus on any given end-member of environmental ﬂuctuation (driest or wettest, warmest or coolest), and argues for the impact of the entire range of variability in shaping evolutionary change. A model of alternating high and low climate variability for tropical Africa further implies that speciﬁc environmental indicators reﬂect different aspects of East African environmental dynamics. The model may thus help reconcile some of the conﬂicting interpretations about the environmental drivers of hominin evolution. First and last appearances of hominin lineages, benchmark biogeographic events, and the emergence of key adaptations and capacities to alter the surroundings are consistently concentrated in the predicted longest intervals of high climate variability. The view that emerges is that important changes in stone technology, sociality, and other aspects of hominin behavior can now be understood as adaptive responses to heightened habitat instability.},
+	language = {en},
+	urldate = {2020-11-19},
+	journal = {Quaternary Science Reviews},
+	author = {Potts, Richard},
+	month = aug,
+	year = {2013},
+	keywords = {read},
+	pages = {1--13},
+	file = {Potts - 2013 - Hominin evolution in settings of strong environmen.pdf:/Users/eleninisioti/Zotero/storage/H99LN9RX/Potts - 2013 - Hominin evolution in settings of strong environmen.pdf:application/pdf},
+}
+
+
+@article{sanchez_goni_regional_2020,
+	title = {Regional impacts of climate change and its relevance to human evolution},
+	volume = {2},
+	issn = {2513-843X},
+	url = {https://www.cambridge.org/core/product/identifier/S2513843X20000560/type/journal_article},
+	doi = {10.1017/ehs.2020.56},
+	abstract = {The traditional concept of long and gradual, glacial–interglacial climate changes during the Quaternary has been challenged since the 1980s. High temporal resolution analysis of marine, terrestrial and ice geological archives has identified rapid, millennial- to centennial-scale, and large-amplitude climatic cycles throughout the last few million years. These changes were global but have had contrasting regional impacts on the terrestrial and marine ecosystems, with in some cases strong changes in the high latitudes of both hemispheres but muted changes elsewhere. Such a regionalization has produced environmental barriers and corridors that have probably triggered niche contractions/expansions of hominin populations living in Eurasia and Africa. This article reviews the long- and short-timescale ecosystem changes that have punctuated the last few million years, paying particular attention to the environments of the last 650,000 years, which have witnessed key events in the evolution of our lineage in Africa and Eurasia. This review highlights, for the first time, a contemporaneity between the split between Denisovan and Neanderthals, at 650–400 ka, and the strong Eurasian ice-sheet expansion down to the Black Sea. This ice expansion could form an ice barrier between Europe and Asia that may have triggered the genetic drift between these two populations.},
+	language = {en},
+	urldate = {2022-11-30},
+	journal = {Evolutionary Human Sciences},
+	author = {Sánchez Goñi, María Fernanda},
+	year = {2020},
+	pages = {e55},
+	file = {Sánchez Goñi - 2020 - Regional impacts of climate change and its relevan.pdf:/Users/eleninisioti/Zotero/storage/27UH7HLW/Sánchez Goñi - 2020 - Regional impacts of climate change and its relevan.pdf:application/pdf},
+}
+
+
+@article{maslin_synthesis_2015,
+	title = {A synthesis of the theories and concepts of early human evolution},
+	volume = {370},
+	issn = {1471-2970},
+	doi = {10.1098/rstb.2014.0064},
+	abstract = {Current evidence suggests that many of the major events in hominin evolution occurred in East Africa. Hence, over the past two decades, there has been intensive work undertaken to understand African palaeoclimate and tectonics in order to put together a coherent picture of how the environment of Africa has varied over the past 10 Myr. A new consensus is emerging that suggests the unusual geology and climate of East Africa created a complex, environmentally very variable setting. This new understanding of East African climate has led to the pulsed climate variability hypothesis that suggests the long-term drying trend in East Africa was punctuated by episodes of short alternating periods of extreme humidity and aridity which may have driven hominin speciation, encephalization and dispersals out of Africa. This hypothesis is unique as it provides a conceptual framework within which other evolutionary theories can be examined: first, at macro-scale comparing phylogenetic gradualism and punctuated equilibrium; second, at a more focused level of human evolution comparing allopatric speciation, aridity hypothesis, turnover pulse hypothesis, variability selection hypothesis, Red Queen hypothesis and sympatric speciation based on sexual selection. It is proposed that each one of these mechanisms may have been acting on hominins during these short periods of climate variability, which then produce a range of different traits that led to the emergence of new species. In the case of Homo erectus (sensu lato), it is not just brain size that changes but life history (shortened inter-birth intervals, delayed development), body size and dimorphism, shoulder morphology to allow thrown projectiles, adaptation to long-distance running, ecological flexibility and social behaviour. The future of evolutionary research should be to create evidence-based meta-narratives, which encompass multiple mechanisms that select for different traits leading ultimately to speciation.},
+	language = {eng},
+	number = {1663},
+	journal = {Philosophical Transactions of the Royal Society of London. Series B, Biological Sciences},
+	author = {Maslin, Mark A. and Shultz, Susanne and Trauth, Martin H.},
+	month = mar,
+	year = {2015},
+	pmid = {25602068},
+	pmcid = {PMC4305165},
+	keywords = {Africa, Eastern, Biological Evolution, Climate, East Africa, Genetic Speciation, Geography, History, Ancient, hominin, human evolution, Human Migration, Humans, Models, Biological, palaeoclimatology, pulsed climate variability framework},
+	pages = {20140064},
+	file = {Full Text:/Users/eleninisioti/Zotero/storage/4NAVIVL5/Maslin et al. - 2015 - A synthesis of the theories and concepts of early .pdf:application/pdf},
+}
+
+
+@article{maslin_east_2014,
+	title = {East {African} climate pulses and early human evolution},
+	volume = {101},
+	issn = {0277-3791},
+	url = {https://www.sciencedirect.com/science/article/pii/S0277379114002418},
+	doi = {10.1016/j.quascirev.2014.06.012},
+	abstract = {Current evidence suggests that all of the major events in hominin evolution have occurred in East Africa. Over the last two decades, there has been intensive work undertaken to understand African palaeoclimate and tectonics in order to put together a coherent picture of how the environment of East Africa has varied in the past. The landscape of East Africa has altered dramatically over the last 10 million years. It has changed from a relatively flat, homogenous region covered with mixed tropical forest, to a varied and heterogeneous environment, with mountains over 4 km high and vegetation ranging from desert to cloud forest. The progressive rifting of East Africa has also generated numerous lake basins, which are highly sensitive to changes in the local precipitation-evaporation regime. There is now evidence that the presence of precession-driven, ephemeral deep-water lakes in East Africa were concurrent with major events in hominin evolution. It seems the unusual geology and climate of East Africa created periods of highly variable local climate, which, it has been suggested could have driven hominin speciation, encephalisation and dispersal out of Africa. One example is the significant hominin speciation and brain expansion event at ∼1.8 Ma that seems to have been coeval with the occurrence of highly variable, extensive, deep-water lakes. This complex, climatically very variable setting inspired first the variability selection hypothesis, which was then the basis for the pulsed climate variability hypothesis. The newer of the two suggests that the long-term drying trend in East Africa was punctuated by episodes of short, alternating periods of extreme humidity and aridity. Both hypotheses, together with other key theories of climate-evolution linkages, are discussed in this paper. Though useful the actual evolution mechanisms, which led to early hominins are still unclear and continue to be debated. However, it is clear that an understanding of East African lakes and their palaeoclimate history is required to understand the context within which humans evolved and eventually left East Africa.},
+	language = {en},
+	urldate = {2022-12-14},
+	journal = {Quaternary Science Reviews},
+	author = {Maslin, Mark A. and Brierley, Chris M. and Milner, Alice M. and Shultz, Susanne and Trauth, Martin H. and Wilson, Katy E.},
+	month = oct,
+	year = {2014},
+	keywords = {Cenozoic climate transitions, East Africa, Hominin, Human evolution, Orbital forcing, Palaeoclimatology, Palaeoliminology, Pulsed climate variability hypothesis, Tectonics},
+	pages = {1--17},
+	file = {ScienceDirect Full Text PDF:/Users/eleninisioti/Zotero/storage/5E5M2QKF/Maslin et al. - 2014 - East African climate pulses and early human evolut.pdf:application/pdf;ScienceDirect Snapshot:/Users/eleninisioti/Zotero/storage/AJQU8IU6/S0277379114002418.html:text/html},
+}
 
 
 @inproceedings{nisioti_grounding_2021,
