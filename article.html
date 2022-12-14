@@ -87,11 +87,10 @@
     environmental properties to reverse-engineer the conditions that drive intelligent behavior.
 </p>
 
-    <p> Ecological perspectives abide in the study of biological organisms. From the emergence of vision systems <a
-            href="https://www.taylorfrancis.com/books/mono/10.4324/9781315740218/ecological-approach-visual-perception-james-gibson">
-        (Gibson et al) </a> to that of religious beliefs
-        <a href="https://www.google.com/search?channel=fs&client=ubuntu&q=the+ecology+of+religious+beliefs"> Botero et
-        al </a>, the environments encountered in a species' evolutionary trajectory have been used to explain why
+    <p> Ecological perspectives abide in the study of biological organisms. From the emergence of vision systems
+        <dt-cite key="gibson__2014"> </dt-cite>
+         to that of religious beliefs <dt-cite key="botero_ecology_2014"> </dt-cite>, the environments encountered in a
+        species' evolutionary trajectory have been used to explain why
         certain functions persist over others.
     </p>
 
@@ -139,9 +138,9 @@
     the two: recent ecological theories posit that elements in our environment such as the Sahara desert act as
     ecological barriers that prohibit immigration but can disappear during periods of extreme climatic variability
     (<a href="https://www.youtube.com/watch?v=ZQP-7BPvvq0"> did you know the Sahara was green a few tens of thousands
-        of years ago?  </a> <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0076514">
-        (Larrasoana et al) </a>. This means that climatic variability may have affected social network structure,
-    with interesting implications for the populations that needed to survive at the time  ...
+        of years ago?  </a> <dt-cite key="larrasoana_dynamics_2013"> </dt-cite>. This means that climatic variability
+    may have affected social network structure, with interesting implications for the populations that needed to survive
+    at the time  ...
 </p>
 
     <h2 id="open-ended-skills-in"> Open-ended skills in biological and artificial agents </h2>
@@ -156,16 +155,15 @@
         building artificial agents with large behavioral repertoires. Largely owing to achievements in deep learning,
         optimization using  reinforcement learning and evolutionary algorithms managed to produce agents with impressive
         behavioral repertoires:  populations of RL agents co-adapting with their environments managed to develop
-        morphologies that can walk on challenging terrains <a href="/www.uber.com/en-FR/blog/poet-open-ended-deep-learning/"> (Wang et
-        al) </a>, a single RL agent trained using techniques developed for language models managed to play Atari games,
-        chat and control a robotic arm <a href="https://www.deepmind.com/publications/a-generalist-agent"> (Reed et
-            al) </a> [](), a team of RL agents playing Hide-and-Seek learned how to manipulate items in their
-        environment to continuously pose new challenges to another team <a href="https://openai.com/blog/emergent-tool-use/"> (Baker et
-        al) </a>  and evolutionary algorithms that optimize for both diversity and quality managed to solve deceptive
-        maze-navigation tasks <a href="https://www.frontiersin.org/articles/10.3389/frobt.2016.00040/full"> (Pugh et
-            al) </a>. Today, open-ended skill acquisition is considered an important pursuit in AI for driving the
-        field forward <a href="https://www.oreilly.com/radar/open-endedness-the-last-grand-challenge-youve-never-heard-of/">(Stanley et al,
-        2017) </a> <a href="https://arxiv.org/abs/1905.10985"> (Clune, 2020) </a>
+        morphologies that can walk on challenging terrains <dt-cite key="wang_paired_2019"> </dt-cite>, a single RL agent
+        trained using techniques developed for language models managed to play Atari games,
+        chat and control a robotic arm <dt-cite key="reed_generalist_2022"> </dt-cite>, a team of RL agents playing
+        Hide-and-Seek learned how to manipulate items in their environment to continuously pose new challenges to
+        another team <dt-cite key="baker_emergent_2020"> </dt-cite>  and evolutionary algorithms that optimize for both
+        diversity and quality managed to solve deceptive
+        maze-navigation tasks <dt-cite key="pugh_quality_2016"> </dt-cite>. Today, open-ended skill acquisition is
+        considered an important pursuit in AI for driving the field forward <dt-cite key="stanley"> </dt-cite>
+        <dt-cite key="clune_ai-gas_2020">  </dt-cite>
     </p>
 
 
@@ -175,6 +173,128 @@
 
 
 <script type="text/bibliography">
+
+
+@misc{clune_ai-gas_2020,
+	title = {{AI}-{GAs}: {AI}-generating algorithms, an alternate paradigm for producing general artificial intelligence},
+	shorttitle = {{AI}-{GAs}},
+	url = {http://arxiv.org/abs/1905.10985},
+	doi = {10.48550/arXiv.1905.10985},
+	abstract = {Perhaps the most ambitious scientific quest in human history is the creation of general artificial intelligence, which roughly means AI that is as smart or smarter than humans. The dominant approach in the machine learning community is to attempt to discover each of the pieces required for intelligence, with the implicit assumption that some future group will complete the Herculean task of figuring out how to combine all of those pieces into a complex thinking machine. I call this the "manual AI approach". This paper describes another exciting path that ultimately may be more successful at producing general AI. It is based on the clear trend in machine learning that hand-designed solutions eventually are replaced by more effective, learned solutions. The idea is to create an AI-generating algorithm (AI-GA), which automatically learns how to produce general AI. Three Pillars are essential for the approach: (1) meta-learning architectures, (2) meta-learning the learning algorithms themselves, and (3) generating effective learning environments. I argue that either approach could produce general AI first, and both are scientifically worthwhile irrespective of which is the fastest path. Because both are promising, yet the ML community is currently committed to the manual approach, I argue that our community should increase its research investment in the AI-GA approach. To encourage such research, I describe promising work in each of the Three Pillars. I also discuss AI-GA-specific safety and ethical considerations. Because it it may be the fastest path to general AI and because it is inherently scientifically interesting to understand the conditions in which a simple algorithm can produce general AI (as happened on Earth where Darwinian evolution produced human intelligence), I argue that the pursuit of AI-GAs should be considered a new grand challenge of computer science research.},
+	urldate = {2022-12-14},
+	publisher = {arXiv},
+	author = {Clune, Jeff},
+	month = jan,
+	year = {2020},
+	note = {arXiv:1905.10985 [cs]},
+	keywords = {Computer Science - Artificial Intelligence},
+}
+
+@online{stanley,
+  author = {MultiMedia LLC},
+  title = {{MS Windows NT} Kernel Description},
+  url = {https://www.oreilly.com/radar/open-endedness-the-last-grand-challenge-youve-never-heard-of/},
+  urldate = {20222-12-16}
+}
+
+
+@article{pugh_quality_2016,
+	title = {Quality {Diversity}: {A} {New} {Frontier} for {Evolutionary} {Computation}},
+	volume = {3},
+	issn = {2296-9144},
+	shorttitle = {Quality {Diversity}},
+	url = {https://www.frontiersin.org/articles/10.3389/frobt.2016.00040},
+	abstract = {While evolutionary computation and evolutionary robotics take inspiration from nature, they have long focused mainly on problems of performance optimization. Yet, evolution in nature can be interpreted as more nuanced than a process of simple optimization. In particular, natural evolution is a divergent search that optimizes locally within each niche as it simultaneously diversifies. This tendency to discover both quality and diversity at the same time differs from many of the conventional algorithms of machine learning, and also thereby suggests a different foundation for inferring the approach of greatest potential for evolutionary algorithms. In fact, several recent evolutionary algorithms called quality diversity (QD) algorithms (e.g., novelty search with local competition and MAP-Elites) have drawn inspiration from this more nuanced view, aiming to fill a space of possibilities with the best possible example of each type of achievable behavior. The result is a new class of algorithms that return an archive of diverse, high-quality behaviors in a single run. The aim in this paper is to study the application of QD algorithms in challenging environments (in particular complex mazes) to establish their best practices for ambitious domains in the future. In addition to providing insight into cases when QD succeeds and fails, a new approach is investigated that hybridizes multiple views of behaviors (called behavior characterizations) in the same run, which succeeds in overcoming some of the challenges associated with searching for QD with respect to a behavior characterization that is not necessarily sufficient for generating both quality and diversity at the same time.},
+	urldate = {2022-12-14},
+	journal = {Frontiers in Robotics and AI},
+	author = {Pugh, Justin K. and Soros, Lisa B. and Stanley, Kenneth O.},
+	year = {2016},
+	file = {Full Text PDF:/Users/eleninisioti/Zotero/storage/B2PDMAPD/Pugh et al. - 2016 - Quality Diversity A New Frontier for Evolutionary.pdf:application/pdf},
+}
+
+@misc{baker_emergent_2020,
+	title = {Emergent {Tool} {Use} {From} {Multi}-{Agent} {Autocurricula}},
+	url = {http://arxiv.org/abs/1909.07528},
+	doi = {10.48550/arXiv.1909.07528},
+	abstract = {Through multi-agent competition, the simple objective of hide-and-seek, and standard reinforcement learning algorithms at scale, we find that agents create a self-supervised autocurriculum inducing multiple distinct rounds of emergent strategy, many of which require sophisticated tool use and coordination. We find clear evidence of six emergent phases in agent strategy in our environment, each of which creates a new pressure for the opposing team to adapt; for instance, agents learn to build multi-object shelters using moveable boxes which in turn leads to agents discovering that they can overcome obstacles using ramps. We further provide evidence that multi-agent competition may scale better with increasing environment complexity and leads to behavior that centers around far more human-relevant skills than other self-supervised reinforcement learning methods such as intrinsic motivation. Finally, we propose transfer and fine-tuning as a way to quantitatively evaluate targeted capabilities, and we compare hide-and-seek agents to both intrinsic motivation and random initialization baselines in a suite of domain-specific intelligence tests.},
+	urldate = {2022-12-14},
+	publisher = {arXiv},
+	author = {Baker, Bowen and Kanitscheider, Ingmar and Markov, Todor and Wu, Yi and Powell, Glenn and McGrew, Bob and Mordatch, Igor},
+	month = feb,
+	year = {2020},
+	note = {arXiv:1909.07528 [cs, stat]},
+	keywords = {Computer Science - Artificial Intelligence, Computer Science - Machine Learning, Computer Science - Multiagent Systems, Statistics - Machine Learning},
+	file = {arXiv Fulltext PDF:/Users/eleninisioti/Zotero/storage/3B98XF5W/Baker et al. - 2020 - Emergent Tool Use From Multi-Agent Autocurricula.pdf:application/pdf;arXiv.org Snapshot:/Users/eleninisioti/Zotero/storage/H8E8HKFB/1909.html:text/html},
+}
+
+@misc{reed_generalist_2022,
+	title = {A {Generalist} {Agent}},
+	url = {http://arxiv.org/abs/2205.06175},
+	doi = {10.48550/arXiv.2205.06175},
+	abstract = {Inspired by progress in large-scale language modeling, we apply a similar approach towards building a single generalist agent beyond the realm of text outputs. The agent, which we refer to as Gato, works as a multi-modal, multi-task, multi-embodiment generalist policy. The same network with the same weights can play Atari, caption images, chat, stack blocks with a real robot arm and much more, deciding based on its context whether to output text, joint torques, button presses, or other tokens. In this report we describe the model and the data, and document the current capabilities of Gato.},
+	urldate = {2022-12-14},
+	publisher = {arXiv},
+	author = {Reed, Scott and Zolna, Konrad and Parisotto, Emilio and Colmenarejo, Sergio Gomez and Novikov, Alexander and Barth-Maron, Gabriel and Gimenez, Mai and Sulsky, Yury and Kay, Jackie and Springenberg, Jost Tobias and Eccles, Tom and Bruce, Jake and Razavi, Ali and Edwards, Ashley and Heess, Nicolas and Chen, Yutian and Hadsell, Raia and Vinyals, Oriol and Bordbar, Mahyar and de Freitas, Nando},
+	month = nov,
+	year = {2022},
+	note = {arXiv:2205.06175 [cs]},
+	keywords = {Computer Science - Artificial Intelligence, Computer Science - Computation and Language, Computer Science - Machine Learning, Computer Science - Robotics},
+	file = {arXiv Fulltext PDF:/Users/eleninisioti/Zotero/storage/X5L3B9D2/Reed et al. - 2022 - A Generalist Agent.pdf:application/pdf;arXiv.org Snapshot:/Users/eleninisioti/Zotero/storage/3TW7ZPLR/2205.html:text/html},
+}
+
+@misc{wang_paired_2019,
+	title = {Paired {Open}-{Ended} {Trailblazer} ({POET}): {Endlessly} {Generating} {Increasingly} {Complex} and {Diverse} {Learning} {Environments} and {Their} {Solutions}},
+	shorttitle = {Paired {Open}-{Ended} {Trailblazer} ({POET})},
+	url = {http://arxiv.org/abs/1901.01753},
+	doi = {10.48550/arXiv.1901.01753},
+	abstract = {While the history of machine learning so far largely encompasses a series of problems posed by researchers and algorithms that learn their solutions, an important question is whether the problems themselves can be generated by the algorithm at the same time as they are being solved. Such a process would in effect build its own diverse and expanding curricula, and the solutions to problems at various stages would become stepping stones towards solving even more challenging problems later in the process. The Paired Open-Ended Trailblazer (POET) algorithm introduced in this paper does just that: it pairs the generation of environmental challenges and the optimization of agents to solve those challenges. It simultaneously explores many different paths through the space of possible problems and solutions and, critically, allows these stepping-stone solutions to transfer between problems if better, catalyzing innovation. The term open-ended signifies the intriguing potential for algorithms like POET to continue to create novel and increasingly complex capabilities without bound. Our results show that POET produces a diverse range of sophisticated behaviors that solve a wide range of environmental challenges, many of which cannot be solved by direct optimization alone, or even through a direct-path curriculum-building control algorithm introduced to highlight the critical role of open-endedness in solving ambitious challenges. The ability to transfer solutions from one environment to another proves essential to unlocking the full potential of the system as a whole, demonstrating the unpredictable nature of fortuitous stepping stones. We hope that POET will inspire a new push towards open-ended discovery across many domains, where algorithms like POET can blaze a trail through their interesting possible manifestations and solutions.},
+	urldate = {2022-12-14},
+	publisher = {arXiv},
+	author = {Wang, Rui and Lehman, Joel and Clune, Jeff and Stanley, Kenneth O.},
+	month = feb,
+	year = {2019},
+	note = {arXiv:1901.01753 [cs]},
+	keywords = {Computer Science - Neural and Evolutionary Computing},
+	file = {arXiv Fulltext PDF:/Users/eleninisioti/Zotero/storage/7VQ2FJ35/Wang et al. - 2019 - Paired Open-Ended Trailblazer (POET) Endlessly Ge.pdf:application/pdf},
+}
+
+@article{larrasoana_dynamics_2013,
+	title = {Dynamics of {Green} {Sahara} {Periods} and {Their} {Role} in {Hominin} {Evolution}},
+	volume = {8},
+	issn = {1932-6203},
+	url = {https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0076514},
+	doi = {10.1371/journal.pone.0076514},
+	abstract = {Astronomically forced insolation changes have driven monsoon dynamics and recurrent humid episodes in North Africa, resulting in green Sahara Periods (GSPs) with savannah expansion throughout most of the desert. Despite their potential for expanding the area of prime hominin habitats and favouring out-of-Africa dispersals, GSPs have not been incorporated into the narrative of hominin evolution due to poor knowledge of their timing, dynamics and landscape composition at evolutionary timescales. We present a compilation of continental and marine paleoenvironmental records from within and around North Africa, which enables identification of over 230 GSPs within the last 8 million years. By combining the main climatological determinants of woody cover in tropical Africa with paleoenvironmental and paleoclimatic data for representative (Holocene and Eemian) GSPs, we estimate precipitation regimes and habitat distributions during GSPs. Their chronology is consistent with the ages of Saharan archeological and fossil hominin sites. Each GSP took 2–3 kyr to develop, peaked over 4–8 kyr, biogeographically connected the African tropics to African and Eurasian mid latitudes, and ended within 2–3 kyr, which resulted in rapid habitat fragmentation. We argue that the well-dated succession of GSPs presented here may have played an important role in migration and evolution of hominins.},
+	language = {en},
+	number = {10},
+	urldate = {2022-12-14},
+	journal = {PLOS ONE},
+	author = {Larrasoaña, Juan C. and Roberts, Andrew P. and Rohling, Eelco J.},
+	month = oct,
+	year = {2013},
+	note = {Publisher: Public Library of Science},
+	keywords = {Africa, Holocene epoch, Hominin evolution, Hominins, Paleoclimatology, Paleoecology, Rain, Sediment},
+	pages = {e76514},
+	file = {Full Text PDF:/Users/eleninisioti/Zotero/storage/6TRGFPK8/Larrasoaña et al. - 2013 - Dynamics of Green Sahara Periods and Their Role in.pdf:application/pdf},
+}
+
+
+@article{botero_ecology_2014,
+	title = {The ecology of religious beliefs},
+	volume = {111},
+	url = {https://www.pnas.org/doi/10.1073/pnas.1408701111},
+	doi = {10.1073/pnas.1408701111},
+	abstract = {Although ecological forces are known to shape the expression of sociality across a broad range of biological taxa, their role in shaping human behavior is currently disputed. Both comparative and experimental evidence indicate that beliefs in moralizing high gods promote cooperation among humans, a behavioral attribute known to correlate with environmental harshness in nonhuman animals. Here we combine fine-grained bioclimatic data with the latest statistical tools from ecology and the social sciences to evaluate the potential effects of environmental forces, language history, and culture on the global distribution of belief in moralizing high gods (n = 583 societies). After simultaneously accounting for potential nonindependence among societies because of shared ancestry and cultural diffusion, we find that these beliefs are more prevalent among societies that inhabit poorer environments and are more prone to ecological duress. In addition, we find that these beliefs are more likely in politically complex societies that recognize rights to movable property. Overall, our multimodel inference approach predicts the global distribution of beliefs in moralizing high gods with an accuracy of 91\%, and estimates the relative importance of different potential mechanisms by which this spatial pattern may have arisen. The emerging picture is neither one of pure cultural transmission nor of simple ecological determinism, but rather a complex mixture of social, cultural, and environmental influences. Our methods and findings provide a blueprint for how the increasing wealth of ecological, linguistic, and historical data can be leveraged to understand the forces that have shaped the behavior of our own species.},
+	number = {47},
+	urldate = {2022-12-14},
+	journal = {Proceedings of the National Academy of Sciences},
+	author = {Botero, Carlos A. and Gardner, Beth and Kirby, Kathryn R. and Bulbulia, Joseph and Gavin, Michael C. and Gray, Russell D.},
+	month = nov,
+	year = {2014},
+	note = {Publisher: Proceedings of the National Academy of Sciences},
+	pages = {16784--16789},
+	file = {Full Text PDF:/Users/eleninisioti/Zotero/storage/PY94JZLD/Botero et al. - 2014 - The ecology of religious beliefs.pdf:application/pdf},
+}
 
     @article{turing_computing_1950,
         title = {Computing {Machinery} and {Intelligence}},
@@ -186,6 +306,16 @@
         year = {1950},
         pages = {433--460},
     }
+
+@book{gibson__2014,
+	address = {New York},
+	title = {: {Classic} {Edition}},
+	isbn = {978-1-315-74021-8},
+	author = {Gibson, James J.},
+	month = dec,
+	year = {2014},
+	doi = {10.4324/9781315740218},
+}
 
 
 
