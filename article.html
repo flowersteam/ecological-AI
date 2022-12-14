@@ -89,6 +89,135 @@
     environmental properties to reverse-engineer the conditions that drive intelligent behavior.
 </p>
 
+<p> Ecological perspectives abide in the study of biological organisms. From the emergence of vision systems <dt-cite key="gibson"> </dt-cite>
+        to that of  religious beliefs <dt-cite key="religious"></dt-cite> the environments encountered in a species' evolutionary trajectory have been used to explain why
+        certain functions persist over others. <dt-cite key="autopoiesisBeer1754"></dt-cite>
+    </p>
+
+    <h4> In this blog post, we will discuss why and how we should pursue an ecological approach to AI. In particular, we will: </h4>
+
+
+    <ul>
+        <li > <b> review recent progress and challenges in cognition-centric AI </b> </li>
+        <li > <b> present a conceptual framework for grounding an ecological approach to AI in Human
+            Behavioral Ecology (HBE), a research field studying the evolution of humans in interaction with their environments</b> </li>
+        <li > <b> illustrate how an ecological perspective to AI looks in practise through two of our recent
+            computational studies. </b> </li>
+    </ul>
+
+
+<table cellpadding="15">
+<tbody>
+<tr>
+<td style="text-align: center" ><img src="public/earth.gif" height="85" width="85"  alt="" class="center"/></td>
+<td style="text-align: center"><img src="public/earth.gif" height="85" width="85"  alt="" class="center"/></td>
+</tr>
+<tr>
+<td style="text-align: center"> <h4>  How does environmental variability affect the evolution of adaptability? </h4>
+    <p style="text-align: justify">   In a world with temporal and spatial variability, a population of agents evolves its adaptability
+        in order to survive. Agents can adapt using evolvability and phenotypic plasticity and the fittest ones in a
+        niche leave offspring. Can these agents survive in the face of extreme climatic variability? In this work,
+        we will see how populations adapt, diversify and disperse under different climatic conditions. </p></td>
+<td style="text-align: center"> <h4> How does social connectivity affect collective innovation? </h4>
+<p style="text-align: justify">  From drug discovery to music composition, our human cultural repertoire relies on innovations produced
+    by collectives that jointly explore, communicate and recombine solutions. Can artificial agents also innovate in
+    collectives? In the learning paradigm of distributed RL, groups of agents solve tasks in parallel and share their
+    experiences with observed benefits to performance. But, while biological organisms exhibit a variety of social
+    network structures,, distributed RL agents always share with everyone. Here, we study the effect of social network
+    structure in a group of DQN agents playing the <a href='https://littlealchemy2.com/'> Little Alchemy game </a>.
+</p></td>
+</tr>
+</tbody>
+</table>
+
+
+<p> At a first glance these two studies have nothing in common, except perhaps for their ecological attitude towards
+    skill acquisition. At the end of this post we will see, however, that there is room for exchanging ideas between
+    the two: recent ecological theories posit that elements in our environment such as the Sahara desert act as
+    ecological barriers that prohibit immigration but can disappear during periods of extreme climatic variability
+    (<a href="https://www.youtube.com/watch?v=ZQP-7BPvvq0"> did you know the Sahara was green a few tens of thousands
+        of years ago?  </a> <dt-cite key="10.1371/journal.pone.0076514"> </dt-cite>  This means that climatic
+    variability may have affected social network structure,
+    with interesting implications for the populations that needed to survive at the time  ...
+</p>
+
+
+
+<h2 id="open-ended-skills-in"> Open-ended skills in biological and artificial agents </h2>
+
+<p> What is the first thing that comes to mind when you hear the word "open-endedness"? For many scientists,
+    engineers and artists, it is "life" or "evolution", words that conjure images of biological agents with a wide
+    diversity of forms and functions, entangled in a complex web of interactions. What makes biological
+    open-endedness particularly mind-boggling is not just the diversity and complexity of solutions, but the
+    apparent simplicity of the algorithm that continuously gives rise to them: evolution. </p>
+
+<p> AI researchers were also inspired from the open-endedness of biological evolution and attempted to imitate it by
+    building artificial agents with large behavioral repertoires. Largely owing to achievements in deep learning,
+    optimization using  reinforcement learning and evolutionary algorithms managed to produce agents with impressive
+    behavioral repertoires:  populations of RL agents co-adapting with their environments managed to develop
+    morphologies that can walk on challenging terrains <dt-cite key="poet"> </dt-cite>, a single RL agent trained using
+    techniques developed for language models managed to play Atari games,
+    chat and control a robotic arm <dt-cite key="reed_generalist_2022"> </dt-cite>, a team of RL agents playing Hide-and-Seek learned how to manipulate items in their
+    environment to continuously pose new challenges to another team <dt-cite key="baker_emergent_2020"> </dt-cite> and evolutionary algorithms that optimize for both diversity and quality managed to solve deceptive
+    maze-navigation tasks <dt-cite key="pugh_quality_2016"> </dt-cite>. Today, open-ended skill acquisition is
+    considered an important pursuit in AI for driving the field forward
+    <dt-cite key="https://www.oreilly.com/radar/open-endedness-the-last-grand-challenge-youve-never-heard-of/"> </dt-cite>
+    <dt-cite key="DBLP:journals/corr/abs-1905-10985"> </dt-cite>.
+</p>
+
+           <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+  <img src="public/comp_AI.png" alt="scheme" style="width:94%">
+                <p>  The computational needs of machine learning models are constantly increasing (Image credit: <a
+                        href="https://openai.com/blog/ai-and-compute/">
+                    source </a>) </p>
+</div>
+
+            <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+  <img src="public/pong.gif" alt="scheme" style="width:94%">
+                <p>  Brittleness of RL agents: an agent learned a powerful strategy but completely failed when the
+                    problem changed slightly (Image credit: modified from
+                    <a href="https://www.youtube.com/watch?time_continue=1&v=Q70ulPJW3Gk&feature=emb_logo"> source </a> )</p>
+</div>
+
+            <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+  <img src="public/maze.gif" alt="scheme" style="width:94%">
+                <p> In deceptive tasks optimizing for the objective is not optimal: here the trajectory that minimizes
+                    distance to the target (red arrow) will get the agent trapped. (Image
+                    credit: modified from
+                    <a href="https://thanakornp.com/deceptive-maze"> source </a>   </p>
+</div>
+
+
+    <p> However, <b> progress in this direction is being hindered by </b>:  </p>
+
+        <nav id="contentBlog" class="l-body" >
+
+        <li style="..."> <b> the computational complexity of training large neural networks </b> One of the properties
+            that we emphasize  when characterizing a skill as impressive, is the task complexity, largely associated to
+            the size of the solution space an algorithm needs to search in to find the optimal behavior. In stark
+            contrast to biological organisms that operate under severe constraints, such as energy consumption,
+            artificial agents are classically trained from scratch with immense computational resources.
+            (See Figure 1 for a ..). <a href="https://otoro.net/ml/"> The community has voiced its concerns about this
+            attitude </a>  but who would expect AI researchers to self-limit their
+            consumption of resources, even if this would be useful in the long-term? </li>
+        <li style="..."> <b> brittleness of learned policies </b>  In nature, an organism's ability to solve a task
+            usually implies that it can solve other similar tasks, an ability that we refer to as generalization. While
+            a lot of progress is being made in generalization in AI, RL agents sometimes fail to generalize in cases
+            that to humans seem trivial: see for example in Figure 2 the agent that learned how to beat humans in
+            Pong but failed when the paddle was moved slightly up and to the right. </li>
+        <li style="..."> <b> the deceptiveness of tasks </b> Evolutionary and RL algorithms classically take the
+            optimization objective for granted, as it is provided  by the human designer. However, most trully
+            challenging tasks are deceptive: if you directly optimize for the objective you want to evaluate it for, you
+            will never achieve it, because greediness will keep you away from paths that you need to first explore. An exa </li>
+
+    </nav>
+
+
+    <p> We believe that these challenges are due to remnants of the cognition-centric approach and that an ecological
+        approach can help us overcome them</p>
 
 </dt-article>
 
@@ -100,6 +229,74 @@
 </dt-appendix>
 
 <script type="text/bibliography">
+
+@article{DBLP:journals/corr/abs-1905-10985,
+  author    = {Jeff Clune},
+  title     = {AI-GAs: AI-generating algorithms, an alternate paradigm for producing
+               general artificial intelligence},
+  journal   = {CoRR},
+  volume    = {abs/1905.10985},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1905.10985},
+  eprinttype = {arXiv},
+  eprint    = {1905.10985},
+  timestamp = {Mon, 03 Jun 2019 13:42:33 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1905-10985.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@misc{WinNT,
+  title = {{MS Windows NT} Kernel Description},
+  howpublished = {\url{http://web.archive.org/web/20080207010024/http://www.808multimedia.com/winnt/kernel.htm}},
+  note = {Accessed: 2022-12-14}
+}
+
+@article{pugh_quality_2016,
+	title = {Quality {Diversity}: {A} {New} {Frontier} for {Evolutionary} {Computation}},
+	volume = {3},
+	issn = {2296-9144},
+	shorttitle = {Quality {Diversity}},
+	url = {https://www.frontiersin.org/articles/10.3389/frobt.2016.00040},
+	abstract = {While evolutionary computation and evolutionary robotics take inspiration from nature, they have long focused mainly on problems of performance optimization. Yet, evolution in nature can be interpreted as more nuanced than a process of simple optimization. In particular, natural evolution is a divergent search that optimizes locally within each niche as it simultaneously diversifies. This tendency to discover both quality and diversity at the same time differs from many of the conventional algorithms of machine learning, and also thereby suggests a different foundation for inferring the approach of greatest potential for evolutionary algorithms. In fact, several recent evolutionary algorithms called quality diversity (QD) algorithms (e.g., novelty search with local competition and MAP-Elites) have drawn inspiration from this more nuanced view, aiming to fill a space of possibilities with the best possible example of each type of achievable behavior. The result is a new class of algorithms that return an archive of diverse, high-quality behaviors in a single run. The aim in this paper is to study the application of QD algorithms in challenging environments (in particular complex mazes) to establish their best practices for ambitious domains in the future. In addition to providing insight into cases when QD succeeds and fails, a new approach is investigated that hybridizes multiple views of behaviors (called behavior characterizations) in the same run, which succeeds in overcoming some of the challenges associated with searching for QD with respect to a behavior characterization that is not necessarily sufficient for generating both quality and diversity at the same time.},
+	urldate = {2022-12-14},
+	journal = {Frontiers in Robotics and AI},
+	author = {Pugh, Justin K. and Soros, Lisa B. and Stanley, Kenneth O.},
+	year = {2016},
+	file = {Full Text PDF:/Users/eleninisioti/Zotero/storage/B2PDMAPD/Pugh et al. - 2016 - Quality Diversity A New Frontier for Evolutionary.pdf:application/pdf},
+}
+
+
+@misc{baker_emergent_2020,
+	title = {Emergent {Tool} {Use} {From} {Multi}-{Agent} {Autocurricula}},
+	url = {http://arxiv.org/abs/1909.07528},
+	doi = {10.48550/arXiv.1909.07528},
+	abstract = {Through multi-agent competition, the simple objective of hide-and-seek, and standard reinforcement learning algorithms at scale, we find that agents create a self-supervised autocurriculum inducing multiple distinct rounds of emergent strategy, many of which require sophisticated tool use and coordination. We find clear evidence of six emergent phases in agent strategy in our environment, each of which creates a new pressure for the opposing team to adapt; for instance, agents learn to build multi-object shelters using moveable boxes which in turn leads to agents discovering that they can overcome obstacles using ramps. We further provide evidence that multi-agent competition may scale better with increasing environment complexity and leads to behavior that centers around far more human-relevant skills than other self-supervised reinforcement learning methods such as intrinsic motivation. Finally, we propose transfer and fine-tuning as a way to quantitatively evaluate targeted capabilities, and we compare hide-and-seek agents to both intrinsic motivation and random initialization baselines in a suite of domain-specific intelligence tests.},
+	urldate = {2022-12-14},
+	publisher = {arXiv},
+	author = {Baker, Bowen and Kanitscheider, Ingmar and Markov, Todor and Wu, Yi and Powell, Glenn and McGrew, Bob and Mordatch, Igor},
+	month = feb,
+	year = {2020},
+	note = {arXiv:1909.07528 [cs, stat]},
+	keywords = {Computer Science - Artificial Intelligence, Computer Science - Machine Learning, Computer Science - Multiagent Systems, Statistics - Machine Learning},
+}
+
+
+
+@misc{reed_generalist_2022,
+	title = {A {Generalist} {Agent}},
+	url = {http://arxiv.org/abs/2205.06175},
+	doi = {10.48550/arXiv.2205.06175},
+	abstract = {Inspired by progress in large-scale language modeling, we apply a similar approach towards building a single generalist agent beyond the realm of text outputs. The agent, which we refer to as Gato, works as a multi-modal, multi-task, multi-embodiment generalist policy. The same network with the same weights can play Atari, caption images, chat, stack blocks with a real robot arm and much more, deciding based on its context whether to output text, joint torques, button presses, or other tokens. In this report we describe the model and the data, and document the current capabilities of Gato.},
+	urldate = {2022-12-14},
+	publisher = {arXiv},
+	author = {Reed, Scott and Zolna, Konrad and Parisotto, Emilio and Colmenarejo, Sergio Gomez and Novikov, Alexander and Barth-Maron, Gabriel and Gimenez, Mai and Sulsky, Yury and Kay, Jackie and Springenberg, Jost Tobias and Eccles, Tom and Bruce, Jake and Razavi, Ali and Edwards, Ashley and Heess, Nicolas and Chen, Yutian and Hadsell, Raia and Vinyals, Oriol and Bordbar, Mahyar and de Freitas, Nando},
+	month = nov,
+	year = {2022},
+	note = {arXiv:2205.06175 [cs]},
+	keywords = {Computer Science - Artificial Intelligence, Computer Science - Computation and Language, Computer Science - Machine Learning, Computer Science - Robotics},
+	file = {arXiv Fulltext PDF:/Users/eleninisioti/Zotero/storage/X5L3B9D2/Reed et al. - 2022 - A Generalist Agent.pdf:application/pdf;arXiv.org Snapshot:/Users/eleninisioti/Zotero/storage/3TW7ZPLR/2205.html:text/html},
+}
+
 
 @article{turing_computing_1950,
 	title = {Computing {Machinery} and {Intelligence}},
