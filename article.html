@@ -252,7 +252,7 @@ width: calc((1500px - 648px) / 2 - 24px);">
 
 
 <div align="center" style="margin-bottom:40px">
-<img class="80" src="public/framework.png" height="565" width="765" alt="ORIGINS" />
+<img class="80" src="public/framework.png" height="465" width="665" alt="ORIGINS" />
 <div>
 <sub style="display: block; line-height: 1.5em">
 <i> Conceptual framework  <a href=""> []</a></i></sub>
@@ -300,6 +300,168 @@ width: calc((1500px - 648px) / 2 - 24px);">
 
 </dt-article>
 
+<h2 id="Study-A"> Study A: Evolution of plasticity and evolvability in variable environments </h2>
+
+<h3> Background in HBE </h3>
+<p> What makes us human? For HBE researchers, this is not a philosophical inquiry, but a rather pressing scientific
+    question: why did the first hominin species appear about 5 million years ago and which skills did they evolve
+    that allowed them to expand into a  population that today holds a powerful position in the Earth's  ecosystem?</p>
+
+<p> When we trace back the history of our planet, we find climatic records of very ''busy" periods : many rapid and
+    large-amplitude climatic cycles have taken place in the last few milliion years, leading to high levels of climate
+    change that must have significantly shaped populations at a global and local scale. Our own hominin space appeared
+    and dispersed during such periods, competing and reproducing with other species.
+    <dt-cite key="maslin_synthesis_2015"> </dt-cite> <dt-cite key="sánchez goñi_2020"> </dt-cite>
+    <dt-cite key="potts_hominin_2013"> </dt-cite>
+</p>
+
+    <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+  <img src="public/climate_maslin.png" alt="scheme" style="width:94%">
+    <p> Paleoclimatology records indicate that periods of high climatic variability were linked to the formation of
+        lakes and the appearance of new hominin species.
+        <a href="https://www.sciencedirect.com/science/article/pii/S0277379114002418"> Image source </a>   </p>
+</div>
+
+<p> How exactly did climatic conditions affect the evolution of the human species? The Pulsed Climate Variability
+    (PCV) framework <dt-cite key="maslin_synthesis_2015"> </dt-cite>  has formalized this question into a set of
+    hypotheses of how types of environmental variability affect evolutionary phenometa such as speciation, extinction,
+    dispersal and diversity. </p>
+
+<p> Under the PCV framework species are divided into two broad types: specialists are species that can survive in a
+    limited range of environmental conditions, while generalists survive in a large range of conditions. As humans are
+    a remarkably generalist species, we are very interested in which ecological conditions give rise to this type.
+    With incomplete data about the environmental conditions and species of this period and, in the absence of
+    theoretical models, answering this question in HBE in the near future seems unlikely. </p>
+
+<h3> Background in AI </h3>
+
+<p> A similar story has been unfolding in AI: in its quest for artificial agents that can generalize and quickly
+    adapt to new tasks, the meta RL paradigm trains agents in a wide distribution of environments
+    <dt-cite key="https://doi.org/10.48550/arxiv.1810.03548"> </dt-cite>.
+ </p>
+
+
+<p> Here, the agent adapts at two levels:
+    <ul>
+    <li> in an outer loop, we choose the environment that the agent will train on by
+    randomly sampling out of a distribution of environments. This distribution is designed to balance between two
+    objectives: on one hand we want this distribution to be as wide as possible, as this width determines the
+    achievable generality of the agent. On the other hand, we want to keep the computational complexity low. This
+    trade-off is usually solved by training meta-RL agents in a single domain (for example mazes with different
+        layouts), but we have impressive examples of meta-Rl agents that can Atari games, chat and control a robotic
+        arm <dt-cite key="reed2022a"> </dt-cite> </li>
+    <li> in an inner loop, the agent learns to solve a single environment. But because this
+    environment changes at every new outer loop, the agent is learning how to learn rather than learning the specific
+    task. </li>
+    </ul>
+</p>
+
+<p> To draw a parallel with biological agents, we can see the outer-loop implementing the adaptive mechanism of
+    evolution and the inner loop the adaptive mechanism of development.
+</p>
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/meta_RL.png" height="465" width="765" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> In meta-RL an agent is trained on a distribution of environments. </i></sub>
+</div>
+</div>
+
+<p> The main limitation here is computational complexity: the distribution of environments needs to be sampled
+    densely enough to ensure generalization while the set of environments considered is limited within a single domain
+    (for example mazes with different layouts). Also meta-learning set-ups usually consider a stationary distribution
+    for sampling environments, thus ignoring the benefits of environments with certain dynamics, such as the ones
+    proposed by the PCV framework </p>
+
+<h3> A simple eco-evo-devo model </h3>
+
+<p> Recently  we proposed a simple model for studying how populations of adaptive agents evolve  in variable
+    environments <dt-cite key="10.1145/3512290.3528826"> </dt-cite>. Our objective was to provide a computational
+    study of the hypotheses described under the PCV framework, drawing conclusions that in their turn can prove useful
+    for evolutionary optimization and meta learning.</p>
+
+<p> An important challenge in this project was to design an experimental setup that is powerful enough to capture the
+    ecological dynamics and the evolution of diverse phenotypes but still computationally cheap so that we can simulate
+    a wide range of conditions and large populations. </p>
+
+
+
+<h4> Modeling an adaptive population. </h4>
+
+<p> In AI, quantifying plasticity requires to simulate the interaction between an agent and the environment over many
+timesteps (as e.g. in RL).  To avoid this complexity  of introducing an intra-lifetime loop for evaluation tasks, we
+    have adopted tolerance curves, a tool originally  developed in ecology to model biological organisms <dt-cite
+            key="groveEvolutionDispersalClimatic2014"> </dt-cite>.
+</p>
+
+
+
+<p> Tolerance curves have the form of a Gaussian whose mean shows the preferred environmental state of an individual and
+    variance its plasticity, i.e., its ability to survive under different environmental conditions: </p>
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/tolerance_curves.png" width="55%" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> An agent with low plasticity (on the left) has small &\sigma; and a high peak at their preferred niche, while a
+    plastic individual (on the right) has large &\sigma; and a lower peak at their preferred niche. Fitness in a
+    certain environmental state is computed as the probability density function of the distribution at that point
+the plastic individual has lower fitness (cost of plasticity). If $e_n >>\mu_k$ (the actual environmental state differs significantly from the preferred one) the plastic individual has higher fitness (benefit of plasticity)
+
+</i></sub>
+</div>
+    </div>
+
+<p> Tolerance curves elegantly capture the cost and benefit of plasticity: if a plastic and non-plastic agent compete
+    in an environment that is identical to their preferred niche, the plastic one will lose as its peak is lower. But
+    if, for some reason, the environment changes in the next generation so that it differs from the preferred niche
+    of the two individuals, the plastic one will be at an advantage.
+</p>
+
+<p> In addition to this plasticity, an agent can adapt using its evolvability (r;), which refers to the amount of
+    mutations that take place between generations.
+</p>
+
+ <p>
+To decide which agents in a population survive in the following generation we implemented two selection mechanisms:
+ </p>
+
+<ul>
+    <li> fitness-based selection. This is the classical survival-of-the-fittest critertion where agents are selected
+        proportionally to their fitness </li>
+
+    <li> niche-limited competition. Under this mechanism, agents surviving in a niche reproduce within it, with the
+        number of reproductions being limited by capacity. Thus, an agent can increase its chances of reproduction by
+        surviving in multiple niches. </li>
+
+</ul>
+
+<p> At each generation, the three elements of an agent's genome evolve as: </p>
+
+<var> &mu; <sub>{t+1} </var> = <var>&mu; <sub>{t}</var> + <var>N(0, r<sub>{t})</var>
+<var> &sigma; <sub>{t+1} </var> = <var>&sigma; <sub>{t}</var> + <var>N(0, r<sub>{t})</var>
+<var> r; <sub>{t+1} </var> = <var>r; <sub>{t}</var> + <var>N(0, r<sub>{t})</var>
+
+
+
+
+<h4> Modeling an ecologically-complex environment </h4>
+
+<p> We have hinted that we want to simulate a variable environment, but how exactly can we go about this, while
+    keeping the computational complexity of the simulations low? In this work, we have defined a model that comprises a
+    number of niches &N and a climate function e_g that characterizes the environmental state of each niche.  </p>
+
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/niches.png" width="65%" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> The environment consists of multiple niche, each characterized by its latitude $n$ and a climate function that has
+    the same form for each niche except by a vertical offset proportional to the niche index.</i></sub>
+</div>
+</div>
 
 
 <script type="text/bibliography">
