@@ -167,12 +167,106 @@
     </p>
 
 
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+  <img src="public/comp_AI.png" alt="scheme" style="width:94%">
+<p>  The computational needs of machine learning models are constantly increasing (Image credit: <a
+        href="https://openai.com/blog/ai-and-compute/">
+    source </a>) </p>
+</div>
+
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+<img src="public/pong.gif" alt="scheme" style="width:94%">
+    <p>  Brittleness of RL agents: an agent learned a powerful strategy but completely failed when the
+        problem changed slightly (Image credit: modified from
+        <a href="https://www.youtube.com/watch?time_continue=1&v=Q70ulPJW3Gk&feature=emb_logo"> source </a> )</p>
+</div>
+
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+<img src="public/maze.gif" alt="scheme" style="width:94%">
+    <p> In deceptive tasks optimizing for the objective is not optimal: here the trajectory that minimizes
+        distance to the target (red arrow) will get the agent trapped. (Image
+        credit: modified from
+        <a href="https://thanakornp.com/deceptive-maze"> source </a>)   </p>
+</div>
+
+
+<p> However, <b> progress in this direction is being hindered by </b>:  </p>
+
+    <nav id="contentBlog" class="l-body" >
+
+    <li style="..."> <b> the computational complexity of training large neural networks </b> One of the properties
+        that we emphasize  when characterizing a skill as impressive, is the task complexity, largely associated to
+        the size of the solution space an algorithm needs to search in to find the optimal behavior. In stark
+        contrast to biological organisms that operate under severe constraints, such as energy consumption,
+        artificial agents are classically trained from scratch with immense computational resources.
+        (See Figure 1 for a ..). <a href="https://otoro.net/ml/"> The community has voiced its concerns about this
+        attitude </a>  but who would expect AI researchers to self-limit their
+        consumption of resources, even if this would be useful in the long-term? </li>
+    <li style="..."> <b> brittleness of learned policies </b>  In nature, an organism's ability to solve a task
+        usually implies that it can solve other similar tasks, an ability that we refer to as generalization. While
+        a lot of progress is being made in generalization in AI, RL agents sometimes fail to generalize in cases
+        that to humans seem trivial: see for example in Figure 2 the agent that learned how to beat humans in
+        Pong but failed when the paddle was moved slightly up and to the right. </li>
+    <li style="..."> <b> the deceptiveness of tasks </b> Evolutionary and RL algorithms classically take the
+        optimization objective for granted, as it is provided  by the human designer. However, most trully
+        challenging tasks are deceptive: if you directly optimize for the objective you want to evaluate it for, you
+        will never achieve it, because greediness will keep you away from paths that you need to first explore. An exa </li>
+
+</nav>
+
+
+<p> We believe that these challenges are due to remnants of the cognition-centric approach and that an ecological
+    approach can help us overcome them</p>
+
+<h2 id="framework"> A conceptual framework for linking human and artificial ecologies </h2>
+
+<p> We recently proposed <dt-cite key="nisioti_grounding_2021"> </dt-cite> that a possible pathway
+    to overcome  these challenges  is by grounding our pursuit of open-ended skill acquisition in artificial
+    systems in our knowledge of a natural species with an impressively open-ended behavioral repertoire: our own.
+</p>
+
+
+<p> Our methodology was three-step:
+
+<ol type="1">
+
+
+    <li style="..."> skim the Human Behavioral Ecology (HBE) literature to identify the key factors that this
+        community proposes as conducive for the evolution of the uniquely diverse human cultural repertoire
+</li>
+    <li style="..."> identify common research questions and hypotheses in AI, in particular the sub-fields of
+        meta and multi-agent reinforcement learning
+</li>
+    <li style="..."> abstract away the particularities of the two fields to arrive at a  conceptual framework that
+        unifies their terminologies and research agendas.
+</li>
+
+</ol>
+
+
 
 </dt-article>
 
 
 
 <script type="text/bibliography">
+
+
+@inproceedings{nisioti_grounding_2021,
+	address = {virtual event, France},
+	title = {Grounding an {Ecological} {Theory} of {Artificial} {Intelligence} in {Human} {Evolution}},
+	url = {https://hal.archives-ouvertes.fr/hal-03446961},
+	abstract = {Recent advances in Artificial Intelligence (AI) have revived the quest for agents able to acquire an open-ended repertoire of skills. Although this ability is fundamentally related to the characteristics of human intelligence, research in this field rarely considers the processes and ecological conditions that may have guided the emergence of complex cognitive capacities during the evolution of the species. Research in Human Behavioral Ecology (HBE) seeks to understand how the behaviors characterizing human nature can be conceived as adaptive responses to major changes in our ecological niche. In this paper, we propose a framework highlighting the role of environmental complexity in open-ended skill acquisition, grounded in major hypotheses from HBE and recent contributions in Reinforcement learning (RL). We use this framework to highlight fundamental links between the two disciplines, as well as to identify feedback loops that bootstrap ecological complexity and create promising research directions for AI researchers. We also present our first steps towards designing a simulation environment that implements the climate dynamics necessary for studying key HBE hypotheses relating environmental complexity to skill acquisition.},
+	urldate = {2022-12-14},
+	booktitle = {{NeurIPS} 2021 - {Conference} on {Neural} {Information} {Processing} {Systems} / {Workshop}: {Ecological} {Theory} of {Reinforcement} {Learning}},
+	author = {Nisioti, Eleni and Jodogne-del Litto, Katia and Moulin-Frier, Clément},
+	month = dec,
+	year = {2021},
+	file = {HAL PDF Full Text:/Users/eleninisioti/Zotero/storage/P9QF49LE/Nisioti et al. - 2021 - Grounding an Ecological Theory of Artificial Intel.pdf:application/pdf},
+}
 
 
 @misc{clune_ai-gas_2020,
@@ -295,16 +389,16 @@
 	file = {Full Text PDF:/Users/eleninisioti/Zotero/storage/PY94JZLD/Botero et al. - 2014 - The ecology of religious beliefs.pdf:application/pdf},
 }
 
-    @article{turing_computing_1950,
-        title = {Computing {Machinery} and {Intelligence}},
-        volume = {59},
-        url = {http://www.jstor.org/stable/2251299},
-        number = {236},
-        journal = {Mind, New Series},
-        author = {Turing, A. M.},
-        year = {1950},
-        pages = {433--460},
-    }
+@article{turing_computing_1950,
+    title = {Computing {Machinery} and {Intelligence}},
+    volume = {59},
+    url = {http://www.jstor.org/stable/2251299},
+    number = {236},
+    journal = {Mind, New Series},
+    author = {Turing, A. M.},
+    year = {1950},
+    pages = {433--460},
+}
 
 @book{gibson__2014,
 	address = {New York},
