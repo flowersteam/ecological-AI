@@ -1,0 +1,2612 @@
+<dt-article>
+<header class="site-header px2 px-responsive l-middle">
+  <div class="mt2 wrap">
+      <div class="measure">
+          <a href="https://developmentalsystems.org" class="site-title" style="border-bottom:none;">
+              <img src="https://developmentalsystems.org/flowers-logo.png">
+          </a>
+      <nav class="site-nav" style="line-height:2;">
+        
+
+
+        <a class="nav-link" href="https://flowers.inria.fr/" target="_blank">Flowers Lab</a>
+
+
+    
+    
+
+    
+        <a class="nav-link" href="https://developmentalsystems.org/publications/">Publications</a>
+    
+
+    
+
+    
+    
+
+    
+        <a class="nav-link" href="https://developmentalsystems.org/about">About</a>
+    
+
+    
+
+
+      </nav>
+      <div class="clearfix"></div>
+      
+        <div class="social-icons" style="line-height:2;float:right;border-bottom:none;">
+  <div class="social-icons-right">
+    
+      <a class="fa fa-github" href="https://github.com/flowersteam"></a>
+    
+    
+    
+    
+    <a class="fa fa-rss" href="/feed.xml"></a>
+    
+      <a class="fa fa-twitter" href="https://twitter.com/FlowersINRIA"></a>
+    
+    
+    
+    
+    
+      <a class="fa fa-envelope" href="mailto:pierre-yves.oudeyer@inria.fr"></a>
+
+    
+    
+  </div>
+  <div class="right">
+    
+    
+    
+  </div>
+</div>
+<div class="clearfix"></div>
+   
+    </div>
+  </div>
+</header>
+
+
+<h1>Learning Sensorimotor Agency <br>  in Cellular Automata</h1>
+<h2 id='finding-robust-selforganizing-agents-with-gradient-descent-and-curriculum-learning-individuality-selfmaintenance-and-sensorimotricity-within-a-cellular-automaton-environment'>Finding robust self-organizing &quot;agents&quot; with gradient descent and curriculum learning: individuality, self-maintenance and sensori-motricity within a cellular automaton environment</h2>
+
+<iframe class="l-middle outset" width="560" height="460" src="https://www.youtube.com/embed/mSy4z8nDLno" title="YouTube video player" 
+frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+  <dt-byline></dt-byline>
+<h2 id='a'>What you will find in this blog <span>&#x1F4DD;</span></h2>
+	<nav id="contentBlog" class="l-body" >
+	      <li style="margin-bottom:20px"> <b>Some background on how different research fields such as Artificial Intelligence and Artificial Life consider the emergence of cognition in artificial agents.</b> </li>
+	      <li style="margin-bottom:20px"> <b>How to model the emergence of life and cognition? What is a Cellular Automata? What is Lenia? </b> </li>
+	       <li style="margin-bottom:20px"> <b>How to use Machine Learning in order to discover interesting creatures in Lenia, as the ones in the
+ video above? How can they self-organize without a pre-existing notion of body/brain? How can they behave robustly in the environment?</b> </li>
+	   <li style="margin-bottom:20px"> <b>We'll illustrate the generalization capabilities of self-organizing agents
+with several fun examples ranging from perturbing the agent structure in various ways not seen during training (including by a collision
+with another agent) to changing the scale/size of the agent   </b> </li>
+ <li style="margin-bottom:20px"> <b>We discuss some new perspectives it provides for both AI and biology. </b> </li>
+<li style="margin-bottom:20px"> <b> We provide the source code of this work:</b> <a href="https://colab.research.google.com/drive/11mYwphZ8I4aur8KuHRR1HEg6ST5TI0RW#scrollTo=l6D-g1Q38yyC" class="colab-root">Reproduce in a <span class="colab-span">Notebook</span></a>  </li>
+	  </nav>
+
+<h2 id='abstract'>Abstract</h2>
+
+<p>Novel classes of Cellular Automata (CA) have been recently introduced in the Artificial Life  (ALife) community, able to generate a high diversity of complex self-organized patterns from local update rules. These patterns can display certain properties of biological systems such as a spatially localized organization, directional or rotational movements, etc. In fact, CA have a long relationship with biology and especially the origins of life&#x2F;cognition as it is a self-organizing system that can serve as a computational testbed and toy model for such theories <dt-cite key="autopoiesisBeer1754"></dt-cite> but also as a source of inspiration on what are the basic building block of "life". However, while the notions of embodiment within an environment, individuality<dt-fn>  <strong>individuality:</strong> ability of an informational&#x2F;physical structure to preserve its coherence and integrity</dt-fn> and self-maintenance<dt-fn> <strong>self-maintenance:</strong> capacity of a structure to modify its interactions with the rest of the environment  for maintaining its integrity</dt-fn> are central in theoretical biology and in particular in the definition of agency (e.g. Maturana &amp; Varela <dt-cite key="maturana1980autopoiesis"></dt-cite> , Varela <dt-cite key="varela1997patterns"></dt-cite>), it remains unclear how such mechanisms and properties can emerge from a set of local update rules in a CA. In this blogpost, we propose an approach enabling to learn self-organizing agents capable of reacting to the perturbations induced by the environment, i.e. robust agents with sensorimotor capabilities. We provide a method based on curriculum learning, on diversity search and on gradient descent over a differentiable CA able to discover the rules leading to the emergence of such creatures. The creatures obtained, using only local update rules, are able to regenerate and preserve their integrity and structure while dealing with the obstacles or other creatures in their way. They also show great generalization, with robustness to changes of scale, random updates or  perturbations from the environment not seen during training. We believe that the field of artificial intelligence could benefit from these capabilities of self-organizing systems to make robust intelligent systems that can quickly adapt to new environments and to perturbations.</p>
+
+<h2 id='interactive-demo'>Interactive Demo</h2>
+<d-content style="padding-top:0">
+<nav style="margin-left:2em;">
+<p><a href="https://colab.research.google.com/drive/11mYwphZ8I4aur8KuHRR1HEg6ST5TI0RW#scrollTo=l6D-g1Q38yyC" class="colab-root">Reproduce in a <span class="colab-span">Notebook</span></a></p>
+</nav>
+<nav id="infoDemoAdvanced" style="margin-left:2em;display:none">
+      
+      <li> <b>Press play to begin</b> </li>
+      <li>Place creature by clicking on the dark screen with  <b>Creature</b> mode selected)</li>
+      <li>(Note that the multi creature setting was not seen during training)</li>
+      <li>Now place obstacles by selecting <b>Wall dot</b> and then clicking or dragging  on the screen  </li>
+      <li>You can erase by selecting the <b>Eraser</b> mode and then clicking or dragging on the screen  </li>
+      <li> You can choose the brush size to draw bigger obstacles/ clear bigger areas etc</li>
+      <li> To zoom, select zoom mode, select zoom magnitude with the slider and then click where you want to zoom<br>Keep dragging to follow the creature </li>
+<li> For the attractor, click and drag for a short distance attractor (Still experimental, works best with creature 2) </li>       
+ 
+  </nav>
+<nav id="infoDemo" style="margin-left:2em;display:block">
+
+<li> The demo displays  a differentiable continuous cellular automaton (CA) system where an emerging "creature" (yellow) is the result of local rules applied on the whole grid. The blue elements are obstacles (and are also part of the CA system).The rules leading to these very robust creatures were obtained using gradient descent,diversity search and curriculum learning.   </li>
+    <li> <b>Press play to begin</b>  (The demo won't work on phone) </li>
+      <li>Choose the type of creature on the left (each creature morphology is the result of different rules in the CA)</li>
+      <li>Choose pre defined environments at the bottom </li>
+      <li>Draw obstacles by clicking on the canvas  </li>
+<li>More options available at Advanced Options  </li>
+  </nav>
+    </d-content>
+<div class="radio-toolbar" id="radioCrea" style="float:left;margin-left:calc(50% - 1284px/2);width:50px">
+   <input type="radio" id="demoButton1" name="optionCrea" value="1" checked>
+   <label for="demoButton1" id="labelDemoButton1" onclick="setSpecies(0);document.getElementById('getStarted1').style.display='block';document.getElementById('getStarted2').style.display='none';document.getElementById('getStarted3').style.display='none'"><img style="width:80px;height:56px" src="public/crea1.png"></label><br>
+
+   <input type="radio" id="demoButton2" name="optionCrea" value="2" >
+   <label for="demoButton2" id="labelDemoButton2" onclick="setSpecies(1);document.getElementById('getStarted1').style.display='none';document.getElementById('getStarted2').style.display='block';document.getElementById('getStarted3').style.display='none'"><img style="width:80px;height:56px" src="public/crea2.png"></label><br>
+
+
+   <input type="radio" id="demoButton4" name="optionCrea" value="4">
+   <label for="demoButton4" id="labelDemoButton4" onclick="setSpecies(3);document.getElementById('getStarted1').style.display='none';document.getElementById('getStarted2').style.display='none';document.getElementById('getStarted3').style.display='block'"><img style="width:80px;height:56px" src="public/crea4.png"></label>
+
+</div>
+<div class='l-body'>
+  <canvas id="glCanvas" width="640" height="360" style="background-color:#000000;"></canvas>
+  <!--shadertoy at mac 840x472, at win 640x360-->
+  <div id="showText" onclick="this.style.display='none';">initializing...</div>
+</div>
+ <div>
+ <span id="play-pause">
+                <svg class="icon" id="play" style="display: inline;"><svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></svg>
+                <svg class="icon" id="pause" style="display: none;"> <svg id="pauseIcon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg> </svg>
+            </span>
+<svg class="icon" id="reset" style="display:none"><svg id="resetIcon" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"></path></svg></svg>
+<input type="file" id="imageLoader" style="display:none" name="imageLoader"/>
+ 
+<div class="radio-toolbar" id="radioStart" >
+ <input type="radio" id="startButton1" name="optionStart" value="1" checked>
+ <label for="startButton1" id="labelStartButton1" onclick="document.getElementById('infoDemo').style.display='block';document.getElementById('infoDemoAdvanced').style.display='none';document.getElementById('getStarted').style.display='block';document.getElementById('controls').style.display='none'">Getting started</label>
+
+ <input type="radio" id="startButton2" name="optionStart" value="2" >
+ <label for="startButton2" id="labelStartButton2" onclick="document.getElementById('infoDemo').style.display='none';document.getElementById('infoDemoAdvanced').style.display='block';document.getElementById('getStarted').style.display='none';document.getElementById('controls').style.display='block'">Advanced options</label>
+</div>
+</div>
+
+ 
+
+  <div id="getStarted" class="l-body" style="display:block">
+
+    <div  id="getStarted1" style="display:block">
+      <div class="row" >
+        <div id="zoomCrea1" class="column" style="background-color: rgba(0,0,0,0.1);border: solid rgba(0, 0, 0, .2);flex:1; " onclick="img.src='public/zoomCrea1.png'">
+          <img style="width:100%" src="public/zoomCrea1.png">
+          <p class="titleGetStarted"> Zoomed in </p>
+        </div>
+        <div  id="multi1"class="column" style="background-color: rgba(0,0,0,0.1);border: solid rgba(0, 0, 0, .2);flex:1;" onclick="img.src='public/init1.png'">
+          <img style="width:100%" src="public/init1.png">
+          <p class="titleGetStarted"> Multi creature</p>
+        </div>
+        <div id="mazeCrea1" class="column" style="background-color: rgba(0,0,0,0.1);border: solid rgba(0, 0, 0, .2);flex:1;" onclick="img.src='public/mazeCrea1.png'">
+          <img style="width:100%" src="public/mazeCrea1.png">
+          <p style="margin-top:0px;margin-bottom:0px;text-align:center"> Maze </p>
+        </div>
+      </div>
+    </div>
+
+    <div  id="getStarted2" style="display:none">
+      <div class="row" >
+        <div id="zoomCrea2" class="column" style="background-color: rgba(0,0,0,0.1);border: solid rgba(0, 0, 0, .2);flex:1;" onclick="img.src='public/zoomCrea2.png'">
+          <img style="width:100%" src="public/zoomCrea2.png">
+          <p class="titleGetStarted"> Zoomed in</p>
+        </div>
+        <div  id="multi2"class="column" style="background-color: rgba(0,0,0,0.1);border: solid rgba(0, 0, 0, .2);flex:1;" onclick="img.src='public/init2.png'">
+          <img style="width:100%" src="public/init2.png">
+          <p class="titleGetStarted"> Multi creature</p>
+        </div>
+        <div id="mazeCrea2" class="column" style="background-color: rgba(0,0,0,0.1);border: solid rgba(0, 0, 0, .2);flex:1;" onclick="img.src='public/mazeCrea2.png'">
+          <img style="width:100%" src="public/mazeCrea2.png">
+          <p class="titleGetStarted"> Maze </p>
+        </div>
+      </div>
+    </div>
+
+    <div  id="getStarted3" style="display:none">
+      <div class="row" >
+        <div id="zoomCrea3" class="column" style="background-color: rgba(0,0,0,0.1);border: solid rgba(0, 0, 0, .2);flex:1; " onclick="img.src='public/zoomCrea3.png'">
+          <img style="width:100%" src="public/zoomCrea3.png">
+          <p class="titleGetStarted"> Zoomed in</p>
+        </div>
+        <div  id="multi3"class="column" style="background-color: rgba(0,0,0,0.1);border: solid rgba(0, 0, 0, .2);flex:1;" onclick="img.src='public/init3.png'">
+          <img style="width:100%" src="public/init3.png">
+          <p class="titleGetStarted"> Multi creature</p>
+        </div>
+        <div id="mazeCrea3"class="column" style="background-color: rgba(0,0,0,0.1);border: solid rgba(0, 0, 0, .2);flex:1;" onclick="img.src='public/mazeCrea3.png'">
+          <img style="width:100%" src="public/mazeCrea3.png">
+          <p style="margin-top:0px;margin-bottom:0px;text-align:center"> Maze </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div id="controls" class="l-body" style="display:none">
+  <div class='row'>
+    <div class="column">
+      <input type="range" min="0.1" max="1"  step="0.1" value="0.5" class="slider" id="rangeRadiusWall" >
+      <p> Brush size: <span id="valueRadiusWall"></span></p>
+      <input type="range" min="6" max="20"  step="0.1" value="8.5" class="slider" id="rangeRadius" style="display:none">
+      <p style="display:none"> Radius of kernels (size of creature): <span id="valueRadius"></span></p>
+    </div>
+    <div class="column">
+      <input type="range" min="2" max="8"  step="1" value="2" class="slider" id="rangeZoom" >
+      <p> Zoom : <span id="valueZoom"></span></p>
+    </div>
+  </div>
+
+
+  <div class="radio-toolbar" id="optionDiv">
+    <input type="radio" id="radioErase"  name='option'  value="erase">
+    <label for="radioErase">Eraser</label>
+
+    <input type="radio" id="radioCircle"  name='option'  value="circle" checked>
+    <label for="radioCircle">Wall Dot</label>
+
+    <input type="radio" id="radioCreature" name='option'  value="creature" >
+    <label for="radioCreature">Creature</label>
+
+    <input type="radio" id="radioZoom" name='option'  value="zoom" >
+    <label for="radioZoom">Zoom</label>
+
+    <input type="radio" id="radioAttract" name='option'  value="attract" >
+    <label for="radioAttract">Attractor</label>
+</div>
+</div>
+
+
+
+  <script type="text/javascript" src="public/utils.js"></script>
+  <script type="text/javascript" src="public/gl.js"></script>
+
+
+<div style="position:fixed;bottom:0;left :-175px;width:160px">
+  <input type="range" min="0" max="3"  step="0.1" value="1" class="slider" id="rangeSpeed" >
+  <p> Speed of videos: <span id="valueSpeed"></span></p>
+</div>
+
+
+  <d-content class="figcaption" >
+  <nav style="margin-left:2em">
+    <h2>Contents</h2>
+    <h5><a href="#introduction">Introduction</a></h5>
+    <h5><a href="#the-system">The System</a></h5>
+    <ul>
+      <li><a href="#lenia">Lenia</a></li>
+    
+      <li><a href="#differentiable-lenia">Differentiable Lenia</a></li>
+    </ul>
+    <h5><a href="#how-to-discover-spatially-localized--and-moving-agents-in-lenia-">How to discover spatially localized and moving creatures in Lenia ? </a></h5>
+    <ul>
+      <li><a href="#how-to-discover-spatially-localized--and-moving-agents-in-lenia-">Target shape</a></li>
+      <li><a href="#curriculumdriven-goal-exploration-process">Curriculum-driven goal exploration process</a></li>
+      <li><a href="#moving-creatures-obtained">Moving creatures obtained</a></li>
+    </ul>
+    <h5><a href="#can-we-learn-robust-creatures-with-sensorimotor-capabilities-">Can we learn robust creatures with sensorimotor capabilities ?</a></h5>
+    <ul>
+      <li><a href="#-modeling-agentenvironment-interactions-in-lenia-the-example-of-obstacles-">Modeling agent-environment interactions in Lenia,
+ the example of obstacles</a></li>
+      <li><a href="#training-method-with-stochastic-environmental-perturbations">Training method with stochastic environmental perturbations</a></li>
+<li><a href="#robust-moving-creatures-obtained">Robust moving creatures obtained</a></li>
+    </ul>
+    <h5><a href="#how-well-do-the-creatures-obtained-generalize-">How well do the creatures obtained generalize ?</a></h5>
+    <ul>
+      <li><a href="#single-creature-setting"> Single creature setting</a></li>
+      <li><a href="#multi-creature-setting">Multi creature setting</a></li>
+    </ul>
+    <h5><a href="#related-work">Related works</a></h5>
+    <h5><a href="#discussion">Discussion</a></h5>
+    <h5><a href="#appendix">Appendix</a></h5>
+  </nav>
+  </d-content>
+
+
+
+
+
+
+<h2 id='introduction-connecting-the-dots-between-the-mechanistic-and-enactivist-views-of-cognition'>Introduction: Connecting the dots between the Mechanistic and Enactivist views of Cognition.</h2>
+
+<p>Understanding what has led to the emergence of life, cognition and natural agency as we observe in living organisms is one of the major scientific quests in a variety of disciplines ranging from biology and chemistry to evolutionary science. The pragmatic complementary question, central in disciplines such as artificial life (ALife) and artificial intelligence (AI), is: <i>can we engineer the necessary ingredients to discover forms of functional life and cognition as-it-could-be in an artificial substrata? </i> With respect to this practical goal of building agents-as-they-could-be, key challenges are the modeling of an artificial <i>environment</i><dt-fn> <strong>environment:</strong> system that defines a notion of space, time, physical states and laws</dt-fn>, the characterization of an agent <i>embodiment</i><dt-fn> <strong>embodiment:</strong> ensemble of norms and necessary conditions that define an agent as an autonomous unity we could separate from the rest <dt-cite key="di2019process"></dt-cite></dt-fn><i> </i>and <i>cognitive capacity&#x2F;domain</i><dt-fn> <strong>cognitive capacity&#x2F;domain:</strong> ensemble of performances that an agent is able to realize and regulate in its environment <dt-cite key="di2019process"></dt-cite>, defined as the "domain of interactions in which a unity can engage without disintegration" <dt-cite key="autopoiesisBeer1754"></dt-cite></dt-fn><i> </i>within such an environment; and the finding of agents that (robustly) comply with those criteria. Depending on their focus of research, approaches in the literature can be divided into the <i>mechanistic</i> and the <i>enactivist</i> views<i>. </i>The mechanistic view already presupposes an agent embodiment and rather focuses on understanding how higher-level cognitive interactions can arise, typically seeking for agents capable of <i>sensorimotor adaptivity</i><dt-fn> <strong>sensorimotor adaptivity:</strong> sensory-motor coordination enabling agents to react to environmental perturbations, achieve repertoire of behavioral skills and adapt to unseen conditions</dt-fn>. In the enactive view, "the question of the bodily constitution is conceptually prior to any particular functional account of a cognitive subsystem" <dt-cite key="di2019process"></dt-cite>. The prior conditions of <i>individuality</i> and <i>self-maintenance</i> are coined by enactivists as necessary for determining the agent&#39;s own existence and survival. <strong>Whereas the mechanistic considerations "jump over" the biological processes that enable organisms to survive (primitive forms of life&#x2F;cognition), the enactivist considerations still "fall behind" on showcasing higher-level processes of sensorimotor adaptivity (advanced forms of life&#x2F;cognition).</strong> Can future work in AI and ALife bridge the gap between those two frameworks?</p>
+  <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+  <img src="public/mechanistic.svg" alt="scheme" style="width:94%">
+</div>
+<p>In the mechanistic view, robots and other virtual agents are referred as &quot;embodied&quot; if they can ground their sensorimotor capabilities in the environment (the external world) via a physical interface (the body) allowing to experience the world directly (sensory inputs) and to act upon it (motor outputs) using internal input-output information processing (the brain).  Embodiment here is opposed to the computational non-embodied perspective where internal representations, either symbolic-based in "good-old fashion AI" or neural-network-based in the "internet AI", are decoupled from the external world and lack situatedness <dt-cite key="brooks1991intelligence"></dt-cite>. Yet, within the mechanistic modeling framework, it is not questioned what makes an agent an agent or even what makes a body a body <dt-cite key="di2019process"></dt-cite>: one assumes there is already a body interacting with the environment through predefined sensors and actuators. The agent <i>individuality </i>is clear: it is a separate unity (yellow box on the right figure) whose states and dynamics can be clearly distinguished from the states and dynamics of the rest of the environment. The agent <i>self-maintenance </i>is often not a problem as the agent body does not change over time except for rare cases of real world or artificially-induced degradations (e.g. robot damages, battery&#x2F;energy level), and only the brain (white box on the right figure) adjusts to the environment. A more central question within that framework is the agent <i>sensorimotor adaptivity</i>: how to find agents capable of a repertoire of sensorimotor behaviors&#x2F;skills such as locomotion, object manipulation <dt-cite key="akkaya2019solving"></dt-cite> or tool use <dt-cite key="guerin2012survey"></dt-cite> and capable of adapting the learned behaviors to unseen environmental conditions <dt-cite key="team2021open"></dt-cite>? To address that question in practice, a common methodology is the generation of a distribution of environments (tasks and rewards) to train the agent's brain to master and generalize those tasks, typically with learning approaches such as deep reinforcement learning. Whereas the focus is at the agent behavioral level, <strong>it remains open to criticism why the agent behavior should be instantiated in the brain in the first place, and why not in the body or even in the external world</strong><strong>.  </strong></p>
+
+<p>The clear body&#x2F;brain&#x2F;environment distinction of the mechanistic framework bears little resemblances with biological examples of brainless organisms using their body both for sensing and computing the decision. Plants move to get more sun, slime molds use mechanical cues of their environment to choose in which direction to expand  <dt-cite key="murugan2021mechano"></dt-cite>, and swarm of bacterias can make group decisions to avoid a wall of antibiotics  <dt-cite key="PhysRevE.101.012407"></dt-cite>, while there is no clear notion of a "brain" in these living forms. Pfeifer and colleagues <dt-cite key="pfeifer2006body"></dt-cite> introduced the concept of m<i>orphological computation</i>, arguing that all physical processes of the body (not only electrical circuitry in the brain but also morphological growth and body reconfiguration) are integral parts of cognition, and can achieve advanced forms of computation without a "brain". A famous example of (artificial) morphological computation is the passive bipedal walker <dt-cite key="collins2001three"></dt-cite> <dt-cite key="muller2017morphological"></dt-cite> which manages sensorimotor coordination and life-like locomotion behavior by simply exploiting the natural dynamics of the robot mechanical system.</p>
+
+
+<!---<def>
+<p> <b>Agent </b> a macro unity we could separate from the rest which regulates/self-maintains </p>
+</def><br>
+<def>
+<p> <b>Sensori-motor capabilities </b> being able to resist and  react  to perturbation from the environment </p>
+</def>
+<def style="position:relative;margin-top:40px">
+<p> <b>precarious conditions </b> the idea that bodies are constantly subjected to disruptions and breakdowns <dt-cite key="di2019process"></dt-cite></p>
+</def>-->
+
+    <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+  <img src="public/enactivist.svg" alt="scheme"  style="width:100%">
+</div>
+
+<div class="side-highlight">
+<div class="highlight-text">
+<i>There is no predefined notion of agent embodiment, instead it is considered that the body of the agent must come to existence through the coordination of the low-level elements and must operate under <i>precarious</i> conditions</i>
+</div>
+</div>
+<p>The enactive view on embodiment however is rooted in the bottom-up organizational principles of living organisms in the biological world. The modeling framework typically uses tools from dynamical and complex systems theory where an artificial system (the environment)  is made of low-level elements of matter \(\{a_i\}\) (called atoms, molecules or cells) described by their inner states (e.g. energy level) and locally interacting via physics-like rules (flow of matter and energy within the elements). There is no predefined notion of agent embodiment, instead it is considered that the body of the agent must come to existence through the coordination of the low-level elements and must operate under <i>precarious</i> conditions<dt-fn> <strong>precarious conditions</strong> : the idea that bodies are constantly subjected to disruptions and breakdowns <dt-cite key="di2019process"></dt-cite></dt-fn>. Within that modeling framework, the condition of <i>individuality</i> is the ability of a self-organizing structure (subpart of the environment) to preserve and propagate some spatiotemporal unity <dt-cite key="krakauer2020information"></dt-cite>, making it a distinguishable coherent entity in the domain in which it exists (called an autopoietic system in <dt-cite key="maturana1980autopoiesis"></dt-cite> <dt-cite key="varela1997patterns"></dt-cite>). The condition of <i>self-maintenance</i> is the capacity of a self-organizing structure to modify its internal and interactive exchanges of matter and energy with the rest of the environment (action) when facing external changes in the states or rules of the dynamical system (perturbations) for maintaining its integrity (goal). Interestingly, this "autonomy of an autopoietic system constitutes its minimal cognition" <dt-cite key="de2009enaction"></dt-cite>. </p>
+
+<p>Whereas both the mechanistic and the enactivist framework agree on agents as entities with some form of goal-directedness and action response to external perturbations, we can see how the characterization of agents in self-organizing systems is non-intuitive and very challenging in practice. Some recent works have proposed rigorous quantitative measures of <i>individuality</i> based on information theory tools <dt-cite key="krakauer2020information"></dt-cite> <dt-cite key="biehlInformationBasedSpatiotemporal2016"></dt-cite>. Other works from R.D. Beer attempted to formalize the characterization of the <i>self-maintenance&#x2F;cognitive domain</i> of a spatio-temporal structure (such as a glider <dt-cite key="beer2020bittorio"></dt-cite>  <dt-cite key="PMID:24494612"></dt-cite> and other patterns <dt-cite key="cika2020resilient"></dt-cite> in the game of life or a protocell model <dt-cite key="agmon2015ontogeny"></dt-cite>) by enumerating the reactions to all possible perturbations that such structure can receive from its immediate environment. However, the practical application of those tools to identify forms of agency has so far been limited to toy models with small state grids and simple dynamics, as their algorithmic implementation requires exhaustive search and difficulty scales to more complex dynamical systems. Certainly due to those practical challenges, the higher-level questions of what makes an agent <i>sensorimotor</i> and <i>adaptive</i> and how such entities emerge in the enactivist framework remains, to our knowledge, poorly addressed in the literature.</p>
+
+
+<div class="side-highlight">
+<div class="highlight-text">
+<i>Is it possible to find environments in which a subpart could exist/emerge and be called a "sensorimotor agent"?</i>
+</div>
+</div>
+<p>In the work presented here, following the enactivist modeling framework, we initially only assume environments made of atomic elements and physical laws and try to answer the following scientific question: is it possible to find environments in which a subpart could exist&#x2F;emerge and be called a "sensorimotor agent"? To do so, we use a  continuous cellular automaton, called Lenia <dt-cite key="chan2020lenia"></dt-cite><dt-cite key="chan2019lenia"></dt-cite>, as our artificial &quot;world&quot;.  At the difference of previous work in Lenia and CA in general, our methodological contributions to efficiently foster the emergence of robust sensorimotor agents within the search process  integrate (i) a bi-level optimisation method based on gradient descent and curriculum-driven goal exploration  and (ii) controllable functional constraints and opportunities in the environment by specifying (subparts of) the environmental dynamics. The blogpost is organized as follows.</p>
+
+<p>In the <a href='#the-system'>first section</a>, we explain how we made the Lenia framework as differentiable-friendly as possible in order to efficiently search for CA rules. The transition toward differentiable dynamics was recently proposed in the context of cellular automata <dt-cite key="mordvintsev2020growing"></dt-cite> or so-called neural CA (NCA). By unrolling the dynamics of the NCA over time and backpropagating through it, the use of deep-learning and differentiable programming tools allowed to efficiently find CA rules leading to complex patterns. Different training losses such as image <dt-cite key="mordvintsev2020growing"></dt-cite>, style-content <dt-cite key="niklasson2021self-organising"></dt-cite> and classification <dt-cite key="randazzo2020self-classifying"></dt-cite> losses have been proposed. Inspired by a more traditional (non-embodied) deep learning framework, they have shown how complex pattern-generation (morphogenesis) and computation (self-classifying) processes could emerge in those systems. However, the use of such tools to efficiently search the parameterizations leading to the emergence of "sensorimotor agents" remains an unexplored research direction to date. </p>
+
+<video id="robust" width="100%" autoplay loop muted="" class="videoShow l-body side">
+                <source src="public/pacman.mp4" type="video/mp4">
+              </video>
+<p>In the <a href='#how-to-discover-spatially-localized--and-moving-agents-in-lenia-'>second section</a>, we propose a method based on gradient descent and curriculum learning combined within an intrinsically-motivated goal exploration process (IMGEP<dt-fn> <strong>IMGEP:</strong> algorithmic process that aims to discover a diversity of behaviours in a dynamical system. Itgenerates a sequence of experiments to explore the parameters of a dynamical system by targeting a diversity of self-generated goals <dt-cite key="baranes2013active"></dt-cite>. Here we use a population-based version <dt-cite key="Forestier2017IntrinsicallyMG"></dt-cite> <dt-cite key="reinke2020intrinsically"></dt-cite> and introduce two novel elements compared to previous papers: the use of gradient descent for local optimization and the ability to handle stochasticity in the dynamical system.</dt-fn>, an efficient form of diversity search algorithms that can be combined with gradient descent) to automatically search parameters of the CA rule that can self-organize spatially localized<dt-fn> <strong>spatially-localized pattern:</strong> a pattern existing within some (fuzzy) boundary i.e. with a limited range in space as opposed to patterns with unbounded growth</dt-fn> and moving patterns<dt-fn> <strong>moving pattern:</strong>  a spatially-localized pattern that move and propagate information in space</dt-fn> within Lenia. While many complex behaviors have already been observed in Lenia, among which some could qualify as sensorimotor behaviors as illustrated in the side video, they have so far been discovered &quot;by chance&quot; as the result of time-consuming manual search or with simple evolutionary algorithms. In this work, we define an outer exploratory loop (generation of training goal&#x2F;loss) and an inner optimization loop (goal-conditioned policy) that allow us to automatically learn the CA rules leading to the systematic emergence of basic sensorimotor structures. </p>
+
+<p>In the <a href='#can-we-learn-robust-creatures-with-sensorimotor-capabilities-'>third section</a>, we explain how our environment&#39;s physical rules can integrate both predetermined specific properties and learnable properties. That "trick" to control subparts of the environmental physics allows us to build a curriculum of tasks for optimizing the learnable part of the environment, in which we are searching parameters that could self-organize sensorimotor agents robust to stochastic variations in the environmental constraints.Environment-design allows us, by shaping the search process, to discover more advanced forms of sensorimotor capabilities such as self-maintenance and adaptivity to the surroundings. </p>
+
+<p>Finally in the <a href='#how-well-do-the-creatures-obtained-generalize-'>last section</a>, we investigate the (zero-shot) generalization of the discovered sensorimotor agents to several out-of-distribution perturbations that were not encountered during training. Impressively, even though the agents still fail to preserve their integrity in certain configurations, they show very strong robustness to most of the tested variations. The agents are able to navigate in unseen and harder environmental configurations while self-maintaining their individuality. Not only the agents are able to recover their individuality when subjected to external perturbations but also when subjected to internal perturbations: they resist variations of the morphogenetic processes such that less frequent cell updates, quite drastic changes of scales as well as changes of initializations. Furthermore, when tested in a multi-entity initialization and despite having been trained alone, not only the agents are able to preserve their individuality but they show forms of coordinated interactions (attractiveness and reproduction), interactions that have been coined as <i>communicative interactions</i><dt-fn> <strong>communicative interactions:</strong> "entity-entity perturbations that serve to orient entities within their respective cognitive domains to new possibilities for action" <dt-cite key="PMID:24494612"></dt-cite></dt-fn> . </p>
+<div class="side-highlight">
+<div class="highlight-text">
+<i>Searching for rules at the cell-level in order to give rise to higher-level cognitive processes at the level of the organism and at the 
+level of the group of organisms opens many exciting opportunities to the development of embodied approaches in AI in general.</i>
+</div>
+</div>
+<p>Our results suggest that, contrary to the (still predominant) mechanistic view on embodiment, biologically-inspired enactive embodiment could pave the way toward agents with strong coherence and generalization to out-of-distribution changes, mimicking the remarkable robustness of living systems to maintain specific functions despite environmental and body perturbations <dt-cite key="kitano2004biological"></dt-cite>. Searching for rules at the cell-level in order to give rise to higher-level cognitive processes at the level of the organism and at the level of the group of organisms opens many exciting opportunities to the development of embodied approaches in AI in general.</p>
+
+
+
+
+<h2 id='the-system'>The system</h2>
+
+<p>Cellular automata are, in their classic form, a grid of "cells" \( A &#x3D; \{ a_x \} \) that evolve through time \( A^{t&#x3D;1} \rightarrow \dots \rightarrow A^{t&#x3D;T} \) via local "physics-like" laws. More precisely, the cells sequentially update their state based on the states of their neighbours:  \( a_x^{t+1}&#x3D; f(a_x^t,\mathcal{N}(a_x^t))\), where \( x \in \mathcal{X}\) is the position of the cell on the grid, \(a_x \) is the state of the cell, and  \(\mathcal{N}(a_x^t)\) is the neighbourhood of the cell. The dynamic of the CA is thus entirely defined by the initialization \( A^{t&#x3D;1} \) (initial state of the cells in the grid) and the update rule \( f \) (how a cell updates based on its neighbours). <strong>B</strong><strong>ut predicting their long term behavior is a difficult challenge even for simple ones  due to their chaotic dynamics. </strong></p>
+
+<div style="clear: both;float: right;margin-top: 0;margin-left: 24px;margin-right: calc((100vw - 984px) / 2 + 68px);width: calc((984px - 448px) / 2 - 24px);
+">
+<div class="row" >
+  <div class="column">
+<p style="font-size: 14px;color:#A0A0A0;"> SLP</p>
+    <img style="width:100%" src="public/Pinwheel.gif">
+  </div>
+  <div class="column">
+<p style="font-size: 14px;color:#A0A0A0;"> Moving pattern</p>
+    <img style="width:100%" src="public/glider.gif">
+  </div>
+  </div>
+</div>
+
+<p>The <a href='https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life'>Game of Life</a> is one example of cellular automaton with binary states where cells can either be dead  (\(a_x&#x3D;0\))  or alive (\(a_x&#x3D;1\)). Despite its very simple rule \(f\), very complex structures can emerge in it. One main type of pattern studied in the game of life is stable spatially localized patterns (SLP) : patterns with a kind of spatial boundary that separates the  unity from the rest.  The subcategory of moving patterns, SLP that periodically get back to their state after some timesteps but shifted in space, is of particular interest. The well-known <i>glider</i>, as shown on the right, was even proposed as a computational model of an autopoietic system <dt-cite key="beer2020bittorio"></dt-cite><dt-cite key="PMID:24494612"></dt-cite>. </p>
+<div style="clear: both;float: right;margin-top: 0;margin-left: 24px;margin-right: calc((100vw - 984px) / 2 + 68px);width: calc((984px - 448px) / 2 - 24px);
+">
+<div class="row" >
+  <div class="column">
+<p style="font-size: 14px;color:#A0A0A0;"> SLP</p>
+   <video  style="width:100%"  autoplay loop muted="" class="videoShow">
+                  <source src="public/pattern4.mp4" type="video/mp4">
+                </video>
+  </div>
+  <div class="column">
+<p style="font-size: 14px;color:#A0A0A0;"> Moving pattern</p>
+    <video style="width:100%"  autoplay loop muted="" class="videoShow">
+                  <source src="public/orbiumSolo.mp4" type="video/mp4">
+                </video>
+  </div>
+  </div>
+
+</div>
+
+
+<p>The cellular automaton we  study in this work is Lenia <dt-cite key="chan2020lenia"></dt-cite><dt-cite key="chan2019lenia"></dt-cite> which has the particularity of having continuous C-dimensional states (\(a_x \in [0,1]^C\)).  To be more precise, Lenia is a class of cellular automata in which each instance is a Cellular Automaton (CA). A CA instance is defined by a set of parameters \( \theta \) that condition its "physics" such that the update rule \(f\) is parametrized: \( a_x^{t+1}&#x3D; f_{\theta}(a_x^t,\mathcal{N}(a_x^t))\). For example, the Game of Life can be seen as a particular instance in Lenia.  Having these update rules parametrized allows  the search for CA environments with rules which can lead to the emergence of interesting patterns, including SLP and moving ones. Contrary to the perfectly stable or periodically oscillating patterns in the game of life, it is very hard to know if a SLP in Lenia will not explode or vanish after a long period of time on account of tiny drift changes in its continuous states. </p>
+
+<p>A wide variety of complex patterns has been found in Lenia, using a combination of hand made exploration&#x2F;mutation and evolutionary algorithm <dt-cite key="chan2020lenia"></dt-cite><dt-cite key="chan2019lenia"></dt-cite> or exploratory algorithm <dt-cite key="etcheverry2020hierarchically"></dt-cite> <dt-cite key="reinke2020intrinsically"></dt-cite>. The work from <dt-cite key="chan2020lenia"></dt-cite><dt-cite key="chan2019lenia"></dt-cite> focused a lot on spatially localized patterns and especially moving ones.</p>
+<div class="row l-body">
+    <div class="column">
+      <video id="robust" width="80%" autoplay loop muted="" class="videoShow">
+                    <source src="public/orbiumCollision.mp4" type="video/mp4">
+                  </video>
+    </div>
+    <div class="column">
+      <video id="robust" width="80%"  autoplay loop muted="" class="videoShow">
+                    <source src="public/orbiumCollision2.mp4" type="video/mp4">
+                  </video>
+    </div>
+  </div>
+
+<div class="row l-body" >
+  <div class="column">
+    <video id="robust" width="80%"  autoplay loop muted="" class="videoShow">
+                  <source src="public/LeniaSpecie.mp4" type="video/mp4">
+                </video>
+  </div>
+  <div class="column">
+    <video id="robust" width="80%"  autoplay loop muted="" class="videoShow">
+                  <source src="public/courLenia.mp4" type="video/mp4">
+                </video>
+  </div>
+  </div>
+<p  style="font-size: 19px;color:#000000;text-align:center;" >
+Creatures obtained by hand made random exploration<br>
+ <span style="font-size: 14px;color:#A0A0A0;">
+Creatures at the top are<a href="https://chakazul.github.io/Lenia/JavaScript/Lenia.html">orbiums in Lenia </a> <dt-cite key="chan2019lenia"></dt-cite>.
+ Videos at the bottom are  from Bert Chan's twitter, found by handmade random exploration : 
+<a href="https://twitter.com/BertChakovsky/status/1219332395456815104">left</a>, <a href="https://twitter.com/BertChakovsky/status/1265861527829004288">right</a><br>
+Finding creatures like these can take time (and expert knowledge) especially for more complicated ones. <br>
+You can find a library of creatures found in the first version of Lenia (<dt-cite key="chan2019lenia"></dt-cite><dt-cite key="chan2020lenia"></dt-cite>) at this <a href="https://chakazul.github.io/Lenia/JavaScript/Lenia.html">link</a>.
+
+
+ </span>
+ </p>
+
+  
+<p>The moving creatures found are long term stable and can have interesting interactions with each other but some as the orbium (which you can find on the 2 upper videos) are not very robust for example here with collision between each other. Other more complex creatures (as shown in the two bottom videos) seem to resist collision better and to be able to sense the other creatures. These creatures show sensorimotor capabilities as they change direction in response to interaction with other creatures. </p>
+
+
+
+<p> However, all of the previous methods use only random mutations and manual tuning to find these patterns, which can be computationally heavy especially to find very specific functionalities or in high dimensional parameter space. This motivates our choice to make Lenia differentiable, which then allows us to take advantage of the differentiability  to find, in a more efficient and systematic way, the parameters leading to the emergence of agents with similar types of behaviors .</p>
+<p> </p>
+
+
+
+
+<p>In this section, we first explain in more detail the model in Lenia and  present how we made parts of the Lenia model  differentiable. </p>
+
+
+
+<h3 id='lenia'>Lenia</h3>
+<div class="l-middle-outset" style="width:calc(816px + 96px + 200px);">
+ <video id="robust" width="95%"  controls muted="" class="videoShow">
+                <source src="public/leniaVid.mp4" type="video/mp4">
+              </video>
+ <p  style="font-size: 19px;color:#000000;text-align:center;" >
+Animation of  Lenia Step <br>
+ <span style="font-size: 14px;color:#A0A0A0;"> made with manim:<a href="https://github.com/3b1b/manim" > https://github.com/3b1b/manim</a> forked 
+from <a href="https://github.com/3b1b/videos/blob/master/_2020/18S191/convolutions.py">
+ https://github.com/3b1b/videos/blob/master/_2020/18S191/convolutions.py </a>
+ </span>
+ </p><br>
+</div>
+
+ <!--- 
+<div class="l-screen-inset" style="position:relative">
+  <img src="public/LeniaScheme.svg" alt="scheme">
+</div>
+ <p  style="font-size: 19px;color:#000000;text-align:center;" class="l-middle-outset">
+Update step  of channel 1 in the Lenia System <br>
+ <span style="font-size: 14px;color:#A0A0A0;"> Update of channel 2 is done similarly, in parallel of update of channel 1</span>
+ </p><br> 
+--->
+
+
+
+
+
+<p>In Lenia , the system is composed of several communicating grids \( A&#x3D;\{ A_c\}\) which we call <i>channels</i>. The above video illustrates Lenia "physics" in a 2-channel example ( \(A_1\) is colored in yellow and \( A_2 \) in blue). In each of these grids, every cell&#x2F;pixel can take any value between 0 and 1. Cells at 0  are considered dead while others are alive. As shown in the video, the channels are updated in parallel according to their own physics rule. Intuitively,<strong> </strong><strong>we can see channels as the domain of existence of a certain type of cell. Each type of cell has its own physic</strong><strong>s</strong> : it has its own way to interact with other cells of its type (intra-channel influence) and also its own way to interact with cells of other types (cross-channel influence).</p>
+
+<p>The update of a cell \( a_{x,c}\) at position \(x\) in channel \(c\) can be decomposed in three steps. First the cell senses its neighbourhood in some other channels (its neighbourhood in its channel, with cells of the same type but also in other channels with other types of cells)  through convolution <i>kernels</i> which are filters \(K_k\) of different shapes and sizes. Second, the cell converts this sensing into an update (whether positive or negative growth or neutral) through <i>growth functions</i> \(G_k\) associated with the kernels. Finally, the cell modifies its state by summing the scalars obtained after the growth functions and adding it to its current state. After the update of every rule has been applied, the state is clipped between 0 and 1. Each (kernel,growth function) couple is associated to the source channel \(c_s\) it senses, and to the target channel  \(c_t\) it updates. A couple (kernel,growth function) characterizes a rule on how a type of cell \(c_t\) reacts to its neighbourhood of cells of type \(c_s\). Note that \(c_s\) and \(c_t\) could be the same, which correspond to interaction of cells of the same type (intra-channel influence). Note also that we can have several rules characterizing the interaction between \(c_s\) and \(c_t\), i.e. \(n(c_s \rightarrow c_t)\) (kernel,growth function) couples. </p>
+
+<p>A local update in the grid is summarized with the following formula: </p>
+<p>$$a_x^{t+1}&#x3D;f(a_x^t, \mathcal{N}(a_x^t)) &#x3D; \begin{bmatrix} a^t_{x,c_0}  + \sum_{c_s&#x3D;0}^C  \sum_{k&#x3D;0}^{n(c_s \rightarrow c_0)-1}  G^k_{c_s \rightarrow c_0} ( K^k_{c_s \rightarrow c_0} (a^t_{x,c_0}, \mathcal{N}_{c_0}(a^t_x))) \\.\\.\\.\\a^t_{x,c_C}  + \sum_{c_s&#x3D;0}^C  \sum_{k&#x3D;0}^{n(c_s \rightarrow c_C)-1}  G^k_{c_s \rightarrow c_C} ( K^k_{c_s \rightarrow c_C} (a^t_{x,c_C}, \mathcal{N}_{c_C}(a^t_x)))\end{bmatrix} $$ </p>
+
+
+
+
+
+<p>For each rule, the shape of the (kernel, growth function) is parametrized. We are thus able to "tune" the physics of the cells and of their interactions by changing the kernels shape (how the cells perceive their neighborhood) as well as the growth function shape (how the cells react to this perception). </p>
+
+<p>However, finding interesting parameters leading to the emergence of localized patterns or even moving one is not easy. For example here is a random search of 100 trials (with 1 channel and 10 rules) gives only 3-5 SLP and no moving creature. Even with more advanced diversity-driven exploration searches, moving creatures are hard to find <dt-cite key="etcheverry2020hierarchically"></dt-cite> <dt-cite key="reinke2020intrinsically"></dt-cite>. This motivates our choice to use gradient descent in order to learn these parameters.</p>
+
+<video id="robust" width="95%"  autoplay  controls muted="" class="l-body videoShow">
+                <source src="public/random.mp4" type="video/mp4">
+              </video>
+<p  style="font-size: 19px;color:#000000;text-align:center;" >
+Random exploration of the parameter space rarely results in moving creature.<br>
+ <span style="font-size: 14px;color:#A0A0A0;">
+Each 100 squares are random parameters trials (each  1 channel and  10 rules so \(\sim \)  130 parameters for all the rules of a square). The parameters 
+control the local rules of interaction between cells, by changing the kernel shape (how a cell senses) and the growth function (how this sensing 
+is converted into growth). </span>
+ </p>
+<h3 id='differentiable-lenia'>Differentiable Lenia</h3>
+
+<p>Due to the locality and recurrence of the update rule, there is a close relationship between cellular automata and recurrent convolutional networks <dt-cite key="gilpin2019cellular"></dt-cite>. In fact, we can see a rollout in Lenia as applying a recurrent neural network to an initial state. If (some of) the network parameters are differentiable, <strong>backpropagation can be done by "unfolding" the Lenia rollout and applying a loss at certain time step(s)</strong> like in <dt-cite key="mordvintsev2020growing"></dt-cite> .</p>
+
+<p>However, in the classic version of Lenia <dt-cite key="chan2020lenia"></dt-cite> <dt-cite key="chan2019lenia"></dt-cite>, the shape of the kernels are not totally differentiable and not very flexible. To allow easier optimization of the Lenia system,  we introduce some changes to the kernel parametrization. You can find these changes in the <a href='#differentiableLeniaShift'>Differentiable Lenia Shift</a> section of the appendix. However even doing so, differentiating through Lenia can be difficult because the gradient must backpropagate through several steps (which moreover have their result clipped between 0 and 1) without vanishing. We should thus limit ourselves to a few iterations when training: in our experiments the loss is applied after 50 steps in Lenia.</p>
+<h2 id='how-to-discover-spatially-localized--and-moving-agents-in-lenia-'>How to discover spatially localized  and moving agents in Lenia ?</h2>
+<p>In this section, <strong>we propose tools based on gradient descent and curriculum learning to learn the CA parameters leading to the emergence of moving creatures</strong><strong>.</strong> Finding gliders-like creatures will be the basis on which we'll build the method leading to the emergence of sensorimotor capabilities within the Lenia dynamics in the next section. </p>
+
+<div class="side-highlight">
+<div class="highlight-text">
+<i>In this study, we learn to develop morphology and motricity at the same time. The CA rule will both be applied to grow 
+the creature from an initial state and be the "physics" that makes it move.</i>
+</div>
+</div>
+
+<p>Note that moving creatures in cellular automaton differ from other types of movement like motors, muscle contraction or soft robot <dt-cite key="Trivedi2008SoftRB"></dt-cite>. CAs operate on a fixed grid and therefore moving necessarily requires patterns growing at the front and dying at the back. This should imply that creatures that move are more fragile because they are in a fragile equilibrium between growth (to move forward) and dying (because otherwise we would have infinite growth). In this study, we learn to develop morphology and motricity at the same time. The CA rule will both be applied to grow the creature from an initial state and be the "physics" that makes it move.</p>
+
+<p>In this section, we only work with 1 channel (only 1 type of cells interacting). In this channel we want to learn the several rules (parameters of the kernel+growth functions encoding the interactions of those cells within the channel) that will result in the emergence of moving creatures when given the proper initialization. At the same time we also aim to learn an initialization that will be adapted to these rules i.e. lead to the emergence of the creature.</p>
+<p>We start by randomly initializing the parameters and initialization until we get a localized pattern, meaning it doesn't spread to the whole grid and doesn't die . This obtained pattern will most of the time stay at the same position. What we want is to change the parameters and initialization such that this pattern ends further in the grid, meaning that it survived and stayed localized but moved to a different location in a few timesteps. Because our system is differentiable, we're able to backpropagate through the timesteps by "unfolding" the roll-out. We therefore need a loss applied on the roll-out which will encourage movement to a new position z.</p>
+<img src="public/OptimStep.svg" alt="optimScheme" class='l-middle-outset' >
+ <p  style="font-size: 19px;color:#000000;text-align:center;" class="l-body">
+Schematic view of optimization step<br>
+ <span style="font-size: 14px;color:#A0A0A0;">Differentiable Lenia allows to optimize the CA parameters such that its dynamics converges
+ towards a target pattern. Here the figure shows optimization of the system with MSE error between target image and system state at last timestep. 
+Different training losses could be envisaged and applied at intermediate time steps depending on the dynamical 
+properties one aim to emerge in the system
+. </span>
+ </p>
+
+
+
+<p>Target image with MSE error applied at the last timestep of a rollout seems effective to learn CA rule leading to a certain pattern <dt-cite key="mordvintsev2020growing"></dt-cite>. And the fact that it's a very informative loss, thus helping with vanishing gradient problem, made us choose this loss for our problem over other losses such as maximizing the coordinate of the center of mass. We apply the MSE loss between  the pattern at the last timestep of the roll out  and a target shape put at a target location further in the grid.</p>
+
+
+
+<p> The first target shape we tried was a single disk with the idea of getting a spatially localized agent contained within the disk as the target shape is finite. However, after seeing that the robust creature obtained seemed to have a "core" and a shallow envelope, we informally chose to move to two superposed discs, a large shallow one with a thick smaller one on top. The resulting target shape has the formula \(0.1*(R&lt;1)+0.8*(R&lt;0.5)\). We chose on purpose to have the sum to be smaller than 1 to avoid killing the gradient due to the clip operation.</p>
+
+
+<p>Despite the choice of the target shape, the choice of the target location is crucial  for the success of the optimization. Simply putting a target shape far from initialization and optimizing towards it does not work most of the time. In fact, it works only when the target is not too far ( more precisely overlaps a little bit) from where the creature ended before optimization. This comes from the fact that cells at 0 do not give gradients as we clip between 0 and 1 and so, for example, if at last timestep the target shape is on an area where the cell states are clipped at 0 no gradient will be propagated. Moreover, <strong>as the system is complex&#x2F;chaotic, the optimization landscape will be very hard and changing some parameters too much can easily break the dynamic leading to completely different outcomes</strong> (loosing all the progress and making further optimization very hard). And so putting the target at a close position should lead to easier optimization landscape as well as more gradient information (because more non clipped pixel will overlap the target), leading to better optimization steps with less chances to diverge. To use these small steps, we propose to use curriculum learning exploiting the fact that we can shape optimization to aim for near-enough (and increasingly further) target shapes.</p>
+
+<div class="l-middle">
+  <img id="schemeCuri" src="public/curriculum.svg" alt="CurriculumScheme" width="100%" >
+ </div>
+
+ <p  style="font-size: 19px;color:#000000;text-align:center;" class="l-middle">
+Result of Optimization step<br>
+ <span style="font-size: 14px;color:#A0A0A0;"> Red : target, yellow : initialization and green : agent at last timestep. 
+Left to right is one optimization step. The agent learns to go a little bit further in the same amount of time.<br>
+. </span>
+ </p>
+<h3 id='curriculumdriven-goal-exploration-process'><i>Curriculum-driven goal exploration process</i></h3>
+
+<p>The effectiveness of curriculum with complex tasks has already been shown in Wang et al. <dt-cite key="DBLP:journals&#x2F;corr&#x2F;abs-1901-01753"></dt-cite> where a teacher agent was created to design increasingly complex tasks for another learning agent, such that  the learning tasks were neither too hard nor too easy. Recent work by Variengien et al. showed the need of curriculum to stabilize learning and avoid local minima in complex self organizing systems <dt-cite key="variengien2021selforganized"></dt-cite>.</p>
+
+<p>However, defining a learning curriculum  (in our case defining how far and in which direction the target should be pushed at each optimization phase) is not trivial. In fact, some locations can lead to a hard optimization landscape (e.g. with a danger to get  trapped in local minima or to diverge) while some other locations by luck can make the optimization easy. And these "easy" targets would change for every random initialization. </p>
+<p>To tackle these challenges, we propose to rely on intrinsically-motivated goal exploration processes (IMGEPs), an algorithmic process which was shown successful at generating a learning curriculum for complex exploration spaces in robotics  <dt-cite key="Forestier2017IntrinsicallyMG"></dt-cite> and which has already been used in Lenia as a diversity search tool <dt-cite key="etcheverry2020hierarchically"></dt-cite> <dt-cite key="reinke2020intrinsically"></dt-cite>. The general idea of IMGEP is to iteratively set new goals to achieve and for each of these goals try to learn a policy (here a policy is simply an initial state and the CA rule) that would suit this goal. To do so, an IMGEP integrates several key mechanisms: a <i>goal-sampling policy</i> (that decides how to sample interesting new goals, for example based on intrinsic reward), a <i>goal-achievement criterion</i> (that tracks the progress on a goal), and a <i>goal-achievement policy</i> (that optimizes  toward a target goal). Importantly, an IMGEP can reuse the knowledge acquired on other goals to learn new goals or attain them more quickly.</p>
+
+
+<div class="l-middle-outset" style="position:relative">
+  <img id="schemeIMGEP" src="public/IMGEP.svg" alt="IMGEPscheme" width="100%" >
+  <div style="position:absolute; left:80%; top:79%; width:17%; height:9%; background-color: rgba(0, 0, 0, 0.1);z-index:5;border-radius:10px 10px 10px
+ 10px"" onmouseover="changeImgIMGEP('public/IMGEP1.svg')" onmouseout="changeImgIMGEP('public/IMGEP.svg')"></div>
+  <div style="position:absolute; left:39%; top:85%; width:17%; height:11%;background-color: rgba(0, 0, 0, 0.1);z-index:5;border-radius:10px 10px 10px 
+10px"" onmouseover="changeImgIMGEP('public/IMGEP2.svg')" onmouseout="changeImgIMGEP('public/IMGEP.svg')"></div>
+  <div style="position:absolute; left:25%; top:11%; width:16%; height:13%; background-color: rgba(0, 0, 0, 0.1);z-index:5;border-radius:10px 10px 10px 
+10px"" onmouseover="changeImgIMGEP('public/IMGEP3.svg')" onmouseout="changeImgIMGEP('public/IMGEP.svg')"></div>
+  <div style="position:absolute; left:58%; top:36%; width:14%; height:13%;background-color: rgba(0, 0, 0, 0.1);z-index:5;border-radius:10px 10px 10px 
+10px"" onmouseover="changeImgIMGEP('public/IMGEP4.svg')" onmouseout="changeImgIMGEP('public/IMGEP.svg')"></div>
+ </div>
+
+ <p  style="font-size: 19px;color:#000000;text-align:center;" class="l-middle-outset">
+IMGEP Step <br>
+ <span style="font-size: 14px;color:#A0A0A0;">Hover over gray areas to show the details of the step. <br>
+ An IMGEP is an algorithmic process that allows to sample new goals and try to achieve them. The IMGEP process reuses knowledge from the previous
+trials. In our case, we use IMGEP as it allows to automatically build a curriculum by randomly trying new goals.
+</span>
+ </p><br>
+<p>In our case, the goal space is simply a 2-dimensional vector space representing the position of the center of mass of the creature. Hence, a policy in Lenia (controlling the CA initialization and rules) achieves a target goal when it produces a creature whose position at the last timestep (here t&#x3D;50) is within an accepted range from the target one. While there exist many goal-sampling strategies in the IMGEP literature, we use here a simple version that randomly samples positions in the grid but that biases the sampling both toward one edge of the grid in order to obtain moving creatures  and taking care that the sampled goals are not too far from already-attained positions. To attain a new target position&#x2F;goal, the goal-achievement policy relies on (i) the history of previously-tried policies to select the parameters that performed best (achieved the closest position); and (ii) an inner loop that uses gradient descent with  MSE error between the selected policy's last state and the target shape centered at the target goal. Therefore, there are two loops, one outer setting the goals and one inner that applies several steps of gradient descent toward this goal. The overall method can be summarized as such:</p>
+<div class=l-body>
+<pre>
+<code  style="line-height:0.4">
+    <p> Perform random policies in Lenia saving the obtained (parameters,reached goal) tuples in history  \(\mathcal{H} = (p_i,rg_i)_{i=1,..s}\)</p>
+    <p>Loop (number of IMGEP step) </p>
+    <div style="margin:25px">
+    <p >   Sample target position/goal (not too far from reached positions in the history \(\mathcal{H} \)  )</p>
+    <p >   Select, from the history , the parameters that achieved the closest position/goal </p>
+    <p > Initialize  the system with those parameters </p>
+    <p>   Loop (number of optimisation steps)</p>
+    <div style="margin:25px">
+    <p>       Run lenia </p>
+    <p>       Gradient descent toward the target shape at target position to optimize the parameters</p>
+    <p>        Initialize the system with those optimized parameters </p>
+  </div>
+<br>
+<br>
+    <p> Run lenia one more time to see what is the position (i.e. goal) achieved </p>
+<p> If the creature died or exploded, don't save</p>
+<p> Else, add to history the parameters resulting from optimization and the outcome/goal reached   \(\mathcal{H} =\mathcal{H} \cup (p^\star,rg )\) </p>
+  </div>
+</code>
+</pre>
+</div>
+<p>An advantage of IMGEPs is that the information collected when a policy "fails", e.g. reaching a position  far from the selected target, can be useful later on for reaching other positions: it might still make a small improvement or it might go in a completely different area which we might want to explore. The fact that we don't always select the last checkpoint as in classic curriculum learning also allows us to have different "lineages" which may help to avoid being stuck in local minima or in an optimization area where the optimization can easily diverge.</p>
+
+
+<h3 id='moving-creatures-obtained'><i>Moving creatures obtained</i></h3>
+<!---
+<div class="row l-screen-inset">
+   
+    <div class="column">
+      <video id="robust" width="95%" controls  autoplay loop muted="" class="videoShow">
+                    <source src="public/move6.mp4" type="video/mp4">
+                  </video>
+    </div>
+<div class="column">
+      <video id="robust" width="95%" controls  autoplay loop muted="" class="videoShow">
+                    <source src="public/move7.mp4" type="video/mp4">
+                  </video>
+    </div>
+<div class="column">
+      <video id="robust" width="95%" controls autoplay loop muted="" class="videoShow">
+                    <source src="public/move1.mp4" type="video/mp4">
+                  </video>
+    </div>
+<div class="column">
+      <video id="robust" width="95%" controls  autoplay loop muted="" class="videoShow">
+                    <source src="public/move9.mp4" type="video/mp4">
+                  </video>
+    </div>
+<div class="column">
+      <video id="robust" width="95%" controls  autoplay loop muted="" class="videoShow">
+                    <source src="public/move8die.mp4" type="video/mp4">
+                  </video>
+    </div>
+<div class="column">
+      <video id="robust" width="95%" controls  autoplay loop muted="" class="videoShow">
+                    <source src="public/move3die.mp4" type="video/mp4">
+                  </video>
+    </div>
+  </div>
+-->
+
+<div class="row l-screen-inset">
+   
+    <div class="column" style="
+    /* width: auto; */
+    width: 70%;
+">
+      <video id="robust" controls="" autoplay="" loop="" muted="" class="videoShow" style="
+    width: 95%;
+">
+                    <source src="public/moveBar.mp4" type="video/mp4">
+                  </video>
+    </div>
+<div class="column" style="
+    width: 35%;
+">
+      <video id="robust" controls="" autoplay="" loop="" muted="" class="videoShow" style="
+    width: 95%;
+">
+                    <source src="public/moveBarDie.mp4" type="video/mp4">
+                  </video>
+    </div>
+  </div>
+
+
+<p  style="font-size: 19px;color:#000000;text-align:center;" class="l-middle-outset">
+    Robustness of learned moving creatures over longer time spans than in the training process.<br>
+ <span style="font-size: 14px;color:#A0A0A0;"> Each square is the result of 1 trial of the method. The video on the left displays successes of the method 
+where the creatures obtained are long term stable. The video on the right displays trials where the creatures obtained die few steps after the
+ number of timesteps it has been trained on. The last creature on the right 
+ tries as much as possible to fit the target at last seen timestep resulting in a death right after. </span>
+ </p><br>
+<p>The method proposed above gives us a set of rules and an initialization in Lenia that lead to the emergence of a moving creature. The obtained rules and initialization are different every time we run the search as the method's initialization (first line in the pseudocode) is random. This results in different creatures emerging with every set of obtained rules (different seeds of the method).  Interestingly, some of the emerged creatures are long term stable (their shape is kept stable) while others may become unstable after a few timesteps. In fact as the creature is only trained for 50 timesteps, when running for longer, the creature can have unpredictable behaviors. Seeing that <strong>the majority of creatures that emerge from training are long term stable</strong> (8 over 10 trials with initialization selection, see <a href='#badInit'>appendix</a> for more info on initialization selection), <strong>whereas it is not specified&#x2F;penalized in the training loss, is a first hint of the generalization capabilities of self-organizing agents.</strong></p>
+<!---
+<div class=' l-screen-inset  l-screen-inset-bigger '>
+<div class='row'>
+ <div class="column">
+      <video id="robust" width="95%" autoplay loop controls  muted="" class="videoShow">
+                    <source src="public/moveTraining.mp4" type="video/mp4">
+                  </video>
+    </div>
+    <div class="column">
+      <video id="robust" width="95%" controls  autoplay loop muted="" class="videoShow">
+                    <source src="public/move7training.mp4" type="video/mp4">
+                  </video>
+</div>
+</div>
+
+<p  style="font-size: 19px;color:#000000;text-align:center;" class="l-middle-outset">
+IMGEP Steps <br>
+ <span style="font-size: 14px;color:#A0A0A0;">Left is the random Initialization, and then each video from left to right are successive IMGEP step and 
+Final video is best across all IMGEP </span>
+ </p><br>
+</div>
+<div class='l-screen-inset'>
+<div class='row'>
+ <div class="column">
+      <video id="robust" width="95%" autoplay controls  muted="" class="videoShow">
+                    <source src="public/moveTrainingInner.mp4" type="video/mp4">
+                  </video>
+    </div>
+    <div class="column">
+      <video id="robust" width="95%" controls  autoplay  muted="" class="videoShow">
+                    <source src="public/move7trainingInner.mp4" type="video/mp4">
+                  </video>
+</div>
+</div>
+<p  style="font-size: 19px;color:#000000;text-align:center;" class="l-middle-outset">
+InnerOptimization <br>
+ <span style="font-size: 14px;color:#A0A0A0;"> First IMGEP step with training  corresponding to the transition between the two first case of above videos, gradient descent step (1,20,60,70,80,90,100,110,120) </span>
+ </p><br>
+</div> --->
+<div class="l-screen-inset l-screen-inset-bigger">
+<div class='row'>
+ <div class="column">
+      <video id="robust" width="95%" autoplay loop controls  muted="" class="videoShow">
+                    <source src="public/innerOuter.mp4" type="video/mp4">
+                  </video>
+<p  style="font-size: 14px;color:#A0A0A0;text-align:center;" >
+Run 1
+ </p>
+    </div>
+    <div class="column">
+      <video id="robust" width="95%" controls loop  autoplay muted="" class="videoShow">
+                    <source src="public/innerOuter7.mp4" type="video/mp4">
+                  </video>
+<p  style="font-size: 14px;color:#A0A0A0;text-align:center;" >
+Run 2
+ </p>
+</div>
+</div>
+</div>
+<p  style="font-size: 19px;color:#000000;text-align:center;" class="l-screen-inset">
+Results of successive outer (top) and inner (bottom) optimization steps in practice in 2 different runs <br>
+ <span style="font-size: 14px;color:#A0A0A0;"> 
+This figure shows how the bi-level optimization (an inner loop inside of an outer loop) progressively evolves moving creatures. For each run, the upper-left video corresponds to the creature obtained after initialization of the parameters (before optimization), which is not able to move at all. After several outer steps (shown at the top and separated by blue lines), we can see how the evolved creatures improve their behavior, with the upper-right one (at the end of the bi-level optimization) reaching quickly the edge of the grid. At the bottom, a "zoom" (represented by the red lines) 
+ on the first outer step (between first and second top videos)
+shows in more details the successive small improvements made by the inner loop
+ (gradient steps)  during first outer step. Each inner step slightly  improves the creature by making it go a little further. At the end of 
+these inner steps, we get the result of the first outer step (second top video).
+</span>
+ </p><br>
+</div>
+
+
+
+
+<h2 id='can-we-learn-robust-creatures-with-sensorimotor-capabilities-'>Can we learn robust creatures with sensorimotor capabilities ?</h2>
+
+<div class="side-highlight">
+<div class="highlight-text">
+<i>When we talk about sensorimotor capability, we expect agents that are able to robustly perform goals
+ (such as moving toward the opposite edge of the CA grid) under a variety of environmental conditions, involving 
+the processes of sensing the environment and acting upon it.</i>
+</div>
+</div>
+<p>In the previous section, we have shown how to learn rules in Lenia leading to the emergence of agents with <i>moving capacity.</i> However this was done in a neutral environment, where agents did not have to cope with any external perturbations. When we talk about <i>sensorimotor capability</i>, we expect agents that are able to robustly perform goals (such as moving toward the opposite edge of the CA grid) under a variety of environmental conditions, involving the processes of <i>sensing</i> the environment and <i>acting</i> upon it. To find sensorimotor capable agents, we want to train them on a variety of tasks that are not only specified by a goal (2D position on the CA grid) but also by an environmental configuration (everything that is "outside" of the agent and that challenges goal achievement). <strong>The effectiveness of training agents on a curriculum of tasks (curriculum of goals but also curriculum of environmental configurations per goal) has been shown to foster the emergence of generally capable agents</strong> <dt-cite key="team2021open"></dt-cite>. However, environment design and task generation is not trivial within the enactivist CA paradigm. Contrary to works where there are clear distinctions between agent&#x2F;environment and sensors&#x2F;actuators, in our framework there is only an environment made of low-level particles and a sensorimotor macro-behavior can only emerge from the application of local rules. Environmental perturbations must be specified as a controllable subpart of the particle rules&#x2F;physics we want to impose in our system, while the remaining rules&#x2F;physics are left free and learnable as the ones leading to interesting behaviors like emergence of sensorimotor agency.</p>
+
+<p>In this work, we focus on modeling <i>obstacles</i> in the environment physics and propose to probe the agent sensorimotor capability as its performance to move forward under a variety of obstacle configurations. This section explains how we model the agent-obstacle interactions in Lenia and how our training method integrates the generation of a curriculum of stochastic goals and obstacle configurations, leading to the emergence of sensorimotor capable creatures.</p>
+
+<h3 id='-modeling-agentenvironment-interactions-in-lenia-the-example-of-obstacles-'> Modeling agent-environment interactions in Lenia, the example of obstacles. </h3>
+
+  <div id="schemeLeniaWall" class="l-screen-inset" style="position:relative">
+  <img src="public/LeniaWall.svg" alt="scheme" style="width:95%">
+  <div id="formulasDisplay" style="position:absolute;display:none;left:0%; top:0%;width:100%;height:100%;background-color: rgba(255,255, 255, 0.9);z-index:4;">
+
+<div style="position:absolute; left:5%; top:0%;border-radius:5px;background-color: rgba(255, 255, 255, 0.9)">
+    <p>
+    $$ A^{t+1}= \left[A^t +\frac{1}{\textcolor{#00c8c8}{T}}  \left(G_{wall}(K_{wall}*A^t_1) +\sum_k \textcolor{#008000}{h^k} G_k(K_k * A^t_0) \right) \right]^1_0 $$
+  </p>
+
+<div class="row">
+
+
+    <div class="column">
+<!--
+     $$ K_k= x \rightarrow \left( \sum_i^{n} \textcolor{#0000c8}{b_i^k} exp(-\frac{(\frac{x}{\textcolor{#0000c8}{r^k} \textcolor{#baba40}{R}}-\textcolor{#0000c8}{rk^k_i})^2}{2(\textcolor{#0000c8}{w^k_{i}})^2}) 
+\right) \mathbb{I}_{x\leq \textcolor{#0000c8}{r^k} \textcolor{#baba40}{R}}     sigmoid(-10(\frac{x}{\textcolor{#0000c8}{r^k} \textcolor{#baba40}{R}}-1))$$
+--->
+     $$ K_k= x \rightarrow \left( \sum_i^{n} \textcolor{#0000c8}{b_i^k} exp(-\frac{(\frac{x}{\textcolor{#0000c8}{r^k} \textcolor{#baba40}{R}}-\textcolor{#0000c8}{rk^k_i})^2}{2(\textcolor{#0000c8}{w^k_{i}})^2}) 
+\right)  sigmoid(-10(\frac{x}{\textcolor{#0000c8}{r^k} \textcolor{#baba40}{R}}-1)) $$
+    </div>
+    <div class="column">
+      $$ K_{wall}= x \rightarrow   exp(-\frac{(\frac{x}{2})^2}{2})    sigmoid(-10(\frac{x}{2}-1)) $$
+<!--$$ K_{wall}= x \rightarrow   exp(-\frac{(x)^2}{2}) \mathbb{I}_{x \leq2}    sigmoid(-10(\frac{x}{2}-1))$$-->
+    </div>
+  </div>
+  <div class="row">
+    <div class="column">
+      $$ G_k= x \rightarrow 2*exp(-\frac{(x-\textcolor{#c80000}{m^k})^2}{2(\textcolor{#c80000}{s^k} )^2})-1  $$
+
+      <!---exp(-\frac{(x-m^k)^2}{2(s^k)^2})\mathcal{N}(\frac{x}{r^kR},m^k,s^k)-->
+    </div>
+    <div class="column">
+      $$ G_{wall}= x \rightarrow -10 max(0,(x-0.001))  $$
+    </div>
+  </div>
+<p style="text-align:center;"> The sigmoid term is only a smooth and differentiable  version of \( \mathcal{1}_{x\leq r^k R }  \)<p>
+
+
+
+<p style="text-align: center">
+<b>Parameters:</b><br>
+<span style="color:rgba(186,186,40,0.8)">
+R maximum radius of a kernel</span><br>
+<span style="color:rgba(0,175,175,0.8)">
+T time scale </span><br>
+
+<span style="text-decoration:underline">For each kernel:<span>
+<div class="row">
+  <div class="column">
+    <ul>
+    <li style="color:rgba(0,0,175,0.8)">w  \( \in [0,1]^n \) width of the guassian bumps</li>
+    <li style="color:rgba(0,0,175,0.8)">b  \( \in [0,1]^n \) height of the guassian bumps </li>
+  </ul>
+
+  </div>
+  <div class="column">
+    <ul>
+    <li style="color:rgba(0,0,175,0.8)">rk \( \in [0,1]^n \) shift of gaussian bumps from center of kernel </li>
+    <li style="color:rgba(0,0,175,0.8)"> r   \( \in [0,1] \) relative radius  </li>
+  </ul>
+  </div>
+
+
+  <div class="column">
+    <ul>
+    <li style="color:rgba(175,0,0,0.8)">m mean in growth function</li>
+    <li style="color:rgba(175,0,0,0.8)">s variance/size in growth function </li>
+  </ul>
+  </div>
+
+  <div class="column">
+    <ul>
+    <li style="color:rgba(0,128,0,0.8)"> h   \( \in [0,1] \) weight of the kernel </li>
+  </ul>
+  </div>
+</div>
+</p>
+</div>
+</div>
+ <div style="position:absolute; left:65em; top:10%;border-radius:5px; background-color: rgba(0, 0, 0, .25);z-index:5;" onmouseover="document.getElementById('formulasDisplay').style.display='block';" onmouseout="document.getElementById('formulasDisplay').style.display='none';"> Formulas </div>
+  </div>
+ <p  style="font-size: 19px;color:#000000;text-align:center;" class="l-middle-outset">
+Update step in our Lenia System with obstacle channel<br>
+ <span style="font-size: 14px;color:#A0A0A0;">The obstacle channel is another parallel grid which allows to put obstacles in the environment by putting 
+some of the pixels of this grid to 1. These obstacles will have a direct impact (through a fixed local rule) on the learnable channel 
+as it will prevent any growth of the creature where obstacles are present.
+You can hover on the Formulas button to see the corresponding Lenia's equations.</span>
+</p><br>
+
+<p>The multi-channel aspect of Lenia allows the implementation of different types of cells&#x2F;particles. To implement obstacles in Lenia we added a separate "obstacle" channel with a kernel going from this channel to the learnable "creature" channel. This kernel triggers a severe negative growth in the pixels of the learnable channel where there are obstacles but has no impact on other pixels where there are no obstacles (very localized kernel). This way we prevent any growth in the pixels of the learnable channel where there are obstacles.</p>
+
+<div class="l-page side">
+<div id="orbicol">
+<div class="row">
+    <div class="column">
+      <video id="robust" width="95%" autoplay loop muted="" class="videoShow">
+                    <source src="public/orbium.mp4" type="video/mp4">
+                  </video>
+    </div>
+    <div class="column">
+      <video id="robust" width="95%"  autoplay loop muted="" class="videoShow">
+                    <source src="public/orbiumWallb.mp4" type="video/mp4">
+                  </video>
+    </div>
+
+  </div>
+<p  style="font-size: 14px;color:#A0A0A0;text-align:center;">
+
+a )  Orbium (glider like in Lenia obtained by hand made mutation) dies from perturbation by obstacles
+</p>
+</div>
+<div id ="complexCol">
+<div class="row">
+    <div class="column">
+      <video id="robust" width="95%" autoplay loop muted="" class="videoShow">
+                    <source src="public/aquariumWall2.mp4" type="video/mp4">
+                  </video>
+    </div>
+    <div class="column">
+      <video id="robust" width="95%"  autoplay loop muted="" class="videoShow">
+                    <source src="public/multiK4.mp4" type="video/mp4">
+                  </video>
+    </div> 
+  </div>
+<p  style="font-size: 14px;color:#A0A0A0;text-align:center;">
+
+b)   In the creatures found by handmade random exploration, some die from perturbation by the obstacle while some 
+by luck are able to resist these perturbations. 
+</p>
+</div>
+
+
+<div id="gradientWall">
+<div class="row">
+    <div class="column">
+      <video id="robust" width="95%" autoplay loop muted="" class="videoShow">
+                    <source src="public/move7Wall.mp4" type="video/mp4">
+                  </video>
+    </div>
+    <div class="column">
+      <video id="robust" width="95%"  autoplay loop muted="" class="videoShow">
+                    <source src="public/move6Wall.mp4" type="video/mp4">
+                  </video>
+    </div>
+ 
+  </div>
+<p  style="font-size: 14px;color:#A0A0A0;text-align:center;">
+
+c) Creatures obtained in the previous section 
+(which were trained to move forward without external perturbations) die from collision with obstacles. 
+</p>  
+
+<div class="row" id="resistColliDie">
+    <div class="column">
+      <video id="robust" width="95%" autoplay loop muted="" class="videoShow">
+                    <source src="public/move9wall.mp4" type="video/mp4">
+                  </video>
+    </div>
+    <div class="column">
+      <video id="robust" width="95%"  autoplay loop muted="" class="videoShow">
+                    <source src="public/move9dot.mp4" type="video/mp4">
+                  </video>
+    </div>
+
+</div>
+<p  style="font-size: 14px;color:#A0A0A0;text-align:center;">
+
+d) Some creatures obtained in the previous section resist some collisions (left) but often die from other collisions (right). The 
+creature is the same in both videos.
+</p>  
+</div>
+</div>
+<p>The learnable channel cells can only sense the obstacles through the changes&#x2F;deformations it implies on it or its neighbours. In fact, as the only kernel that goes from the obstacle channel to the learnable channel is localized, if a macro agent emerges it has to "touch" the obstacle to sense it. To be precise the agent can only sense an obstacle  because its interaction with the obstacle will perturb its own configuration and dynamics (i.e. its shape and the interaction between the cells constituting it). This is similar to experiments with swarming bacteria <dt-cite key="PhysRevE.101.012407"></dt-cite>, where the swarm agent must learn to collectively avoid antibiotic zones (externally-added obstacles) where the bacteria can't live.</p>
+
+
+<p>
+Additionally, we impose the obstacles to stay still, meaning that there is no rule that goes toward 
+(and hence no update of) the obstacle channel
+ . As such, an update step in the final system is summarized in the
+ <a href="#schemeLeniaWall">above figure</a> 
+ with the channel 1 being the learnable channel while the channel 2 is the obstacle channel.</p>
+
+<p>To grasp the impact of the new obstacle channel and physics, we then tested how the previously-found moving creatures react to this environment.</p>
+
+<p>The creatures found by hand in Lenia are not very robust to this new environment physics. A glider type of creature that was found in 1-channel Lenia dies from most collisions with external obstacles (<a href='#orbicol'>figure a</a>). Another multi-channel creature (<a href='#complexCol'>figure b</a> left) dies from special collisions with the wall. Only one multi-kernel creature was able to sense the wall and resist perturbation, but even this required us to manually slow down Lenia's time (parameter T) so that the creature can make smaller updates. And even then, the creature movements are kind of erratic.</p>
+
+
+<p>Similarly, the moving creatures obtained with gradient descent and curriculum in the previous section do not display much robustness to collision with obstacles (<a href='#gradientWall'>figure c</a>): only few by luck already have some level of robustness (<a href='#resistColliDie'>figure d</a>). This motivated the need for training methods which, given this environmental physics in the CA paradigm, are able to learn the parameters leading to the emergence of agency and sensorimotor capabilities with better resilience to perturbations. </p>
+<h3 id='training-method-with-stochastic-environmental-perturbations'>Training method with stochastic environmental perturbations</h3>
+<img id="figConfigOb" src="public/Merge.svg" alt="schemeLearn" width="100%" class="l-middle" >
+<p  style="font-size: 19px;color:#000000;text-align:center;" class="l-middle">
+Two different configurations of obstacles during training<br>
+ <span style="font-size: 14px;color:#A0A0A0;">
+The inner optimization samples diverse positions of obstacles allowing generalization as it induces, during training,
+ different perturbations on the agents. 
+For instance this figure displays 2 examples of sampled configurations (blue circles positions) and we can see that
+ the perturbations on the creature structure/morphology are totally different in left and right figure.
+</span>
+</p>
+     
+
+<p>To learn the rules leading to the emergence of a creature that would resist and avoid various obstacles in its environment, we simply introduce (randomly generated) obstacle configurations within the training process, as shown in red in the training pseudocode. This way, the inner loop (goal-directed gradient descent) becomes stochastic gradient descent with the stochasticity coming from the sampling of the obstacles. The learning process will thus encounter a lot of different obstacle configurations and may find a general behavior.  In practice, we only put obstacles in half the lattice grid. This way, as shown in the <a href='#figConfigOb'>above figure</a>, the first half of the grid is free from obstacles which allows to first learn a creature that is able to move without any perturbation, as it was done in the previous section. Then, as we push the target further and further, the creature starts to encounter obstacles. And the deeper the target position is, the more it encounters obstacles and so the more robust it should be. The curriculum is made by going further and further because the further you go the more you will have to resist obstacles. In the IMGEP, at the end of each goal-directed inner optimization, the goal achievement is measured as the distance between the target position and the average position attained on different other random configurations of obstacles.</p>
+<div clas=l-body>
+ <pre>
+ <code  style="line-height:0.4">
+      <p>Perform random policies in Lenia saving the obtained (parameters, reached goal) tuples in history  \(\mathcal{H} = (p_i,rg_i)_{i=1,..s}\)</p>
+     <p>Loop (number of IMGEP step) </p>
+     <div style="margin:25px">
+     <p >   Sample target position/goal(not too far from reached positions in the history \(\mathcal{H} \)  )</p>
+    <p >   Select, from the history , the parameters that achieved the closest position/goal </p>
+    <p > Initialize  the system with those parameters   </p>
+     <p>   Loop (number of optimisation steps)</p>
+     <div style="margin:25px">
+     <p style="color:rgba(255,0,0,0.5)">       Sample random obstacles  </p>
+     <p>       Run lenia </p>
+     <p>       Gradient descent toward the target shape at target position to optimize the parameters</p>
+	<p> Initialize the system with those optimized parameters</p>
+   </div>
+<br>
+<p>   See what is  the <span style="color:rgba(255,0,0,0.5)"> mean <span> position(ie goal) achieved 
+<span style="color:rgba(255,0,0,0.5)"> over several random obstacles runs <span></p>
+<p style="color:rgba(255,0,0,0.5)"> Loop (number of random run)</p>
+<div style="margin:25px">
+<p style="color:rgba(255,0,0,0.5)">       Sample random obstacles  </p>
+     <p>       Run lenia </p>
+   <p style="color:rgba(255,0,0,0.5)">       Add reached goal to the mean </p>
+</div>
+<p> If the creature died or exploded during one of the tests, don't save </p>
+<p> Else, add to history the parameters resulting from optimization and the <span style="color:rgba(255,0,0,0.5)"> mean </span> outcome/goal
+ reached   \(\mathcal{H} =\mathcal{H} \cup (p^\star,rg )\) </p>
+   </div>
+ </code>
+ </pre>
+ </div>
+
+
+<p>The success of the method to produce rules that lead to the emergence of sensorimotor agents highly depends on the IMGEP initialization (first line of the pseudocode). We refer to the <a href='#badInit'>overcoming "bad initialization"</a> section of the appendix for more information on how we solve this problem. Additional <a href='#experimentalDetails'>experimental details</a> are also provided in the appendix.</p>
+<h3 id='robust-moving-creatures-obtained'>Robust moving creatures obtained</h3>
+<p>From the method, we obtain a wide variety of creatures that seem to easily travel through random configurations of obstacles like the ones they saw during training. Over 10 trials of the method with initialization selection (see <a href='#badInit'>appendix</a> for more info on initialization selection), 7 succeeded leading to such creatures. You can find the failure cases in the <a href='#failureCases'>failures cases section</a> of the appendix.</p>
+<div class="row l-screen-inset">
+   
+    <div class="column">
+      <video id="robust" width="95%" controls  autoplay loop muted="" class="videoShow">
+                    <source src="public/resultObstacle.mp4" type="video/mp4">
+                  </video>
+    </div>
+<div class="column">
+      <video id="robust" width="95%" controls  autoplay loop muted="" class="videoShow">
+                    <source src="public/resultObstacle8.mp4" type="video/mp4">
+                  </video>
+    </div>
+<div class="column">
+      <video id="robust" width="95%" controls autoplay loop muted="" class="videoShow">
+                    <source src="public/resultObstacle9.mp4" type="video/mp4">
+                  </video>
+    </div>
+<div class="column">
+      <video id="robust" width="95%" controls  autoplay loop muted="" class="videoShow">
+                    <source src="public/robust2.mp4" type="video/mp4">
+                  </video>
+    </div>
+</div>
+<p  style="font-size: 19px;color:#000000;text-align:center;" class="l-middle-outset">
+The obtained emerging creatures are robust to perturbation by obstacles<br>
+ <span style="font-size: 14px;color:#A0A0A0;">
+The creatures were obtained by adding obstacle perturbations during training.
+This robustness was not observed when the creature was trained to go forward without any perturbation as shown in <a href="#gradientWall">figure c </a> at the 
+beginning of the section.
+The obstacle configurations are totally random and have not been seen during training.
+  In the 3 first videos, yellow corresponds to the learnable channel (where we want the creature to emerge), and blue to obstacles in the system.
+ In the last video, the learnable channel has a custom colormap allowing to see 
+more easily the wide range of continuous states in the creature while the obstacles are 
+in black.
+</span>
+</p>
+
+<h2 id='how-well-do-the-creatures-obtained-generalize-'>How well do the creatures obtained generalize ?</h2>
+
+<p>In this section, we investigate the generalization of the discovered sensorimotor agents to several out-of-distribution perturbations that were not encountered during training. While the creatures were trained on a diversity of obstacle positions (but with fixed number, shape and size), we can imagine a much larger and challenging set of evaluation tasks to assess the agent's general sensorimotor capabilities. Below we show a sample of such possible test tasks, while many more could be envisaged. To better display the versatility of some of the creatures obtained, we keep the same creature for all the demo below except stated otherwise. In the first part of this section, we look at the capabilities of the obtained creatures "alone", without paying attention to creature-creature interactions. In the second part, we test the capabilities of the obtained creatures to interact with each other in the multi creature setting.</p>
+<h3 id='single-creature-setting'><i>Single creature setting</i></h3>
+<h4 id='are-the-creature-long-term-stable-'><strong>ARE THE CREATURE LONG TERM STABLE ?</strong></h4>
+<p>Even if we can not know if the creature is indefinitely stable, we can test for a reasonable number of timesteps. The result is that the successful creatures that were obtained with IMGEP with obstacles seem stable for 2000 timesteps while they have only been trained to be stable for 50 timesteps. This might be because as it learned to be robust to deformation it has learned a strong preservation of the structure to prevent any explosion or dying when perturbed a little bit. And so when there is no perturbation this layer of "security" strongly preserves the structure. However, training a creature only for movement (without obstacles so no perturbation during training) sometimes led to non long term stable creatures. This is similar to what has been observed in <dt-cite key="mordvintsev2020growing"></dt-cite> where training to grow a creature from the same initialization (a pixel) led to patterns that were not long term stable. But adding incomplete&#x2F;perturbed patterns as initialization to learn to recover from them led to long term stability by making the target shape a stronger attractor.</p>
+
+<h4 id='are-the-creatures-robust-to-new-obstacles-'><strong>ARE THE CREATURES ROBUST TO NEW OBSTACLES ?</strong></h4>
+
+<div class="l-middle side">
+ 
+ <div class="row l-page">
+       <div class="column">
+<div>
+          <video autoplay="" loop="" muted="" class="videoShow demoObstacle" style="display:block" id="demoObstacle1">
+              <source src="public/demoObstacle1.mp4" type="video/mp4">
+            </video>
+<video autoplay="" loop="" muted="" class="videoShow demoObstacle" style="display:none" id="demoObstacle2">
+              <source src="public/demoObstacle2.mp4" type="video/mp4">
+            </video>
+<video autoplay="" loop="" muted="" class="videoShow demoObstacle" style="display:none" id="demoObstacle4">
+              <source src="public/demoObstacle4.mp4" type="video/mp4">
+            </video>
+</div>
+       </div>
+     
+       <div class="column">
+         <div class="radio-toolbar" id="optionDiv">
+    <input type="radio" id="demoObstacleButton1" name='optionDemoObstacle'  value="1" checked>
+    <label for="demoObstacleButton1" onclick='changeVideo("demoObstacle","1")'><img style="width:80px;height:56px" src="public/crea1.png"></label><br>
+
+    <input type="radio"  id="demoObstacleButton2" name='optionDemoObstacle'  value="2" >
+    <label for="demoObstacleButton2" onclick='changeVideo("demoObstacle","2")'><img style="width:80px;height:56px" src="public/crea2.png"></label><br>
+
+    <input type="radio"  id="demoObstacleButton4" name='optionDemoObstacle'  value="4">
+    <label for="demoObstacleButton4" onclick='changeVideo("demoObstacle","4")'><img style="width:80px;height:56px" src="public/crea4.png"></label>
+
+</div>
+
+       </div>
+      
+ </div> 
+</div>
+
+<p><strong>The resulting creatures are very robust to wall perturbations and able to navigate in difficult environments</strong><strong> with</strong><strong> various </strong><strong>unseen</strong><strong> </strong><strong>configurations of obstacle</strong><strong>s</strong> including vertical walls (see <a href='#glCanvas'>interactive demo</a>). One very surprising emerging behavior is that the creature is sometimes able to come out of dead ends showing how well this technique generalizes. There are still some failure cases, with creatures obtained that can get unstable after some perturbations, but the creatures are most of the time robust to a lot of different obstacles. The generalization is due to the large diversity of obstacles encountered by the creature during the learning. Moreover as it learns to go further, the creature has to learn to collide with several obstacles one after the other and so be able to recover fast but also still be able to resist&#x2F;sense a second obstacle while not having fully recovered.</p>
+<h4 id='are-the-creatures-robust-to-moving-obstacles-'><strong>ARE THE CREATURES ROBUST TO MOVING OBSTACLES ?</strong></h4>
+<video id="model-editing-level-1-video-1"  autoplay loop muted="" class="videoShow l-middle side">
+              <source src="public/harderEnv.mp4" type="video/mp4">
+            </video>
+
+<p>We can make a harder out of distribution environment by adding movement to the obstacles. For example we can do a bullet like environment where the tiny wall disks are shifted by a few pixels at every step. The creature seems quite resilient to this kind of perturbation even if we can see that a well placed perturbation can kill the creature. However, this kind of environment differs a lot from what the creature has been trained on and therefore shows how much the creature learned to quickly recover from perturbations, even unseen ones.</p>
+<h4 id='are-the-creature-robust-to-asynchronous-update-'><strong>ARE THE CREATURE ROBUST TO ASYNCHRONOUS UPDATE</strong><strong> </strong><strong>?</strong></h4>
+  <video id="model-editing-level-1-video-1"  controls="" autoplay loop muted="" class="videoShow l-middle side">
+                <source src="public/asynchro.mp4" type="video/mp4">
+              </video>
+
+<p>As done in <dt-cite key="mordvintsev2020growing"></dt-cite>, we can relax the assumption of synchronous update (which assumes a global clock) by adding a stochastic update. By applying a mutation mask on each cell, which is toggled on average 50% of the time, we get partial asynchronous updates. The creature we obtained with the previous training with synchronous updates seems to behave "normally" with stochastic updates. The creature is slowed a little bit but this is what we can expect as each cell is updated on average 50% of the time.</p>
+<h4 id='are-the-creature-robust-to-change-of-scale-'><strong>ARE THE CREATURE ROBUST TO CHANGE OF SCALE ?</strong></h4>
+<video id="model-editing-level-1-video-1"  controls="" loop muted="" class="videoShow l-middle side">
+              <source src="public/smallerDie.mp4" type="video/mp4">
+            </video>
+      <p class="l-gutter"  style="font-size: 12px;color:#A0A0A0;">
+        The grid is the same size as above giving an idea of the scale change (kernel radius*0.4)
+      </p>
+
+<p>We can change the scale of the creature by changing the radius of the kernels as well as the size of the initialization square (with an approximate resize). This is a surprising generalization as it completely changes the number of cells constituting the macro entity. We can make much smaller creatures that therefore have less pixels to do the computation. This scale reduction has a limit but we can get pretty small creatures. The creatures still seem to be quite robust and be able to sense and react to their environment while having less space to compute. We can also do it the other way around, and have much bigger creatures that therefore have more space to compute (but also more cells to organize). Interestingly, evidence of multi-scale adaptivity is also something that can be observed in biological organisms <dt-cite key="fankhauser1945effects"></dt-cite>.  </p>
+<h4 id='are-the-creatures-robust-to-change-of-initialization-'><strong>ARE THE CREATURES ROBUST TO CHANGE OF INITIALIZATION ?</strong></h4>
+<video id="model-editing-level-1-video-1"   controls="" muted="" class="videoShow l-middle side">
+              <source src="public/initCircleGrad.mp4" type="video/mp4">
+            </video>
+<video id="model-editing-level-1-video-1"   controls="" muted="" class="videoShow l-middle side">
+              <source src="public/initCircle.mp4" type="video/mp4">
+            </video>
+  <video id="model-editing-level-1-video-1"   controls="" muted="" class="videoShow l-middle side">
+                <source src="public/initDie.mp4" type="video/mp4">
+              </video>
+
+<p>While the creature initialization has been learned with a lot of degree of liberty, we can look if the same creature can emerge from other (maybe simpler) initialization. This capacity to converge to the desired shape in spite of a different initialization can be found in nature, as shown in this work from Vandenberg et al. <dt-cite key="Vandenberg2012Tadpole"></dt-cite> on morphogenesis in tadpoles with perturbed structures. This would show how the learned CA rule is prone to encode, grow and maintain a target shape. In fact, as the creature learned to recover from perturbed morphology, we can expect the shape to be a strong attractor thus letting more freedom on the initialization. Indeed, what we find in practice is that the creature can emerge from other initializations, especially as shown here from a circle with a gradient (need some asymmetry to initiate movement as the kernels are fully symmetric). Bigger initializations also lead to multiple creatures forming and separating from each other (see next section for more about individuality). However the robustness to initialization is far from being perfect as other initializations easily lead to death, like for example here a circle of inappropriate size.</p>
+
+<h4 id='do-the-creatures-react-to-body-damages'><strong>Do the creatures react to body damages?</strong></h4>
+
+ <video id="robust" width="95%"  autoplay  controls="" loop muted="" class="l-middle side videoShow">
+               <source src="public/damageHand.mp4" type="video/mp4">
+             </video>
+
+<p>In order to navigate,<strong> </strong>the creature first needs to sense the wall through a deformation of the macro structure. Then after this deformation it has to make a collective "decision"<strong> </strong>on where to grow next and then move and regrow its shape. We can even do the deformation ourselves by suppressing a part of the creature, the result is that the creature is effectively changing direction as if an obstacle was present. This confirms that <strong>the perturbation of the macro structure is what leads to the direct change of direction</strong>.  It's not clear <a href='#kernelsVis'>looking at the kernels activity</a> which ones (of the kernels) are responsible for these decisions if not all. How the decision is made remains a mystery. Moreover some cells don't even see the deformation because they're too far away, meaning that some messages from the one sensing it have to be transmitted.</p>
+
+<h3 id='multi-creature-setting'><i>Multi creature setting</i></h3>
+<p>By adding more initialization squares in the grid, we can add several macro creatures constituted by identical cells (with the same update rule) letting us observe multiple creatures . As pointed out by R.D. Beer <dt-cite key="PMID:24494612"></dt-cite> , other entities are also part of the environment for the creature and can give rise to nice interactions. <strong>Maturana and Varel</strong><strong>a even refer to this kind of interaction as communication</strong><dt-fn> <strong>Communicative Domain</strong>: "a chain of interlocked interactions such that although the conduct of each organism in each interaction is internally determined by its autopoietic organization, this conduct is for the other organism a source of compensable deformations." <dt-cite key="maturana1980autopoiesis"></dt-cite></dt-fn><strong> </strong><dt-cite key="maturana1980autopoiesis"></dt-cite> . Note that the creature never encountered any other creature during its training and was always alone.</p>
+<h4 id='individuality'><strong>INDIVIDUALITY</strong></h4>
+<video id="robust" width="95%"  autoplay controls="" loop muted="" class="l-middle side videoShow">
+                 <source src="public/demo.mp4" type="video/mp4">
+               </video>
+<p class="l-gutter"  style="font-size: 13px;color:#A0A0A0;  "> 
+For this creature displayed here, we had to tune by hand the kernel after the training in order to get individuality. But we sometimes obtain individuality directly from the training.
+</p>
+<p>Some creatures obtained show strong individuality preservation. <strong>In fact,</strong> <strong>creatures go in non destructive interactions most of the time without merging</strong><strong>, despite the fact that they're all made from identical cells</strong>. If individuality isn't obtained during training, we can tune the weight of the growth (especially the limiting growth one) to make the merge of two creatures harder. By increasing those limiting growth kernels, the repeal of two entities gets stronger and they will simply change direction. Individuality has also been observed in the "orbium" creature found by hand in Lenia for example, but it was much more fragile with a lot of collisions that led to destruction or explosion. It&#39;s interesting to notice that  individuality can be obtained as a byproduct of training an agent alone. In fact our intuition is that by trying to prevent too much growth, it learned to prevent any living cell that would make it "too big", including in the multi creature case living cells from other creatures. Over the 10 random trials, 4 of them led to the emergence of creatures with strong individuality preservation.</p>
+<h4 id='attraction'><strong>ATTRACTION</strong></h4>
+<video id="robust" width="95%"  autoplay controls="" loop muted="" class="l-middle side videoShow">
+                 <source src="public/stick.mp4" type="video/mp4">
+               </video>
+
+   <video id="robust" width="95%"  autoplay  loop muted="" class="l-gutter videoShow">
+                 <source src="public/stickFar.mp4" type="video/mp4">
+               </video>
+     <p class="l-gutter" style="font-size: 13px;color:#A0A0A0;  ">
+       If they are too far from each other no attraction.
+     </p>
+
+<p>One other type of interaction between two creatures of the same species (governed by the same update rule&#x2F;physic) is creatures getting stuck together. The two creatures (here it's a different creature than the one shown above) seem to attract each other a little bit when they are close enough, leading to the two creatures stuck together going in the same direction. When they encounter an obstacle and separate briefly, their attraction reassembles them together. Even when they're stuck together, from a human point of view seeing this system, we can still see 2 distinct creatures. This type of behavior is studied in the game of life in <dt-cite key="PMID:24494612"></dt-cite> with the notion of consensual domain.</p>
+
+<h4 id='reproduction'><strong>REPRODUCTION</strong></h4>
+<video id="robust" width="95%"  autoplay  controls="" loop muted="" class="l-middle side videoShow">
+                <source src="public/repro.mp4" type="video/mp4">
+              </video>
+
+<p>Another interesting interaction we observed during collision was "reproduction". In fact, for some collision, we could observe the birth of a 3rd entity. This kind of interaction seemed to happen when one of the two entities colliding was in a certain "mode" like when it just hit a wall. Our intuition is that when it hits a wall, it has to have a growth response in order to recover. And during this growth response if we add some perturbation of another entity it might separate this growth from the entity and then this separated mass from strong self-organization grows into a complete individual.</p>
+
+<h2 id='related-work'>Related work</h2>
+<h4 id='theoretical-foundations-of-cognition'><strong>THEORETICAL</strong><strong> FOUNDATIONS OF COGNITION</strong></h4>
+
+
+<p>Cellular automata have been used as a testbed&#x2F;showcase for theories on cognition, identity and life (like what are the necessary parts needed for "life" ?). The game of life was particularly studied <dt-cite key="autopoiesisBeer1754"></dt-cite> and in particular the glider. In fact, to test the cognitive domain of a glider  R.D.Beer looked at all the environmental perturbations a glider in the game of life <dt-cite key="PMID:24494612"></dt-cite><dt-cite key="beer2020bittorio"></dt-cite> can take without dying. Taking inspiration from those works, we tried to learn, using modern ML tools, rules of a cellular automaton leading to the emergence of a structure&#x2F;an agent with the capability to resist a maximum of perturbations hence with cognition (according to Maturana and Varela) at a certain level.</p>
+
+<p>On the other hand, Information theory can be used to define more clearly concepts such as individuality, agency and cognition by giving a measure of such concepts <dt-cite key="krakauer2020information"></dt-cite> <dt-cite key="biehlInformationBasedSpatiotemporal2016"></dt-cite>. However, those measures are often very hard to apply in practice to big complex systems such as cellular automata. This is even more the case for continuous cellular automata such as Lenia with often large grids, a lot of steps and large neighborhoods (so a lot of interconnected dependencies).</p>
+
+
+
+
+<h4 id='neural-ca'><strong>NEURAL CA</strong></h4>
+
+<p>Neural cellular automata (NCA) use the flexibility and differentiability of neural networks to express and learn the update rule for a variety of tasks <dt-cite key="mordvintsev2020thread:"></dt-cite>. NCA have been used to learn cells to grow and regenerate a desired shape in case of damage <dt-cite key="mordvintsev2020growing"></dt-cite>, self-organize in a texture <dt-cite key="niklasson2021self-organising"></dt-cite>, classify handwritten digit in a decentralized way <dt-cite key="randazzo2020self-classifying"></dt-cite>, perform complex image segmentation tasks <dt-cite key="sandler2020image"></dt-cite> or even be the circuits computing the action from inputs in a task <dt-cite key="variengien2021selforganized"></dt-cite>. Taking advantage of the shared local learning rules, NCA are able to perform complex tasks with very little number of parameters (few thousands) in comparison to current deep learning models. For comparison, the Lenia rule in this work only has 130 parameters and yet is able to produce relatively advanced sensorimotor-like behaviors.  Another NCA study <dt-cite key="randazzo2021adversarial"></dt-cite> explores how we can perturb the cohesive communication between cells in order to change the behavior of the whole "entity", using adversarial attack either with transformation of some cell states or with rogue cells. More details comparing the NCA model <dt-cite key="mordvintsev2020growing"></dt-cite> with our Lenia system can be found <a href='#receptiveField'>in the appendix</a>. </p>
+
+
+
+
+
+
+
+
+
+
+
+
+<h4 id='swarm-robotics'><strong>SWARM ROBOTICS</strong></h4>
+<p>We can draw parallels with swarm robotics which dictates how several agents should sense and communicate locally in order to arrange themselves in the group and  in their environment <dt-cite key="Brambilla2012SwarmRA"></dt-cite>. Work in swarm robotics is inspired by nature (ants, bees, fish, birds etc) and  covers various areas of navigation like collective exploration <dt-cite key="10.1007&#x2F;978-4-431-65941-9_30"></dt-cite> <dt-cite key="6094454"></dt-cite>, Coordinated motion <dt-cite key="Baldassarre2007selfOrga"></dt-cite>,<dt-cite key="5175366"></dt-cite>, or even Collective decision-making <dt-cite key="10.1371&#x2F;journal.pone.0151834"></dt-cite> .  In those works, the swarm is composed of entities that already have a quite high level of cognition. This differs from our work where the entities composing the agent (the pixels ) are more abstract and on a lower level of cognition. However, the multi agents setting we present in this work could be seen as a swarm of higher cognition agents. </p>
+
+<h4 id='voxel-based-soft-robots'><strong>VOXEL BASED SOFT ROBOTS</strong></h4>
+
+<p>Voxel based soft robots are composed of several tiny blocks&#x2F;entities glued together that can contract (actuator). The contractions are either automatic contractions <dt-cite key="horibe2021regenerating"></dt-cite> <dt-cite key="10.1145&#x2F;2739480.2754662"></dt-cite> or with independent controller in every block using feedback from the environment <dt-cite key="10.1162&#x2F;isal_a_00223"></dt-cite>. Other studies on automatic contraction robots focused on  shapeshift to recover from injury <dt-cite key="Kriegman2019AutomatedSF"></dt-cite>. </p>
+
+<p>Works on soft robotics have focused on designing the morphology of soft robots using cellular automata  as builders of the morphology, as well as responsible for regeneration <dt-cite key="horibe2021regenerating"></dt-cite>. Whereas they separate building and regenerating into two different CA, our work learns a single global CA rule for everything (every function :building, moving, regenerating creatures and changing direction in response to perturbation ).</p>
+
+
+
+
+
+<h4 id='coevolving-the-morphology-and-the-controller'><strong>CO-EVOLVING THE MORPHOLOGY AND THE CONTROLLER</strong></h4>
+<p>Evolving the morphology to find good (and diverse) morphology for a task (with the associated global controller) has been studied in <dt-cite key="zhao2020robogrammar"></dt-cite> <dt-cite key="DBLP:journals&#x2F;corr&#x2F;abs-1906-05370"></dt-cite> <dt-cite key="Ha2018designrl"></dt-cite> . However, in those works the morphology is fixed during the simulation, which is not the case in our system.</p>
+
+
+<p> Pathak et al <dt-cite key="pathak19assemblies"></dt-cite> worked on the dynamical self assemblies of simple entities in order to build a bigger modular agent able to move in space. In this work, each tiny entity (limb) has a motor and is capable of linking to other close entities (during simulation) leading to the assembly of complex morphologies during the simulation. Each limb is independent and acts using its own information as well as the information from its neighbors. Each entity (limb) in this work is at a "good" level of cognition with concrete action such as linking or contracting.</p>
+
+
+<h4 id='open-ended-exploration-'><strong>OPEN ENDED </strong><strong>EXPLORATION </strong></h4>
+
+<p>The application of intrinsically-motivated goal exploration processes for the automated discovery of self-organizing patterns in Lenia follows population-based IMGEP systems in <dt-cite key="reinke2020intrinsically"></dt-cite><dt-cite key="etcheverry2020hierarchically"></dt-cite> but differs in the IMGEP objective (choice of the goal space that one aim to cover) and goal-achievement strategy (local goal-directed optimizer). More specifically, previous work aimed to explore as much as possible the system by targeting diverse goals in an unsupervisedly-learned goal space <dt-cite key="reinke2020intrinsically"></dt-cite>; and even expanding the search in an open-ended manner toward diverse (possible types of) diversity representations with dynamic and modular goal spaces, which was called <i>meta-diversity search</i> <dt-cite key="etcheverry2020hierarchically"></dt-cite>. Here, we manually specified a goal achievement measure (distance to target position and target shape) where we see problem-solving as the emergence of localized, moving and resilient patterns. However, whereas previous work used a very basic nearest-neighbor goal-achievement strategy, our work relies on stochastic gradient descent for the local optimization of the (sensitive) parameters of the complex system, which has shown to be very powerful. While not a central contribution of our work, it is the first in the population-based IMGEP literature where gradient descent and stochasticity handling are used for local optimization in the dynamical system. In future work, it could be interesting to combine the two approaches for doing some quality-diversity search, e.g. aiming to find a diversity of creature morphologies that are all sensorimotor-performant in Lenia.</p>
+
+
+<h2 id='discussion'>Discussion</h2>
+<div class="side-highlight">
+<div class="highlight-text">
+<i>The computation of decision is done at the macro (group) level, showing how a group of simple identical entities can make "decision" and "sense"
+ at the macro scale through local interactions only, and without a clear notion of body/sensor/actuator.</i>
+</div>
+</div>
+<p>In closing this blogpost, let us reiterate that what is interesting in such a system is that the computation of decision is done at the macro (group) level, showing how a group of simple identical entities can make "decision" and "sense" at the macro scale through local interactions only, and without a clear notion of body&#x2F;sensor&#x2F;actuator. Seeing the discovered creatures, it's even hard to believe that they are in fact made of tiny parts all behaving under the same rules. While some basic sensorimotor capabilities (spatially localized and moving entities) has already been found in Lenia with random search and basic evolutionary algorithms, this work makes a step forward showing how <strong>Lenia's low-level rules can self-organize robust sensorimotor agents with strong adaptivity and generalization to out-of-distribution perturbations</strong><strong>. </strong></p>
+
+<p>Moreover, this work provides a more systematic method based on gradient descent, diversity search and curriculum-driven exploration to easily learn the update rule and initialization state, from scratch in high dimensional parameters space, leading to the emergence of different robust creatures with sensorimotor capabilities. We believe that the set of tools presented here can be useful in general to discover parameters that lead to complex self-organized behaviors. </p>
+
+<p>Yet, most of the analyses we make in this work are subjective.  Future work might want to have a better definition of agency and sensorimotor capabilities by defining a measure of such behavior. <dt-cite key="krakauer2020information"></dt-cite> <dt-cite key="biehlInformationBasedSpatiotemporal2016"></dt-cite> </p>
+<p>Also, engineering subparts of the environmental dynamics with functional constraints (through predefined channels and kernels) has been crucial in this work to shape the search process <dt-cite key="DBLP:journals&#x2F;corr&#x2F;abs-1901-01753"></dt-cite> towards the emergence of sensorimotor capabilities, as well as used as a tool to analyze more easily these emergent sensorimotor capabilities. An interesting direction for future work is to add even more constraints in the environment such as the need for food&#x2F;energy to survive, the principle of mass conservation, or even the need to develop some kind of memory to anticipate future perturbations. <strong>We believe that richer environmental constraints and opportunities might be a great leap forward in the search for more advanced agent behaviors.</strong> For example, behaviors like competition between individuals&#x2F;species for food, foraging or even basic forms of learning might emerge. From this competition and new constraints, interesting strategies could emerge as a form of autocurricula, as in <dt-cite key="baker2020emergent"></dt-cite> <dt-cite key="DBLP:journals&#x2F;corr&#x2F;abs-1710-03748"></dt-cite>. </p>
+
+<div class="side-highlight">
+<div class="highlight-text">
+<i>In fact, beyond individual capabilities, we could even wonder under what conditions one could observe the emergence
+ of  an open-ended evolutionary process <dt-cite key="stanley2017open"></dt-cite> directly in the environment, without any outer algorithm, resulting
+ in the emergence of agents with increasingly complex behaviors.</i>
+</div>
+</div>
+
+<p>In fact, beyond individual capabilities, we could even wonder under what conditions one could observe the emergence of  an open-ended evolutionary process <dt-cite key="stanley2017open"></dt-cite> directly in the environment, without any outer algorithm, resulting in the emergence of agents with increasingly complex behaviors. Like building the physical rules of an "Universe" and letting agency and evolution emerge from the interactions between parts. To achieve this, we might need to use an optimization process similar to the one presented in this blogpost to evolve all the environmental rules instead of pre-specifying some of them by hand. Indeed, while the engineering of specific environmental rules facilitates the understanding&#x2F;studying of the results (e.g. talking of "creature" and "wall" channels), having more systematic ways to generate them could take us closer to the fundamental scientific quest of designing open-ended artificial systems with forms of functional life and agency "as it could be". </p>
+
+<p>Despite those fundamental scientific questions, future work might also consider the biological implications and applications of this work. Inferring low-level rules to control complex system-level behaviors is a key problem in regenerative medicine and synthetic bioengineering <dt-cite key="pezzulo2015re,pezzulo2016top"></dt-cite>. In this regard, cellular automata offer an interesting framework to model, understand and control the emergence of growth, form and function in self-organizing systems. However, they remain abstract toy models: entities in the CA exist on a predefined grid topology whereas physical entities have continuous position and speed ; states in the CA are well-defined whereas it is not clear where and how information is processed in living organisms; rules in the CA operate at a predetermined scale whereas real-world processes operate at nested and interconnected scales. Far from trivial, transferring insights from artificial systems to real physical and biological systems is an exciting area of research with a potential broad range of medical, environmental and societal applications <dt-cite key="kriegman2020scalable,ebrahimkhani2021synthetic"></dt-cite>.</p>
+<p> </p>
+
+
+</dt-article>
+
+<dt-appendix>
+
+<h1>Appendix</h1>
+<span id="appendix"><span>
+<h2 id='acknowledgements'>Acknowledgements</h2>
+<p>The authors acknowledge support from the INRIA Bordeaux center for funding this work. We would like to thank Alexander Mordvintsev and his team for providing an <a href='https://github.com/znah/gdocs_distill_template'>easy tool for collaborative writing</a> of this article, as well as for inspiration for our work. We would also like to thank Michael Levin and his team for useful inputs and interesting discussions for future work. This blogpost uses a custom version of the <a href='https://distill.pub/'>distill</a> <a href='https://distill.pub/template.v1.js'>template V1</a>.</p>
+
+<h2>Contributions</h2>
+<p>
+<b>Conceptualization : </b>Every author.<br>
+<b>Methodology : </b>Every author.<br>
+<b>Software : </b> Gautier and Mayalen <br>    
+<b>Supervision : </b> Clément and Pierre-Yves <br>
+<b>Visualizations and videos : </b> Gautier and Bert<br>
+    <b>Writing - original draft : </b> Gautier and Mayalen<br>
+    <b>Writing - review &amp; editing: </b> Every author<br>
+</p>
+
+<h2 id='citation'>Citation</h2>
+<p>For attribution in academic contexts, please cite this work as</p>
+
+<pre class="citation" style="width:790px">Hamon, et al., "Learning Sensorimotor Agency in Cellular Automata", 2022.</pre>
+<p>BibTeX citation</p>
+
+<pre class="citation" style="width:790px">
+@misc{hamon:hal-03519319,
+  TITLE = {Learning Sensorimotor Agency in Cellular Automata},
+  AUTHOR = {Hamon, Gautier and Etcheverry, Mayalen and Chan, Bert Wang-Chak and Moulin-Frier, Cl{\'e}ment and Oudeyer, Pierre-Yves},
+  URL = {https://hal.inria.fr/hal-03519319},
+  YEAR = {2022},
+  MONTH = Jan,
+  HAL_ID = {hal-03519319},
+  HAL_VERSION = {v1},
+}
+</pre>
+
+<h2 id='overcoming-bad-initialization-problem'>Overcoming "bad initialization" problem</h2>
+<img id="badInit" src="public/dependencies.svg" alt="schemeLearn" width="100%" >
+<p  style="font-size: 17px;color:#000000;text-align:center" >
+Dependencies in the population ( between IMGEP steps (outer loop) )<br>
+ <span style="font-size: 14px;color:#A0A0A0;">
+ The arrows show the dependencies between the creatures, the back of the arrow is the creature which initializes the optimization and the head of the arrow is the creature obtained after optimization. The arrows are only to show how much initialization and first optimization steps matter but dependencies is not used.
+</span>
+</p>
+
+
+
+<p>Note that the random initialization of the history using random parameters and the first steps have a huge impact on the performance of the method. Because it will be the basis on which most of the next optimization will be made. In fact, at the beginning of the method, we select one random initialization and do the first optimization step on top of it. And as it leads to a creature that goes a little bit further, when we sample a new goal we will most of the time select this creature as the basis for the new optimization. Which will lead to a creature going further which in consequence will also be sampled after. And so in most of the runs, most of the creatures are based more or less closely on the random initialization selected and also the first steps. However, if the initialization is "bad" (on a difficult optimization area) or the first IMGEP steps, on which the next will be based, go in the "wrong" optimization direction, optimization problems can arise.</p>
+<p>While training with this algorithm sometimes the optimization could not get creatures getting past the obstacles, and would diverge to exploding or dying creatures. This can be mitigated by adding random mutations before optimizing that could lead to better optimization spots by luck. It may unstuck the situation but the creatures after mutation are often not that good and most of the time far from the previously achieved goal (because mutations often make "suboptimal" creatures that may be slower than the one before mutation) which prevent learning. So mutation can help unstuck the situation but also slows the training. This is why we apply less optimization steps for the mutated one, see <a href='#experimentalDetails'>experimental details</a>.</p>
+<p>This does not solve the problem 100% of the time and that's why we also apply initialization selection. We run the first steps of the method (random initialization and few steps of optimization), until we find an initialization which gives a "good" loss  for the 3 first deterministic targets (placed before the obstacles). Because the first steps will be the basis of most of the creatures and so if it struggles to make a moving creature, it will be hard for it to learn the sensorimotor capabilities on top .This way we only keep the initializations and first steps that learn quickly and seem to have room for improvement. The loss threshold is a hyperparameter.</p>
+
+<h2 id='still-failure-cases'>Still failure cases</h2>
+<span id="failureCases"> </span>
+<p>Even with the initialization selection and small mutations, sometimes the algorithm still gets stuck in local optima zones or in zones where it's easy to diverge. When it happens, most of the time the algorithm  can't reach goal position beyond a certain limit near the beginning of obstacles.</p>
+<video id="robust" width="100%" controls="" autoplay loop muted="" class="videoShow">
+              <source src="public/unstable.mp4" type="video/mp4">
+            </video>
+
+<video id="robust" width="100%" controls="" autoplay loop muted="" class="videoShow">
+              <source src="public/strange210.mp4" type="video/mp4">
+            </video>
+
+<p>Most of the time, the failure cases still display some level of robustness&#x2F;sensorimotor capabilities but are still unstable to specific configurations. However they were only trained for 50 timesteps (2seconds in the clips above) and with always 8 obstacles of the same type (even if their position induced diversity). Further training of the parameters for more robustness should be achievable.  </p>
+<p>In the multi creature case, death and explosion can happen, especially when there are a lot of creatures but the rules  have not been trained in the multi creature setting.</p>
+
+<h2 id='different-target-shape'>Different Target shape.</h2>
+
+
+       
+<p>         To try to have more diversity in the morphology of the creature we tried to change the target shape. In fact as the creature is optimized to fit this shape at the last timestep we can expect that changing this shape may lead to other morphologies.</p>
+       
+
+<p>       </p>
+<p>         However we tried with half circle, star and sharp star without success. For all of these shapes we still obtained roundish morphologies. This may be due to the kernel shape which bias the shape of the creature. However as shown in the appendix, we can optimize the growth toward a complicated gecco shape. The failure of these optimisation may be due to the difficulty added by the fact that we want a moving creature.Thus When we optimize the MSE loss, before trying to make this complicated shape the optimization first learns to get the creature to where it should be, and trying to grow it into this star shape may not be well aligned with this.</p>
+       
+
+
+
+
+      
+
+<p>         We still tried to have a roundish shape different from a single disk. For example we put, as our target, 2 disk targets (defined in <a href='#how-to-discover-spatially-localized--and-moving-agents-in-lenia-'>previous section</a>) close, overlapping a little bit. And the creature it produced was a creature seemingly composed of two roundish creatures stuck together. But the force of their attraction is quite big as even when one of the creatures collides with an obstacle, they keep being stuck. And even when they seem to separate from a collision with an obstacle, they each independently follow the obstacle until they merge again.(However we can see at the end of the clip that they start to explode at the end) This type of behavior might be hard to get from random exploration as small mutation on the CA rule easily break this attraction leading to 2 separate creature going their own way from initialization or even worse lead to repealing creature.</p>
+<p>       </p>
+       <div class="row l-page">
+       <div class="column">
+         <video id="robust" width="100%"  autoplay  controls="" loop muted="" class=" videoShow">
+                       <source src="public/2circlewall.mp4" type="video/mp4">
+                     </video>
+       </div>
+       <div class="column">
+         <img src="public/doubleT.png" width="50%" alt="optimScheme"  >
+       </div>
+     </div>
+
+<h2 id='------mutation-and-breeding-for-diversity'>      Mutation and breeding for diversity</h2>
+      
+<p>         Each time we run the method as we start from parameters randomly chosen, we seem to get different creatures in terms of morphology and also in terms of how they deal with the obstacles. However, as they are all optimized with the same loss and objective (even if the sampling of goal is random), we most of the time still get quite similar creatures. In fact, optimizing toward an objective often doesn&#39;t  give  much diversity. But diversity is very important as it allows us to see what are the common things that a creature with sensorimotor capabilities should have, if there are any. Diversity can also give us unexpected solutions or behavior, and even those that don&#39;t perform well can be interesting. This is even more the case,  when the loss that we optimize is handmade with a particular idea of what the solution should look like; an idea that might overshadow a solution that we didn&#39;t think of. Also, adding diversity in our method could help to solve the fact that the method sometimes gets stuck with some initialization, because some lineage might get stuck but some might also succeed and give us some solution.</p>
+<p>       </p>
+
+
+       <div class="row l-page">
+       <div class="column">
+         <video id="kernels" width="100%" autoplay loop muted="" class="videoShow" >
+                       <source src="public/slalom.mp4" type="video/mp4">
+                     </video>
+       </div>
+       <div class="column">
+         <video id="robust" width="100%" autoplay loop muted="" class="videoShow">
+                       <source src="public/newONE.mp4" type="video/mp4">
+                     </video>
+       </div>
+      
+       <div class="column">
+          <video id="robust" width="100%" autoplay loop muted="" class="videoShow">
+                       <source src="public/ball.mp4" type="video/mp4">
+                     </video>
+
+       </div>
+
+       <div class="column">
+<video id="robust" width="100%" autoplay loop muted="" class="videoShow">
+                       <source src="public/squid.mp4" type="video/mp4">
+                     </video>
+
+
+       </div>
+
+
+      </div>
+
+<p>       </p>
+<p>         Taking inspiration from morphological search with IMGEP in Lenia <dt-cite key="reinke2020intrinsically"></dt-cite><dt-cite key="etcheverry2020hierarchically"></dt-cite>, we could add extra dimension to the target space, like an embedding of the creature morphology. However in practice, if we  also use gradient descent to optimize toward the morphological target, this would interfere too much  with the optimization toward the target position. (because changing the morphology easily break the pattern leading to movement).</p>
+<p>      </p>
+
+     
+<p>        One potential solution to add diversity is to mutate the creature obtained at the end of the method or even breed them. To breed them we can replace some kernels from a creature with the ones of another creature. However, the kernels are often in an equilibrium between each other and some kernels in one creature may be unadapted in another creature. To counter this in practice, when replacing kernels of a creature we keep some parameters of the replaced kernel and only change the other. For example keeping h and s or even m and only changing the shape of the kernel. In fact the weight of the growth h might be unadapted to the other weights of the creature (adding too much growth compared to inhibition and vice versa) and s and m  often are the parameters that tell if the kernel limits growth or boosts growth. (and we don&#39;t want to replace a limiting growth kernel by a boosting growth one and vice versa). The obtained creatures show  different shapes and behaviors like jumping, keeping itself on obstacles etc.</p>
+      
+
+      <div class="row l-page">
+      <div class="column">
+        <video id="robust" width="100%" autoplay loop muted="" class="videoShow">
+                      <source src="public/snaim.mp4" type="video/mp4">
+                    </video>
+      </div>
+      <div class="column">
+        <video id="robust" width="100%" autoplay loop muted="" class="videoShow">
+                      <source src="public/gyran.mp4" type="video/mp4">
+                    </video>
+      </div>
+      <div class="column">
+        <video id="robust" width="100%" autoplay  loop muted="" class="videoShow">
+                      <source src="public/jump.mp4" type="video/mp4">
+                    </video>
+      </div>
+
+
+      <div class="column">
+        <video id="robust" width="100%" autoplay loop muted="" class="videoShow">
+                      <source src="public/fish.mp4" type="video/mp4">
+                    </video>
+      </div>
+
+      <div class="column">
+        <video id="robust" width="100%" autoplay  loop muted="" class="videoShow">
+                      <source src="public/turn.mp4" type="video/mp4">
+                    </video>
+      </div>
+      </div>
+      
+<p>        What would be even more interesting would be to add this kind of high mutation and breeding into the method , for example by seeing the method as a learning phase in an evolutionary algorithm. To do so we would start several runs of the method described above (in parallel if possible), and after a certain number of iterations we would breed and mutate the creatures obtained in these several runs. Then we would use the results of these breeding&#x2F;mutation to initialize other several runs that would begin a new cycle.</p>
+<p>      </p>
+
+
+<h2 id='-attraction-to-environmental-elements'> Attraction to environmental elements</h2>
+      
+      <video id="robust" width="100%" autoplay loop muted="" class="videoShow">
+                    <source src="public/attractLive.mp4" type="video/mp4">
+                  </video>
+
+<p>    Another direction that we started exploring during the internship is to try to learn creatures with the (sensorimotor) capacity of being attracted to some elements in their environment like in nature organisms being attracted to certain chemicals &#x2F; light &#x2F; temperatures; and use this attraction to guide the macro entity. To do this the idea is again to add a channel (the channel where the attractive element is) and rules from the attractive element channel to the learnable creature channel.</p>
+
+<p>However it&#39;s hard to handcraft the rule leading to such behavior. Thus instead of handcrafting the rule like we did before for the environmental elements, we try to learn them as we did for the unity&#x2F;moving&#x2F;sensorimotor capabilities.</p>
+
+
+<p>To find the rules, we used random exploration of the parameters looking at rules leading to attraction. To do this in practice, we initialize the creature channel with rules leading to the emergence of a creature. We then  add a moving disk(going in straight line) in the attractive element channel, and add the new rules from the attractive element channel to the learnable channel. Finally the rules leading to some overlapping of the creature and the disk are selected and are tested by hand to other configurations (other movement of the attractive disk). </p>
+
+<p>However adding extra rules also fragilize equilibrium that existed in the creature rules. The boost of growth that is added with this attraction can easily lead to explosion or death or the negative growth added on some part can also lead to death or explosion (again it creates perturbations it has not been trained to withstand). And in fact some &quot;creature&quot; rules might be better suited for this.  In fact an iterative optimization process might be useful to refine the intra-channel creature rules as well in order to co-adapt and improve both.</p>
+<p> </p>
+
+<p>Finally, we obtain interesting rules like the one displayed here : with the creature being clearly attracted to the dot without being unstable. We can clearly guide the creature and the creature still has it&#39;s sensory-motor capabilities and won&#39;t die if we guide it towards a wall.</p>
+
+<p>Interestingly this attraction rule also works on some other creatures without changing anything (you can test it in the web demo). However it&#39;s not that effective, sometimes it seems like we lose the attraction and also the perturbation can easily lead to explosion or death of the creatures.</p>
+
+<p>We think that a more sophisticated evolutionary algorithm or gradient descent could be used for this task or other environmental element implementation. We tried a little bit gradient descent with target shape which follow the attractive element but didn&#39;t succeed in getting something as good as the random search.</p>
+
+
+<h2 id='kernels-activity-visualization'>Kernels activity visualization</h2>
+
+<p>We can visualize the growth induced by each kernel (all square at the exterior of the figure). The square at the bottom center is the weighted sum of all those growth (+ the growth of the wall) i.e. the total growth of the step. The center top square is the creature channel after the update.</p>
+
+      <video id="kernelsVis" width=85% controls="" muted="" class="videoShow" >
+                    <source src="public/kernels.mp4" type="video/mp4">
+                  </video>
+
+<h2 id='differentiable-lenia-shift'>Differentiable Lenia shift</h2>
+<span id="differentiableLeniaShift"></span>
+
+
+<p>Parameters in Lenia determine the shape of each (kernel, growth function) couple. For example, \(R \in \mathbb{N}\) common to the kernels of all rules controlls the maximum size of a kernel (which is the maximum sensing distance), while for each rule,  \(r \in [0,1]\) gives the relative size of the kernel compared to \(R\).</p>
+
+
+
+<p> However, some of the parameters were not differentiable as they were. In fact in <dt-cite key="chan2019lenia"></dt-cite>, the number of bumps in the kernel (see <a href='#kernelsCompa'>figure below</a> ) is given by the length of a list which can not be differentiated. One option is to let the number of bumps fixed to an arbitrary value (3 for example). However, with a 3 bumps kernels parametrization as in the original paper, you can't recover 2 bumps kernels by putting the height of a bump to 0 (unless you allow to change the maximum sensing radius R which seems unnatural). And thus fixing the number of bumps in the base version restricts a lot the shape of the kernels compared to the original paper where various number of bumps are used.</p>
+
+<img id="kernelsCompa" src="public/freeK.png" alt="schemeK" style="width:95%">
+<p  style="font-size: 14px;color:#A0A0A0;text-align:center;" >
+Comparison between original kernels (left) and kernel used in this blogpost (right).
+ </p>
+
+<p>We therefore introduced a new class of CA with differentiable parameters. To do so, the main shift is to use kernels in the form of a sum of k overlapping gaussian bumps: $$x \rightarrow \sum_i^{k} b_i exp(-\frac{(\frac{x}{rR}-a_i)^2}{2w_i^2}) $$ The parameters controlling the shape are then \(3 k\)-dimensional vectors: \(b\) for height of the bump, \(w\) for the size of the bump and \(a\) for the center of the bump. </p>
+
+<p> </p>
+
+<p>These symmetric "free kernels", while very inspired from Lenia's original "vanilla bumps", allow differentiation and more flexibility&#x2F;expressibility but at the cost of more parameters. In fact, for example an interesting feature of those "free kernels" is that for a fixed k you can easily have the free kernels with \(\leq k\) bumps by putting some heights of bumps close to 0 (And you can even have this happening through gradient descent). </p>
+
+
+
+
+
+
+<p>In Lenia, a growth function \( G: [0,1] \rightarrow [-1,1] \) is any unimodal non-monotonic function that satisfies \( G(\mu)&#x3D;1 \). In this work, we use the continuous exponential growth function \( G(x) &#x3D; 2 \exp \left( - \frac{(x - \mu )^2}{2 \sigma^2} \right) - 1 \) which is differentiable with respect to \(\mu\) and \(\sigma\). </p>
+
+<p>To summarize, the parameters of the update rule are thus those controlling the kernel shape (\(R,r,a,w,b\)), those controlling the growth function (\(\mu,\sigma,h\)) and a time controlling parameter (\(T\)). For a total of \(n\) rules (all channels included) with \(k\) bumps kernels, the number of parameters is \( (3k+4)n + 2 \). In our experiments, R and T are chosen randomly and fixed while all the other parameters are optimized, and we use a total of \(n&#x3D;10\) rules with \(k&#x3D;3\) bumps kernels . So in total we have 132 parameters for the rules from which 130 are optimized.</p>
+
+<h2 id='gecko-experiment'>Gecko experiment</h2>
+<p>To test our model differentiability and "power". We tried to reproduce the experiment from <dt-cite key="mordvintsev2020growing"></dt-cite> trying to grow a gecko shape. In our case, the gecko was  1 channel and the initialization was a 40x40 square optimized. The example displayed here needed 1 hidden channel(with also a 40x40 square optimized) and 40 kernels, and was optimized for 2000 steps. Using less kernel really decreases the performance, especially on the tail. Not optimizing the initialization drastically decreases the performance, leading to an oval shape far from the gecko shape.</p>
+      <video id="kernels" width=85% controls="" muted="" class="videoShow" >
+                    <source src="public/optiminit40Kvid.mp4" type="video/mp4">
+                  </video>
+
+<h2 id='experimental-details'>Experimental details</h2>
+<span id="experimentalDetails"></span>
+
+<p>You can reproduce the main results of this paper using  this <a href='https://colab.research.google.com/drive/11mYwphZ8I4aur8KuHRR1HEg6ST5TI0RW?usp=sharing'>colab notebook </a> .</p>
+<h4 id='lenia-system'>Lenia system</h4>
+
+<ul><li>Grid 256x256</li>
+<li>Size of initialization : 40x40</li>
+<li>Timesteps in a Lenia Rollout 50</li>
+<li>Number of kernels in Lenia: 10</li></ul>
+
+
+
+
+
+
+
+
+
+<h4 id='optimization'>Optimization</h4>
+
+<p>Total IMGEP timesteps : 160 (but fewer can be sufficient) from which 40 are random ones to initialize.</p>
+<p>The first IMGEP steps are deterministic to try to go as far as possible at the beginning. Then all steps sample randomly the target. All the deteministic step don&#39;t mutate the parameters when taking them from history and 115 gradient descent steps are applied. Then 1 out of five timesteps has no mutation and is optimized with 115 optimization steps. The rest have mutation before optimization and are only 15 optimization steps.</p>
+
+<h4 id='parameters-of-the-method'>Parameters of the method</h4>
+<ul><li>Radius of obstacle:10</li>
+<li>Number of obstacles : 8</li>
+<li>Optimizer : Adam learning rate : for Lenia param &#x3D;0.8e-3 , for initialization &#x3D; 0.8 e-2 (on purpose order of magnitude higher in order to "stabilize" it fast so that both don't change at the same time)</li>
+<li>Radius of the target 35 for shallow one 18 for thick one</li></ul>
+
+
+
+
+
+
+
+
+
+
+<h4 id='initialization-selection'>Initialization selection</h4>
+<p> At the first deterministic steps we stop and start over if the loss isn&#39;t under a certain threshold meaning that the optimization is hard with this initialization even at the beginning.  </p>
+
+<h4 id='detection-of-explosion-dying'>Detection of explosion dying</h4>
+
+<p>In practice, to detect explosion or dying, we apply MSE error between the target shape centered at the center of mass of the learnable channel and the learnable channel. If the error is bigger than a threshold we don&#39;t save it to history&#x2F; don&#39;t use it in next steps. </p>
+
+
+
+<h4 id='statistical-results'>Statistical results</h4>
+
+
+
+<p>With this configuration, over 10 trials, we obtained :</p>
+<ul><li>7 creatures robust to obstacles able to navigate.</li>
+<li>From these 7 creatures, 4 of them also display individuality in the multi creature setting.</li></ul>
+
+
+<h2 id='receptive-field-'>Receptive field </h2>
+<span id="receptiveField"></span>
+<p>One major difference between the neural CA model used in <dt-cite key="mordvintsev2020growing"></dt-cite> and Lenia is that the radius of the neighbourhood of each cell that we used is quite big. In fact, in <dt-cite key="mordvintsev2020growing"></dt-cite> they use a Moore neighbourhood (direct neighbours and diagonal) while we use a kernel of large size. The creature displayed in the results has a radius of 38 and we try  radius between 15 and 40 or so during training (but that's an arbitrary choice, even if large radius helps to train fast as creature overlap more easily and from larger distance with the target shape and so we can make larger curriculum steps, having larger target area may also help the MSE optimization ) . However, we can downscale our creature to have a radius of approximately 6. Maybe using a message passing like model, we can get something equivalent with moore neighbourhood of small size. One interesting experiment would be to try to fit a Neural CA on the creature obtained here and see if it can make approximately the same creature with moore neighbourhood. We also think that hidden channels could help in this case maybe by storing some value. One other difference from <dt-cite key="mordvintsev2020growing"></dt-cite> is that our kernels are totally symmetric while theirs have the notion of up and down, right and left which might be helpful if we want the creature to have a prefered direction and know in which direction it is pointing.</p>
+
+
+
+      
+
+   
+</dt-appendix>
+
+<script type="text/bibliography">
+
+  @article{DBLP:journals/corr/abs-1901-01753,
+  author    = {Rui Wang and
+               Joel Lehman and
+               Jeff Clune and
+               Kenneth O. Stanley},
+  title     = {Paired Open-Ended Trailblazer (POET) Endlessly Generating Increasingly
+               Complex and Diverse Learning Environments and Their Solutions},
+  journal   = {CoRR},
+  volume    = {abs/1901.01753},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1901.01753},
+  archivePrefix = {arXiv},
+  eprint    = {1901.01753},
+  timestamp = {Tue, 29 Sep 2020 10:47:58 +0175},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1901-01753.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+  }
+
+@article{randazzo2020self-classifying,
+  author = {Randazzo, Ettore and Mordvintsev, Alexander and Niklasson, Eyvind and Levin, Michael and Greydanus, Sam},
+  title = {Self-classifying MNIST Digits},
+  journal = {Distill},
+  year = {2020},
+  note = {https://distill.pub/2020/selforg/mnist},
+ url={ https://distill.pub/2020/selforg/mnist},
+  doi = {10.23915/distill.00027.002}
+}
+
+  @article{autopoiesisBeer1754,
+    author    = {Randall D. Beer},
+    title     = {Autopoiesis and Cognition in the Game of Life.},
+    journal   = {Artif Life},
+    volume    = {10(3)},
+    year      = {1754},
+    url       = { https://doi.org/10.1162/1064546041255539},
+
+  }
+
+@proceedings{cika2020resilient,
+    author = {Cika, Arta and Cohen, Elissa and Kruszewski, Germán and Seet, Luther and Steinmann, Patrick and Yin, Wenqian},
+    title = {Resilient Life: An Exploration of Perturbed Autopoietic Patterns in Conway's Game of Life},
+    volume = {ALIFE 2020: The 2020 Conference on Artificial Life},
+    series = {ALIFE 2021: The 2021 Conference on Artificial Life},
+    pages = {656-664},
+    year = {2020},
+    month = {07},
+    abstract = "{Complex systems can exhibit autopoiesis–a remarkable capability to reproduce or restore themselves to maintain existence and functionality. We explore the resilience of autopoietic patterns–their ability to recover from shocks or perturbations–in a simplified form in Conway's Game of Life. We subject a large number of autopoietic patterns in the Game of Life to various perturbations, and record their responses using multiple resilience metrics. Our results show that while resilience is rare, we are able to identify structural features improving patterns' resilience. We also draw several parallels between the resilience of patterns in the Game of Life to real-world complex systems. Our work may be useful both for improved searching for resilient patterns in the Game of Life, and for exploring resilience in complex systems.}",
+    doi = {10.1162/isal_a_00305},
+    url = {https://doi.org/10.1162/isal\_a\_00305},
+    eprint = {https://direct.mit.edu/isal/proceedings-pdf/isal2020/32/656/1908496/isal\_a\_00305.pdf},
+}
+
+
+
+@article{beer2020bittorio,
+  title={Bittorio revisited: structural coupling in the Game of Life},
+  author={Beer, Randall D},
+  journal={Adaptive Behavior},
+  volume={28},
+  number={4},
+  pages={197--212},
+  year={2020},
+  publisher={SAGE Publications Sage UK: London, England},
+Url ={https://journals.sagepub.com/doi/10.1177/1059712319859907}
+}
+
+  @misc{chan2020lenia,
+        title={Lenia and Expanded Universe},
+        author={Bert Wang-Chak Chan},
+        year={2020},
+        eprint={1755.03742},
+        archivePrefix={arXiv},
+        primaryClass={nlin.CG},
+        url={https://arxiv.org/abs/2005.03742}
+  }
+
+  @misc{chan2019lenia,
+        title={Lenia - Biology of Artificial Life},
+        author={Bert Wang-Chak Chan},
+        year={2019},
+        eprint={1812.05433},
+        archivePrefix={arXiv},
+        primaryClass={nlin.CG},
+        url = {https://arxiv.org/abs/1812.05433}
+
+  }
+@article{stanley2017open,
+  title={Open-endedness: The last grand challenge you've never heard of},
+  author={Stanley, Kenneth O and Lehman, Joel and Soros, Lisa},
+  journal={O'Reilly Online},
+  year={2017},
+url = {https://www.oreilly.com/radar/open-endedness-the-last-grand-challenge-youve-never-heard-of/}
+}
+  @article{mordvintsev2020growing,
+    author = {Mordvintsev, Alexander and Randazzo, Ettore and Niklasson, Eyvind and Levin, Michael},
+    title = {Growing Neural Cellular Automata},
+    journal = {Distill},
+    year = {2020},
+    note = {https://distill.pub/2020/growing-ca},
+    doi = {10.23915/distill.00023},
+url={https://distill.pub/2020/growing-ca},
+  }
+@article{Trivedi2008SoftRB,
+  title={Soft robotics: Biological inspiration, state of the art, and future research},
+  author={Deepak Trivedi and C. Rahn and W. Kier and I. Walker},
+  journal={Applied Bionics and Biomechanics},
+  year={2008},
+  volume={5},
+  pages={99-117}
+}
+
+  @inproceedings{etcheverry2020hierarchically,
+ author = {Etcheverry, Mayalen and Moulin-Frier, Cl\'{e}ment and Oudeyer, Pierre-Yves},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {H. Larochelle and M. Ranzato and R. Hadsell and M. F. Balcan and H. Lin},
+ pages = {4846--4859},
+ publisher = {Curran Associates, Inc.},
+ title = {Hierarchically Organized Latent Modules for Exploratory Search in Morphogenetic Systems},
+ url = {https://proceedings.neurips.cc/paper/2020/file/33a5435d4f945aa6154b31a73bab3b73-Paper.pdf},
+ volume = {33},
+ year = {2020}
+}
+
+
+
+@inproceedings{reinke2020intrinsically,
+title={Intrinsically Motivated Discovery of Diverse Patterns in Self-Organizing Systems},
+author={Chris Reinke and Mayalen Etcheverry and Pierre-Yves Oudeyer},
+booktitle={International Conference on Learning Representations},
+year={2020},
+url={https://iclr.cc/virtual_2020/poster_rkg6sJHYDr.html}
+}
+
+@InProceedings{horibe2021regenerating,
+author={Horibe, Kazuya
+and Walker, Kathryn
+and Risi, Sebastian},
+editor={Hu, Ting
+and Louren{\c{c}}o, Nuno
+and Medvet, Eric},
+title={Regenerating Soft Robots Through Neural Cellular Automata},
+booktitle={Genetic Programming},
+year={2021},
+publisher={Springer International Publishing},
+address={Cham},
+pages={36--50},
+abstract={Morphological regeneration is an important feature that highlights the environmental adaptive capacity of biological systems. Lack of this regenerative capacity significantly limits the resilience of machines and the environments they can operate in. To aid in addressing this gap, we develop an approach for simulated soft robots to regrow parts of their morphology when being damaged. Although numerical simulations using soft robots have played an important role in their design, evolving soft robots with regenerative capabilities have so far received comparable little attention. Here we propose a model for soft robots that regenerate through a neural cellular automata. Importantly, this approach only relies on local cell information to regrow damaged components, opening interesting possibilities for physical regenerable soft robots in the future. Our approach allows simulated soft robots that are damaged to partially regenerate their original morphology through local cell interactions alone and regain some of their ability to locomote. These results take a step towards equipping artificial systems with regenerative capacities and could potentially allow for more robust operations in a variety of situations and environments. The code for the experiments in this paper is available at: http://github.com/KazuyaHoribe/RegeneratingSoftRobots.},
+isbn={978-3-030-72812-0},
+url={https://link.springer.com/chapter/10.1007/978-3-030-72812-0_3},
+link={https://www.crosslabs.org/blog/regenerating-soft-robots-through-neural-cellular-automata}
+}
+
+
+
+ 
+@proceedings{sudhakaran2021growing,
+    author = {Sudhakaran, Shyam and Grbic, Djordje and Li, Siyan and Katona, Adam and Najarro, Elias and Glanois, Claire and Risi, Sebastian},
+    title = "{Growing 3D Artefacts and Functional Machines with Neural Cellular Automata}",
+    volume = {ALIFE 2021: The 2021 Conference on Artificial Life},
+    series = {ALIFE 2021: The 2021 Conference on Artificial Life},
+    year = {2021},
+    month = {07},
+    abstract = "{Neural Cellular Automata (NCAs) have been proven effective in simulating morphogenetic processes, the continuous construction of complex structures from very few starting cells. Recent developments in NCAs lie in the 2D domain, namely reconstructing target images from a single pixel or infinitely growing 2D textures. In this work, we propose an extension of NCAs to 3D, utilizing 3D convolutions in the proposed neural network architecture. Minecraft is selected as the environment for our automaton since it allows the generation of both static structures and moving machines. We show that despite their simplicity, NCAs are capable of growing complex entities such as castles, apartment blocks, and trees, some of which are composed of over 3,000 blocks. Additionally, when trained for regeneration, the system is able to regrow parts of simple functional machines, significantly expanding the capabilities of simulated morphogenetic systems. The code for the experiment in this paper can be found at: https://github.com/real-itu/3d-artefacts-nca.}",
+    doi = {10.1162/isal_a_00451},
+    url = {https://doi.org/10.1162/isal\_a\_00451},
+    note = {108},
+    eprint = {https://direct.mit.edu/isal/proceedings-pdf/isal/33/108/1930000/isal\_a\_00451.pdf},
+}
+
+
+
+
+  @misc{baker2020emergent,
+        title={Emergent Tool Use From Multi-Agent Autocurricula},
+        author={Bowen Baker and Ingmar Kanitscheider and Todor Markov and Yi Wu and Glenn Powell and Bob McGrew and Igor Mordatch},
+        year={2020},
+        eprint={1909.07528},
+        archivePrefix={arXiv},
+        primaryClass={cs.LG},
+       url={https://arxiv.org/abs/1909.07528}
+  }
+
+  @article{PhysRevE.101.012407,
+    title = {Active modulation of surfactant-driven flow instabilities by swarming bacteria},
+    author = {Kotian, Harshitha S. and Abdulla, Amith Z. and Hithysini, K. N. and Harkar, Shalini and Joge, Shubham and Mishra, Ayushi and Singh, Varsha and Varma, Manoj M.},
+    journal = {Phys. Rev. E},
+    volume = {101},
+    issue = {1},
+    pages = {012407},
+    numpages = {10},
+    year = {2020},
+    month = {Jan},
+    publisher = {American Physical Society},
+    doi = {10.1103/PhysRevE.101.012407},
+    url = {https://link.aps.org/doi/10.1103/PhysRevE.101.012407}
+  }
+@article{DBLP:journals/corr/abs-1710-03748,
+  author    = {Trapit Bansal and
+               Jakub Pachocki and
+               Szymon Sidor and
+               Ilya Sutskever and
+               Igor Mordatch},
+  title     = {Emergent Complexity via Multi-Agent Competition},
+  journal   = {CoRR},
+  volume    = {abs/1710.03748},
+  year      = {2017},
+  url       = {http://arxiv.org/abs/1710.03748},
+  eprinttype = {arXiv},
+  eprint    = {1710.03748},
+  timestamp = {Mon, 13 Aug 2018 16:47:04 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1710-03748.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{Brambilla2012SwarmRA,
+  title={Swarm robotics: a review from the swarm engineering perspective},
+  author={M. Brambilla and E. Ferrante and M. Birattari and M. Dorigo},
+  journal={Swarm Intelligence},
+  year={2012},
+  volume={7},
+  pages={1-41},
+url={https://link.springer.com/article/10.1007/s11721-012-0075-2}
+}
+
+
+  @misc{barnett2021dynamical,
+        title={Dynamical independence: discovering emergent macroscopic processes in complex dynamical systems},
+        author={Lionel Barnett and Anil K. Seth},
+        year={2021},
+        eprint={2106.06511},
+        archivePrefix={arXiv},
+        primaryClass={nlin.AO},
+     url={https://arxiv.org/abs/2106.06511}
+  }
+ 
+@article{krakauer2020information,
+author = {Krakauer, David and Bertschinger, Nils and Olbrich, Eckehard and Ay, Nihat and Flack, Jessica},
+year = {2020},
+month = {06},
+pages = {209–223},
+title = {The Information Theory of Individuality},
+volume = {139},
+journal = {Theory in Biosciences},
+doi = {10.1007/s12064-020-00313-7},
+url={https://link.springer.com/article/10.1007%2Fs12064-020-00313-7}
+}
+
+@article{niklasson2021self-organising,
+  author = {Niklasson, Eyvind and Mordvintsev, Alexander and Randazzo, Ettore and Levin, Michael},
+  title = {Self-Organising Textures},
+  journal = {Distill},
+  year = {2021},
+  note = {https://distill.pub/selforg/2021/textures},
+  doi = {10.23915/distill.00027.003},
+url={https://distill.pub/selforg/2021/textures/}
+}
+
+
+  @article{couzin2005Effective,
+    title={Effective leadership and decision-making in animal groups on the move
+},
+    author={Couzin, I., Krause, J., Franks, N.,Levin, S.},
+    journal={Nature},
+    year={2005},
+    volume={433},
+    pages={513–516},
+   url={https://doi.org/10.1038/nature03236}
+  }
+
+@article{Beer2015CharacterizingAI,
+    title={Characterizing Autopoiesis in the Game of Life},
+    author={R. Beer},
+    journal={Artificial Life},
+    year={2015},
+    volume={21},
+    pages={1-19},
+ url={https://direct.mit.edu/artl/article-abstract/21/1/1/2792/Characterizing-Autopoiesis-in-the-Game-of-Life}
+  }
+
+  @article {PMID:24494612,
+  	Title = {The cognitive domain of a glider in the game of life},
+  	Author = {Beer, Randall D},
+  	DOI = {10.1162/artl_a_00125},
+  	Number = {2},
+  	Volume = {20},
+  	Year = {2014},
+  	Journal = {Artificial life},
+  	ISSN = {1064-5462},
+  	Pages = {183—206},
+  	Abstract = {This article examines in some technical detail the application of Maturana and Varela s biology of cognition to a simple concrete model: a glider in the game of Life cellular automaton. By adopting an autopoietic perspective on a glider, the set of possible perturbations to it can be divided into destructive and nondestructive subsets. From a glider s reaction to each nondestructive perturbation, its cognitive domain is then mapped. In addition, the structure of a glider s possible knowledge of its immediate environment, and the way in which that knowledge is grounded in its constitution, are fully described. The notion of structural coupling is then explored by characterizing the paths of mutual perturbation that a glider and its environment can undergo. Finally, a simple example of a communicative interaction between two gliders is given. The article concludes with a discussion of the potential implications of this analysis for the enactive approach to cognition.},
+  	URL = {https://doi.org/10.1162/ARTL_a_00125},
+  }
+
+  @article{Forestier2017IntrinsicallyMG,
+    title={Intrinsically Motivated Goal Exploration Processes with Automatic Curriculum Learning},
+    author={S{\'{e}}bastien Forestier and Yoan Mollard and Pierre-Yves Oudeyer},
+    journal={ArXiv},
+    year={2017},
+    volume={abs/1708.02190},
+url ={https://arxiv.org/abs/1708.02190}
+  }
+  @book{VarelaThompsonEmbo,
+    title={The embodied mind.},
+    author={Varela ,F. J. and Thompson, E., and Rosch, E.},
+    year={1991}
+
+  }
+
+  @misc{variengien2021selforganized,
+      title={Towards self-organized control: Using neural cellular automata to robustly control a cart-pole agent},
+      author={Alexandre Variengien and Stefano Nichele and Tom Glover and Sidney Pontes-Filho},
+      year={2021},
+      eprint={2106.15240},
+      archivePrefix={arXiv},
+      primaryClass={cs.NE},
+    url ={https://arxiv.org/abs/2106.15240}
+  }
+  @article{murugan2021mechano,
+    author = {Murugan, Nirosha J. and Kaltman, Daniel H. and Jin, Paul H. and Chien, Melanie and Martinez, Ramses and Nguyen, Cuong Q. and Kane, Anna and Novak, Richard and Ingber, Donald E. and Levin, Michael},
+    title = {Mechanosensation Mediates Long-Range Spatial Decision-Making in an Aneural Organism},
+    journal = {Advanced Materials},
+    volume = {n/a},
+    number = {n/a},
+    pages = {1758161},
+    keywords = {basal cognition, decision-making, information processing, mechanosensing, Physarum polycephalum, stiffness, TRP channel},
+    doi = {https://doi.org/10.1002/adma.201758161},
+    url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/adma.201758161},
+    eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/adma.201758161},
+    abstract = {Abstract The unicellular protist Physarum polycephalum is an important emerging model for understanding how aneural organisms process information toward adaptive behavior. Here, it is revealed that Physarum can use mechanosensation to reliably make decisions about distant objects in its environment, preferentially growing in the direction of heavier, substrate-deforming, but chemically inert masses. This long-range sensing is abolished by gentle rhythmic mechanical disruption, changing substrate stiffness, or the addition of an inhibitor of mechanosensitive transient receptor potential channels. Additionally, it is demonstrated that Physarum does not respond to the absolute magnitude of strain. Computational modeling reveales that Physarum may perform this calculation by sensing the fraction of its perimeter that is distorted above a threshold substrate strain—a fundamentally novel method of mechanosensation. Using its body as both a distributed sensor array and computational substrate, this aneural organism leverages its unique morphology to make long-range decisions. Together, these data identify a surprising behavioral preference relying on biomechanical features and quantitatively characterize how the Physarum exploits physics to adaptively regulate its growth and shape.},
+    }
+
+    @inproceedings{10.1145/2739480.2754662,
+    author = {Cheney, Nick and Bongard, Josh and Lipson, Hod},
+    title = {Evolving Soft Robots in Tight Spaces},
+    year = {2015},
+    isbn = {9781450334723},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/2739480.2754662},
+    doi = {10.1145/2739480.2754662},
+    abstract = {Soft robots have become increasingly popular in recent years -- and justifiably so.
+    Their compliant structures and (theoretically) infinite degrees of freedom allow them
+    to undertake tasks which would be impossible for their rigid body counterparts, such
+    as conforming to uneven surfaces, efficiently distributing stress, and passing through
+    small apertures. Previous work in the automated deign of soft robots has shown examples
+    of these squishy creatures performing traditional robotic task like locomoting over
+    flat ground. However, designing soft robots for traditional robotic tasks fails to
+    fully utilize their unique advantages. In this work, we present the first example
+    of a soft robot evolutionarily designed for reaching or squeezing through a small
+    aperture -- a task naturally suited to its type of morphology. We optimize these creatures
+    with the CPPN-NEAT evolutionary algorithm, introducing a novel implementation of the
+    algorithm which includes multi-objective optimization while retaining its speciation
+    feature for diversity maintenance. We show that more compliant and deformable soft
+    robots perform more effectively at this task than their less flexible counterparts.
+    This work serves mainly as a proof of concept, but we hope that it helps to open the
+    door for the better matching of tasks with appropriate morphologies in robotic design
+    in the future.},
+    booktitle = {Proceedings of the 2015 Annual Conference on Genetic and Evolutionary Computation},
+    pages = {935–942},
+    numpages = {8},
+    keywords = {hyperneat, soft robot, artificial life, morphology, material, generative encoding, cppn, multi-objective},
+    location = {Madrid, Spain},
+    series = {GECCO 15}
+    }
+    @proceedings{10.1162/isal_a_00223,
+    author = {Talamini, Jacopo and Medvet, Eric and Bartoli, Alberto and De Lorenzo, Andrea},
+    title = {Evolutionary Synthesis of Sensing Controllers for Voxel-based Soft Robots},
+    volume = {ALIFE 2019: The 2019 Conference on Artificial Life},
+    series = {ALIFE 2021: The 2021 Conference on Artificial Life},
+    pages = {574-581},
+    year = {2019},
+    month = {07},
+    abstract = {Soft robots allow for interesting morphological and behavioral designs because they exhibit more degrees of freedom than robots composed of rigid parts. In particular, voxel-based soft robots (VSRs)—aggregations of elastic cubic building blocks—have attracted the interest of Robotics and Artificial Life researchers. VSRs can be controlled by changing the volume of individual blocks: simple, yet effective controllers that do not exploit the feedback of the environment, have been automatically designed by means of Evolutionary Algorithms (EAs).In this work we explore the possibility of evolving sensing controllers in the form of artificial neural networks: we hence allow the robot to sense the environment in which it moves. Although the search space for a sensing controller is larger than its non-sensing counterpart, we show that effective sensing controllers can be evolved which realize interesting locomotion behaviors. We also experimentally investigate the impact of the VSR morphology on the effectiveness of the search and verify that the sensing controllers are indeed able to exploit their sensing ability for better solving the locomotion task.},
+    doi = {10.1162/isal_a_00223},
+    url = {https://doi.org/10.1162/isal\_a\_00223},
+    eprint = {https://direct.mit.edu/isal/proceedings-pdf/isal2019/31/574/1903595/isal\_a\_00223.pdf},
+    }
+    @inproceedings{Kriegman2019AutomatedSF,
+   author={Kriegman, Sam and Walker, Stephanie and Shah, Dylan and Levin, Michael and Kramer-Bottiglio, Rebecca and Bongard, Josh},
+   title={Automated shapeshifting for function recovery in damaged robots},
+   booktitle={Proceedings of Robotics: Science and Systems},
+   year={2019},
+   doi={10.15607/RSS.2019.XV.028},
+   url={http://www.roboticsproceedings.org/rss15/p28.pdf}
+}
+
+
+@article{ kirsch2020vsml,
+  title={Meta Learning Backpropagation And Improving It},
+  author={Louis Kirsch and Juergen Schmidhuber},
+  journal={Meta Learning Workshop at Advances in Neural Information Processing Systems},
+  year={2020}
+}
+@article{mordvintsev2020thread:,
+  author = {Mordvintsev, Alexander and Randazzo, Ettore and Niklasson, Eyvind and Levin, Michael and Greydanus, Sam},
+  title = {Thread: Differentiable Self-organizing Systems},
+  journal = {Distill},
+  year = {2020},
+  note = {https://distill.pub/2020/selforg},
+  doi = {10.23915/distill.00027},
+url={https://distill.pub/2020/selforg/}
+}
+@article{randazzo2021adversarial,
+  author = {Randazzo, Ettore and Mordvintsev, Alexander and Niklasson, Eyvind and Levin, Michael},
+  title = {Adversarial Reprogramming of Neural Cellular Automata},
+  journal = {Distill},
+  year = {2021},
+  note = {https://distill.pub/selforg/2021/adversarial},
+  doi = {10.23915/distill.00027.004},
+url={https://distill.pub/selforg/2021/adversarial/}
+}
+@article{Detrain2006SelforganizedSI,
+  title={Self-organized structures in a superorganism: do ants "behave" like molecules?},
+  author={C. Detrain and J. Deneubourg},
+  journal={Physics of Life Reviews},
+  year={2006},
+  volume={3},
+  pages={162-187},
+url={https://www.sciencedirect.com/science/article/abs/pii/S1571064506000200}
+}
+@book{brooks1991intelligence,
+  title={Intelligence without reason},
+  author={Brooks, Rodney A},
+  year={1991},
+}
+
+@book{pfeifer2006body,
+  title={How the body shapes the way we think: a new view of intelligence},
+  author={Pfeifer, Rolf and Bongard, Josh},
+  year={2006},
+  publisher={MIT press}
+}
+
+@article{collins2001three,
+  title={A three-dimensional passive-dynamic walking robot with two legs and knees},
+  author={Collins, Steven H and Wisse, Martijn and Ruina, Andy},
+  journal={The International Journal of Robotics Research},
+  volume={20},
+  number={7},
+  pages={607--615},
+  year={2001},
+  publisher={SAGE Publications}
+}
+
+@article{muller2017morphological,
+  title={What is morphological computation? On how the body contributes to cognition and control},
+  author={M{\"u}ller, Vincent C and Hoffmann, Matej},
+  journal={Artificial life},
+  volume={23},
+  number={1},
+  pages={1--24},
+  year={2017},
+  publisher={MIT Press One Rogers Street, Cambridge, MA 02142-1209, USA journals-info~…},
+url={https://direct.mit.edu/artl/article/23/1/1/2858/What-Is-Morphological-Computation-On-How-the-Body}
+}
+
+@article{barandiaran2006makes,
+  title={On what makes certain dynamical systems cognitive: A minimally cognitive organization program},
+  author={Barandiaran, Xabier and Moreno, Alvaro},
+  journal={Adaptive Behavior},
+  volume={14},
+  number={2},
+  pages={171--185},
+  year={2006},
+ url={https://journals.sagepub.com/doi/10.1177/105971230601400208},
+ publisher={Sage Publications Sage CA: Thousand Oaks, CA}
+}
+
+@article{beer2000dynamical,
+  title={Dynamical approaches to cognitive science},
+  author={Beer, Randall D},
+  journal={Trends in cognitive sciences},
+  volume={4},
+  number={3},
+  pages={91--99},
+  year={2000},
+  publisher={Elsevier},
+doi = {https://doi.org/10.1016/S1364-6613(99)01440-0},
+url = {https://www.sciencedirect.com/science/article/pii/S1364661399014400}
+
+}
+
+@article{manicka2019cognitive,
+  title={The Cognitive Lens: a primer on conceptual tools for analysing information processing in developmental and regenerative morphogenesis},
+  author={Manicka, Santosh and Levin, Michael},
+  journal={Philosophical Transactions of the Royal Society B},
+  volume={374},
+  number={1774},
+  pages={20180369},
+  year={2019},
+  publisher={The Royal Society},
+url={https://royalsocietypublishing.org/doi/10.1098/rstb.2018.0369}
+}
+
+
+@book{maturana1980autopoiesis,
+  title={Autopoiesis and cognition: The realization of the living},
+  author={Maturana, Humberto R and Varela, Francisco J},
+  year={1980},
+}
+
+@article{ruiz2004basic,
+  title={Basic autonomy as a fundamental step in the synthesis of life},
+  author={Ruiz-Mirazo, Kepa and Moreno, Alvaro},
+  journal={Artificial life},
+  volume={10},
+  number={3},
+  pages={235--259},
+  year={2004},
+  publisher={MIT Press One Rogers Street, Cambridge, MA 02142-1209, USA journals-info~…},
+ url={https://direct.mit.edu/artl/article-abstract/10/3/235/2463/Basic-Autonomy-as-a-Fundamental-Step-in-the}
+}
+
+@inproceedings{agmon2015ontogeny,
+  title={Ontogeny and adaptivity in a model protocell},
+  author={Agmon, Eran and Gates, Alexander J and Beer, Randall D},
+  booktitle={Artificial Life Conference Proceedings 13},
+  pages={216--223},
+  year={2015},
+  organization={MIT Press},
+url={https://direct.mit.edu/isal/proceedings/ecal2015/27/216/99374}
+}
+
+
+
+
+@inproceedings{biehlInformationBasedSpatiotemporal2016,
+  title = {Towards Information Based Spatiotemporal Patterns as a Foundation for Agent Representation in Dynamical Systems},
+  booktitle = {Proceedings of the {{Artificial Life Conference}} 2016},
+  author = {Biehl, Martin and Ikegami, Takashi and Polani, Daniel},
+  year = {2016},
+  pages = {722--729},
+  publisher = {MIT Press},
+  address = {Cancun, Mexico},
+  doi = {10.7551/978-0-262-33936-0-ch115},
+  abstract = {We present some arguments why existing methods for representing agents fall short in applications crucial to artificial life. Using a thought experiment involving a fictitious dynamical systems model of the biosphere we argue that the metabolism, motility, and the concept of counterfactual variation should be compatible with any agent representation in dynamical systems. We then propose an information theoretic notion of integrated spatiotemporal patterns which we believe can serve as the basic building block of an agent definition. We argue that these patterns are capable of solving the problems mentioned before. We also test this in some preliminary experiments.},
+url={https://direct.mit.edu/isal/proceedings/alif2016/722/99476}
+}
+
+@article{levin2020cognition,
+  title={Cognition all the way down},
+  author={Levin, Michael and Dennett, Daniel C},
+  journal={Aeon Essays. Retrieved},
+  year={2020},
+url={https://ase.tufts.edu/cogstud/dennett/papers/Levin_Dennett_Aeon.pdf}
+}
+@article{langton1984self,
+  title={Self-reproduction in cellular automata},
+  author={Langton, Christopher G},
+  journal={Physica D: Nonlinear Phenomena},
+  volume={10},
+  number={1-2},
+  pages={135--144},
+  year={1984},
+  publisher={Elsevier},
+url={https://doi.org/10.1016/0167-2789(84)90256-2}
+}
+
+@article{di2019process,
+  title={Process and individuation: the development of sensorimotor agency},
+  author={Di Paolo, Ezequiel A},
+  journal={Human Development},
+  volume={63},
+  number={3-4},
+  pages={202--226},
+  year={2019},
+  publisher={Karger Publishers},
+url={https://www.karger.com/Article/Abstract/503827}
+}
+
+@article{froese2009enactive,
+  title={Enactive artificial intelligence: Investigating the systemic organization of life and mind},
+  author={Froese, Tom and Ziemke, Tom},
+  journal={Artificial intelligence},
+  volume={173},
+  number={3-4},
+  pages={466--500},
+  year={2009},
+  publisher={Elsevier},
+url ={https://www.sciencedirect.com/science/article/pii/S0004370208002105}
+}
+
+@article{varela1997patterns,
+  title={Patterns of life: Intertwining identity and cognition},
+  author={Varela, Francisco J},
+  journal={Brain and cognition},
+  volume={34},
+  number={1},
+  pages={72--87},
+  year={1997},
+  publisher={Academic Press},
+url={https://lifecognitionschool.ias-research.net/files/2010/06/Varela-1997-Brain-and-Cognition-34.pdf}
+}
+
+@article{de2009enaction,
+  title={Enaction-based artificial intelligence: Toward co-evolution with humans in the loop},
+  author={De Loor, Pierre and Manac'h, Kristen and Tisseau, Jacques},
+  journal={Minds and Machines},
+  volume={19},
+  number={3},
+  pages={319--343},
+  year={2009},
+  publisher={Springer},
+url={https://link.springer.com/article/10.1007%2Fs11023-009-9165-3}
+} 
+
+@article{baranes2013active,
+  title={Active learning of inverse models with intrinsically motivated goal exploration in robots},
+  author={Baranes, Adrien and Oudeyer, Pierre-Yves},
+  journal={Robotics and Autonomous Systems},
+  volume={61},
+  number={1},
+  pages={49--73},
+  year={2013},
+  publisher={Elsevier},
+ url={https://www.sciencedirect.com/science/article/abs/pii/S0921889012000644}
+}
+
+@article{kitano2004biological,
+  title={Biological robustness},
+  author={Kitano, Hiroaki},
+  journal={Nature Reviews Genetics},
+  volume={5},
+  number={11},
+  pages={826--837},
+  year={2004},
+  publisher={Nature Publishing Group},
+  url={http://sbi.jp/symbio/symbio2/papers/NRGRobustnessKitano2004.pdf}
+}
+
+@article{guerin2012survey,
+  title={A survey of the ontogeny of tool use: from sensorimotor experience to planning},
+  author={Guerin, Frank and Kruger, Norbert and Kraft, Dirk},
+  journal={IEEE Transactions on Autonomous Mental Development},
+  volume={5},
+  number={1},
+  pages={18--45},
+  year={2012},
+  publisher={IEEE},
+url={https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6248675&casa_token=z7iROo2_SUEAAAAA:FNWgqyWPj8qa_t2F0i052RxuOOkT8AQEQX0I6WrQHpMcoK3IeLVR83IwWFuBc8bBIDdzliyWS8t7AA},
+}
+
+@article{gilpin2019cellular,
+  title={Cellular automata as convolutional neural networks},
+  author={Gilpin, William},
+  journal={Physical Review E},
+  volume={100},
+  number={3},
+  pages={032402},
+  year={2019},
+  publisher={APS},
+url={https://journals.aps.org/pre/pdf/10.1103/PhysRevE.100.032402?casa_token=hPEAI53DHgkAAAAA%3AgvT2HdN9oHLDJD2v9uB6pKMTq6zJNkp7PIAkBzpyiZxOIIzQx-ZAAG6haFjXy8OTO8o2OyKci1zidlQ}
+}
+
+@article{Baldassarre2007selfOrga,
+author = {Baldassarre, Gianluca and Trianni, Vito and Bonani, Michael and Mondada, Francesco and Dorigo, Marco and Nolfi, Stefano},
+year = {2007},
+month = {03},
+pages = {224-39},
+title = {Self-Organized Coordinated Motion in Groups of Physically Connected Robots},
+volume = {37},
+journal = {IEEE transactions on systems, man, and cybernetics. Part B, Cybernetics : a publication of the IEEE Systems, Man, and Cybernetics Society},
+doi = {10.1109/TSMCB.2006.881299},
+url={https://ieeexplore.ieee.org/document/4067066}
+}
+
+@article{pezzulo2015re,
+  title={Re-membering the body: applications of computational neuroscience to the top-down control of regeneration of limbs and other complex organs},
+  author={Pezzulo, Giovanni and Levin, Michael},
+  journal={Integrative Biology},
+  volume={7},
+  number={12},
+  pages={1487--1517},
+  year={2015},
+  publisher={Oxford University Press},
+url={https://academic.oup.com/ib/article/7/12/1487/5199172}
+}
+
+@article{pezzulo2016top,
+  title={Top-down models in biology: explanation and control of complex living systems above the molecular level},
+  author={Pezzulo, Giovanni and Levin, Michael},
+  journal={Journal of The Royal Society Interface},
+  volume={13},
+  number={124},
+  pages={20160555},
+  year={2016},
+  publisher={The Royal Society},
+url={https://royalsocietypublishing.org/doi/10.1098/rsif.2016.0555}
+}
+
+@article{kriegman2020scalable,
+  title={A scalable pipeline for designing reconfigurable organisms},
+  author={Kriegman, Sam and Blackiston, Douglas and Levin, Michael and Bongard, Josh},
+  journal={Proceedings of the National Academy of Sciences},
+  volume={117},
+  number={4},
+  pages={1853--1859},
+  year={2020},
+  publisher={National Acad Sciences},
+url={https://www.pnas.org/content/117/4/1853}
+}
+
+@article{ebrahimkhani2021synthetic,
+  title={Synthetic living machines: A new window on life},
+  author={Ebrahimkhani, Mo R and Levin, Michael},
+  journal={Iscience},
+  pages={102505},
+  year={2021},
+  publisher={Elsevier},
+url={https://doi.org/10.1016/j.isci.2021.102505}
+}
+
+@article{akkaya2019solving,
+  title={Solving rubik's cube with a robot hand},
+  author={Akkaya, Ilge and Andrychowicz, Marcin and Chociej, Maciek and Litwin, Mateusz and McGrew, Bob and Petron, Arthur and Paino, Alex and Plappert, Matthias and Powell, Glenn and Ribas, Raphael and others},
+  journal={arXiv preprint arXiv:1910.07113},
+  year={2019},
+url={https://arxiv.org/abs/1910.07113}
+}
+
+@article{team2021open,
+  title={Open-ended learning leads to generally capable agents},
+  author={Team, Open Ended Learning and Stooke, Adam and Mahajan, Anuj and Barros, Catarina and Deck, Charlie and Bauer, Jakob and Sygnowski, Jakub and Trebacz, Maja and Jaderberg, Max and Mathieu, Michael and others},
+  journal={arXiv preprint arXiv:2107.12808},
+  year={2021},
+url={https://deepmind.com/blog/article/generally-capable-agents-emerge-from-open-ended-play}
+}
+@article{zhao2020robogrammar,
+  title={RoboGrammar: Graph Grammar for Terrain-Optimized Robot Design},
+  author={Zhao, Allan and Xu, Jie and Konaković Luković, Mina and Hughes, Josephine and Speilberg, Andrew and Rus, Daniela and Matusik, Wojciech},
+  journal={ACM Transactions on Graphics (TOG)},
+  volume={39},
+  number={6},
+  pages={1--16},
+  year={2020},
+  publisher={ACM New York, NY, USA}
+}
+@article{10.1371/journal.pone.0151834,
+    doi = {10.1371/journal.pone.0151834},
+    author = {Duarte, Miguel AND Costa, Vasco AND Gomes, Jorge AND Rodrigues, Tiago AND Silva, Fernando AND Oliveira, Sancho Moura AND Christensen, Anders Lyhne},
+    journal = {PLOS ONE},
+    publisher = {Public Library of Science},
+    title = {Evolution of Collective Behaviors for a Real Swarm of Aquatic Surface Robots},
+    year = {2016},
+    month = {03},
+    volume = {11},
+    url = {https://doi.org/10.1371/journal.pone.0151834},
+    pages = {1-25},
+    abstract = {Swarm robotics is a promising approach for the coordination of large numbers of robots. While previous studies have shown that evolutionary robotics techniques can be applied to obtain robust and efficient self-organized behaviors for robot swarms, most studies have been conducted in simulation, and the few that have been conducted on real robots have been confined to laboratory environments. In this paper, we demonstrate for the first time a swarm robotics system with evolved control successfully operating in a real and uncontrolled environment. We evolve neural network-based controllers in simulation for canonical swarm robotics tasks, namely homing, dispersion, clustering, and monitoring. We then assess the performance of the controllers on a real swarm of up to ten aquatic surface robots. Our results show that the evolved controllers transfer successfully to real robots and achieve a performance similar to the performance obtained in simulation. We validate that the evolved controllers display key properties of swarm intelligence-based control, namely scalability, flexibility, and robustness on the real swarm. We conclude with a proof-of-concept experiment in which the swarm performs a complete environmental monitoring task by combining multiple evolved controllers.},
+    number = {3},
+
+}
+@ARTICLE{5175366,
+  author={Trianni, Vito and Nolfi, Stefano},
+  journal={IEEE Transactions on Evolutionary Computation}, 
+  title={Self-Organizing Sync in a Robotic Swarm: A Dynamical System View}, 
+  year={2009},
+  volume={13},
+  number={4},
+  pages={722-741},
+  doi={10.1109/TEVC.2009.2015577}}
+  
+  @InProceedings{10.1007/978-4-431-65941-9_30,
+author="Howard, Andrew
+and Matari{\'{c}}, Maja J.
+and Sukhatme, Gaurav S.",
+editor="Asama, Hajime
+and Arai, Tamio
+and Fukuda, Toshio
+and Hasegawa, Tsutomu",
+title="Mobile Sensor Network Deployment using Potential Fields: A Distributed, Scalable Solution to the Area Coverage Problem",
+booktitle="Distributed Autonomous Robotic Systems 5",
+year="2002",
+publisher="Springer Japan",
+address="Tokyo",
+pages="299--308",
+abstract="This paper considers the problem of deploying a mobile sensor network in an unknown environment. A mobile sensor network is composed of a distributed collection of nodes, each of which has sensing, computation, communication and locomotion capabilities. Such networks are capable of self-deployment; i.e., starting from some compact initial configuration, the nodes in the network can spread out such that the area `covered' by the network is maximized. In this paper, we present a potential-field-based approach to deployment. The fields are constructed such that each node is repelled by both obstacles and by other nodes, thereby forcing the network to spread itself throughout the environment. The approach is both distributed and scalable.",
+isbn="978-4-431-65941-9"
+}
+
+@INPROCEEDINGS{6094454,
+  author={Ducatelle, Frederick and Di Caro, Gianni A. and Pinciroli, Carlo and Mondada, Francesco and Gambardella, Luca},
+  booktitle={2011 IEEE/RSJ International Conference on Intelligent Robots and Systems}, 
+  title={Communication assisted navigation in robotic swarms: Self-organization and cooperation}, 
+  year={2011},
+  volume={},
+  number={},
+  pages={4981-4988},
+  doi={10.1109/IROS.2011.6094454}}
+
+@inproceedings{pathak19assemblies,
+  Author = {Pathak, Deepak and
+  Lu, Chris and Darrell, Trevor and
+  Isola, Phillip and Efros, Alexei A.},
+  Title = {Learning to Control Self-
+  Assembling Morphologies: A Study of
+  Generalization via Modularity},
+  Booktitle = {NeurIPS},
+  Year = {2019}
+}
+@article{DBLP:journals/corr/abs-1906-05370,
+  author    = {Tingwu Wang and
+               Yuhao Zhou and
+               Sanja Fidler and
+               Jimmy Ba},
+  title     = {Neural Graph Evolution: Towards Efficient Automatic Robot Design},
+  journal   = {CoRR},
+  volume    = {abs/1906.05370},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1906.05370},
+  eprinttype = {arXiv},
+  eprint    = {1906.05370},
+  timestamp = {Mon, 24 Jun 2019 17:28:45 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1906-05370.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+@article{sandler2020image,
+title={Image segmentation via Cellular Automata},
+author={Sandler, Mark and Zhmoginov, Andrey and Luo, Liangcheng and Mordvintsev, Alexander and Randazzo, Ettore and others},
+journal={arXiv preprint arXiv:2008.04965},
+year={2020},
+url={https://arxiv.org/pdf/2008.04965.pdf}
+}
+@article{Vandenberg2012Tadpole,
+author = {Vandenberg, Laura N. and Adams, Dany S. and Levin, Michael},
+title = {Normalized shape and location of perturbed craniofacial structures in the Xenopus tadpole reveal an innate ability to achieve correct morphology},
+journal = {Developmental Dynamics},
+volume = {241},
+number = {5},
+pages = {863-878},
+keywords = {geometric morphometrics, canonical variate analysis, principle components analysis, H+-V-ATPase, neural crest, robustness},
+doi = {https://doi.org/10.1002/dvdy.23770},
+url = {https://anatomypubs.onlinelibrary.wiley.com/doi/abs/10.1002/dvdy.23770},
+eprint = {https://anatomypubs.onlinelibrary.wiley.com/doi/pdf/10.1002/dvdy.23770},
+abstract = {Abstract Background: Embryonic development can often adjust its morphogenetic processes to counteract external perturbation. The existence of self-monitoring responses during pattern formation is of considerable importance to the biomedicine of birth defects, but has not been quantitatively addressed. To understand the computational capabilities of biological tissues in a molecularly tractable model system, we induced craniofacial defects in Xenopus embryos, then tracked tadpoles with craniofacial deformities and used geometric morphometric techniques to characterize changes in the shape and position of the craniofacial structures. Results: Canonical variate analysis revealed that the shapes and relative positions of perturbed jaws and branchial arches were corrected during the first few months of tadpole development. Analysis of the relative movements of the anterior-most structures indicates that misplaced structures move along the anterior–posterior and left–right axes in ways that are significantly different from their normal movements. Conclusions: Our data suggest a model in which craniofacial structures use a measuring mechanism to assess and adjust their location relative to other local organs. Understanding the correction mechanisms at work in this system could lead to the better understanding of the adaptive decision-making capabilities of living tissues and suggest new approaches to correct birth defects in humans. Developmental Dynamics 241:863–878, 2012. © 2012 Wiley Periodicals, Inc.},
+year = {2012}
+}
+@article{fankhauser1945effects,
+title={The effects of changes in chromosome number on amphibian development},
+author={Fankhauser, Gerhard},
+journal={The Quarterly Review of Biology},
+volume={20},
+number={1},
+pages={20--78},
+year={1945},
+publisher={Williams and Wilkins}
+}
+@article{Ha2018designrl,
+  author = {David Ha},
+  title  = {Reinforcement Learning for Improving Agent Design},
+  eprint = {arXiv:1810.03779},
+  url    = {https://designrl.github.io},
+  note   = "\url{https://designrl.github.io}",
+  year   = {2018}
+}
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+</script>
+<script type="text/javascript">
+ "use strict";
+/*
+  var sliderSpeed = document.getElementById("rangeSpeed");
+  var outputSpeed = document.getElementById("valueSpeed");
+  var videos=document.getElementsByClassName("videoShow");
+  outputSpeed.innerHTML = sliderSpeed.value; // Display the default slider value
+
+  // Update the current slider value (each time you drag the slider handle)
+  sliderSpeed.oninput = function() {
+  outputSpeed.innerHTML = this.value;
+  for (var i = 0; i < videos.length; i++) {
+  	videos[i].playbackRate = this.value;
+  }}
+*/
+  function changeImgIMGEP(img)
+        {
+            var schemeIMGEP=document.getElementById("schemeIMGEP");
+            schemeIMGEP.src=img;
+        }
+function changeVideo(className,nb)
+   {
+ 	var vids=document.getElementsByClassName(className);
+	for(var i=0;i<vids.length;i++){
+       vids[i].style.display="none";
+}
+console.log(className+nb);
+var vid=document.getElementById(className+nb);
+console.log(vid);
+vid.style.display="block";
+vid.currentTime = '0';
+
+ }
+
+</script>
+<style>
+button {
+display: inline-block;
+background-color: #7b38d8;
+border-radius: 10px;
+border: 4px double #cccccc;
+color: #eeeeee;
+text-align: center;
+font-size: 15px;
+padding: 10px;
+width: 80px;
+-webkit-transition: all 0.5s;
+-moz-transition: all 0.5s;
+-o-transition: all 0.5s;
+transition: all 0.5s;
+cursor: pointer;
+margin: 5px;
+}
+button:hover {
+background-color: lightgreen;
+}
+
+.radio-toolbar input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
+}
+
+.titleGetStarted{
+margin-top:0px;
+margin-bottom:0px;
+text-align:center;
+}
+
+.radio-toolbar label {
+    display: inline-block;
+    background-color: #cbc;
+    border-radius: 10px;
+    border: 4px double #cccccc;
+    color: #eeeeee;
+    text-align: center;
+    font-size: 15px;
+    padding: 10px;
+    width: 80px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.radio-toolbar input[type="radio"]:checked + label {
+    background-color:green;
+    border-color: #4c4;
+}
+
+.radio-toolbar input[type="radio"]:focus + label {
+    border: 2px dashed #444;
+}
+
+.radio-toolbar label:hover {
+  background-color: lightgreen;
+}
+
+.figcaption{
+  font-size: 22px;
+  color:#A0A0A0;
+}
+
+d-content li{
+  font-size: 14px;
+  color:#A0A0A0;
+}
+
+d-content {
+    clear: both;
+    float: right;
+    line-height:1.4;
+    padding-top: 1em;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    margin-top: 0;
+    margin-left: 10px;
+    margin-right: calc((100vw - 1500px) / 2 + 168px);
+    width: calc((1500px - 648px) / 2 - 24px);
+}
+
+d-content h5{
+  margin-block-start: 1.5em;
+  margin-block-end: 0em;
+}
+
+d-content ul{
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+}
+
+d-content h2{
+  margin-top:10px;
+}
+@media (max-width: 1300px)
+d-content {
+    display: none;
+}
+.icon {
+    width: 30px;
+    height: 30px;
+    background: steelblue;
+    fill: white;
+    border-radius: 20px;
+    padding: 5px;
+    margin: 2px;
+    cursor: pointer;
+}
+def{
+clear: both;
+float: left;
+margin-top: 0;
+margin-left: 24px;
+width: calc(50% - 1384px / 2);
+padding: 0 0 0 24px;
+border-radius: 20px 20px 20px 20px;
+background-color: rgba(0,0,0,0.05);
+color: rgba(0,0,0,0.5);
+font-size:14px;
+}
+
+/*
+.code {
+white-space: nowrap;
+border-radius: 2px;
+padding: 4px 25px;
+font-size: 15px;
+color: rgba(0, 0, 0, 0.6);
+display: block;
+background: white;
+border-left: 3px solid rgba(0, 0, 0, 0.05);
+text-shadow: 0 1px white;
+font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+text-align: left;
+white-space: pre;
+word-spacing: normal;
+word-break: normal;
+word-wrap: normal;
+line-height: 0.00001;
+tab-size: 4;
+}*/
+
+
+
+
+</style>
