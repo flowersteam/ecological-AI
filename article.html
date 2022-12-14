@@ -534,6 +534,7 @@ width: calc((1500px - 648px) / 2 - 24px);">
 </tbody>
 </table>
 
+<h3> Discussion </h3>
 <p> In these experiments, agents can freely moves in niches, as long as they can survive in them. If they have high
     plasticity, the population therefore necessarily becomes well-mixed. This contrasts with real ecological
     dynamics, where ecological barriers can appear and disappear. For example, under the Green Sahara ... and the
@@ -572,14 +573,78 @@ width: calc((1500px - 648px) / 2 - 24px);">
 
 <p> The two groups on the left and right of this figure are very different: they regard very different individual at
     different temporal and spatial scales. Yet when we glance at them, they seem to share a very similar social network
-    structure  </p>
+    structure
+</p>
+
 <h3> Background in HBE </h3>
+
+<p> Understanding how the social environment affects the behavior of human groups is an important and challenging objective
+    in fields studying human decision-making, such as psychology, cognitive science and HBE. The reason is two-fold: such an
+    understanding would help us both analyze the history of our species, where many major events were contingent on ecology
+    and anticipate the future: if we know which social network structure is most appropriate for best-responding to a problem
+    then we can organize our human resources appropriately (such questions are often asked for example in corporate
+    management).
+</p>
+
+<p> Early on, studies confirmed that there is something about the social network structure that makes a group behave
+    differently: in more densely connected groups information propagates quicker and the group becomes homogeneous,
+    while partially-connected groups can maintain some diversity of information in different sub-clusters. This makes these
+    two broad categories of social network structures appropriate for different types of problems:
+    easy problems (ones with a single and obvious solution) are most efficiently solved when
+    the group is fully-connected. Difficult problems, on the other hand, (ones where the optimal solution is hidden
+    among many sub-optimal solutions) are better solved by partially-connected groups.
+</p>
+
+<p> What type of problem is cultural innovation? The landscape of innovation has a multi-level structure, where previous
+    solutions become the material for new solutions. At the same time, newly discovered solutions are more interesting and
+    likely to lead to new solutions, biases innovation towards a forward march.
+</p>
+
+<p> Both these properties were captured by an influential study of human innovation (), where two types of groups
+    (a fully-connected and a partially-connected) competed on an innovation task inspired from drug discovery.
+    In this task, one starts with a set of elements which they can combine in triplets. Some triplets are valid, in the
+    sense that they lead to the creation of a new element and incur a reward. Once the player finds a valid triplet, they
+    can use the newly created element to then search for a new valid triplet. Triplets belong to one of two trajectories,
+    the blue and the red: elements discovered in a trajectory are only useful for it. This means that once you find a valid
+    triplet you are incentivised to stay in the same trajectory. But there is a catch: when you reach the fourth element,
+    you need an element from the other trajectory. This is what makes this task deceptive: to solve it optimally
+    (get ...) you need to act sub-optimally in the short-term.
+</p>
 
 <h3> Background in AI </h3>
 
+<p> Artificial agents search in collectives too. In RL, training the agents on learning to solve a task requires immense
+    amounts of data. These data are collected by interacting with an environment, a computationally expensive process that
+    becomes more manageable if one parallelizes the algorithm. By having multiple agents collecting data in their own copy
+    of the environment and delivering them to a central node that trains the policy, we can achieve a reduction in training
+    time linear to the number of agents. This is the paradigm of decentralized RL, which is so prominent that today, the most
+    popular RL algorithms are not a single agent but a group of agents.
+</p>
+
+<p> The architecture we described above (multiple workers communicating with a central node) is called a star topology
+    and is, if not the only, the most prominent architecture used in decentralized RL. We hypothesize that the reason is
+that designers believe that this fully-connected architecture is best for sample complexity: the more
+    information the agents in the group have the better, right?
+</p>
+
+<p> Having read our review of human studies, you too must be thinking that the answer to this may be "not necessarily".
+    In the next sub-section, we will describe our study of the effect of social network structure in distributed RL.  </p>
+
 <h3> SAPIENS: a distributed RL algorithm for structured groups </h3>
 
+<h3> Discussion </h3>
 
+<p> In this work we showed that the social network structure of RL agents matters and that dynamic structures perform best
+across different tasks. We believe that the contribution of this study is two-fold:
+</p>
+
+<p> For RL research,
+
+</p>
+
+<p> For human studies, 
+
+</p>
 </dt-article>
 
 
