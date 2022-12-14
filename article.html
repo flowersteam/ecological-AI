@@ -157,67 +157,15 @@
     behavioral repertoires:  populations of RL agents co-adapting with their environments managed to develop
     morphologies that can walk on challenging terrains <dt-cite key="poet"> </dt-cite>, a single RL agent trained using
     techniques developed for language models managed to play Atari games,
-    chat and control a robotic arm <dt-cite key="reed_generalist_2022"> </dt-cite>, a team of RL agents playing Hide-and-Seek learned how to manipulate items in their
-    environment to continuously pose new challenges to another team <dt-cite key="baker_emergent_2020"> </dt-cite> and evolutionary algorithms that optimize for both diversity and quality managed to solve deceptive
-    maze-navigation tasks <dt-cite key="pugh_quality_2016"> </dt-cite>. Today, open-ended skill acquisition is
+    chat and control a robotic arm <dt-cite key="reed_generalist_2022"> </dt-cite>, a team of RL agents playing
+    Hide-and-Seek learned how to manipulate items in their environment to continuously pose new challenges to another
+    team <dt-cite key="baker_emergent_2020"> </dt-cite> and evolutionary algorithms that optimize for both diversity and
+    quality managed to solve deceptive maze-navigation tasks <dt-cite key="pugh_quality_2016"> </dt-cite>. Today, open-ended skill acquisition is
     considered an important pursuit in AI for driving the field forward
     <dt-cite key="https://www.oreilly.com/radar/open-endedness-the-last-grand-challenge-youve-never-heard-of/"> </dt-cite>
     <dt-cite key="DBLP:journals/corr/abs-1905-10985"> </dt-cite>.
 </p>
 
-           <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
-width: calc((1500px - 648px) / 2 - 24px);">
-  <img src="public/comp_AI.png" alt="scheme" style="width:94%">
-                <p>  The computational needs of machine learning models are constantly increasing (Image credit: <a
-                        href="https://openai.com/blog/ai-and-compute/">
-                    source </a>) </p>
-</div>
-
-            <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
-width: calc((1500px - 648px) / 2 - 24px);">
-  <img src="public/pong.gif" alt="scheme" style="width:94%">
-                <p>  Brittleness of RL agents: an agent learned a powerful strategy but completely failed when the
-                    problem changed slightly (Image credit: modified from
-                    <a href="https://www.youtube.com/watch?time_continue=1&v=Q70ulPJW3Gk&feature=emb_logo"> source </a> )</p>
-</div>
-
-            <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
-width: calc((1500px - 648px) / 2 - 24px);">
-  <img src="public/maze.gif" alt="scheme" style="width:94%">
-                <p> In deceptive tasks optimizing for the objective is not optimal: here the trajectory that minimizes
-                    distance to the target (red arrow) will get the agent trapped. (Image
-                    credit: modified from
-                    <a href="https://thanakornp.com/deceptive-maze"> source </a>   </p>
-</div>
-
-
-    <p> However, <b> progress in this direction is being hindered by </b>:  </p>
-
-        <nav id="contentBlog" class="l-body" >
-
-        <li style="..."> <b> the computational complexity of training large neural networks </b> One of the properties
-            that we emphasize  when characterizing a skill as impressive, is the task complexity, largely associated to
-            the size of the solution space an algorithm needs to search in to find the optimal behavior. In stark
-            contrast to biological organisms that operate under severe constraints, such as energy consumption,
-            artificial agents are classically trained from scratch with immense computational resources.
-            (See Figure 1 for a ..). <a href="https://otoro.net/ml/"> The community has voiced its concerns about this
-            attitude </a>  but who would expect AI researchers to self-limit their
-            consumption of resources, even if this would be useful in the long-term? </li>
-        <li style="..."> <b> brittleness of learned policies </b>  In nature, an organism's ability to solve a task
-            usually implies that it can solve other similar tasks, an ability that we refer to as generalization. While
-            a lot of progress is being made in generalization in AI, RL agents sometimes fail to generalize in cases
-            that to humans seem trivial: see for example in Figure 2 the agent that learned how to beat humans in
-            Pong but failed when the paddle was moved slightly up and to the right. </li>
-        <li style="..."> <b> the deceptiveness of tasks </b> Evolutionary and RL algorithms classically take the
-            optimization objective for granted, as it is provided  by the human designer. However, most trully
-            challenging tasks are deceptive: if you directly optimize for the objective you want to evaluate it for, you
-            will never achieve it, because greediness will keep you away from paths that you need to first explore. An exa </li>
-
-    </nav>
-
-
-    <p> We believe that these challenges are due to remnants of the cognition-centric approach and that an ecological
-        approach can help us overcome them</p>
 
 </dt-article>
 
