@@ -648,15 +648,17 @@ width: calc((1500px - 648px) / 2 - 24px);">
     <dt-cite key="espeholt_impala_2018"> </dt-cite>.
 </p>
 
-<p> The architecture we described above (multiple workers communicating with a central node) is called a star topology
-    and is, if not the only, the most prominent architecture used in decentralized RL. We hypothesize that the reason is
-that designers believe that this fully-connected architecture is best for sample complexity: the more
-    information the agents in the group have the better, right?
+<p> This architecture where multiple workers communicate with a central learner that updates a single policy and returns
+    it back to them is called a star topology and is, if not the only, the most prominent architecture used in
+    decentralized RL. We hypothesize that the reason this choice dominated is that designers believe that this
+    fully-connected architecture is best for sample complexity: the more information the agents in the group have the
+    better, right?
 </p>
 
-<p> Having read our review of human studies, you too must be thinking that the answer to this question may not be
-    necessarily "yes". In the next sub-section, we will describe our study of the effect of social network structure in
-    distributed RL where the group is solving a task inspired by <dt-cite></dt-cite>.  </p>
+<p> Having read our review of human studies, you too must be thinking that the answer to this question may not
+    necessarily be "yes". In the next sub-section, we will describe our study of the effect of social network structure in
+    distributed RL where the group is solving a task inspired by
+    <dt-cite key="derexPartialConnectivityIncreases2016"></dt-cite>.  </p>
 
 <h3> SAPIENS: a distributed RL algorithm for structured groups </h3>
 
@@ -682,8 +684,8 @@ across different tasks. We believe that the contribution of this study is two-fo
 
 
 @techreport{espeholt_impala_2018,
-	title = {{IMPALA}: {Scalable} {Distributed} {Deep}-{RL} with {Importance} {Weighted} {Actor}-{Learner} {Architectures}},
-	shorttitle = {{IMPALA}},
+	title = {IMPALA: {Scalable} {Distributed} {Deep}-{RL} with {Importance} {Weighted} {Actor}-{Learner} {Architectures}},
+	shorttitle = {IMPALA},
 	url = {http://arxiv.org/abs/1802.01561},
 	language = {en},
 	number = {arXiv:1802.01561},
