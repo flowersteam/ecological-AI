@@ -405,7 +405,8 @@ timesteps (as e.g. in RL).  To avoid this complexity  of introducing an intra-li
 <i> An agent with low plasticity (on the left) has small &\sigma; and a high peak at their preferred niche, while a
     plastic individual (on the right) has large &\sigma; and a lower peak at their preferred niche. Fitness in a
     certain environmental state is computed as the probability density function of the distribution at that point
-the plastic individual has lower fitness (cost of plasticity). If $e_n >>\mu_k$ (the actual environmental state differs significantly from the preferred one) the plastic individual has higher fitness (benefit of plasticity)
+the plastic individual has lower fitness (cost of plasticity). If $e_n >>\mu_k$ (the actual environmental state differs
+    significantly from the preferred one) the plastic individual has higher fitness (benefit of plasticity)
 
 </i></sub>
 </div>
@@ -662,7 +663,33 @@ width: calc((1500px - 648px) / 2 - 24px);">
 
 <h3> SAPIENS: a distributed RL framework for structured groups </h3>
 
-<p></p>
+<p> SAPIENS is a learning framework belonging to the decentralized RL learning paradigm that connects multiple
+    learners based on a pre-defined social network structure. One can imagine many instantiations of it that differ for
+    example in the learning algorithm employed and the type of information shared. In this project, we have studied a
+    single instantiation with DQN learners that share experience tuples from their replay buffer.
+</p>
+
+
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+  <img src="public/sapiens_schematic.svg" alt="scheme" style="width:94%">
+<p>  Schematic of a SAPIENS algorithm with 2 DQN learners exchanging experiences from their replay buffer.
+</p>
+</div>
+
+<p> We studied five different social network structures: fully-connected, ring, small-world (which we designed according
+    to the Watts-Strogatz model) and dynamic. In the latter, the agents start in sub-groups of two and during training
+    may visit other subgroups wiht probability <var> p <sub> v </var>  for a duration of <var> p <sub> v </var> time steps.
+</p>
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/sapiens_structures.gif" style="width:94%" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> </i></sub>
+</div>
+</div>
+
 <h3> Discussion </h3>
 
 <p> In this work we showed that the social network structure of RL agents matters and that dynamic structures perform best
