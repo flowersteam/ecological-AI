@@ -747,7 +747,10 @@ flexible: we would like to try innovation tasks that vary in the length of the i
 <p> Do the different social network structures behave differently, and do these differences depend on the task at hand?
 This is the main question that we aimed to address with our empirical analysis. We evaluated performance in terms of two
     metrics: the maximum reward within the group after convergence (<var> R <sub>max </var>) and the time it took it to
-    reach this performance (<var> T<sub>+</var>). The results are summarised in the following figure:
+    reach this performance (<var> T<sub>+</var>). In addition to the SAPIENS methods, we also benchmarked a group without
+    sharing, a single agent and two distributed RL algorithms with a star topology: Ape-X
+    <dt-cite key="horganDistributedPrioritizedExperience2018"> </dt-cite> and A2C
+    <dt-cite key="mnihAsynchronousMethodsDeep2016a"> </dt-cite>. The results are summarised in the following figure:
 </p>
 
 <div align="center" style="margin-bottom:40px">
@@ -763,28 +766,42 @@ This is the main question that we aimed to address with our empirical analysis. 
     <li> In the <b> single-path task</b>: there was no important differences between the structures. Interestingly, more
         sharing did not lead to quicker convergence. Instead, the fully-connected structure was the slowest to converge.
     </li>
-    <li> In the <b> merging-paths task</b>: </li>
-
+    <li> In the <b> merging-paths task</b>: the dynamic structure was the most successful among all partially-connected
+        structures and all fully-connected methods failed.
+    </li>
+    <li>
+        In the <b> best-of-ten-paths task</b>: the dynamics structure was again the most succcesful method.
+    </li>
 </ul>
 </p>
 
 <h3> Discussion </h3>
 
 <p> In this work we showed that the social network structure of RL agents matters and that dynamic structures perform best
-across different tasks. We believe that the contribution of this study is two-fold:
+across different tasks. We believe that the contribution of this study is two-fold.
 </p>
 
-<p> For RL research,
+<p> From the perspective of distributed RL,
+we showed that dynamic social network structures are worth-exploring as they perform better than the classicaly employed
+star topology and that evaluating algorithms not just in terms of rewards, but also in terms of mnemonice properties
+such as diversity, can contribute to understanding differences in the behaviors of different algorithms.</p>
 
-</p>
-
-<p> For human studies,
-
-</p>
+<p> From the perspective of studies of human collective innovation, we showed that using RL agents as the computational model
+    can enable the study of more complex problems, similar to the ones employed in human lab studies, and that the emerging
+    behaviors confirm hypotheses from such studies. By studying a wider diversity of tasks that what has been considered in
+    human studies, we were able to provide more hypotheses for future human studies.</p>
 </dt-article>
 
 
+<h2> Overall conclusion </h2>
 
+<p> With these two works we showed how our research methodology can benefit two very different fields: we started from
+hypotheses from ecology, designed computational studies inspired from them and derived empirical conclusions that can feed
+future studies in ecology.
+</p>
+
+<h2> Future work: how does environmental variability affect collective innovation by influencing social network structure?
+</h2>
 
 <script type="text/bibliography">
 
