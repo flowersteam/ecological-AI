@@ -661,7 +661,7 @@ width: calc((1500px - 648px) / 2 - 24px);">
     distributed RL where the group is solving a task inspired by
     <dt-cite key="derexPartialConnectivityIncreases2016"></dt-cite>.  </p>
 
-<h3> SAPIENS: a distributed RL framework for structured groups </h3>
+<h3> SAPIENS: a distributed RL framework with structured groups </h3>
 
 <p> SAPIENS is a learning framework belonging to the decentralized RL learning paradigm that connects multiple
     learners based on a pre-defined social network structure. One can imagine many instantiations of it that differ for
@@ -672,23 +672,62 @@ width: calc((1500px - 648px) / 2 - 24px);">
 
 <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
 width: calc((1500px - 648px) / 2 - 24px);">
-  <img src="public/sapiens_schematic.svg" alt="scheme" style="width:94%">
+  <img src="public/sapiens_schematic.svg" alt="scheme" style="width:90%">
 <p>  Schematic of a SAPIENS algorithm with 2 DQN learners exchanging experiences from their replay buffer.
 </p>
 </div>
 
 <p> We studied five different social network structures: fully-connected, ring, small-world (which we designed according
     to the Watts-Strogatz model) and dynamic. In the latter, the agents start in sub-groups of two and during training
-    may visit other subgroups wiht probability <var> p <sub> v </var>  for a duration of <var> p <sub> v </var> time steps.
+    may visit other subgroups wiht probability <var> p <sub>v </var>  for a duration of <var> T <sub>v </var> time steps.
 </p>
 
 <div align="center" style="margin-bottom:40px">
-<img class="80" src="public/sapiens_structures.gif" style="width:94%" alt="ORIGINS" />
+<img class="80" src="public/sapiens_structures.gif" style="width:90%" alt="ORIGINS" />
 <div>
 <sub style="display: block; line-height: 1.5em">
 <i> </i></sub>
 </div>
 </div>
+
+<h3> Designing innovation tasks </h3>
+
+<p> To study innovation, we want create tasks that have the multi-level structure that we described. We also want to be
+flexible: we would like to try innovation tasks that vary in the length of the innovation path-ways (how many elements
+    do we want the agents to create?) and the learning challenge involved (what challengs does a single or multiple learners
+    face when trying to reach the maximum innovation level?).
+</p>
+
+<p> To achieve this we employed Wordcraft <dt-cite key="jiangWordCraftEnvironmentBenchmarking2020"> </dt-cite>,
+    a test-bed inspired from the Little Alchemy game. Wordcraft was originally introduced to capture the common-sense
+    abilities of RL agents: the innovation tasks were creating by quering a database in natural language that indicates
+    which combinations of elements are possible in our human world (for example you can combine `fire` with 'water' to make
+    'steam' but it does not make sense to combine 'fire' with 'rock').  Our project had a different objective: we want to
+    create innovation tasks that pose different challenges but are not necessarily real-world objects. For this reason,
+    we created three custom tasks with symbolic elements:
+</p>
+
+
+<table cellpadding="10" cellspacing="10">
+<tbody>
+<tr>
+<td style="text-align: center;padding:10px"> Easy innovation task </td>
+<td style="text-align: center;padding:10px"> Innovations that requires repurposing </td>
+<td style="text-align: center;padding:10px"> Innovations in large search spaces </td>
+</tr>
+<tr>
+<td style="text-align: center;padding:10px" ><img src="public/fork_innovation.svg" style="width:90%"  alt="" class="center"/></td>
+<td style="text-align: center;padding:10px  "><img src="public/microwave_innovation.svg" style="width:90%"  alt="" class="center"/></td>
+<td style="text-align: center;padding:10px  "><img src="public/microwave_innovation.svg" style="width:90%"  alt="" class="center"/></td>
+</tr>
+<tr>
+<td style="text-align: center;padding:10px" ><img src="public/singlepath.svg" style="width:90%"  alt="" class="center"/></td>
+<td style="text-align: center;padding:10px" ><img src="public/mergingpaths.svg" style="width:90%"  alt="" class="center"/></td>
+<td style="text-align: center;padding:10px" ><img src="public/bestoftenpaths.svg" style="width:90%"  alt="" class="center"/></td>
+
+</tr>
+</tbody>
+</table>
 
 <h3> Discussion </h3>
 
@@ -709,6 +748,22 @@ across different tasks. We believe that the contribution of this study is two-fo
 
 
 <script type="text/bibliography">
+
+
+@article{jiangWordCraftEnvironmentBenchmarking2020,
+	title = {{WordCraft}: {An} {Environment} for {Benchmarking} {Commonsense} {Agents}},
+	shorttitle = {{WordCraft}},
+	url = {http://arxiv.org/abs/2007.09185},
+	language = {en},
+	urldate = {2021-02-10},
+	journal = {arXiv:2007.09185 [cs]},
+	author = {Jiang, Minqi and Luketina, Jelena and Nardelli, Nantas and Minervini, Pasquale and Torr, Philip H. S. and Whiteson, Shimon and Rocktäschel, Tim},
+	month = jul,
+	year = {2020},
+	note = {arXiv: 2007.09185},
+	keywords = {Computer Science - Artificial Intelligence, Computer Science - Computation and Language, Computer Science - Machine Learning},
+	file = {Jiang et al. - 2020 - WordCraft An Environment for Benchmarking Commons.pdf:/Users/eleninisioti/Zotero/storage/QKGXLQDL/Jiang et al. - 2020 - WordCraft An Environment for Benchmarking Commons.pdf:application/pdf},
+}
 
 
 @techreport{espeholt_impala_2018,
