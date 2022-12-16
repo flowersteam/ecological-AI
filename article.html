@@ -80,6 +80,8 @@
     engineering cognitive architectures and introducing objective functions that we evaluate on carefully selected
     benchmarks, abiding to the Turing-test tradition. </p>
 
+<p>The cellular automaton we  study in this work is Lenia <dt-cite key="chan2020lenia"></dt-cite><dt-cite key="chan2019lenia"></dt-cite> which has the particularity of having continuous C-dimensional states (\(a_x \in [0,1]^C\)).  To be more precise, Lenia is a class of cellular automata in which each instance is a Cellular Automaton (CA). A CA instance is defined by a set of parameters \( \theta \) that condition its "physics" such that the update rule \(f\) is parametrized: \( a_x^{t+1}&#x3D; f_{\theta}(a_x^t,\mathcal{N}(a_x^t))\). For example, the Game of Life can be seen as a particular instance in Lenia.  Having these update rules parametrized allows  the search for CA environments with rules which can lead to the emergence of interesting patterns, including SLP and moving ones. Contrary to the perfectly stable or periodically oscillating patterns in the game of life, it is very hard to know if a SLP in Lenia will not explode or vanish after a long period of time on account of tiny drift changes in its continuous states. </p>
+
 </dt-article>
 
 <script type="text/bibliography">
@@ -95,6 +97,14 @@
 	pages = {433--460},
 }
 
-
+  @misc{chan2020lenia,
+        title={Lenia and Expanded Universe},
+        author={Bert Wang-Chak Chan},
+        year={2020},
+        eprint={1755.03742},
+        archivePrefix={arXiv},
+        primaryClass={nlin.CG},
+        url={https://arxiv.org/abs/2005.03742}
+  }
 
 </script>
