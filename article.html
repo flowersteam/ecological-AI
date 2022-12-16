@@ -611,6 +611,39 @@ the plastic individual has lower fitness (cost of plasticity). If $e_n >>\mu_k$ 
 </div>
 
 
+<p> Tolerance curves elegantly capture the cost and benefit of plasticity: if a plastic and non-plastic agent compete
+    in an environment that is identical to their preferred niche, the plastic one will lose as its peak is lower. But
+    if, for some reason, the environment changes in the next generation so that it differs from the preferred niche
+    of the two individuals, the plastic one will be at an advantage.
+</p>
+
+<p> In addition to this plasticity, an agent can adapt using its evolvability (r;), which refers to the amount of
+    mutations that take place between generations.
+</p>
+
+ <p>
+To decide which agents in a population survive in the following generation we implemented two selection mechanisms:
+ </p>
+
+<ul>
+    <li> fitness-based selection. This is the classical survival-of-the-fittest critertion where agents are selected
+        proportionally to their fitness </li>
+
+    <li> niche-limited competition. Under this mechanism, agents surviving in a niche reproduce within it, with the
+        number of reproductions being limited by capacity. Thus, an agent can increase its chances of reproduction by
+        surviving in multiple niches. </li>
+
+</ul>
+
+<p> At each generation, the three elements of an agent's genome evolve as: </p>
+
+    <div align="center" style="margin-bottom:40px">
+
+<var> &mu; <sub>{t+1} </var> = <var>&mu; <sub>{t}</var> + <var>N(0, r<sub>{t})</var>
+<var> &sigma; <sub>{t+1} </var> = <var>&sigma; <sub>{t}</var> + <var>N(0, r<sub>{t})</var>
+<var> r; <sub>{t+1} </var> = <var>r; <sub>{t}</var> + <var>N(0, r<sub>{t})</var>
+</div>
+
 </dt-article>
 
 <dt-appendix>
