@@ -506,6 +506,67 @@ width: calc((1500px - 648px) / 2 - 24px);">
     <dt-cite key="potts_hominin_2013"> </dt-cite>
 </p>
 
+
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+  <img src="public/climate_Maslin.png" alt="scheme" style="width:94%">
+    <p> Paleoclimatology records indicate that periods of high climatic variability were linked to the formation of
+        lakes and the appearance of new hominin species.
+        <dt-cite key="maslin_east_2014"> </dt-cite> Image source </a>   </p>
+</div>
+
+<p> How exactly did climatic conditions affect the evolution of the human species? The Pulsed Climate Variability
+    (PCV) framework <dt-cite key="maslin_synthesis_2015"> </dt-cite>  has formalized this question into a set of
+    hypotheses of how types of environmental variability affect evolutionary phenometa such as speciation, extinction,
+    dispersal and diversity. </p>
+
+<p> Under the PCV framework species are divided into two broad types: specialists are species that can survive in a
+    limited range of environmental conditions, while generalists survive in a large range of conditions. As humans are
+    a remarkably generalist species, we are very interested in which ecological conditions give rise to this type.
+    With incomplete data about the environmental conditions and species of this period and, in the absence of
+    theoretical models, answering this question in HBE in the near future seems unlikely. </p>
+
+<h3> Background in AI </h3>
+
+<p> A similar story has been unfolding in AI: in its quest for artificial agents that can generalize and quickly
+    adapt to new tasks, the meta RL paradigm trains agents in a wide distribution of environments
+    <dt-cite key="vanschoren_meta-learning_2018"> </dt-cite>.
+ </p>
+
+
+<p> Here, the agent adapts at two levels:
+    <ul>
+    <li> in an outer loop, we choose the environment that the agent will train on by
+    randomly sampling out of a distribution of environments. This distribution is designed to balance between two
+    objectives: on one hand we want this distribution to be as wide as possible, as this width determines the
+    achievable generality of the agent. On the other hand, we want to keep the computational complexity low. This
+    trade-off is usually solved by training meta-RL agents in a single domain (for example mazes with different
+        layouts), but we have impressive examples of meta-Rl agents that can Atari games, chat and control a robotic
+        arm <dt-cite key="reed_generalist_2022"> </dt-cite> </li>
+    <li> in an inner loop, the agent learns to solve a single environment. But because this
+    environment changes at every new outer loop, the agent is learning how to learn rather than learning the specific
+    task. </li>
+    </ul>
+</p>
+
+<p> To draw a parallel with biological agents, we can see the outer-loop implementing the adaptive mechanism of
+    evolution and the inner loop the adaptive mechanism of development.
+</p>
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/meta_RL.png" height="200" width="465" alt="metaRL" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> In meta-RL an agent is trained on a distribution of environments. </i></sub>
+</div>
+</div>
+
+<p> The main limitation here is computational complexity: the distribution of environments needs to be sampled
+    densely enough to ensure generalization while the set of environments considered is limited within a single domain
+    (for example mazes with different layouts). Also meta-learning set-ups usually consider a stationary distribution
+    for sampling environments, thus ignoring the benefits of environments with certain dynamics, such as the ones
+    proposed by the PCV framework </p>
+
 </dt-article>
 
 <dt-appendix>
@@ -516,6 +577,40 @@ width: calc((1500px - 648px) / 2 - 24px);">
 
 <script type="text/bibliography">
 
+@misc{vanschoren_meta-learning_2018,
+	title = {Meta-{Learning}: {A} {Survey}},
+	shorttitle = {Meta-{Learning}},
+	url = {http://arxiv.org/abs/1810.03548},
+	doi = {10.48550/arXiv.1810.03548},
+	abstract = {Meta-learning, or learning to learn, is the science of systematically observing how different machine learning approaches perform on a wide range of learning tasks, and then learning from this experience, or meta-data, to learn new tasks much faster than otherwise possible. Not only does this dramatically speed up and improve the design of machine learning pipelines or neural architectures, it also allows us to replace hand-engineered algorithms with novel approaches learned in a data-driven way. In this chapter, we provide an overview of the state of the art in this fascinating and continuously evolving field.},
+	urldate = {2022-12-14},
+	publisher = {arXiv},
+	author = {Vanschoren, Joaquin},
+	month = oct,
+	year = {2018},
+	note = {arXiv:1810.03548 [cs, stat]},
+	keywords = {Computer Science - Machine Learning, Statistics - Machine Learning},
+	file = {arXiv Fulltext PDF:/Users/eleninisioti/Zotero/storage/VLE24W27/Vanschoren - 2018 - Meta-Learning A Survey.pdf:application/pdf;arXiv.org Snapshot:/Users/eleninisioti/Zotero/storage/K9ECMX5X/1810.html:text/html},
+}
+
+
+@article{maslin_east_2014,
+	title = {East {African} climate pulses and early human evolution},
+	volume = {101},
+	issn = {0277-3791},
+	url = {https://www.sciencedirect.com/science/article/pii/S0277379114002418},
+	doi = {10.1016/j.quascirev.2014.06.012},
+	abstract = {Current evidence suggests that all of the major events in hominin evolution have occurred in East Africa. Over the last two decades, there has been intensive work undertaken to understand African palaeoclimate and tectonics in order to put together a coherent picture of how the environment of East Africa has varied in the past. The landscape of East Africa has altered dramatically over the last 10 million years. It has changed from a relatively flat, homogenous region covered with mixed tropical forest, to a varied and heterogeneous environment, with mountains over 4 km high and vegetation ranging from desert to cloud forest. The progressive rifting of East Africa has also generated numerous lake basins, which are highly sensitive to changes in the local precipitation-evaporation regime. There is now evidence that the presence of precession-driven, ephemeral deep-water lakes in East Africa were concurrent with major events in hominin evolution. It seems the unusual geology and climate of East Africa created periods of highly variable local climate, which, it has been suggested could have driven hominin speciation, encephalisation and dispersal out of Africa. One example is the significant hominin speciation and brain expansion event at ∼1.8 Ma that seems to have been coeval with the occurrence of highly variable, extensive, deep-water lakes. This complex, climatically very variable setting inspired first the variability selection hypothesis, which was then the basis for the pulsed climate variability hypothesis. The newer of the two suggests that the long-term drying trend in East Africa was punctuated by episodes of short, alternating periods of extreme humidity and aridity. Both hypotheses, together with other key theories of climate-evolution linkages, are discussed in this paper. Though useful the actual evolution mechanisms, which led to early hominins are still unclear and continue to be debated. However, it is clear that an understanding of East African lakes and their palaeoclimate history is required to understand the context within which humans evolved and eventually left East Africa.},
+	language = {en},
+	urldate = {2022-12-14},
+	journal = {Quaternary Science Reviews},
+	author = {Maslin, Mark A. and Brierley, Chris M. and Milner, Alice M. and Shultz, Susanne and Trauth, Martin H. and Wilson, Katy E.},
+	month = oct,
+	year = {2014},
+	keywords = {Cenozoic climate transitions, East Africa, Hominin, Human evolution, Orbital forcing, Palaeoclimatology, Palaeoliminology, Pulsed climate variability hypothesis, Tectonics},
+	pages = {1--17},
+	file = {ScienceDirect Full Text PDF:/Users/eleninisioti/Zotero/storage/5E5M2QKF/Maslin et al. - 2014 - East African climate pulses and early human evolut.pdf:application/pdf;ScienceDirect Snapshot:/Users/eleninisioti/Zotero/storage/AJQU8IU6/S0277379114002418.html:text/html},
+}
 
 @article{potts_hominin_2013,
 	title = {Hominin evolution in settings of strong environmental variability},
