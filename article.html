@@ -87,14 +87,59 @@
     environmental properties to reverse-engineer the conditions that drive intelligent behavior.
 </p>
 
-    <p> Ecological perspectives abide in the study of biological organisms. From the emergence of vision systems
-        <dt-cite key="gibson__2014"> </dt-cite>
-         to that of religious beliefs <dt-cite key="botero_ecology_2014"> </dt-cite>, the environments encountered in a
-        species' evolutionary trajectory have been used to explain why
-        certain functions persist over others.
-    </p>
+<p> Ecological perspectives abide in the study of biological organisms. From the emergence of vision systems
+    <dt-cite key="gibson__2014"> </dt-cite>
+     to that of religious beliefs <dt-cite key="botero_ecology_2014"> </dt-cite>, the environments encountered in a
+    species' evolutionary trajectory have been used to explain why
+    certain functions persist over others.
+</p>
+
+    <h4> In this blog post, we will discuss why and how we should pursue an ecological approach to AI. In particular, we will: </h4>
 
 
+    <ul>
+        <li > <b> review recent progress and challenges in cognition-centric AI </b> </li>
+        <li > <b> present a conceptual framework for grounding an ecological approach to AI in Human
+            Behavioral Ecology (HBE), a research field studying the evolution of humans in interaction with their environments</b> </li>
+        <li > <b> illustrate how an ecological perspective to AI looks in practise through two of our recent
+            computational studies. </b> </li>
+    </ul>
+
+
+
+<table cellpadding="10" cellspacing="10">
+<tbody>
+<tr>
+<td style="text-align: center" ><img src="public/earth.gif" height="165" width="165"  alt="" class="center"/></td>
+<td style="text-align: center"><img src="public/earth.gif" height="165" width="165"  alt="" class="center"/></td>
+</tr>
+<tr>
+<td style="text-align: center;padding:10px"> <h4>  How does environmental variability affect the evolution of adaptability? </h4>
+    <p style="text-align: justify;padding:10px" >   In a world with temporal and spatial variability, a population of agents evolves its adaptability
+        in order to survive. Agents can adapt using evolvability and phenotypic plasticity and the fittest ones in a
+        niche leave offspring. Can these agents survive in the face of extreme climatic variability? In this work,
+        we will see how populations adapt, diversify and disperse under different climatic conditions. </p></td>
+<td style="text-align: center;padding:10px"> <h4> How does social connectivity affect collective innovation? </h4>
+<p style="text-align: justify;padding:10px">  From drug discovery to music composition, our human cultural repertoire relies on innovations produced
+    by collectives that jointly explore, communicate and recombine solutions. Can artificial agents also innovate in
+    collectives? In the learning paradigm of distributed RL, groups of agents solve tasks in parallel and share their
+    experiences with observed benefits to performance. But, while biological organisms exhibit a variety of social
+    network structures,, distributed RL agents always share with everyone. Here, we study the effect of social network
+    structure in a group of DQN agents playing the <a href='https://littlealchemy2.com/'> Little Alchemy game </a>.
+</p></td>
+</tr>
+</tbody>
+</table>
+
+<p> At a first glance these two studies have nothing in common, except perhaps for their ecological attitude towards
+    skill acquisition. At the end of this post we will see, however, that there is room for exchanging ideas between
+    the two: recent ecological theories posit that elements in our environment such as the Sahara desert act as
+    ecological barriers that prohibit immigration but can disappear during periods of extreme climatic variability
+    (<a href="https://www.youtube.com/watch?v=ZQP-7BPvvq0"> did you know the Sahara was green a few tens of thousands
+        of years ago?  </a> <dt-cite key="larrasoana_dynamics_2013"> </dt-cite>. This means that climatic variability
+    may have affected social network structure, with interesting implications for the populations that needed to survive
+    at the time  ...
+</p>
 </dt-article>
 
 <dt-appendix>
@@ -104,6 +149,43 @@
 </dt-appendix>
 
 <script type="text/bibliography">
+
+@article{botero_ecology_2014,
+	title = {The ecology of religious beliefs},
+	volume = {111},
+	url = {https://www.pnas.org/doi/10.1073/pnas.1408701111},
+	doi = {10.1073/pnas.1408701111},
+	abstract = {Although ecological forces are known to shape the expression of sociality across a broad range of biological taxa, their role in shaping human behavior is currently disputed. Both comparative and experimental evidence indicate that beliefs in moralizing high gods promote cooperation among humans, a behavioral attribute known to correlate with environmental harshness in nonhuman animals. Here we combine fine-grained bioclimatic data with the latest statistical tools from ecology and the social sciences to evaluate the potential effects of environmental forces, language history, and culture on the global distribution of belief in moralizing high gods (n = 583 societies). After simultaneously accounting for potential nonindependence among societies because of shared ancestry and cultural diffusion, we find that these beliefs are more prevalent among societies that inhabit poorer environments and are more prone to ecological duress. In addition, we find that these beliefs are more likely in politically complex societies that recognize rights to movable property. Overall, our multimodel inference approach predicts the global distribution of beliefs in moralizing high gods with an accuracy of 91\%, and estimates the relative importance of different potential mechanisms by which this spatial pattern may have arisen. The emerging picture is neither one of pure cultural transmission nor of simple ecological determinism, but rather a complex mixture of social, cultural, and environmental influences. Our methods and findings provide a blueprint for how the increasing wealth of ecological, linguistic, and historical data can be leveraged to understand the forces that have shaped the behavior of our own species.},
+	number = {47},
+	urldate = {2022-12-14},
+	journal = {Proceedings of the National Academy of Sciences},
+	author = {Botero, Carlos A. and Gardner, Beth and Kirby, Kathryn R. and Bulbulia, Joseph and Gavin, Michael C. and Gray, Russell D.},
+	month = nov,
+	year = {2014},
+	note = {Publisher: Proceedings of the National Academy of Sciences},
+	pages = {16784--16789},
+	file = {Full Text PDF:/Users/eleninisioti/Zotero/storage/PY94JZLD/Botero et al. - 2014 - The ecology of religious beliefs.pdf:application/pdf},
+}
+
+@article{larrasoana_dynamics_2013,
+	title = {Dynamics of Green Sahara Periods and Their Role in Hominin Evolution},
+	volume = {8},
+	issn = {1932-6203},
+	url = {https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0076514},
+	doi = {10.1371/journal.pone.0076514},
+	abstract = {Astronomically forced insolation changes have driven monsoon dynamics and recurrent humid episodes in North Africa, resulting in green Sahara Periods (GSPs) with savannah expansion throughout most of the desert. Despite their potential for expanding the area of prime hominin habitats and favouring out-of-Africa dispersals, GSPs have not been incorporated into the narrative of hominin evolution due to poor knowledge of their timing, dynamics and landscape composition at evolutionary timescales. We present a compilation of continental and marine paleoenvironmental records from within and around North Africa, which enables identification of over 230 GSPs within the last 8 million years. By combining the main climatological determinants of woody cover in tropical Africa with paleoenvironmental and paleoclimatic data for representative (Holocene and Eemian) GSPs, we estimate precipitation regimes and habitat distributions during GSPs. Their chronology is consistent with the ages of Saharan archeological and fossil hominin sites. Each GSP took 2–3 kyr to develop, peaked over 4–8 kyr, biogeographically connected the African tropics to African and Eurasian mid latitudes, and ended within 2–3 kyr, which resulted in rapid habitat fragmentation. We argue that the well-dated succession of GSPs presented here may have played an important role in migration and evolution of hominins.},
+	language = {en},
+	number = {10},
+	urldate = {2022-12-14},
+	journal = {PLOS ONE},
+	author = {Larrasoaña, Juan C. and Roberts, Andrew P. and Rohling, Eelco J.},
+	month = oct,
+	year = {2013},
+	note = {Publisher: Public Library of Science},
+	keywords = {Africa, Holocene epoch, Hominin evolution, Hominins, Paleoclimatology, Paleoecology, Rain, Sediment},
+	pages = {e76514},
+	file = {Full Text PDF:/Users/eleninisioti/Zotero/storage/6TRGFPK8/Larrasoaña et al. - 2013 - Dynamics of Green Sahara Periods and Their Role in.pdf:application/pdf},
+}
 
 @book{gibson__2014,
 	address = {New York},
