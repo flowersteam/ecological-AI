@@ -596,7 +596,19 @@ timesteps (as e.g. in RL).  To avoid this complexity  of introducing an intra-li
     variance its plasticity, i.e., its ability to survive under different environmental conditions: </p>
 
 
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/tolerance_curves.png" width="65%" alt="toleranceCurve" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> An agent with low plasticity (on the left) has small &\sigma; and a high peak at their preferred niche, while a
+    plastic individual (on the right) has large &\sigma; and a lower peak at their preferred niche. Fitness in a
+    certain environmental state is computed as the probability density function of the distribution at that point
+the plastic individual has lower fitness (cost of plasticity). If $e_n >>\mu_k$ (the actual environmental state differs
+    significantly from the preferred one) the plastic individual has higher fitness (benefit of plasticity)
 
+</i></sub>
+</div>
+</div>
 
 
 </dt-article>
