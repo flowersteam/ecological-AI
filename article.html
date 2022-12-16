@@ -624,6 +624,195 @@ width: calc((1500px - 648px) / 2 - 24px);">
     two types of groups (a fully-connected and a partially-connected) competed on an innovation task inspired from drug
     discovery.
 </p>
+
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/boyd_task.png" style="width:94%" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> The innovation task introduced in <dt-cite key="derexPartialConnectivityIncreases2016"> </dt-cite>. Image credit:
+<a href="https://www.pnas.org/doi/10.1073/pnas.1518798113"> source</a></i></sub>
+</div>
+</div>
+
+<p> In this task, one starts with a set of elements which they can combine in triplets. Some triplets are valid, in the
+    sense that they lead to the creation of a new element and incur a reward. Once the player finds a valid triplet, they
+    can use the newly created element to then search for a new valid triplet. Triplets belong to one of two trajectories,
+    the blue and the red: elements discovered in a trajectory are only useful for it. This means that once you find a valid
+    triplet you are incentivised to stay in the same trajectory. But there is a catch: when you reach the fourth element,
+    you need an element from the other trajectory. This is what makes this task deceptive: to solve it optimally
+    (get ...) you need to act sub-optimally in the short-term (explore the other trajectory instead of just marching
+    forward).
+</p>
+
+<h3> Background in AI </h3>
+
+<p> Artificial agents search in collectives too. In RL, training the agents on learning to solve a task requires immense
+    amounts of data. These data are collected by interacting with an environment, a computationally expensive process that
+    becomes more manageable if one parallelizes the algorithm. By having multiple agents collecting data in their own copy
+    of the environment and delivering them to a central node that trains the policy, we can achieve a reduction in training
+    time linear to the number of agents. This is the paradigm of decentralized RL, which is so prominent that today, the most
+    popular RL algorithms are not a single agent but a group of agents
+    <dt-cite key="mnihAsynchronousMethodsDeep2016a"></dt-cite>
+    <dt-cite key="horganDistributedPrioritizedExperience2018"> </dt-cite>
+    <dt-cite key="espeholt_impala_2018"> </dt-cite>.
+</p>
+
+<p> This architecture where multiple workers communicate with a central learner that updates a single policy and returns
+    it back to them is called a star topology and is, if not the only, the most prominent architecture used in
+    decentralized RL. We hypothesize that the reason this choice dominated is that designers believe that this
+    fully-connected architecture is best for sample complexity: the more information the agents in the group have the
+    better, right?
+</p>
+
+<p> Having read our review of human studies, you too must be thinking that the answer to this question may not
+    necessarily be "yes". In the next sub-section, we will describe our study of the effect of social network structure in
+    distributed RL where the group is solving a task inspired by
+    <dt-cite key="derexPartialConnectivityIncreases2016"></dt-cite>.  </p>
+
+<h3> SAPIENS: a distributed RL framework with structured groups </h3>
+
+<p> SAPIENS is a learning framework belonging to the decentralized RL learning paradigm that connects multiple
+    learners based on a pre-defined social network structure. One can imagine many instantiations of it that differ for
+    example in the learning algorithm employed and the type of information shared. In this project, we have studied a
+    single instantiation with DQN learners that share experience tuples from their replay buffer.
+</p>
+
+
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+  <img src="public/sapiens_schematic.svg" alt="scheme" style="width:90%">
+<p>  Schematic of a SAPIENS algorithm with 2 DQN learners exchanging experiences from their replay buffer.
+</p>
+</div>
+
+<p> We studied five different social network structures: fully-connected, ring, small-world (which we designed according
+    to the Watts-Strogatz model) and dynamic. In the latter, the agents start in sub-groups of two and during training
+    may visit other subgroups wiht probability <var> p <sub>v </var>  for a duration of <var> T <sub>v </var> time steps.
+</p>
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/sapiens_structures.gif" style="width:90%" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> </i></sub>
+</div>
+</div>
+
+<h3> Designing innovation tasks </h3>
+
+<p> To study innovation, we want create tasks that have the multi-level structure that we described. We also want to be
+flexible: we would like to try innovation tasks that vary in the length of the innovation path-ways (how many elements
+    do we want the agents to create?) and the learning challenge involved (what challengs does a single or multiple learners
+    face when trying to reach the maximum innovation level?).
+</p>
+
+<p> To achieve this we employed Wordcraft <dt-cite key="jiangWordCraftEnvironmentBenchmarking2020"> </dt-cite>,
+    a test-bed inspired from the Little Alchemy game. Wordcraft was originally introduced to capture the common-sense
+    abilities of RL agents: the innovation tasks were creating by quering a database in natural language that indicates
+    which combinations of elements are possible in our human world (for example you can combine `fire` with 'water' to make
+    'steam' but it does not make sense to combine 'fire' with 'rock').  Our project had a different objective: we want to
+    create innovation tasks that pose different challenges but are not necessarily real-world objects. For this reason,
+    we created three custom tasks with symbolic elements:
+    <ul>
+    <li> <b> single-path  task </b>:a task with a single innovation path to an easy-to-find global optimum.
+        This type of task can be used to model a linear innovation structure, such as the evolution of the fork from
+        knife to having, two-, three- and, eventually four tines, and is not a deceptive task.
+    </li>
+    <li>  <b> merging-paths task</b>: a task with two paths that individually lead to local optima, but when combined,
+        can merge toward the global optimum. Inspired from previous studies in cognitive science this task we can capture
+        innovations that were repurposed after their invention, such as Gutenberg's screw press leading to the print
+        press.}
+    </li>
+    <li> <b> best-of-ten paths task</b>: \item a task with ten paths, only one of which leads to the global optimum,
+        which captures search in vast spaces
+    </li>
+
+    </ul>
+</p>
+<table>
+<tbody>
+<tr>
+<td style="text-align: center;padding:10px"> Single-path task </td>
+<td style="text-align: center;padding:10px"> Merging-paths task </td>
+<td style="text-align: center;padding:10px"> Best-of-ten-paths task </td>
+</tr>
+<tr>
+<td style="text-align: center;padding:10px" ><img src="public/fork_innovation.png" style="width:90%"  alt="" class="center"/></td>
+<td style="text-align: center;padding:10px  "><img src="public/microwave_innovation.svg" style="width:90%"  alt="" class="center"/></td>
+<td style="text-align: center;padding:10px  "><img src="public/microwave_innovation.svg" style="width:90%"  alt="" class="center"/></td>
+</tr>
+<tr>
+<td style="text-align: center;padding:10px" ><img src="public/singlepath.svg" style="width:90%"  alt="" class="center"/></td>
+<td style="text-align: center;padding:10px" ><img src="public/mergingpaths.svg" style="width:90%"  alt="" class="center"/></td>
+<td style="text-align: center;padding:10px" ><img src="public/bestoftenpaths.svg" style="width:90%"  alt="" class="center"/></td>
+</tr>
+</tbody>
+</table>
+
+<h3> Observing different social network structures in different innovation tasks
+</h3>
+
+<p> Do the different social network structures behave differently, and do these differences depend on the task at hand?
+This is the main question that we aimed to address with our empirical analysis. We evaluated performance in terms of two
+    metrics: the maximum reward within the group after convergence (<var> R <sub>max </var>) and the time it took it to
+    reach this performance (<var> T<sub>+</var>). In addition to the SAPIENS methods, we also benchmarked a group without
+    sharing, a single agent and two distributed RL algorithms with a star topology: Ape-X
+    <dt-cite key="horganDistributedPrioritizedExperience2018"> </dt-cite> and A2C
+    <dt-cite key="mnihAsynchronousMethodsDeep2016a"> </dt-cite>. The results are summarised in the following figure:
+</p>
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/combined.svg" style="width:90%" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> </i></sub>
+</div>
+</div>
+
+<p> Our analysis showed that:
+<ul>
+    <li> In the <b> single-path task</b>: there was no important differences between the structures. Interestingly, more
+        sharing did not lead to quicker convergence. Instead, the fully-connected structure was the slowest to converge.
+    </li>
+    <li> In the <b> merging-paths task</b>: the dynamic structure was the most successful among all partially-connected
+        structures and all fully-connected methods failed.
+    </li>
+    <li>
+        In the <b> best-of-ten-paths task</b>: the dynamics structure was again the most succcesful method.
+    </li>
+</ul>
+</p>
+
+<h3> Discussion </h3>
+
+<p> In this work we showed that the social network structure of RL agents matters and that dynamic structures perform best
+across different tasks. We believe that the contribution of this study is two-fold.
+</p>
+
+<p> From the perspective of distributed RL,
+we showed that dynamic social network structures are worth-exploring as they perform better than the classicaly employed
+star topology and that evaluating algorithms not just in terms of rewards, but also in terms of mnemonice properties
+such as diversity, can contribute to understanding differences in the behaviors of different algorithms.</p>
+
+<p> From the perspective of studies of human collective innovation, we showed that using RL agents as the computational model
+    can enable the study of more complex problems, similar to the ones employed in human lab studies, and that the emerging
+    behaviors confirm hypotheses from such studies. By studying a wider diversity of tasks that what has been considered in
+    human studies, we were able to provide more hypotheses for future human studies.</p>
+
+
+
+
+<h2> Overall conclusion </h2>
+
+<p> With these two works we showed how our research methodology can benefit two very different fields: we started from
+hypotheses from ecology, designed computational studies inspired from them and derived empirical conclusions that can feed
+future studies in ecology. 
+</p>
+
+<h2> Future work: how does environmental variability affect collective innovation by influencing social network structure?
+</h2>
+
 </dt-article>
 
 <dt-appendix>
