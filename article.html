@@ -421,7 +421,90 @@ width: calc((1500px - 648px) / 2 - 24px);">
 </p>
 
 
-<p> Our methodology was three-step:
+<p> Our methodology was three-step: </p>
+
+
+<ol type="1">
+
+
+    <li style="..."> skim the Human Behavioral Ecology (HBE) literature to identify the key factors that this
+        community proposes as conducive for the evolution of the uniquely diverse human cultural repertoire
+</li>
+    <li style="..."> identify common research questions and hypotheses in AI, in particular the sub-fields of
+        meta and multi-agent reinforcement learning
+</li>
+    <li style="..."> abstract away the particularities of the two fields to arrive at a  conceptual framework that
+        unifies their terminologies and research agendas.
+</li>
+
+</ol>
+
+
+<p> Here is our conceptual framework, to which we refer to as <em> ORIGINS </em>, that our work led to: </p>
+
+
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/framework.png" height="465" width="665" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> Conceptual framework  <a href=""> []</a></i></sub>
+</div>
+</div>
+
+<p> The schematic consists of two elements:</p>
+<ul>
+    <li> boxes represent categories of ecological mechanisms. </li>
+    <li> arrows represent relationships between ecological components:
+    <ul> <li> A feedforward link between box 'X' and 'Y' indicates that environmental dynamics inside 'X' is driving a
+        skills inside 'Y'. In other words, it is acting as a selection pressure. For example, the fact that exposition
+        to predators can promote cooperation is captured by the link
+        [Environmental complexity] -> [Multi-agent dynamics]</li>
+        <li> A feedback link between box 'X' and 'Y' has a different meaning: a skill in 'X' is modifying its
+            environment by changing the dynamics in 'Y'. For example, the fact that tool use can alter resource
+            availability is captured by the link [Cultural repertoire] -> [Environmental complexity]. </li>
+    </ul>
+
+    </li>
+</ul>
+
+<p> To discover works that study these links, including our own, you can hover over the arrows in the image.
+
+</p>
+
+
+    <p> The story that the conceptual framework tells, put succinctly, is:
+</p>
+
+<p> <em> Environmental complexity  has a key role in  skill acquisition: it bootstraps the emergence
+    of individual skills by modulating the need  for cognitive mechanisms and multi-agent skills through cooperation
+    and competition pressures. The skills themselves then act as drivers of further skill acquisition in two ways:
+    a) they interact with each other to give rise to the uniquely complex human cultural repertoire b)  they modulate
+    environmental complexity through the process of niche construction, which creates a positive feedback loop that
+    makes the process open-ended. </em> </p>
+
+<p> <em> ORIGINS </em>  can be a useful tool for both communities:  AI researchers can borrow existing hypotheses from
+    HBE about which environmental conditions affect which skills to appropriately shape their environments, an approach
+    that we refer to as ecologically-inspired AI. At the same time, HBE researchers can use AI as a computational tool
+    for studying their hypotheses.</p>
+<p> In the rest of the post we give a more illustrative example of  ecologically-inspired AI through two of our works:
+    we will zoom in in two different parts of the framework, discuss the ecological hypotheses they were inspired from,
+    and then present the artificial ecologies we implemented to study them. </p>
+
+<h2 id="Study-A"> Study A: Evolution of plasticity and evolvability in variable environments </h2>
+
+<h3> Background in HBE </h3>
+<p> What makes us human? For HBE researchers, this is not a philosophical inquiry, but a rather pressing scientific
+    question: why did the first hominin species appear about 5 million years ago and which skills did they evolve
+    that allowed them to expand into a  population that today holds a powerful position in the Earth's  ecosystem?</p>
+
+<p> When we trace back the history of our planet, we find climatic records of very ''busy" periods : many rapid and
+    large-amplitude climatic cycles have taken place in the last few milliion years, leading to high levels of climate
+    change that must have significantly shaped populations at a global and local scale. Our own hominin space appeared
+    and dispersed during such periods, competing and reproducing with other species.
+    <dt-cite key="maslin_synthesis_2015"> </dt-cite> <dt-cite key="sanchez_goni_regional_2020"> </dt-cite>
+    <dt-cite key="potts_hominin_2013"> </dt-cite>
+</p>
 
 </dt-article>
 
@@ -432,6 +515,78 @@ width: calc((1500px - 648px) / 2 - 24px);">
 </dt-appendix>
 
 <script type="text/bibliography">
+
+
+@article{potts_hominin_2013,
+	title = {Hominin evolution in settings of strong environmental variability},
+	volume = {73},
+	issn = {02773791},
+	url = {https://linkinghub.elsevier.com/retrieve/pii/S0277379113001340},
+	doi = {10.1016/j.quascirev.2013.04.003},
+	abstract = {Investigations into how climate change shaped human evolution have begun to focus on environmental dynamics, i.e., the nature and tempo of climate and landscape variability, an approach that de-emphasizes static reconstructions of early hominin habitats. The interaction among insolation cycles is especially apparent in the paleoenvironmental records of the East African Rift System, where the longest records of human evolution are preserved. However, environmental indicators such as deep-sea oxygen isotopes, terrestrial dust ﬂux, paleosol carbon isotopes, and lake sediments do not point consistently to any simple trend or climate driver of evolutionary change. Comparison of environmental indicators cautions against an exclusive focus on any given end-member of environmental ﬂuctuation (driest or wettest, warmest or coolest), and argues for the impact of the entire range of variability in shaping evolutionary change. A model of alternating high and low climate variability for tropical Africa further implies that speciﬁc environmental indicators reﬂect different aspects of East African environmental dynamics. The model may thus help reconcile some of the conﬂicting interpretations about the environmental drivers of hominin evolution. First and last appearances of hominin lineages, benchmark biogeographic events, and the emergence of key adaptations and capacities to alter the surroundings are consistently concentrated in the predicted longest intervals of high climate variability. The view that emerges is that important changes in stone technology, sociality, and other aspects of hominin behavior can now be understood as adaptive responses to heightened habitat instability.},
+	language = {en},
+	urldate = {2020-11-19},
+	journal = {Quaternary Science Reviews},
+	author = {Potts, Richard},
+	month = aug,
+	year = {2013},
+	keywords = {read},
+	pages = {1--13},
+}
+
+
+@article{sanchez_goni_regional_2020,
+	title = {Regional impacts of climate change and its relevance to human evolution},
+	volume = {2},
+	issn = {2513-843X},
+	url = {https://www.cambridge.org/core/product/identifier/S2513843X20000560/type/journal_article},
+	doi = {10.1017/ehs.2020.56},
+	language = {en},
+	urldate = {2022-11-30},
+	journal = {Evolutionary Human Sciences},
+	author = {Sánchez Goñi, María Fernanda},
+	year = {2020},
+	pages = {e55},
+}
+
+
+@article{maslin_synthesis_2015,
+	title = {A synthesis of the theories and concepts of early human evolution},
+	volume = {370},
+	issn = {1471-2970},
+	doi = {10.1098/rstb.2014.0064},
+	language = {eng},
+	number = {1663},
+	journal = {Philosophical Transactions of the Royal Society of London. Series B, Biological Sciences},
+	author = {Maslin, Mark A. and Shultz, Susanne and Trauth, Martin H.},
+	month = mar,
+	year = {2015},
+	pmid = {25602068},
+	pmcid = {PMC4305165},
+	keywords = {Africa, Eastern, Biological Evolution, Climate, East Africa, Genetic Speciation, Geography, History, Ancient, hominin, human evolution, Human Migration, Humans, Models, Biological, palaeoclimatology, pulsed climate variability framework},
+	pages = {20140064},
+}
+
+
+@article{maslin_east_2014,
+	title = {East African climate pulses and early human evolution},
+	volume = {101},
+	issn = {0277-3791},
+	url = {https://www.sciencedirect.com/science/article/pii/S0277379114002418},
+	doi = {10.1016/j.quascirev.2014.06.012},
+	language = {en},
+	urldate = {2022-12-14},
+	journal = {Quaternary Science Reviews},
+	author = {Maslin, Mark A. and Brierley, Chris M. and Milner, Alice M. and Shultz, Susanne and Trauth, Martin H. and Wilson, Katy E.},
+	month = oct,
+	year = {2014},
+	keywords = {Cenozoic climate transitions, East Africa, Hominin, Human evolution, Orbital forcing, Palaeoclimatology, Palaeoliminology, Pulsed climate variability hypothesis, Tectonics},
+	pages = {1--17},
+}
+
+
+
+
 
 @inproceedings{nisioti_grounding_2021,
 	address = {virtual event},
