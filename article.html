@@ -644,6 +644,106 @@ To decide which agents in a population survive in the following generation we im
 <var> r; <sub>{t+1} </var> = <var>r; <sub>{t}</var> + <var>N(0, r<sub>{t})</var>
 </div>
 
+
+
+<h4> Modeling an ecologically-complex environment </h4>
+
+<p> We have hinted that we want to simulate a variable environment, but how exactly can we go about this, while
+    keeping the computational complexity of the simulations low? In this work, we have defined a model that comprises a
+    number of niches &N and a climate function e_g that characterizes the environmental state of each niche.  </p>
+
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/niches.png" width="65%" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> The environment consists of multiple niches, each characterized by its latitude $n$ and a climate function that has
+    the same form for each niche except by a vertical offset proportional to the niche index.</i></sub>
+</div>
+</div>
+
+
+
+<h4> Observing populations evolve under climate change </h4>
+
+<p> To disentangle the effect of the two selection mechanisms we experimented with three variants of the evolutionary
+    algorithm:
+</p>
+
+<ul>
+    <li> F-selection employs only fitness-based selection </li>
+    <li> N-selection employs only niche-limited competition</li>
+    <li> NF-selection employs both </li>
+</ul>
+
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+  <img src="public/stable_sigma.svg" alt="scheme" style="width:94%">
+<p> Stable environment </p>
+</div>
+
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+  <img src="public/sin_evolution_quick.svg" alt="scheme" style="width:94%">
+<p> Sinusoid environment </p>
+</div>
+
+
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+  <img src="public/noisy_evolution.svg" alt="scheme" style="width:94%">
+<p> Noisy environment </p>
+</div>
+
+<p> We have also simulated words with various number of niches and three types of climate functions:</p>
+<ul>
+
+    <li> <b> stable climate </b> Here we can control the quality of the climate: words with higher environmental
+        states are higher quality, as they can support larger populations. In this case, we saw that low-quality
+        environments with multiple niches favor plasticity provided niche-limited competition is active: as an
+        individual can reproduce in any of the niches it can survive in, higher plasticity means higher chances of
+        reproduction, which counteracts the cost of plasticity. As the quality of environments increases the benefit of
+        plasticity disappears: non-plastic individuals dominate the available niches even though some individuals choose
+        to disperse.
+    </li>
+    <li> <b> sinusoid variation </b> Here, we can control the amount and frequency of variation. We observed
+        F-selection and N-selection lead to mal-adapted populations that can tolerate less change.
+        .. </li>
+    <li> <b> Noisy climate </b> Here, we control for the amount of uncertainty. We observed that introducing
+        niche-limited competition is necessary for the population to survive and that N-selection adapts purely
+        through plasticity while NF-selection adapts through both plasticity and evolvability.
+    </li>
+</ul>
+
+
+<p> We observed that the three algorithms lead to very different behavior. For example, for sinusoidal variation under
+    F-selection the plasticity and the evolvabiltiy of the population is low and variability is dealt with by
+    continous migration as the following visualization shows on the left. In contrast when we employ NF-selection
+    in the same environmental setup both plasticity and evolvability remain high and the population expands to all
+    niches (on the right). </p>
+
+<table>
+<tbody>
+<tr>
+<td><img src="public/fig8_F.gif"   height="250" width="550"/></td>
+</tr>
+<tr>
+<td><img src="public/fig8_NF.gif"  height="250" width="550" /></td>
+</tr>
+</tbody>
+</table>
+
+<h3> Discussion </h3>
+<p> In these experiments, agents can freely moves in niches, as long as they can survive in them. If they have high
+    plasticity, the population therefore necessarily becomes well-mixed. This contrasts with real ecological
+    dynamics, where ecological barriers can appear and disappear. For example, under the Green Sahara ... and the
+    Iberian ..., . Such conditions are hypothesizes to have an important effect on both biological and cultural
+    evolution <dv-cite key="derrico_evolution_2011">  </dv-cite>  <dv-cite key="derrico_identifying_2013">  </dv-cite>
+    <dv-cite key="derrico_identifying_2017">  </dv-cite>
+</p>
+
+
+
 </dt-article>
 
 <dt-appendix>
@@ -653,6 +753,66 @@ To decide which agents in a population survive in the following generation we im
 </dt-appendix>
 
 <script type="text/bibliography">
+
+@article{derrico_identifying_2013,
+	title = {Identifying {Mechanisms} behind {Middle} {Paleolithic} and {Middle} {Stone} {Age} {Cultural} {Trajectories}},
+	volume = {54},
+	issn = {0011-3204, 1537-5382},
+	url = {https://www.journals.uchicago.edu/doi/10.1086/673388},
+	doi = {10.1086/673388},
+	language = {en},
+	number = {S8},
+	urldate = {2022-11-30},
+	journal = {Current Anthropology},
+	author = {d’Errico, Francesco and Banks, William E.},
+	month = dec,
+	year = {2013},
+	pages = {S371--S387},
+	file = {d’Errico and Banks - 2013 - Identifying Mechanisms behind Middle Paleolithic a.pdf:/Users/eleninisioti/Zotero/storage/MCKLJKWZ/d’Errico and Banks - 2013 - Identifying Mechanisms behind Middle Paleolithic a.pdf:application/pdf},
+}
+
+
+@article{derrico_identifying_2017,
+	title = {Identifying early modern human ecological niche expansions and associated cultural dynamics in the {South} {African} {Middle} {Stone} {Age}},
+	volume = {114},
+	issn = {0027-8424, 1091-6490},
+	url = {https://pnas.org/doi/full/10.1073/pnas.1620752114},
+	doi = {10.1073/pnas.1620752114},
+	abstract = {The archaeological record shows that typically human cultural traits emerged at different times, in different parts of the world, and among different hominin taxa. This pattern suggests that their emergence is the outcome of complex and nonlinear evolutionary trajectories, influenced by environmental, demographic, and social factors, that need to be understood and traced at regional scales. The application of predictive algorithms using archaeological and paleoenvironmental data allows one to estimate the ecological niches occupied by past human populations and identify niche changes through time, thus providing the possibility of investigating relationships between cultural innovations and possible niche shifts. By using such methods to examine two key southern Africa archaeological cultures, the Still Bay [76–71 thousand years before present (ka)] and the Howiesons Poort (HP; 66–59 ka), we identify a niche shift characterized by a significant expansion in the breadth of the HP ecological niche. This expansion is coincident with aridification occurring across Marine Isotope Stage 4 (
+              ca.
+              72–60 ka) and especially pronounced at 60 ka. We argue that this niche shift was made possible by the development of a flexible technological system, reliant on composite tools and cultural transmission strategies based more on “product copying” rather than “process copying.” These results counter the one niche/one human taxon equation. They indicate that what makes our cultures, and probably the cultures of other members of our lineage, unique is their flexibility and ability to produce innovations that allow a population to shift its ecological niche.},
+	language = {en},
+	number = {30},
+	urldate = {2022-11-30},
+	journal = {Proceedings of the National Academy of Sciences},
+	author = {d’Errico, Francesco and Banks, William E. and Warren, Dan L. and Sgubin, Giovanni and van Niekerk, Karen and Henshilwood, Christopher and Daniau, Anne-Laure and Sánchez Goñi, María Fernanda},
+	month = jul,
+	year = {2017},
+	pages = {7869--7876},
+	file = {d’Errico et al. - 2017 - Identifying early modern human ecological niche ex.pdf:/Users/eleninisioti/Zotero/storage/QCTZQ3LW/d’Errico et al. - 2017 - Identifying early modern human ecological niche ex.pdf:application/pdf},
+}
+
+
+@article{derrico_evolution_2011,
+	title = {Evolution, revolution or saltation scenario for the emergence of modern cultures?},
+	volume = {366},
+	issn = {0962-8436, 1471-2970},
+	url = {https://royalsocietypublishing.org/doi/10.1098/rstb.2010.0340},
+	doi = {10.1098/rstb.2010.0340},
+	abstract = {Crucial questions in the debate on the origin of quintessential human behaviours are whether modern cognition and associated innovations are unique to our species and whether they emerged abruptly, gradually or as the result of a discontinuous process. Three scenarios have been proposed to account for the origin of cultural modernity. The first argues that modern cognition is unique to our species and the consequence of a genetic mutation that took place approximately 50 ka in Africa among already evolved anatomically modern humans. The second posits that cultural modernity emerged gradually in Africa starting at least 200 ka in concert with the origin of our species on that continent. The third states that innovations indicative of modern cognition are not restricted to our species and appear and disappear in Africa and Eurasia between 200 and 40 ka before becoming fully consolidated. We evaluate these scenarios in the light of new evidence from Africa, Asia and Europe and explore the mechanisms that may have led to modern cultures. Such reflections will demonstrate the need for further inquiry into the relationship between climate and demographic/cultural change in order to better understand the mechanisms of cultural transmission at work in Neanderthals and early
+              Homo sapiens
+              populations.},
+	language = {en},
+	number = {1567},
+	urldate = {2022-11-30},
+	journal = {Philosophical Transactions of the Royal Society B: Biological Sciences},
+	author = {d'Errico, Francesco and Stringer, Chris B.},
+	month = apr,
+	year = {2011},
+	pages = {1060--1069},
+	file = {d'Errico and Stringer - 2011 - Evolution, revolution or saltation scenario for th.pdf:/Users/eleninisioti/Zotero/storage/VRYEAMST/d'Errico and Stringer - 2011 - Evolution, revolution or saltation scenario for th.pdf:application/pdf},
+}
+
 
 @article{grove_evolution_2014,
 	title = {Evolution and dispersal under climatic instability: a simple evolutionary algorithm},
