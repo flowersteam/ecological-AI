@@ -1,0 +1,2294 @@
+<!doctype html>
+<meta charset="utf-8">
+<script src="public/template.v1.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+        onload="renderMathInElement(document.body,{ignoredTags:['script', 'noscript', 'style', 'textarea', 'option']});"></script>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+
+<script type="text/front-matter">
+  title: "Ecological Artificial Intelligence"
+  description: "Description of the post"
+  authors:
+  - Eleni Nisioti
+  - Clément Moulin-Frier : https://clement-moulin-frier.github.io/
+  affiliations:
+  - INRIA Flowers Team
+</script>
+
+
+
+<style>
+#showText {opacity:0.75; background-color:#668; color:#eef; font:0.7em Courier New; }
+</style>
+<style>
+.site-header {
+  padding-top: .5rem;
+  padding-bottom: 1rem;
+
+}
+
+    
+
+.site-header a {
+  color: #333;
+  font-size: 1.25rem;
+  font-weight: 300;
+  background-image: none;
+}
+
+.site-header .site-title {
+  font-size: 1.5rem;
+}
+
+.site-nav {
+  padding-top: 1rem;
+  margin-top:0.25rem;
+  float:right
+}
+
+.site-header nav a {
+  color: #777;
+  border-bottom:none;
+}
+.site-header a {
+  border-bottom:none;
+}
+
+.site-header nav a:hover,
+.site-header nav a:focus,
+.site-header nav a:active,
+.site-header nav a.nav-active:hover,
+.site-header nav a.nav-active:focus,
+.site-header nav a.nav-active:active {
+  color: #444;
+  opacity: 1;
+  border-bottom: 2px solid #444;
+}
+
+.site-header nav a.nav-active {
+  border-bottom: 1px solid #ccc;
+}
+
+.site-nav a + a {
+  margin-left: 1rem;
+}
+
+.site-header a:hover,
+.posts .post a:hover .post-meta,
+.posts .post a:hover .post-title,
+.posts .post a:hover .post-summary {
+  opacity: 0.88;
+}
+
+.clearfix:before, .clearfix:after {
+content: ' ';
+display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.social-icons {
+    font-size: 1.25rem;
+    padding: 0.5em 0 0 0;
+
+}
+</style>
+
+<d-byline></d-byline>
+
+
+
+<dt-article>
+<header class="site-header px2 px-responsive l-middle">
+  <div class="mt2 wrap">
+      <div class="measure">
+          <a href="https://developmentalsystems.org" class="site-title" style="border-bottom:none;">
+              <img src="https://developmentalsystems.org/flowers-logo.png">
+          </a>
+      <nav class="site-nav" style="line-height:2;">
+        
+
+
+        <a class="nav-link" href="https://flowers.inria.fr/" target="_blank">Flowers Lab</a>
+
+
+    
+    
+
+    
+        <a class="nav-link" href="https://developmentalsystems.org/publications/">Publications</a>
+    
+
+    
+
+    
+    
+
+    
+        <a class="nav-link" href="https://developmentalsystems.org/about">About</a>
+    
+
+    
+
+
+      </nav>
+      <div class="clearfix"></div>
+      
+        <div class="social-icons" style="line-height:2;float:right;border-bottom:none;">
+  <div class="social-icons-right">
+    
+      <a class="fa fa-github" href="https://github.com/flowersteam"></a>
+    
+    
+    
+    
+    <a class="fa fa-rss" href="/feed.xml"></a>
+    
+      <a class="fa fa-twitter" href="https://twitter.com/FlowersINRIA"></a>
+    
+    
+    
+    
+    
+      <a class="fa fa-envelope" href="mailto:pierre-yves.oudeyer@inria.fr"></a>
+
+    
+    
+  </div>
+  <div class="right">
+    
+    
+    
+  </div>
+</div>
+<div class="clearfix"></div>
+   
+    </div>
+  </div>
+</header>
+
+
+<h1>Ecological Artificial Intelligence </h1>
+<h2 id='subtitle'> Grounding Artificial Intelligence in the Origins of Human Behavior </h2>
+
+<div align="center" style="margin-bottom:40px">
+  <img src="public/introblog_ecoAI.png" alt="scheme" style="width:150%">
+</div>
+
+<p> 'Can machines think?' When Turing posed this question in his <semi></semi>nal paper
+    <a href="https://psycnet.apa.org/record/1951-02887-001"> Computing machinery and intelligence </a>
+    <dt-cite key="turing_computing_1950"> </dt-cite> in the '50s,  he inadvertently laid the ground for what was to
+    become the field of Artificial Intelligence (AI). The ground was set firmly: generations of researchers have been
+    searching for the cognitive architectures and optimization objectives that, when evaluated on carefully selected benchmarks, will lead to agents
+    whose behavior is similar, or even improves upon, human behavior. Chess, video games and Go, are the carrots on a stick that
+    have been driving the AI community forward.
+</p>
+
+<p> We call this the <em> cognition-centric </em> approach and want to contrast it to the <em> ecological </em>
+        approach. Under this alternative attitude towards creating AI, intelligence is viewed as an emergent product
+        of adaptive systems interacting with their environments. While cognition-centric approaches attempt to reverse-engineer
+    intelligent behavior by searching in the space of cognitive functions, ecological approaches search in the space of
+    environmental properties to reverse-engineer the conditions that drive intelligent behavior.
+</p>
+
+
+<p> Ecological perspectives abide in the study of biological organisms.
+    From the emergence of vision systems <dt-cite key="gibson__2014"> </dt-cite>
+    to that of religion <dt-cite key="botero_ecology_2014"> </dt-cite>, the environments encountered in the
+    evolutionary trajectory of a species can help us understand why certain functions persist over others.
+    If we look at the evolution of our own species, we will find that many behaviors that we consider simple,
+    like using language and tools, took the longest time to evolve.
+    Once a new skill was acquired, it also acted as a driver and enabler for new skills.
+</p>
+
+<p> The cognition-centric approach has recently given us many successful algorithms and applications.
+    But it may have kept us busy on a research agenda that does not lead to artificial intelligence with the distinctive
+    characteristics of a natural one.
+    Machine learning algorithms are today criticised for being data-hungry, brittle when encountering new problems
+    and morally disconnected from the human society that gave birth to them.
+</p>
+
+
+
+<p> In this blog post, we will discuss how we could pursue an ecological approach to AI.
+    Our first objective is to get the big picture of how research in AI can be guided by our understanding of human
+    intelligence.
+    Our second objective is to see how this understanding can be useful in practice for AI studies.
+    In particular we: </p>
+
+<ul>
+    <li > <b> present a conceptual framework for grounding an ecological approach to AI in Human
+        Behavioral Ecology (HBE), a research field studying the evolution of humans in interaction with their environments</b> </li>
+    <li > <b> illustrate how an ecological perspective to AI looks in practise through two of our recent
+        computational studies. </b> </li>
+<!--    <table cellpadding="10" cellspacing="10">-->
+<!--<tbody>-->
+<!--<td style="text-align: center;padding:10px"> <h4>  How does environmental variability affect the evolution of adaptability? </h4>-->
+<!--    <p style="text-align: justify;padding:10px" >   In a world with temporal and spatial variability, a population of agents evolves its adaptability-->
+<!--        in order to survive. Agents can adapt using evolvability and phenotypic plasticity and the fittest ones in a-->
+<!--        niche leave offspring. Can these agents survive in the face of extreme climatic variability? In this work,-->
+<!--        we will see how populations adapt, diversify and disperse under different climatic conditions. </p></td>-->
+<!--<td style="text-align: center;padding:10px"> <h4> How does social connectivity affect collective innovation? </h4>-->
+<!--<p style="text-align: justify;padding:10px">  From drug discovery to music composition, our human cultural repertoire relies on innovations produced-->
+<!--    by collectives that jointly explore, communicate and recombine solutions. Can artificial agents also innovate in-->
+<!--    collectives? In the learning paradigm of distributed RL, groups of agents solve tasks in parallel and share their-->
+<!--    experiences with observed benefits to performance. But, while biological organisms exhibit a variety of social-->
+<!--    network structures,, distributed RL agents always share with everyone. Here, we study the effect of social network-->
+<!--    structure in a group of DQN agents playing the <a href='https://littlealchemy2.com/'> Little Alchemy game </a>.-->
+<!--</p></td>-->
+<!--</tbody>-->
+<!--</table>-->
+</ul>
+
+
+
+<h2 id="framework"> A conceptual framework for linking human and artificial ecologies </h2>
+
+<p> We recently proposed <dt-cite key="nisioti_grounding_2021"> </dt-cite> that a possible pathway
+    to getting AI that exhibits the ability to continuously acquire skills in an open-ended way is to ground our research in AI
+    in our knowledge of a natural species with an impressively open-ended behavioral repertoire: our own.
+</p>
+
+
+<p> Our methodology was three-step: </p>
+
+
+<ol type="1">
+
+
+    <li style="..."> skim the Human Behavioral Ecology (HBE) literature to identify the key factors that this
+        community proposes as conducive for the evolution of the uniquely diverse human cultural repertoire
+</li>
+    <li style="..."> identify common research questions and hypotheses in AI, in particular the sub-fields of
+        meta and multi-agent reinforcement learning
+</li>
+    <li style="..."> abstract away the particularities of the two fields to arrive at a  conceptual framework that
+        unifies their terminologies and research agendas.
+</li>
+
+</ol>
+
+
+<p> Here is our conceptual framework, <em> ORIGINS </em>, that our work led to: </p>
+
+
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/framework.png" height="465" width="665" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> Our conceptual framework  <dt-cite key="nisioti_grounding_2021"> </dt-cite> </i></sub>
+</div>
+</div>
+
+
+
+<p> The story that the framework tells, put succinctly, is:
+</p>
+
+<p> <em> Environmental complexity  has a key role in  skill acquisition.
+    It bootstraps the emergence of skills at both an individual and a collective level.
+    At an individual level, it modulates reproduction pressures and creates the need for cognitive mechanisma.
+    At a collective level, cooperation and competition pressures drive the need for social skills.
+    The skills themselves then act as drivers for further skill acquisition in two ways:
+    a) they interact with each other to give rise to the uniquely complex human cultural repertoire b)  they modulate
+    environmental complexity through the process of niche construction.
+    It is this latter process that makes skill acquisition open-ended, as it creates a positive feedback look that
+continuously complexifies the environment.</em> </p>
+
+<p> <em> ORIGINS </em>  can be a useful tool for both AI and HBE communities:  AI researchers can borrow existing hypotheses from
+    HBE about which environmental conditions affect which skills to appropriately shape their environments, an approach
+    that we refer to as ecologically-inspired AI. At the same time, HBE researchers can use AI as a computational tool
+    for studying their hypotheses.</p>
+
+<p> In the rest of the post we give illustrative example of  ecologically-inspired AI through two of our works:
+    we will zoom in in two different parts of the framework, discuss the ecological hypotheses they were inspired from,
+    and then present the artificial ecologies we implemented to study them. </p>
+
+<h2 id="Study-A"> Evolution of adaptability in complex environments </h2>
+
+<table cellpadding="10" cellspacing="10">
+<tbody>
+<td style="text-align: center;padding:10px"><img src="public/species.png" style="width:94%"/></td>
+<td style="text-align: center;padding:10px"><img src="public/earth.gif" style="width:94%"  /></td>
+</tbody>
+</table>
+
+<p> What makes us human? For HBE researchers, this is not a philosophical inquiry, but a rather pressing scientific
+    question: why did the first hominin species appear about 5 million years ago and which skills did they evolve
+    that allowed them to expand into a  population that today holds a powerful position in the Earth's  ecosystem?</p>
+
+<p> When we trace back the history of our planet, we find climatic records of very ''busy" periods : many rapid and
+    large-amplitude climatic cycles have taken place in the last few million years, leading to high levels of climate
+    change that must have significantly shaped populations at a global and local scale. Our own species appeared
+    and dispersed during such periods.
+    <dt-cite key="maslin_synthesis_2015"> </dt-cite> <dt-cite key="sanchez_goni_regional_2020"> </dt-cite>
+    <dt-cite key="potts_hominin_2013"> </dt-cite>
+</p>
+
+<p> Could there be a link between this climatic complexity and the birth of one of the most generalist species?
+Understanding the mechanisms with which temporal and spatial diversity in an environment influences individuals and populations
+    is a crucial step towards answering this question.</p>.
+
+<p> A similar story has been unfolding in AI.
+    The first impressive agents in AI where created to be extremely specialized in a single task, like playing Chess.
+    But recently, the focus is on generalist agents that can adapt to physical damages during their deployment and learn to solve problems
+    that they have never encountered during their design
+</p>
+
+<p> The consensus of the community is that, when it comes to creating generalist agents,
+    the training environments plays a big part.
+    In meta learning <dt-cite key="vanschoren_meta-learning_2018"> </dt-cite>, the focus is on ensuring a wide diversity of environments.
+    In curriculum learning <dt-cite key="vanschoren_meta-learning_2018"> </dt-cite> the focus is on the order in which environments are encountered,
+as the training procedure needs to ensure that agents are continuously challenged but able to improve.
+</p>
+
+
+<h3> An eco-evo-devo model for studying the emergence of generalist agents</h3>
+
+    <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+  <img src="public/tolerance_curves.png" alt="scheme" style="width:90%">
+<p>  An agent with low plasticity (on the left) has small &sigma; and a high peak at their preferred niche, while a
+    plastic individual (on the right) has large &sigma; and a lower peak at their preferred niche. Fitness in a
+    certain environmental state is computed as the probability density function of the distribution at that point
+the plastic individual has lower fitness (cost of plasticity). If the actual environmental state differs
+    significantly from the preferred one the plastic individual has higher fitness.
+
+</p>
+</div>
+
+<p> Recently  we proposed a simple model for studying how populations of adaptive agents evolve  in variable
+    environments <dt-cite key="nisioti_plasticity_2022"> </dt-cite>.
+</p>
+
+<p>  In our model, the environment exhibits both temporal and spatial diversity in terms of resource availability.
+    The amount of resources depends on the latitude of a niche and a climate function that changes with time.
+    Agents have three ways to adapt to their environment, all encoded in their genome: a preferred environmental state,
+    phenotypic plasticity and a mutation rate.
+    Thus, agents can adapt at two time-scales: phenotypic plasticity is a developmental mechanism that enables survival
+    in diverse environments within
+    a single lifetime, while mutations enable adaptation at a slower, evolutionary time-scale.
+</p>
+
+
+
+<p> To model phenotypic plasticity  we have adopted tolerance curves, a tool originally  developed in ecology  <dt-cite
+            key="grove_evolution_2014"> </dt-cite>.
+    Tolerance curves have the form of a Gaussian whose mean corresponds to the preferred environmental state of an individual and
+    variance to its plasticity, i.e., its ability to survive under different environmental conditions. </p>
+
+
+<p> Tolerance curves elegantly capture the cost and benefit of plasticity: if a plastic and non-plastic agent compete
+    in an environment that is identical to their preferred niche, the plastic one will lose as its peak is lower. But
+    if, for some reason, the environment changes in the next generation so that it differs from the preferred niche
+    of the two individuals, the plastic one will be at an advantage.
+</p>
+
+<!--<p> The world consists of a number of niches N and a climate function that shows how the state of all niches changes with time.-->
+<!--The state of a niche at a given generation depends on the value of the climate function and the latitude of the niches,-->
+<!--with southern niches having better states.</p>-->
+
+
+<p> At each generation, an agent surviving in a niche can reproduce until the capacity of the niche is filled.
+    Agents are chosen based on their fitness, which depends on their preferred state, their plasticity and the state of the niche.
+    If an agent can survive in multiple niches it will be eligible for reproduction in all of them, and thus has higher chances of reproducing.
+</p>
+
+<p> Here is an illustration of how the population behaves in a world with 100 niches and a climate function that has the form of a sinusoid:</p>
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/Gecco.gif" width="150%" alt="toleranceCurve" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+</sub>
+</div>
+</div>
+
+
+<p> In this study we saw that adaptability emerges when the number of niches is large or when there is temporal
+    variability.
+    We also saw that different environmental conditions and selection pressures may favor plasticity, while others favor
+    evolvability.
+</p>
+
+
+
+<h2 id="sapiens"> The effect of social connectivity on collective innovation </h2>
+
+<table>
+<tbody>
+<tr>
+<td style="text-align: center;padding: 10px" ><img src="public/innovation_old.jpg" style="width:94%"  alt="" class="center"/></td>
+<td style="text-align: center;padding: 10px"><img src="public/innovation_research.png" style="width:94%"  alt="" class="center"/></td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 10px">
+    <p style="text-align: justify"> Hypothetical regional networks of cultural networks in Africa about 350 thousand years ago. Image
+        <a href="https://royalsocietypublishing.org/doi/10.1098/rstb.2020.0317"> source </a>) </p></td>
+<td style="text-align: center;padding: 10px">
+<p style="text-align: justify">  Figure : We can analyze the social network structure of today's research networks by visualizing how papers cite
+    each other. Image <a href="https://www.connectedpapers.com/"> connected papers </a>.
+</p></td>
+</tr>
+</tbody>
+</table>
+
+<p> Culture, the ability to create and spread traditions through social learning, is not unique to humans.
+But few other species create new cultural traditions as they evolve.
+Even less of them experience an ever-growing complexification of their cultural artifacts.
+Humans are the only species that uses language, builds aircrafts and writes blogposts.
+</p>
+
+<p> Why do humans innovate to such an unprecendented degree?
+    Some theories point to our increased cognitive capacity or sociality.
+    But others, point to the benefits of our social connectivity: human societies often self-organize into small-world, hierarchical or dynamic
+    topologies. The common feature underlying those is their ability to protect information within sub-parts of the group.
+    In this way, the group maintains its cultural diversity, and it is this diversity that may be driving the continuous appearance of innovations.
+</p>
+
+
+<p> Reinforcement learning is also interested in the benefits of collective exploration.
+    In distributed RL, multiple agents solve a task in parallel and exchange information on the way <dt-cite key="mnihAsynchronousMethodsDeep2016a"></dt-cite>
+    <dt-cite key="horganDistributedPrioritizedExperience2018"> </dt-cite>
+    <dt-cite key="espeholt_impala_2018"> </dt-cite>.
+    This has shown benefits both in terms of the quality of the final solution and the speed at which it is discovered.
+</p>
+
+<p> Yet this community has considered a single type of group connectivity, the star topology.
+All agents share their information with a central node, which updates a single policy.
+Thus, artificial groups look very different from the partially-connected human groups and this may impact their ability to
+    continuously innovate.
+</p>
+
+<h3> SAPIENS: a distributed RL framework where social connectivity matters </h3>
+
+<!--    <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);-->
+<!--width: calc((1500px - 648px) / 2 - 24px);">-->
+<!--  <img src="public/sharing_DQN.svg" alt="scheme" style="width:90%">-->
+<!--<p>  Schematic of a SAPIENS algorithm with 2 DQN learners exchanging experiences from their replay buffer.-->
+<!--</p>-->
+<!--</div>-->
+
+<p> We recently proposed SAPIENS, a learning framework belonging to the distritbuted RL learning paradigm that connects multiple
+    learners based on a pre-defined graph that determines social connectivity. One can imagine many instantiations of it that differ for
+    example in the learning algorithm employed and the type of information shared. In this project, we have studied a
+    single instantiation with DQN learners that share experience tuples from their replay buffer.
+</p>
+
+
+
+
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/Sapiens.gif" style="width:150%" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> The different social connectivities </i></sub>
+</div>
+</div>
+
+<p> We employed Wordcraft <dt-cite key="jiangWordCraftEnvironmentBenchmarking2020"> </dt-cite>,
+    a test-bed inspired from the Little Alchemy game.
+    With it, we designed different types of innovation tasks.
+    We are particularly interested in tasks that pose a difficult optimization challenge through the presence of local optima.
+    For example, take a look at the task in the following video:
+</p>
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/Recipe.gif" style="width:150%" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> Illustration of how a dynamic group is better at avoiding local optima compared to a fully-connected group.
+</i></sub>
+</div>
+</div>
+
+<p> Our evaluation showed that fully-connected groups explored more slowly and converged to local optima.
+    Looking into the replay buffers of the agents, we observed that agents in the fully-connected group had the most diverse experiences as individuals
+    but, at the level of the collective, were the least diverse.
+
+</p>
+
+
+<h2> Discussion </h2>
+
+<p> With these two works we showed how our research methodology can benefit two very different fields: we started from
+hypotheses from ecology, designed computational studies inspired from them and derived empirical conclusions that can feed
+future studies in ecology.
+</p>
+
+<p> At a first glance these two studies have nothing in common, except perhaps for their ecological attitude towards
+    skill acquisition. At the end of this post we will see, however, that there is room for exchanging ideas between
+    the two: recent ecological theories posit that elements in our environment such as the Sahara desert act as
+    ecological barriers that prohibit immigration but can disappear during periods of extreme climatic variability
+    (<a href="https://www.youtube.com/watch?v=ZQP-7BPvvq0"> did you know the Sahara was green a few tens of thousands
+        of years ago?  </a> <dt-cite key="larrasoana_dynamics_2013"> </dt-cite>. This means that climatic variability
+    may have affected social network structure, with interesting implications for the populations that needed to survive
+    at the time  ...
+</p>
+
+</dt-article>
+
+<dt-appendix>
+
+
+   
+</dt-appendix>
+
+<script type="text/bibliography">
+
+
+@article{jiangWordCraftEnvironmentBenchmarking2020,
+	title = {WordCraft: An Environment for Benchmarking Commonsense Agents},
+	shorttitle = {WordCraft},
+	url = {http://arxiv.org/abs/2007.09185},
+	abstract = {The ability to quickly solve a wide range of realworld tasks requires a commonsense understanding of the world. Yet, how to best extract such knowledge from natural language corpora and integrate it with reinforcement learning (RL) agents remains an open challenge. This is partly due to the lack of lightweight simulation environments that sufﬁciently reﬂect the semantics of the real world and provide knowledge sources grounded with respect to observations in an RL environment. To better enable research on agents making use of commonsense knowledge, we propose WordCraft, an RL environment based on Little Alchemy 2. This lightweight environment is fast to run and built upon entities and relations inspired by realworld semantics. We evaluate several representation learning methods on this new benchmark and propose a new method for integrating knowledge graphs with an RL agent.},
+	language = {en},
+	urldate = {2021-02-10},
+	journal = {arXiv:2007.09185 [cs]},
+	author = {Jiang, Minqi and Luketina, Jelena and Nardelli, Nantas and Minervini, Pasquale and Torr, Philip H. S. and Whiteson, Shimon and Rocktäschel, Tim},
+	month = jul,
+	year = {2020},
+	note = {arXiv: 2007.09185},
+}
+@techreport{espeholt_impala_2018,
+	title = {IMPALA: Scalable Distributed Deep-RL with Importance Weighted Actor-Learner Architectures},
+	shorttitle = {IMPALA},
+	url = {http://arxiv.org/abs/1802.01561},
+	language = {en},
+	number = {arXiv:1802.01561},
+	urldate = {2022-05-15},
+	institution = {arXiv},
+	author = {Espeholt, Lasse and Soyer, Hubert and Munos, Remi and Simonyan, Karen and Mnih, Volodymir and Ward, Tom and Doron, Yotam and Firoiu, Vlad and Harley, Tim and Dunning, Iain and Legg, Shane and Kavukcuoglu, Koray},
+	month = jun,
+	year = {2018},
+	note = {arXiv:1802.01561 [cs]},
+	keywords = {Computer Science - Artificial Intelligence, Computer Science - Machine Learning},
+}
+
+
+@article{horganDistributedPrioritizedExperience2018,
+	title = {Distributed Prioritized Experience Replay},
+	url = {http://arxiv.org/abs/1803.00933},
+	language = {en},
+	urldate = {2021-04-26},
+	journal = {arXiv:1803.00933 [cs]},
+	author = {Horgan, Dan and Quan, John and Budden, David and Barth-Maron, Gabriel and Hessel, Matteo and van Hasselt, Hado and Silver, David},
+	month = mar,
+	year = {2018},
+	note = {arXiv: 1803.00933},
+	keywords = {Computer Science - Machine Learning},
+}
+
+
+@article{mnihAsynchronousMethodsDeep2016a,
+	title = {Asynchronous Methods for Deep Reinforcement Learning},
+	url = {http://arxiv.org/abs/1602.01783},
+	language = {en},
+	urldate = {2022-02-09},
+	journal = {arXiv:1602.01783 [cs]},
+	author = {Mnih, Volodymyr and Badia, Adrià Puigdomènech and Mirza, Mehdi and Graves, Alex and Lillicrap, Timothy P. and Harley, Tim and Silver, David and Kavukcuoglu, Koray},
+	month = jun,
+	year = {2016},
+	note = {arXiv: 1602.01783},
+	keywords = {Computer Science - Machine Learning},
+}
+
+
+@article{lazerNetworkStructureExploration2007,
+	title = {The Network Structure of Exploration and Exploitation},
+	volume = {52},
+	issn = {0001-8392, 1930-3815},
+	url = {http://journals.sagepub.com/doi/10.2189/asqu.52.4.667},
+	doi = {10.2189/asqu.52.4.667},
+	language = {en},
+	number = {4},
+	urldate = {2021-01-29},
+	journal = {Administrative Science Quarterly},
+	author = {Lazer, David and Friedman, Allan},
+	month = dec,
+	year = {2007},
+	pages = {667--694},
+}
+
+@article{masonPropagationInnovationsNetworked2008,
+	title = {Propagation of innovations in networked groups.},
+	volume = {137},
+	issn = {1939-2222, 0096-3445},
+	url = {http://doi.apa.org/getdoi.cfm?doi=10.1037/a0012798},
+	doi = {10.1037/a0012798},
+	language = {en},
+	number = {3},
+	urldate = {2021-03-31},
+	journal = {Journal of Experimental Psychology: General},
+	author = {Mason, Winter A. and Jones, Andy and Goldstone, Robert L.},
+	year = {2008},
+	pages = {422--433},
+}
+
+
+@article{masonCollaborativeLearningNetworks2012,
+	title = {Collaborative learning in networks},
+	volume = {109},
+	issn = {0027-8424, 1091-6490},
+	url = {http://www.pnas.org/cgi/doi/10.1073/pnas.1110069108},
+	doi = {10.1073/pnas.1110069108},
+	language = {en},
+	number = {3},
+	urldate = {2021-06-18},
+	journal = {Proceedings of the National Academy of Sciences},
+	author = {Mason, W. and Watts, D. J.},
+	month = jan,
+	year = {2012},
+	pages = {764--769},
+}
+
+
+@article{derexPartialConnectivityIncreases2016,
+	title = {Partial connectivity increases cultural accumulation within groups},
+	volume = {113},
+	issn = {0027-8424, 1091-6490},
+	url = {http://www.pnas.org/lookup/doi/10.1073/pnas.1518798113},
+	doi = {10.1073/pnas.1518798113},
+	language = {en},
+	number = {11},
+	urldate = {2021-02-07},
+	journal = {Proceedings of the National Academy of Sciences},
+	author = {Derex, Maxime and Boyd, Robert},
+	month = mar,
+	year = {2016},
+	pages = {2982--2987},
+}
+
+
+@article{fang_balancing_2010,
+	title = {Balancing Exploration and Exploitation Through Structural Design: The Isolation of Subgroups and
+	Organizational Learning},
+	volume = {21},
+	shorttitle = {Balancing Exploration and Exploitation Through Structural Design},
+	doi = {10.1287/orsc.1090.0468},
+	journal = {Organization Science},
+	author = {Fang, Christina and Lee, Jeho and Schilling, Melissa},
+	month = jun,
+	year = {2010},
+	pages = {625--642},
+}
+
+
+@article{migliano_origins_2022,
+	title = {The origins of human cumulative culture: from the foraging niche to collective intelligence},
+	volume = {377},
+	shorttitle = {The origins of human cumulative culture},
+	url = {https://royalsocietypublishing.org/doi/10.1098/rstb.2020.0317},
+	doi = {10.1098/rstb.2020.0317},
+		number = {1843},
+	urldate = {2022-05-18},
+	journal = {Philosophical Transactions of the Royal Society B: Biological Sciences},
+	author = {Migliano, Andrea Bamberg and Vinicius, Lucio},
+	month = jan,
+	year = {2022},
+	note = {Publisher: Royal Society},
+	keywords = {cultural evolution, cumulative culture, hominins, Homo sapiens, hunter–gatherers},
+	pages = {20200317},
+}
+
+@article{derrico_identifying_2013,
+	title = {Identifying {Mechanisms} behind {Middle} {Paleolithic} and {Middle} {Stone} {Age} {Cultural} {Trajectories}},
+	volume = {54},
+	issn = {0011-3204, 1537-5382},
+	url = {https://www.journals.uchicago.edu/doi/10.1086/673388},
+	doi = {10.1086/673388},
+	language = {en},
+	number = {S8},
+	urldate = {2022-11-30},
+	journal = {Current Anthropology},
+	author = {d’Errico, Francesco and Banks, William E.},
+	month = dec,
+	year = {2013},
+	pages = {S371--S387},
+	file = {d’Errico and Banks - 2013 - Identifying Mechanisms behind Middle Paleolithic a.pdf:/Users/eleninisioti/Zotero/storage/MCKLJKWZ/d’Errico and Banks - 2013 - Identifying Mechanisms behind Middle Paleolithic a.pdf:application/pdf},
+}
+
+
+@article{derrico_identifying_2017,
+	title = {Identifying early modern human ecological niche expansions and associated cultural dynamics in the {South} {African} {Middle} {Stone} {Age}},
+	volume = {114},
+	issn = {0027-8424, 1091-6490},
+	url = {https://pnas.org/doi/full/10.1073/pnas.1620752114},
+	doi = {10.1073/pnas.1620752114},
+	abstract = {The archaeological record shows that typically human cultural traits emerged at different times, in different parts of the world, and among different hominin taxa. This pattern suggests that their emergence is the outcome of complex and nonlinear evolutionary trajectories, influenced by environmental, demographic, and social factors, that need to be understood and traced at regional scales. The application of predictive algorithms using archaeological and paleoenvironmental data allows one to estimate the ecological niches occupied by past human populations and identify niche changes through time, thus providing the possibility of investigating relationships between cultural innovations and possible niche shifts. By using such methods to examine two key southern Africa archaeological cultures, the Still Bay [76–71 thousand years before present (ka)] and the Howiesons Poort (HP; 66–59 ka), we identify a niche shift characterized by a significant expansion in the breadth of the HP ecological niche. This expansion is coincident with aridification occurring across Marine Isotope Stage 4 (
+              ca.
+              72–60 ka) and especially pronounced at 60 ka. We argue that this niche shift was made possible by the development of a flexible technological system, reliant on composite tools and cultural transmission strategies based more on “product copying” rather than “process copying.” These results counter the one niche/one human taxon equation. They indicate that what makes our cultures, and probably the cultures of other members of our lineage, unique is their flexibility and ability to produce innovations that allow a population to shift its ecological niche.},
+	language = {en},
+	number = {30},
+	urldate = {2022-11-30},
+	journal = {Proceedings of the National Academy of Sciences},
+	author = {d’Errico, Francesco and Banks, William E. and Warren, Dan L. and Sgubin, Giovanni and van Niekerk, Karen and Henshilwood, Christopher and Daniau, Anne-Laure and Sánchez Goñi, María Fernanda},
+	month = jul,
+	year = {2017},
+	pages = {7869--7876},
+	file = {d’Errico et al. - 2017 - Identifying early modern human ecological niche ex.pdf:/Users/eleninisioti/Zotero/storage/QCTZQ3LW/d’Errico et al. - 2017 - Identifying early modern human ecological niche ex.pdf:application/pdf},
+}
+
+
+@article{derrico_evolution_2011,
+	title = {Evolution, revolution or saltation scenario for the emergence of modern cultures?},
+	volume = {366},
+	issn = {0962-8436, 1471-2970},
+	url = {https://royalsocietypublishing.org/doi/10.1098/rstb.2010.0340},
+	doi = {10.1098/rstb.2010.0340},
+	abstract = {Crucial questions in the debate on the origin of quintessential human behaviours are whether modern cognition and associated innovations are unique to our species and whether they emerged abruptly, gradually or as the result of a discontinuous process. Three scenarios have been proposed to account for the origin of cultural modernity. The first argues that modern cognition is unique to our species and the consequence of a genetic mutation that took place approximately 50 ka in Africa among already evolved anatomically modern humans. The second posits that cultural modernity emerged gradually in Africa starting at least 200 ka in concert with the origin of our species on that continent. The third states that innovations indicative of modern cognition are not restricted to our species and appear and disappear in Africa and Eurasia between 200 and 40 ka before becoming fully consolidated. We evaluate these scenarios in the light of new evidence from Africa, Asia and Europe and explore the mechanisms that may have led to modern cultures. Such reflections will demonstrate the need for further inquiry into the relationship between climate and demographic/cultural change in order to better understand the mechanisms of cultural transmission at work in Neanderthals and early
+              Homo sapiens
+              populations.},
+	language = {en},
+	number = {1567},
+	urldate = {2022-11-30},
+	journal = {Philosophical Transactions of the Royal Society B: Biological Sciences},
+	author = {d'Errico, Francesco and Stringer, Chris B.},
+	month = apr,
+	year = {2011},
+	pages = {1060--1069},
+	file = {d'Errico and Stringer - 2011 - Evolution, revolution or saltation scenario for th.pdf:/Users/eleninisioti/Zotero/storage/VRYEAMST/d'Errico and Stringer - 2011 - Evolution, revolution or saltation scenario for th.pdf:application/pdf},
+}
+
+
+@article{grove_evolution_2014,
+	title = {Evolution and dispersal under climatic instability: a simple evolutionary algorithm},
+	volume = {22},
+	issn = {1059-7123, 1741-2633},
+	shorttitle = {Evolution and dispersal under climatic instability},
+	url = {http://journals.sagepub.com/doi/10.1177/1059712314533573},
+	doi = {10.1177/1059712314533573},
+	language = {en},
+	number = {4},
+	urldate = {2021-05-10},
+	journal = {Adaptive Behavior},
+	author = {Grove, Matt},
+	month = aug,
+	year = {2014},
+	pages = {235--254},
+}
+
+@inproceedings{nisioti_plasticity_2022,
+	address = {Boston / Hybrid, United States},
+	title = {Plasticity and evolvability under environmental variability: the joint role of fitness-based selection and niche-limited competition},
+	shorttitle = {Plasticity and evolvability under environmental variability},
+	url = {https://hal.archives-ouvertes.fr/hal-03715928},
+	abstract = {The diversity and quality of natural systems have been a puzzle and inspiration for communities studying artificial life. It is now widely admitted that the adaptation mechanisms enabling these properties are largely influenced by the environments they inhabit. Organisms facing environmental variability have two alternative adaptation mechanisms operating at different timescales: {\textbackslash}textit\{plasticity\}, the ability of a phenotype to survive in diverse environments and {\textbackslash}textit\{evolvability\}, the ability to adapt through mutations. Although vital under environmental variability, both mechanisms are associated with fitness costs hypothesized to render them unnecessary in stable environments. In this work, we study the interplay between environmental dynamics and adaptation in a minimal model of the evolution of plasticity and evolvability. We experiment with different types of environments characterized by the presence of niches and a climate function that determines the fitness landscape. We empirically show that environmental dynamics affect plasticity and evolvability differently and that the presence of diverse ecological niches favors adaptability even in stable environments. We perform ablation studies of the selection mechanisms to separate the role of fitness-based selection and niche-limited competition. Results obtained from our minimal model allow us to propose promising research directions in the study of open-endedness in biological and artificial systems.},
+	urldate = {2022-12-14},
+	booktitle = {GECCO 2022 - The Genetic and Evolutionary Computation Conference},
+	author = {Nisioti, Eleni and Moulin-Frier, Clément},
+	month = jul,
+	year = {2022},
+}
+@misc{vanschoren_meta-learning_2018,
+	title = {Meta-{Learning}: {A} {Survey}},
+	shorttitle = {Meta-{Learning}},
+	url = {http://arxiv.org/abs/1810.03548},
+	doi = {10.48550/arXiv.1810.03548},
+	abstract = {Meta-learning, or learning to learn, is the science of systematically observing how different machine learning approaches perform on a wide range of learning tasks, and then learning from this experience, or meta-data, to learn new tasks much faster than otherwise possible. Not only does this dramatically speed up and improve the design of machine learning pipelines or neural architectures, it also allows us to replace hand-engineered algorithms with novel approaches learned in a data-driven way. In this chapter, we provide an overview of the state of the art in this fascinating and continuously evolving field.},
+	urldate = {2022-12-14},
+	publisher = {arXiv},
+	author = {Vanschoren, Joaquin},
+	month = oct,
+	year = {2018},
+	note = {arXiv:1810.03548 [cs, stat]},
+	keywords = {Computer Science - Machine Learning, Statistics - Machine Learning},
+	file = {arXiv Fulltext PDF:/Users/eleninisioti/Zotero/storage/VLE24W27/Vanschoren - 2018 - Meta-Learning A Survey.pdf:application/pdf;arXiv.org Snapshot:/Users/eleninisioti/Zotero/storage/K9ECMX5X/1810.html:text/html},
+}
+
+
+@article{maslin_east_2014,
+	title = {East {African} climate pulses and early human evolution},
+	volume = {101},
+	issn = {0277-3791},
+	url = {https://www.sciencedirect.com/science/article/pii/S0277379114002418},
+	doi = {10.1016/j.quascirev.2014.06.012},
+	abstract = {Current evidence suggests that all of the major events in hominin evolution have occurred in East Africa. Over the last two decades, there has been intensive work undertaken to understand African palaeoclimate and tectonics in order to put together a coherent picture of how the environment of East Africa has varied in the past. The landscape of East Africa has altered dramatically over the last 10 million years. It has changed from a relatively flat, homogenous region covered with mixed tropical forest, to a varied and heterogeneous environment, with mountains over 4 km high and vegetation ranging from desert to cloud forest. The progressive rifting of East Africa has also generated numerous lake basins, which are highly sensitive to changes in the local precipitation-evaporation regime. There is now evidence that the presence of precession-driven, ephemeral deep-water lakes in East Africa were concurrent with major events in hominin evolution. It seems the unusual geology and climate of East Africa created periods of highly variable local climate, which, it has been suggested could have driven hominin speciation, encephalisation and dispersal out of Africa. One example is the significant hominin speciation and brain expansion event at ∼1.8 Ma that seems to have been coeval with the occurrence of highly variable, extensive, deep-water lakes. This complex, climatically very variable setting inspired first the variability selection hypothesis, which was then the basis for the pulsed climate variability hypothesis. The newer of the two suggests that the long-term drying trend in East Africa was punctuated by episodes of short, alternating periods of extreme humidity and aridity. Both hypotheses, together with other key theories of climate-evolution linkages, are discussed in this paper. Though useful the actual evolution mechanisms, which led to early hominins are still unclear and continue to be debated. However, it is clear that an understanding of East African lakes and their palaeoclimate history is required to understand the context within which humans evolved and eventually left East Africa.},
+	language = {en},
+	urldate = {2022-12-14},
+	journal = {Quaternary Science Reviews},
+	author = {Maslin, Mark A. and Brierley, Chris M. and Milner, Alice M. and Shultz, Susanne and Trauth, Martin H. and Wilson, Katy E.},
+	month = oct,
+	year = {2014},
+	keywords = {Cenozoic climate transitions, East Africa, Hominin, Human evolution, Orbital forcing, Palaeoclimatology, Palaeoliminology, Pulsed climate variability hypothesis, Tectonics},
+	pages = {1--17},
+	file = {ScienceDirect Full Text PDF:/Users/eleninisioti/Zotero/storage/5E5M2QKF/Maslin et al. - 2014 - East African climate pulses and early human evolut.pdf:application/pdf;ScienceDirect Snapshot:/Users/eleninisioti/Zotero/storage/AJQU8IU6/S0277379114002418.html:text/html},
+}
+
+@article{potts_hominin_2013,
+	title = {Hominin evolution in settings of strong environmental variability},
+	volume = {73},
+	issn = {02773791},
+	url = {https://linkinghub.elsevier.com/retrieve/pii/S0277379113001340},
+	doi = {10.1016/j.quascirev.2013.04.003},
+	abstract = {Investigations into how climate change shaped human evolution have begun to focus on environmental dynamics, i.e., the nature and tempo of climate and landscape variability, an approach that de-emphasizes static reconstructions of early hominin habitats. The interaction among insolation cycles is especially apparent in the paleoenvironmental records of the East African Rift System, where the longest records of human evolution are preserved. However, environmental indicators such as deep-sea oxygen isotopes, terrestrial dust ﬂux, paleosol carbon isotopes, and lake sediments do not point consistently to any simple trend or climate driver of evolutionary change. Comparison of environmental indicators cautions against an exclusive focus on any given end-member of environmental ﬂuctuation (driest or wettest, warmest or coolest), and argues for the impact of the entire range of variability in shaping evolutionary change. A model of alternating high and low climate variability for tropical Africa further implies that speciﬁc environmental indicators reﬂect different aspects of East African environmental dynamics. The model may thus help reconcile some of the conﬂicting interpretations about the environmental drivers of hominin evolution. First and last appearances of hominin lineages, benchmark biogeographic events, and the emergence of key adaptations and capacities to alter the surroundings are consistently concentrated in the predicted longest intervals of high climate variability. The view that emerges is that important changes in stone technology, sociality, and other aspects of hominin behavior can now be understood as adaptive responses to heightened habitat instability.},
+	language = {en},
+	urldate = {2020-11-19},
+	journal = {Quaternary Science Reviews},
+	author = {Potts, Richard},
+	month = aug,
+	year = {2013},
+	keywords = {read},
+	pages = {1--13},
+}
+
+
+@article{sanchez_goni_regional_2020,
+	title = {Regional impacts of climate change and its relevance to human evolution},
+	volume = {2},
+	issn = {2513-843X},
+	url = {https://www.cambridge.org/core/product/identifier/S2513843X20000560/type/journal_article},
+	doi = {10.1017/ehs.2020.56},
+	language = {en},
+	urldate = {2022-11-30},
+	journal = {Evolutionary Human Sciences},
+	author = {Sánchez Goñi, María Fernanda},
+	year = {2020},
+	pages = {e55},
+}
+
+
+@article{maslin_synthesis_2015,
+	title = {A synthesis of the theories and concepts of early human evolution},
+	volume = {370},
+	issn = {1471-2970},
+	doi = {10.1098/rstb.2014.0064},
+	language = {eng},
+	number = {1663},
+	journal = {Philosophical Transactions of the Royal Society of London. Series B, Biological Sciences},
+	author = {Maslin, Mark A. and Shultz, Susanne and Trauth, Martin H.},
+	month = mar,
+	year = {2015},
+	pmid = {25602068},
+	pmcid = {PMC4305165},
+	keywords = {Africa, Eastern, Biological Evolution, Climate, East Africa, Genetic Speciation, Geography, History, Ancient, hominin, human evolution, Human Migration, Humans, Models, Biological, palaeoclimatology, pulsed climate variability framework},
+	pages = {20140064},
+}
+
+
+@article{maslin_east_2014,
+	title = {East African climate pulses and early human evolution},
+	volume = {101},
+	issn = {0277-3791},
+	url = {https://www.sciencedirect.com/science/article/pii/S0277379114002418},
+	doi = {10.1016/j.quascirev.2014.06.012},
+	language = {en},
+	urldate = {2022-12-14},
+	journal = {Quaternary Science Reviews},
+	author = {Maslin, Mark A. and Brierley, Chris M. and Milner, Alice M. and Shultz, Susanne and Trauth, Martin H. and Wilson, Katy E.},
+	month = oct,
+	year = {2014},
+	keywords = {Cenozoic climate transitions, East Africa, Hominin, Human evolution, Orbital forcing, Palaeoclimatology, Palaeoliminology, Pulsed climate variability hypothesis, Tectonics},
+	pages = {1--17},
+}
+
+
+
+
+
+@inproceedings{nisioti_grounding_2021,
+	address = {virtual event},
+	title = {Grounding an Ecological Theory of Artificial Intelligence in Human Evolution},
+	url = {https://hal.archives-ouvertes.fr/hal-03446961},
+	urldate = {2022-12-14},
+	booktitle = {NeurIPS 2021 - Conference on Neural {Information} {Processing} {Systems} / {Workshop}: {Ecological} {Theory} of {Reinforcement} {Learning}},
+	author = {Nisioti, Eleni and Jodogne-del Litto, Katia and Moulin-Frier, Clément},
+	month = dec,
+	year = {2021},
+}
+
+@misc{clune_ai-gas_2020,
+	title = {AI-GAs: AI-generating algorithms, an alternate paradigm for producing general artificial intelligence},
+	shorttitle = {AI-GAs},
+	url = {http://arxiv.org/abs/1905.10985},
+	doi = {10.48550/arXiv.1905.10985},
+	urldate = {2022-12-14},
+	publisher = {arXiv},
+	author = {Clune, Jeff},
+	month = jan,
+	year = {2020},
+	note = {arXiv:1905.10985 [cs]},
+	keywords = {Computer Science - Artificial Intelligence},
+}
+
+@online{stanley,
+  author = {MultiMedia LLC},
+  title = {MS Windows NT Kernel Description},
+  url = {https://www.oreilly.com/radar/open-endedness-the-last-grand-challenge-youve-never-heard-of/},
+  urldate = {20222-12-16}
+}
+
+
+@article{pugh_quality_2016,
+	title = {Quality Diversity: A New Frontier for Evolutionary Computation},
+	volume = {3},
+	issn = {2296-9144},
+	shorttitle = {Quality Diversity},
+	url = {https://www.frontiersin.org/articles/10.3389/frobt.2016.00040},
+	abstract = {While evolutionary computation and evolutionary robotics take inspiration from nature, they have long focused mainly on problems of performance optimization. Yet, evolution in nature can be interpreted as more nuanced than a process of simple optimization. In particular, natural evolution is a divergent search that optimizes locally within each niche as it simultaneously diversifies. This tendency to discover both quality and diversity at the same time differs from many of the conventional algorithms of machine learning, and also thereby suggests a different foundation for inferring the approach of greatest potential for evolutionary algorithms. In fact, several recent evolutionary algorithms called quality diversity (QD) algorithms (e.g., novelty search with local competition and MAP-Elites) have drawn inspiration from this more nuanced view, aiming to fill a space of possibilities with the best possible example of each type of achievable behavior. The result is a new class of algorithms that return an archive of diverse, high-quality behaviors in a single run. The aim in this paper is to study the application of QD algorithms in challenging environments (in particular complex mazes) to establish their best practices for ambitious domains in the future. In addition to providing insight into cases when QD succeeds and fails, a new approach is investigated that hybridizes multiple views of behaviors (called behavior characterizations) in the same run, which succeeds in overcoming some of the challenges associated with searching for QD with respect to a behavior characterization that is not necessarily sufficient for generating both quality and diversity at the same time.},
+	urldate = {2022-12-14},
+	journal = {Frontiers in Robotics and AI},
+	author = {Pugh, Justin K. and Soros, Lisa B. and Stanley, Kenneth O.},
+	year = {2016},
+}
+
+@misc{baker_emergent_2020,
+	title = {Emergent Tool Use From Multi-Agent Autocurricula},
+	url = {http://arxiv.org/abs/1909.07528},
+	doi = {10.48550/arXiv.1909.07528},
+	urldate = {2022-12-14},
+	publisher = {arXiv},
+	author = {Baker, Bowen and Kanitscheider, Ingmar and Markov, Todor and Wu, Yi and Powell, Glenn and McGrew, Bob and Mordatch, Igor},
+	month = feb,
+	year = {2020},
+	note = {arXiv:1909.07528 [cs, stat]},
+	keywords = {Computer Science - Artificial Intelligence, Computer Science - Machine Learning, Computer Science - Multiagent Systems, Statistics - Machine Learning},
+}
+
+@misc{reed_generalist_2022,
+	title = {A Generalist Agent},
+	url = {http://arxiv.org/abs/2205.06175},
+	doi = {10.48550/arXiv.2205.06175},
+	urldate = {2022-12-14},
+	publisher = {arXiv},
+	author = {Reed, Scott and Zolna, Konrad and Parisotto, Emilio and Colmenarejo, Sergio Gomez and Novikov, Alexander and Barth-Maron, Gabriel and Gimenez, Mai and Sulsky, Yury and Kay, Jackie and Springenberg, Jost Tobias and Eccles, Tom and Bruce, Jake and Razavi, Ali and Edwards, Ashley and Heess, Nicolas and Chen, Yutian and Hadsell, Raia and Vinyals, Oriol and Bordbar, Mahyar and de Freitas, Nando},
+	month = nov,
+	year = {2022},
+	note = {arXiv:2205.06175 [cs]},
+	keywords = {Computer Science - Artificial Intelligence, Computer Science - Computation and Language, Computer Science - Machine Learning, Computer Science - Robotics},
+}
+
+@misc{wang_paired_2019,
+	title = {Paired Open-Onded Trailblazer (POET): Endlessly Generating Increasingly Complex and Diverse Learning
+	 Environments and Their Solutions},
+	shorttitle = {Paired Open-Ended Trailblazer (POET)},
+	url = {http://arxiv.org/abs/1901.01753},
+	doi = {10.48550/arXiv.1901.01753},
+	urldate = {2022-12-14},
+	publisher = {arXiv},
+	author = {Wang, Rui and Lehman, Joel and Clune, Jeff and Stanley, Kenneth O.},
+	month = feb,
+	year = {2019},
+	note = {arXiv:1901.01753 [cs]},
+	keywords = {Computer Science - Neural and Evolutionary Computing},
+}
+
+@article{botero_ecology_2014,
+	title = {The ecology of religious beliefs},
+	volume = {111},
+	url = {https://www.pnas.org/doi/10.1073/pnas.1408701111},
+	doi = {10.1073/pnas.1408701111},
+	abstract = {Although ecological forces are known to shape the expression of sociality across a broad range of biological taxa, their role in shaping human behavior is currently disputed. Both comparative and experimental evidence indicate that beliefs in moralizing high gods promote cooperation among humans, a behavioral attribute known to correlate with environmental harshness in nonhuman animals. Here we combine fine-grained bioclimatic data with the latest statistical tools from ecology and the social sciences to evaluate the potential effects of environmental forces, language history, and culture on the global distribution of belief in moralizing high gods (n = 583 societies). After simultaneously accounting for potential nonindependence among societies because of shared ancestry and cultural diffusion, we find that these beliefs are more prevalent among societies that inhabit poorer environments and are more prone to ecological duress. In addition, we find that these beliefs are more likely in politically complex societies that recognize rights to movable property. Overall, our multimodel inference approach predicts the global distribution of beliefs in moralizing high gods with an accuracy of 91\%, and estimates the relative importance of different potential mechanisms by which this spatial pattern may have arisen. The emerging picture is neither one of pure cultural transmission nor of simple ecological determinism, but rather a complex mixture of social, cultural, and environmental influences. Our methods and findings provide a blueprint for how the increasing wealth of ecological, linguistic, and historical data can be leveraged to understand the forces that have shaped the behavior of our own species.},
+	number = {47},
+	urldate = {2022-12-14},
+	journal = {Proceedings of the National Academy of Sciences},
+	author = {Botero, Carlos A. and Gardner, Beth and Kirby, Kathryn R. and Bulbulia, Joseph and Gavin, Michael C. and Gray, Russell D.},
+	month = nov,
+	year = {2014},
+	note = {Publisher: Proceedings of the National Academy of Sciences},
+	pages = {16784--16789},
+	file = {Full Text PDF:/Users/eleninisioti/Zotero/storage/PY94JZLD/Botero et al. - 2014 - The ecology of religious beliefs.pdf:application/pdf},
+}
+
+@article{larrasoana_dynamics_2013,
+	title = {Dynamics of Green Sahara Periods and Their Role in Hominin Evolution},
+	volume = {8},
+	issn = {1932-6203},
+	url = {https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0076514},
+	doi = {10.1371/journal.pone.0076514},
+	abstract = {Astronomically forced insolation changes have driven monsoon dynamics and recurrent humid episodes in North Africa, resulting in green Sahara Periods (GSPs) with savannah expansion throughout most of the desert. Despite their potential for expanding the area of prime hominin habitats and favouring out-of-Africa dispersals, GSPs have not been incorporated into the narrative of hominin evolution due to poor knowledge of their timing, dynamics and landscape composition at evolutionary timescales. We present a compilation of continental and marine paleoenvironmental records from within and around North Africa, which enables identification of over 230 GSPs within the last 8 million years. By combining the main climatological determinants of woody cover in tropical Africa with paleoenvironmental and paleoclimatic data for representative (Holocene and Eemian) GSPs, we estimate precipitation regimes and habitat distributions during GSPs. Their chronology is consistent with the ages of Saharan archeological and fossil hominin sites. Each GSP took 2–3 kyr to develop, peaked over 4–8 kyr, biogeographically connected the African tropics to African and Eurasian mid latitudes, and ended within 2–3 kyr, which resulted in rapid habitat fragmentation. We argue that the well-dated succession of GSPs presented here may have played an important role in migration and evolution of hominins.},
+	language = {en},
+	number = {10},
+	urldate = {2022-12-14},
+	journal = {PLOS ONE},
+	author = {Larrasoaña, Juan C. and Roberts, Andrew P. and Rohling, Eelco J.},
+	month = oct,
+	year = {2013},
+	note = {Publisher: Public Library of Science},
+	keywords = {Africa, Holocene epoch, Hominin evolution, Hominins, Paleoclimatology, Paleoecology, Rain, Sediment},
+	pages = {e76514},
+	file = {Full Text PDF:/Users/eleninisioti/Zotero/storage/6TRGFPK8/Larrasoaña et al. - 2013 - Dynamics of Green Sahara Periods and Their Role in.pdf:application/pdf},
+}
+
+@book{gibson__2014,
+	address = {New York},
+	title = {Ecological Approach to Visual Perception: Classic Edition},
+	isbn = {978-1-315-74021-8},
+	author = {Gibson, James J.},
+	month = dec,
+	year = {2014},
+	doi = {10.4324/9781315740218},
+}
+
+@article{turing_computing_1950,
+	title = {Computing Machinery and Intelligence},
+	volume = {59},
+	url = {http://www.jstor.org/stable/2251299},
+	number = {236},
+	journal = {Mind, New Series},
+	author = {Turing, A. M.},
+	year = {1950},
+	pages = {433--460},
+}
+
+  @article{DBLP:journals/corr/abs-1901-01753,
+  author    = {Rui Wang and
+               Joel Lehman and
+               Jeff Clune and
+               Kenneth O. Stanley},
+  title     = {Paired Open-Ended Trailblazer (POET) Endlessly Generating Increasingly
+               Complex and Diverse Learning Environments and Their Solutions},
+  journal   = {CoRR},
+  volume    = {abs/1901.01753},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1901.01753},
+  archivePrefix = {arXiv},
+  eprint    = {1901.01753},
+  timestamp = {Tue, 29 Sep 2020 10:47:58 +0175},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1901-01753.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+  }
+
+@article{randazzo2020self-classifying,
+  author = {Randazzo, Ettore and Mordvintsev, Alexander and Niklasson, Eyvind and Levin, Michael and Greydanus, Sam},
+  title = {Self-classifying MNIST Digits},
+  journal = {Distill},
+  year = {2020},
+  note = {https://distill.pub/2020/selforg/mnist},
+ url={ https://distill.pub/2020/selforg/mnist},
+  doi = {10.23915/distill.00027.002}
+}
+
+  @article{autopoiesisBeer1754,
+    author    = {Randall D. Beer},
+    title     = {Autopoiesis and Cognition in the Game of Life.},
+    journal   = {Artif Life},
+    volume    = {10(3)},
+    year      = {1754},
+    url       = { https://doi.org/10.1162/1064546041255539},
+
+  }
+
+@proceedings{cika2020resilient,
+    author = {Cika, Arta and Cohen, Elissa and Kruszewski, Germán and Seet, Luther and Steinmann, Patrick and Yin, Wenqian},
+    title = {Resilient Life: An Exploration of Perturbed Autopoietic Patterns in Conway's Game of Life},
+    volume = {ALIFE 2020: The 2020 Conference on Artificial Life},
+    series = {ALIFE 2021: The 2021 Conference on Artificial Life},
+    pages = {656-664},
+    year = {2020},
+    month = {07},
+    abstract = "{Complex systems can exhibit autopoiesis–a remarkable capability to reproduce or restore themselves to maintain existence and functionality. We explore the resilience of autopoietic patterns–their ability to recover from shocks or perturbations–in a simplified form in Conway's Game of Life. We subject a large number of autopoietic patterns in the Game of Life to various perturbations, and record their responses using multiple resilience metrics. Our results show that while resilience is rare, we are able to identify structural features improving patterns' resilience. We also draw several parallels between the resilience of patterns in the Game of Life to real-world complex systems. Our work may be useful both for improved searching for resilient patterns in the Game of Life, and for exploring resilience in complex systems.}",
+    doi = {10.1162/isal_a_00305},
+    url = {https://doi.org/10.1162/isal\_a\_00305},
+    eprint = {https://direct.mit.edu/isal/proceedings-pdf/isal2020/32/656/1908496/isal\_a\_00305.pdf},
+}
+
+
+
+@article{beer2020bittorio,
+  title={Bittorio revisited: structural coupling in the Game of Life},
+  author={Beer, Randall D},
+  journal={Adaptive Behavior},
+  volume={28},
+  number={4},
+  pages={197--212},
+  year={2020},
+  publisher={SAGE Publications Sage UK: London, England},
+Url ={https://journals.sagepub.com/doi/10.1177/1059712319859907}
+}
+
+  @misc{chan2020lenia,
+        title={Lenia and Expanded Universe},
+        author={Bert Wang-Chak Chan},
+        year={2020},
+        eprint={1755.03742},
+        archivePrefix={arXiv},
+        primaryClass={nlin.CG},
+        url={https://arxiv.org/abs/2005.03742}
+  }
+
+  @misc{chan2019lenia,
+        title={Lenia - Biology of Artificial Life},
+        author={Bert Wang-Chak Chan},
+        year={2019},
+        eprint={1812.05433},
+        archivePrefix={arXiv},
+        primaryClass={nlin.CG},
+        url = {https://arxiv.org/abs/1812.05433}
+
+  }
+@article{stanley2017open,
+  title={Open-endedness: The last grand challenge you've never heard of},
+  author={Stanley, Kenneth O and Lehman, Joel and Soros, Lisa},
+  journal={O'Reilly Online},
+  year={2017},
+url = {https://www.oreilly.com/radar/open-endedness-the-last-grand-challenge-youve-never-heard-of/}
+}
+  @article{mordvintsev2020growing,
+    author = {Mordvintsev, Alexander and Randazzo, Ettore and Niklasson, Eyvind and Levin, Michael},
+    title = {Growing Neural Cellular Automata},
+    journal = {Distill},
+    year = {2020},
+    note = {https://distill.pub/2020/growing-ca},
+    doi = {10.23915/distill.00023},
+url={https://distill.pub/2020/growing-ca},
+  }
+@article{Trivedi2008SoftRB,
+  title={Soft robotics: Biological inspiration, state of the art, and future research},
+  author={Deepak Trivedi and C. Rahn and W. Kier and I. Walker},
+  journal={Applied Bionics and Biomechanics},
+  year={2008},
+  volume={5},
+  pages={99-117}
+}
+
+  @inproceedings{etcheverry2020hierarchically,
+ author = {Etcheverry, Mayalen and Moulin-Frier, Cl\'{e}ment and Oudeyer, Pierre-Yves},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {H. Larochelle and M. Ranzato and R. Hadsell and M. F. Balcan and H. Lin},
+ pages = {4846--4859},
+ publisher = {Curran Associates, Inc.},
+ title = {Hierarchically Organized Latent Modules for Exploratory Search in Morphogenetic Systems},
+ url = {https://proceedings.neurips.cc/paper/2020/file/33a5435d4f945aa6154b31a73bab3b73-Paper.pdf},
+ volume = {33},
+ year = {2020}
+}
+
+
+
+@inproceedings{reinke2020intrinsically,
+title={Intrinsically Motivated Discovery of Diverse Patterns in Self-Organizing Systems},
+author={Chris Reinke and Mayalen Etcheverry and Pierre-Yves Oudeyer},
+booktitle={International Conference on Learning Representations},
+year={2020},
+url={https://iclr.cc/virtual_2020/poster_rkg6sJHYDr.html}
+}
+
+@InProceedings{horibe2021regenerating,
+author={Horibe, Kazuya
+and Walker, Kathryn
+and Risi, Sebastian},
+editor={Hu, Ting
+and Louren{\c{c}}o, Nuno
+and Medvet, Eric},
+title={Regenerating Soft Robots Through Neural Cellular Automata},
+booktitle={Genetic Programming},
+year={2021},
+publisher={Springer International Publishing},
+address={Cham},
+pages={36--50},
+abstract={Morphological regeneration is an important feature that highlights the environmental adaptive capacity of biological systems. Lack of this regenerative capacity significantly limits the resilience of machines and the environments they can operate in. To aid in addressing this gap, we develop an approach for simulated soft robots to regrow parts of their morphology when being damaged. Although numerical simulations using soft robots have played an important role in their design, evolving soft robots with regenerative capabilities have so far received comparable little attention. Here we propose a model for soft robots that regenerate through a neural cellular automata. Importantly, this approach only relies on local cell information to regrow damaged components, opening interesting possibilities for physical regenerable soft robots in the future. Our approach allows simulated soft robots that are damaged to partially regenerate their original morphology through local cell interactions alone and regain some of their ability to locomote. These results take a step towards equipping artificial systems with regenerative capacities and could potentially allow for more robust operations in a variety of situations and environments. The code for the experiments in this paper is available at: http://github.com/KazuyaHoribe/RegeneratingSoftRobots.},
+isbn={978-3-030-72812-0},
+url={https://link.springer.com/chapter/10.1007/978-3-030-72812-0_3},
+link={https://www.crosslabs.org/blog/regenerating-soft-robots-through-neural-cellular-automata}
+}
+
+
+
+ 
+@proceedings{sudhakaran2021growing,
+    author = {Sudhakaran, Shyam and Grbic, Djordje and Li, Siyan and Katona, Adam and Najarro, Elias and Glanois, Claire and Risi, Sebastian},
+    title = "{Growing 3D Artefacts and Functional Machines with Neural Cellular Automata}",
+    volume = {ALIFE 2021: The 2021 Conference on Artificial Life},
+    series = {ALIFE 2021: The 2021 Conference on Artificial Life},
+    year = {2021},
+    month = {07},
+    abstract = "{Neural Cellular Automata (NCAs) have been proven effective in simulating morphogenetic processes, the continuous construction of complex structures from very few starting cells. Recent developments in NCAs lie in the 2D domain, namely reconstructing target images from a single pixel or infinitely growing 2D textures. In this work, we propose an extension of NCAs to 3D, utilizing 3D convolutions in the proposed neural network architecture. Minecraft is selected as the environment for our automaton since it allows the generation of both static structures and moving machines. We show that despite their simplicity, NCAs are capable of growing complex entities such as castles, apartment blocks, and trees, some of which are composed of over 3,000 blocks. Additionally, when trained for regeneration, the system is able to regrow parts of simple functional machines, significantly expanding the capabilities of simulated morphogenetic systems. The code for the experiment in this paper can be found at: https://github.com/real-itu/3d-artefacts-nca.}",
+    doi = {10.1162/isal_a_00451},
+    url = {https://doi.org/10.1162/isal\_a\_00451},
+    note = {108},
+    eprint = {https://direct.mit.edu/isal/proceedings-pdf/isal/33/108/1930000/isal\_a\_00451.pdf},
+}
+
+
+
+
+  @misc{baker2020emergent,
+        title={Emergent Tool Use From Multi-Agent Autocurricula},
+        author={Bowen Baker and Ingmar Kanitscheider and Todor Markov and Yi Wu and Glenn Powell and Bob McGrew and Igor Mordatch},
+        year={2020},
+        eprint={1909.07528},
+        archivePrefix={arXiv},
+        primaryClass={cs.LG},
+       url={https://arxiv.org/abs/1909.07528}
+  }
+
+  @article{PhysRevE.101.012407,
+    title = {Active modulation of surfactant-driven flow instabilities by swarming bacteria},
+    author = {Kotian, Harshitha S. and Abdulla, Amith Z. and Hithysini, K. N. and Harkar, Shalini and Joge, Shubham and Mishra, Ayushi and Singh, Varsha and Varma, Manoj M.},
+    journal = {Phys. Rev. E},
+    volume = {101},
+    issue = {1},
+    pages = {012407},
+    numpages = {10},
+    year = {2020},
+    month = {Jan},
+    publisher = {American Physical Society},
+    doi = {10.1103/PhysRevE.101.012407},
+    url = {https://link.aps.org/doi/10.1103/PhysRevE.101.012407}
+  }
+@article{DBLP:journals/corr/abs-1710-03748,
+  author    = {Trapit Bansal and
+               Jakub Pachocki and
+               Szymon Sidor and
+               Ilya Sutskever and
+               Igor Mordatch},
+  title     = {Emergent Complexity via Multi-Agent Competition},
+  journal   = {CoRR},
+  volume    = {abs/1710.03748},
+  year      = {2017},
+  url       = {http://arxiv.org/abs/1710.03748},
+  eprinttype = {arXiv},
+  eprint    = {1710.03748},
+  timestamp = {Mon, 13 Aug 2018 16:47:04 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1710-03748.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{Brambilla2012SwarmRA,
+  title={Swarm robotics: a review from the swarm engineering perspective},
+  author={M. Brambilla and E. Ferrante and M. Birattari and M. Dorigo},
+  journal={Swarm Intelligence},
+  year={2012},
+  volume={7},
+  pages={1-41},
+url={https://link.springer.com/article/10.1007/s11721-012-0075-2}
+}
+
+
+  @misc{barnett2021dynamical,
+        title={Dynamical independence: discovering emergent macroscopic processes in complex dynamical systems},
+        author={Lionel Barnett and Anil K. Seth},
+        year={2021},
+        eprint={2106.06511},
+        archivePrefix={arXiv},
+        primaryClass={nlin.AO},
+     url={https://arxiv.org/abs/2106.06511}
+  }
+ 
+@article{krakauer2020information,
+author = {Krakauer, David and Bertschinger, Nils and Olbrich, Eckehard and Ay, Nihat and Flack, Jessica},
+year = {2020},
+month = {06},
+pages = {209–223},
+title = {The Information Theory of Individuality},
+volume = {139},
+journal = {Theory in Biosciences},
+doi = {10.1007/s12064-020-00313-7},
+url={https://link.springer.com/article/10.1007%2Fs12064-020-00313-7}
+}
+
+@article{niklasson2021self-organising,
+  author = {Niklasson, Eyvind and Mordvintsev, Alexander and Randazzo, Ettore and Levin, Michael},
+  title = {Self-Organising Textures},
+  journal = {Distill},
+  year = {2021},
+  note = {https://distill.pub/selforg/2021/textures},
+  doi = {10.23915/distill.00027.003},
+url={https://distill.pub/selforg/2021/textures/}
+}
+
+
+  @article{couzin2005Effective,
+    title={Effective leadership and decision-making in animal groups on the move
+},
+    author={Couzin, I., Krause, J., Franks, N.,Levin, S.},
+    journal={Nature},
+    year={2005},
+    volume={433},
+    pages={513–516},
+   url={https://doi.org/10.1038/nature03236}
+  }
+
+@article{Beer2015CharacterizingAI,
+    title={Characterizing Autopoiesis in the Game of Life},
+    author={R. Beer},
+    journal={Artificial Life},
+    year={2015},
+    volume={21},
+    pages={1-19},
+ url={https://direct.mit.edu/artl/article-abstract/21/1/1/2792/Characterizing-Autopoiesis-in-the-Game-of-Life}
+  }
+
+  @article {PMID:24494612,
+  	Title = {The cognitive domain of a glider in the game of life},
+  	Author = {Beer, Randall D},
+  	DOI = {10.1162/artl_a_00125},
+  	Number = {2},
+  	Volume = {20},
+  	Year = {2014},
+  	Journal = {Artificial life},
+  	ISSN = {1064-5462},
+  	Pages = {183—206},
+  	Abstract = {This article examines in some technical detail the application of Maturana and Varela s biology of cognition to a simple concrete model: a glider in the game of Life cellular automaton. By adopting an autopoietic perspective on a glider, the set of possible perturbations to it can be divided into destructive and nondestructive subsets. From a glider s reaction to each nondestructive perturbation, its cognitive domain is then mapped. In addition, the structure of a glider s possible knowledge of its immediate environment, and the way in which that knowledge is grounded in its constitution, are fully described. The notion of structural coupling is then explored by characterizing the paths of mutual perturbation that a glider and its environment can undergo. Finally, a simple example of a communicative interaction between two gliders is given. The article concludes with a discussion of the potential implications of this analysis for the enactive approach to cognition.},
+  	URL = {https://doi.org/10.1162/ARTL_a_00125},
+  }
+
+  @article{Forestier2017IntrinsicallyMG,
+    title={Intrinsically Motivated Goal Exploration Processes with Automatic Curriculum Learning},
+    author={S{\'{e}}bastien Forestier and Yoan Mollard and Pierre-Yves Oudeyer},
+    journal={ArXiv},
+    year={2017},
+    volume={abs/1708.02190},
+url ={https://arxiv.org/abs/1708.02190}
+  }
+  @book{VarelaThompsonEmbo,
+    title={The embodied mind.},
+    author={Varela ,F. J. and Thompson, E., and Rosch, E.},
+    year={1991}
+
+  }
+
+  @misc{variengien2021selforganized,
+      title={Towards self-organized control: Using neural cellular automata to robustly control a cart-pole agent},
+      author={Alexandre Variengien and Stefano Nichele and Tom Glover and Sidney Pontes-Filho},
+      year={2021},
+      eprint={2106.15240},
+      archivePrefix={arXiv},
+      primaryClass={cs.NE},
+    url ={https://arxiv.org/abs/2106.15240}
+  }
+  @article{murugan2021mechano,
+    author = {Murugan, Nirosha J. and Kaltman, Daniel H. and Jin, Paul H. and Chien, Melanie and Martinez, Ramses and Nguyen, Cuong Q. and Kane, Anna and Novak, Richard and Ingber, Donald E. and Levin, Michael},
+    title = {Mechanosensation Mediates Long-Range Spatial Decision-Making in an Aneural Organism},
+    journal = {Advanced Materials},
+    volume = {n/a},
+    number = {n/a},
+    pages = {1758161},
+    keywords = {basal cognition, decision-making, information processing, mechanosensing, Physarum polycephalum, stiffness, TRP channel},
+    doi = {https://doi.org/10.1002/adma.201758161},
+    url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/adma.201758161},
+    eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/adma.201758161},
+    abstract = {Abstract The unicellular protist Physarum polycephalum is an important emerging model for understanding how aneural organisms process information toward adaptive behavior. Here, it is revealed that Physarum can use mechanosensation to reliably make decisions about distant objects in its environment, preferentially growing in the direction of heavier, substrate-deforming, but chemically inert masses. This long-range sensing is abolished by gentle rhythmic mechanical disruption, changing substrate stiffness, or the addition of an inhibitor of mechanosensitive transient receptor potential channels. Additionally, it is demonstrated that Physarum does not respond to the absolute magnitude of strain. Computational modeling reveales that Physarum may perform this calculation by sensing the fraction of its perimeter that is distorted above a threshold substrate strain—a fundamentally novel method of mechanosensation. Using its body as both a distributed sensor array and computational substrate, this aneural organism leverages its unique morphology to make long-range decisions. Together, these data identify a surprising behavioral preference relying on biomechanical features and quantitatively characterize how the Physarum exploits physics to adaptively regulate its growth and shape.},
+    }
+
+    @inproceedings{10.1145/2739480.2754662,
+    author = {Cheney, Nick and Bongard, Josh and Lipson, Hod},
+    title = {Evolving Soft Robots in Tight Spaces},
+    year = {2015},
+    isbn = {9781450334723},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/2739480.2754662},
+    doi = {10.1145/2739480.2754662},
+    abstract = {Soft robots have become increasingly popular in recent years -- and justifiably so.
+    Their compliant structures and (theoretically) infinite degrees of freedom allow them
+    to undertake tasks which would be impossible for their rigid body counterparts, such
+    as conforming to uneven surfaces, efficiently distributing stress, and passing through
+    small apertures. Previous work in the automated deign of soft robots has shown examples
+    of these squishy creatures performing traditional robotic task like locomoting over
+    flat ground. However, designing soft robots for traditional robotic tasks fails to
+    fully utilize their unique advantages. In this work, we present the first example
+    of a soft robot evolutionarily designed for reaching or squeezing through a small
+    aperture -- a task naturally suited to its type of morphology. We optimize these creatures
+    with the CPPN-NEAT evolutionary algorithm, introducing a novel implementation of the
+    algorithm which includes multi-objective optimization while retaining its speciation
+    feature for diversity maintenance. We show that more compliant and deformable soft
+    robots perform more effectively at this task than their less flexible counterparts.
+    This work serves mainly as a proof of concept, but we hope that it helps to open the
+    door for the better matching of tasks with appropriate morphologies in robotic design
+    in the future.},
+    booktitle = {Proceedings of the 2015 Annual Conference on Genetic and Evolutionary Computation},
+    pages = {935–942},
+    numpages = {8},
+    keywords = {hyperneat, soft robot, artificial life, morphology, material, generative encoding, cppn, multi-objective},
+    location = {Madrid, Spain},
+    series = {GECCO 15}
+    }
+    @proceedings{10.1162/isal_a_00223,
+    author = {Talamini, Jacopo and Medvet, Eric and Bartoli, Alberto and De Lorenzo, Andrea},
+    title = {Evolutionary Synthesis of Sensing Controllers for Voxel-based Soft Robots},
+    volume = {ALIFE 2019: The 2019 Conference on Artificial Life},
+    series = {ALIFE 2021: The 2021 Conference on Artificial Life},
+    pages = {574-581},
+    year = {2019},
+    month = {07},
+    abstract = {Soft robots allow for interesting morphological and behavioral designs because they exhibit more degrees of freedom than robots composed of rigid parts. In particular, voxel-based soft robots (VSRs)—aggregations of elastic cubic building blocks—have attracted the interest of Robotics and Artificial Life researchers. VSRs can be controlled by changing the volume of individual blocks: simple, yet effective controllers that do not exploit the feedback of the environment, have been automatically designed by means of Evolutionary Algorithms (EAs).In this work we explore the possibility of evolving sensing controllers in the form of artificial neural networks: we hence allow the robot to sense the environment in which it moves. Although the search space for a sensing controller is larger than its non-sensing counterpart, we show that effective sensing controllers can be evolved which realize interesting locomotion behaviors. We also experimentally investigate the impact of the VSR morphology on the effectiveness of the search and verify that the sensing controllers are indeed able to exploit their sensing ability for better solving the locomotion task.},
+    doi = {10.1162/isal_a_00223},
+    url = {https://doi.org/10.1162/isal\_a\_00223},
+    eprint = {https://direct.mit.edu/isal/proceedings-pdf/isal2019/31/574/1903595/isal\_a\_00223.pdf},
+    }
+    @inproceedings{Kriegman2019AutomatedSF,
+   author={Kriegman, Sam and Walker, Stephanie and Shah, Dylan and Levin, Michael and Kramer-Bottiglio, Rebecca and Bongard, Josh},
+   title={Automated shapeshifting for function recovery in damaged robots},
+   booktitle={Proceedings of Robotics: Science and Systems},
+   year={2019},
+   doi={10.15607/RSS.2019.XV.028},
+   url={http://www.roboticsproceedings.org/rss15/p28.pdf}
+}
+
+
+@article{ kirsch2020vsml,
+  title={Meta Learning Backpropagation And Improving It},
+  author={Louis Kirsch and Juergen Schmidhuber},
+  journal={Meta Learning Workshop at Advances in Neural Information Processing Systems},
+  year={2020}
+}
+@article{mordvintsev2020thread:,
+  author = {Mordvintsev, Alexander and Randazzo, Ettore and Niklasson, Eyvind and Levin, Michael and Greydanus, Sam},
+  title = {Thread: Differentiable Self-organizing Systems},
+  journal = {Distill},
+  year = {2020},
+  note = {https://distill.pub/2020/selforg},
+  doi = {10.23915/distill.00027},
+url={https://distill.pub/2020/selforg/}
+}
+@article{randazzo2021adversarial,
+  author = {Randazzo, Ettore and Mordvintsev, Alexander and Niklasson, Eyvind and Levin, Michael},
+  title = {Adversarial Reprogramming of Neural Cellular Automata},
+  journal = {Distill},
+  year = {2021},
+  note = {https://distill.pub/selforg/2021/adversarial},
+  doi = {10.23915/distill.00027.004},
+url={https://distill.pub/selforg/2021/adversarial/}
+}
+@article{Detrain2006SelforganizedSI,
+  title={Self-organized structures in a superorganism: do ants "behave" like molecules?},
+  author={C. Detrain and J. Deneubourg},
+  journal={Physics of Life Reviews},
+  year={2006},
+  volume={3},
+  pages={162-187},
+url={https://www.sciencedirect.com/science/article/abs/pii/S1571064506000200}
+}
+@book{brooks1991intelligence,
+  title={Intelligence without reason},
+  author={Brooks, Rodney A},
+  year={1991},
+}
+
+@book{pfeifer2006body,
+  title={How the body shapes the way we think: a new view of intelligence},
+  author={Pfeifer, Rolf and Bongard, Josh},
+  year={2006},
+  publisher={MIT press}
+}
+
+@article{collins2001three,
+  title={A three-dimensional passive-dynamic walking robot with two legs and knees},
+  author={Collins, Steven H and Wisse, Martijn and Ruina, Andy},
+  journal={The International Journal of Robotics Research},
+  volume={20},
+  number={7},
+  pages={607--615},
+  year={2001},
+  publisher={SAGE Publications}
+}
+
+@article{muller2017morphological,
+  title={What is morphological computation? On how the body contributes to cognition and control},
+  author={M{\"u}ller, Vincent C and Hoffmann, Matej},
+  journal={Artificial life},
+  volume={23},
+  number={1},
+  pages={1--24},
+  year={2017},
+  publisher={MIT Press One Rogers Street, Cambridge, MA 02142-1209, USA journals-info~…},
+url={https://direct.mit.edu/artl/article/23/1/1/2858/What-Is-Morphological-Computation-On-How-the-Body}
+}
+
+@article{barandiaran2006makes,
+  title={On what makes certain dynamical systems cognitive: A minimally cognitive organization program},
+  author={Barandiaran, Xabier and Moreno, Alvaro},
+  journal={Adaptive Behavior},
+  volume={14},
+  number={2},
+  pages={171--185},
+  year={2006},
+ url={https://journals.sagepub.com/doi/10.1177/105971230601400208},
+ publisher={Sage Publications Sage CA: Thousand Oaks, CA}
+}
+
+@article{beer2000dynamical,
+  title={Dynamical approaches to cognitive science},
+  author={Beer, Randall D},
+  journal={Trends in cognitive sciences},
+  volume={4},
+  number={3},
+  pages={91--99},
+  year={2000},
+  publisher={Elsevier},
+doi = {https://doi.org/10.1016/S1364-6613(99)01440-0},
+url = {https://www.sciencedirect.com/science/article/pii/S1364661399014400}
+
+}
+
+@article{manicka2019cognitive,
+  title={The Cognitive Lens: a primer on conceptual tools for analysing information processing in developmental and regenerative morphogenesis},
+  author={Manicka, Santosh and Levin, Michael},
+  journal={Philosophical Transactions of the Royal Society B},
+  volume={374},
+  number={1774},
+  pages={20180369},
+  year={2019},
+  publisher={The Royal Society},
+url={https://royalsocietypublishing.org/doi/10.1098/rstb.2018.0369}
+}
+
+
+@book{maturana1980autopoiesis,
+  title={Autopoiesis and cognition: The realization of the living},
+  author={Maturana, Humberto R and Varela, Francisco J},
+  year={1980},
+}
+
+@article{ruiz2004basic,
+  title={Basic autonomy as a fundamental step in the synthesis of life},
+  author={Ruiz-Mirazo, Kepa and Moreno, Alvaro},
+  journal={Artificial life},
+  volume={10},
+  number={3},
+  pages={235--259},
+  year={2004},
+  publisher={MIT Press One Rogers Street, Cambridge, MA 02142-1209, USA journals-info~…},
+ url={https://direct.mit.edu/artl/article-abstract/10/3/235/2463/Basic-Autonomy-as-a-Fundamental-Step-in-the}
+}
+
+@inproceedings{agmon2015ontogeny,
+  title={Ontogeny and adaptivity in a model protocell},
+  author={Agmon, Eran and Gates, Alexander J and Beer, Randall D},
+  booktitle={Artificial Life Conference Proceedings 13},
+  pages={216--223},
+  year={2015},
+  organization={MIT Press},
+url={https://direct.mit.edu/isal/proceedings/ecal2015/27/216/99374}
+}
+
+
+
+
+@inproceedings{biehlInformationBasedSpatiotemporal2016,
+  title = {Towards Information Based Spatiotemporal Patterns as a Foundation for Agent Representation in Dynamical Systems},
+  booktitle = {Proceedings of the  2016},
+  author = {Biehl, Martin and Ikegami, Takashi and Polani, Daniel},
+  year = {2016},
+  pages = {722--729},
+  publisher = {MIT Press},
+  address = {Cancun, Mexico},
+  doi = {10.7551/978-0-262-33936-0-ch115},
+  abstract = {We present some arguments why existing methods for representing agents fall short in applications crucial to artificial life. Using a thought experiment involving a fictitious dynamical systems model of the biosphere we argue that the metabolism, motility, and the concept of counterfactual variation should be compatible with any agent representation in dynamical systems. We then propose an information theoretic notion of integrated spatiotemporal patterns which we believe can serve as the basic building block of an agent definition. We argue that these patterns are capable of solving the problems mentioned before. We also test this in some preliminary experiments.},
+url={https://direct.mit.edu/isal/proceedings/alif2016/722/99476}
+}
+
+@article{levin2020cognition,
+  title={Cognition all the way down},
+  author={Levin, Michael and Dennett, Daniel C},
+  journal={Aeon Essays. Retrieved},
+  year={2020},
+url={https://ase.tufts.edu/cogstud/dennett/papers/Levin_Dennett_Aeon.pdf}
+}
+@article{langton1984self,
+  title={Self-reproduction in cellular automata},
+  author={Langton, Christopher G},
+  journal={Physica D: Nonlinear Phenomena},
+  volume={10},
+  number={1-2},
+  pages={135--144},
+  year={1984},
+  publisher={Elsevier},
+url={https://doi.org/10.1016/0167-2789(84)90256-2}
+}
+
+@article{di2019process,
+  title={Process and individuation: the development of sensorimotor agency},
+  author={Di Paolo, Ezequiel A},
+  journal={Human Development},
+  volume={63},
+  number={3-4},
+  pages={202--226},
+  year={2019},
+  publisher={Karger Publishers},
+url={https://www.karger.com/Article/Abstract/503827}
+}
+
+@article{froese2009enactive,
+  title={Enactive artificial intelligence: Investigating the systemic organization of life and mind},
+  author={Froese, Tom and Ziemke, Tom},
+  journal={Artificial intelligence},
+  volume={173},
+  number={3-4},
+  pages={466--500},
+  year={2009},
+  publisher={Elsevier},
+url ={https://www.sciencedirect.com/science/article/pii/S0004370208002105}
+}
+
+@article{varela1997patterns,
+  title={Patterns of life: Intertwining identity and cognition},
+  author={Varela, Francisco J},
+  journal={Brain and cognition},
+  volume={34},
+  number={1},
+  pages={72--87},
+  year={1997},
+  publisher={Academic Press},
+url={https://lifecognitionschool.ias-research.net/files/2010/06/Varela-1997-Brain-and-Cognition-34.pdf}
+}
+
+@article{de2009enaction,
+  title={Enaction-based artificial intelligence: Toward co-evolution with humans in the loop},
+  author={De Loor, Pierre and Manac'h, Kristen and Tisseau, Jacques},
+  journal={Minds and Machines},
+  volume={19},
+  number={3},
+  pages={319--343},
+  year={2009},
+  publisher={Springer},
+url={https://link.springer.com/article/10.1007%2Fs11023-009-9165-3}
+} 
+
+@article{baranes2013active,
+  title={Active learning of inverse models with intrinsically motivated goal exploration in robots},
+  author={Baranes, Adrien and Oudeyer, Pierre-Yves},
+  journal={Robotics and Autonomous Systems},
+  volume={61},
+  number={1},
+  pages={49--73},
+  year={2013},
+  publisher={Elsevier},
+ url={https://www.sciencedirect.com/science/article/abs/pii/S0921889012000644}
+}
+
+@article{kitano2004biological,
+  title={Biological robustness},
+  author={Kitano, Hiroaki},
+  journal={Nature Reviews Genetics},
+  volume={5},
+  number={11},
+  pages={826--837},
+  year={2004},
+  publisher={Nature Publishing Group},
+  url={http://sbi.jp/symbio/symbio2/papers/NRGRobustnessKitano2004.pdf}
+}
+
+@article{guerin2012survey,
+  title={A survey of the ontogeny of tool use: from sensorimotor experience to planning},
+  author={Guerin, Frank and Kruger, Norbert and Kraft, Dirk},
+  journal={IEEE Transactions on Autonomous Mental Development},
+  volume={5},
+  number={1},
+  pages={18--45},
+  year={2012},
+  publisher={IEEE},
+url={https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6248675&casa_token=z7iROo2_SUEAAAAA:FNWgqyWPj8qa_t2F0i052RxuOOkT8AQEQX0I6WrQHpMcoK3IeLVR83IwWFuBc8bBIDdzliyWS8t7AA},
+}
+
+@article{gilpin2019cellular,
+  title={Cellular automata as convolutional neural networks},
+  author={Gilpin, William},
+  journal={Physical Review E},
+  volume={100},
+  number={3},
+  pages={032402},
+  year={2019},
+  publisher={APS},
+url={https://journals.aps.org/pre/pdf/10.1103/PhysRevE.100.032402?casa_token=hPEAI53DHgkAAAAA%3AgvT2HdN9oHLDJD2v9uB6pKMTq6zJNkp7PIAkBzpyiZxOIIzQx-ZAAG6haFjXy8OTO8o2OyKci1zidlQ}
+}
+
+@article{Baldassarre2007selfOrga,
+author = {Baldassarre, Gianluca and Trianni, Vito and Bonani, Michael and Mondada, Francesco and Dorigo, Marco and Nolfi, Stefano},
+year = {2007},
+month = {03},
+pages = {224-39},
+title = {Self-Organized Coordinated Motion in Groups of Physically Connected Robots},
+volume = {37},
+journal = {IEEE transactions on systems, man, and cybernetics. Part B, Cybernetics : a publication of the IEEE Systems, Man, and Cybernetics Society},
+doi = {10.1109/TSMCB.2006.881299},
+url={https://ieeexplore.ieee.org/document/4067066}
+}
+
+@article{pezzulo2015re,
+  title={Re-membering the body: applications of computational neuroscience to the top-down control of regeneration of limbs and other complex organs},
+  author={Pezzulo, Giovanni and Levin, Michael},
+  journal={Integrative Biology},
+  volume={7},
+  number={12},
+  pages={1487--1517},
+  year={2015},
+  publisher={Oxford University Press},
+url={https://academic.oup.com/ib/article/7/12/1487/5199172}
+}
+
+@article{pezzulo2016top,
+  title={Top-down models in biology: explanation and control of complex living systems above the molecular level},
+  author={Pezzulo, Giovanni and Levin, Michael},
+  journal={Journal of The Royal Society Interface},
+  volume={13},
+  number={124},
+  pages={20160555},
+  year={2016},
+  publisher={The Royal Society},
+url={https://royalsocietypublishing.org/doi/10.1098/rsif.2016.0555}
+}
+
+@article{kriegman2020scalable,
+  title={A scalable pipeline for designing reconfigurable organisms},
+  author={Kriegman, Sam and Blackiston, Douglas and Levin, Michael and Bongard, Josh},
+  journal={Proceedings of the National Academy of Sciences},
+  volume={117},
+  number={4},
+  pages={1853--1859},
+  year={2020},
+  publisher={National Acad Sciences},
+url={https://www.pnas.org/content/117/4/1853}
+}
+
+@article{ebrahimkhani2021synthetic,
+  title={Synthetic living machines: A new window on life},
+  author={Ebrahimkhani, Mo R and Levin, Michael},
+  journal={Iscience},
+  pages={102505},
+  year={2021},
+  publisher={Elsevier},
+url={https://doi.org/10.1016/j.isci.2021.102505}
+}
+
+@article{akkaya2019solving,
+  title={Solving rubik's cube with a robot hand},
+  author={Akkaya, Ilge and Andrychowicz, Marcin and Chociej, Maciek and Litwin, Mateusz and McGrew, Bob and Petron, Arthur and Paino, Alex and Plappert, Matthias and Powell, Glenn and Ribas, Raphael and others},
+  journal={arXiv preprint arXiv:1910.07113},
+  year={2019},
+url={https://arxiv.org/abs/1910.07113}
+}
+
+@article{team2021open,
+  title={Open-ended learning leads to generally capable agents},
+  author={Team, Open Ended Learning and Stooke, Adam and Mahajan, Anuj and Barros, Catarina and Deck, Charlie and Bauer, Jakob and Sygnowski, Jakub and Trebacz, Maja and Jaderberg, Max and Mathieu, Michael and others},
+  journal={arXiv preprint arXiv:2107.12808},
+  year={2021},
+url={https://deepmind.com/blog/article/generally-capable-agents-emerge-from-open-ended-play}
+}
+@article{zhao2020robogrammar,
+  title={RoboGrammar: Graph Grammar for Terrain-Optimized Robot Design},
+  author={Zhao, Allan and Xu, Jie and Konaković Luković, Mina and Hughes, Josephine and Speilberg, Andrew and Rus, Daniela and Matusik, Wojciech},
+  journal={ACM Transactions on Graphics (TOG)},
+  volume={39},
+  number={6},
+  pages={1--16},
+  year={2020},
+  publisher={ACM New York, NY, USA}
+}
+@article{10.1371/journal.pone.0151834,
+    doi = {10.1371/journal.pone.0151834},
+    author = {Duarte, Miguel AND Costa, Vasco AND Gomes, Jorge AND Rodrigues, Tiago AND Silva, Fernando AND Oliveira, Sancho Moura AND Christensen, Anders Lyhne},
+    journal = {PLOS ONE},
+    publisher = {Public Library of Science},
+    title = {Evolution of Collective Behaviors for a Real Swarm of Aquatic Surface Robots},
+    year = {2016},
+    month = {03},
+    volume = {11},
+    url = {https://doi.org/10.1371/journal.pone.0151834},
+    pages = {1-25},
+    abstract = {Swarm robotics is a promising approach for the coordination of large numbers of robots. While previous studies have shown that evolutionary robotics techniques can be applied to obtain robust and efficient self-organized behaviors for robot swarms, most studies have been conducted in simulation, and the few that have been conducted on real robots have been confined to laboratory environments. In this paper, we demonstrate for the first time a swarm robotics system with evolved control successfully operating in a real and uncontrolled environment. We evolve neural network-based controllers in simulation for canonical swarm robotics tasks, namely homing, dispersion, clustering, and monitoring. We then assess the performance of the controllers on a real swarm of up to ten aquatic surface robots. Our results show that the evolved controllers transfer successfully to real robots and achieve a performance similar to the performance obtained in simulation. We validate that the evolved controllers display key properties of swarm intelligence-based control, namely scalability, flexibility, and robustness on the real swarm. We conclude with a proof-of-concept experiment in which the swarm performs a complete environmental monitoring task by combining multiple evolved controllers.},
+    number = {3},
+
+}
+@ARTICLE{5175366,
+  author={Trianni, Vito and Nolfi, Stefano},
+  journal={IEEE Transactions on Evolutionary Computation}, 
+  title={Self-Organizing Sync in a Robotic Swarm: A Dynamical System View}, 
+  year={2009},
+  volume={13},
+  number={4},
+  pages={722-741},
+  doi={10.1109/TEVC.2009.2015577}}
+  
+  @InProceedings{10.1007/978-4-431-65941-9_30,
+author="Howard, Andrew
+and Matari{\'{c}}, Maja J.
+and Sukhatme, Gaurav S.",
+editor="Asama, Hajime
+and Arai, Tamio
+and Fukuda, Toshio
+and Hasegawa, Tsutomu",
+title="Mobile Sensor Network Deployment using Potential Fields: A Distributed, Scalable Solution to the Area Coverage Problem",
+booktitle="Distributed Autonomous Robotic Systems 5",
+year="2002",
+publisher="Springer Japan",
+address="Tokyo",
+pages="299--308",
+abstract="This paper considers the problem of deploying a mobile sensor network in an unknown environment. A mobile sensor network is composed of a distributed collection of nodes, each of which has sensing, computation, communication and locomotion capabilities. Such networks are capable of self-deployment; i.e., starting from some compact initial configuration, the nodes in the network can spread out such that the area `covered' by the network is maximized. In this paper, we present a potential-field-based approach to deployment. The fields are constructed such that each node is repelled by both obstacles and by other nodes, thereby forcing the network to spread itself throughout the environment. The approach is both distributed and scalable.",
+isbn="978-4-431-65941-9"
+}
+
+@INPROCEEDINGS{6094454,
+  author={Ducatelle, Frederick and Di Caro, Gianni A. and Pinciroli, Carlo and Mondada, Francesco and Gambardella, Luca},
+  booktitle={2011 IEEE/RSJ International Conference on Intelligent Robots and Systems}, 
+  title={Communication assisted navigation in robotic swarms: Self-organization and cooperation}, 
+  year={2011},
+  volume={},
+  number={},
+  pages={4981-4988},
+  doi={10.1109/IROS.2011.6094454}}
+
+@inproceedings{pathak19assemblies,
+  Author = {Pathak, Deepak and
+  Lu, Chris and Darrell, Trevor and
+  Isola, Phillip and Efros, Alexei A.},
+  Title = {Learning to Control Self-
+  Assembling Morphologies: A Study of
+  Generalization via Modularity},
+  Booktitle = {NeurIPS},
+  Year = {2019}
+}
+@article{DBLP:journals/corr/abs-1906-05370,
+  author    = {Tingwu Wang and
+               Yuhao Zhou and
+               Sanja Fidler and
+               Jimmy Ba},
+  title     = {Neural Graph Evolution: Towards Efficient Automatic Robot Design},
+  journal   = {CoRR},
+  volume    = {abs/1906.05370},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1906.05370},
+  eprinttype = {arXiv},
+  eprint    = {1906.05370},
+  timestamp = {Mon, 24 Jun 2019 17:28:45 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1906-05370.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+@article{sandler2020image,
+title={Image segmentation via Cellular Automata},
+author={Sandler, Mark and Zhmoginov, Andrey and Luo, Liangcheng and Mordvintsev, Alexander and Randazzo, Ettore and others},
+journal={arXiv preprint arXiv:2008.04965},
+year={2020},
+url={https://arxiv.org/pdf/2008.04965.pdf}
+}
+@article{Vandenberg2012Tadpole,
+author = {Vandenberg, Laura N. and Adams, Dany S. and Levin, Michael},
+title = {Normalized shape and location of perturbed craniofacial structures in the Xenopus tadpole reveal an innate ability to achieve correct morphology},
+journal = {Developmental Dynamics},
+volume = {241},
+number = {5},
+pages = {863-878},
+keywords = {geometric morphometrics, canonical variate analysis, principle components analysis, H+-V-ATPase, neural crest, robustness},
+doi = {https://doi.org/10.1002/dvdy.23770},
+url = {https://anatomypubs.onlinelibrary.wiley.com/doi/abs/10.1002/dvdy.23770},
+eprint = {https://anatomypubs.onlinelibrary.wiley.com/doi/pdf/10.1002/dvdy.23770},
+abstract = {Abstract Background: Embryonic development can often adjust its morphogenetic processes to counteract external perturbation. The existence of self-monitoring responses during pattern formation is of considerable importance to the biomedicine of birth defects, but has not been quantitatively addressed. To understand the computational capabilities of biological tissues in a molecularly tractable model system, we induced craniofacial defects in Xenopus embryos, then tracked tadpoles with craniofacial deformities and used geometric morphometric techniques to characterize changes in the shape and position of the craniofacial structures. Results: Canonical variate analysis revealed that the shapes and relative positions of perturbed jaws and branchial arches were corrected during the first few months of tadpole development. Analysis of the relative movements of the anterior-most structures indicates that misplaced structures move along the anterior–posterior and left–right axes in ways that are significantly different from their normal movements. Conclusions: Our data suggest a model in which craniofacial structures use a measuring mechanism to assess and adjust their location relative to other local organs. Understanding the correction mechanisms at work in this system could lead to the better understanding of the adaptive decision-making capabilities of living tissues and suggest new approaches to correct birth defects in humans. Developmental Dynamics 241:863–878, 2012. © 2012 Wiley Periodicals, Inc.},
+year = {2012}
+}
+@article{fankhauser1945effects,
+title={The effects of changes in chromosome number on amphibian development},
+author={Fankhauser, Gerhard},
+journal={The Quarterly Review of Biology},
+volume={20},
+number={1},
+pages={20--78},
+year={1945},
+publisher={Williams and Wilkins}
+}
+@article{Ha2018designrl,
+  author = {David Ha},
+  title  = {Reinforcement Learning for Improving Agent Design},
+  eprint = {arXiv:1810.03779},
+  url    = {https://designrl.github.io},
+  note   = "\url{https://designrl.github.io}",
+  year   = {2018}
+}
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+</script>
+<script type="text/javascript">
+ "use strict";
+/*
+  var sliderSpeed = document.getElementById("rangeSpeed");
+  var outputSpeed = document.getElementById("valueSpeed");
+  var videos=document.getElementsByClassName("videoShow");
+  outputSpeed.innerHTML = sliderSpeed.value; // Display the default slider value
+
+  // Update the current slider value (each time you drag the slider handle)
+  sliderSpeed.oninput = function() {
+  outputSpeed.innerHTML = this.value;
+  for (var i = 0; i < videos.length; i++) {
+  	videos[i].playbackRate = this.value;
+  }}
+*/
+  function changeImgIMGEP(img)
+        {
+            var schemeIMGEP=document.getElementById("schemeIMGEP");
+            schemeIMGEP.src=img;
+        }
+function changeVideo(className,nb)
+   {
+ 	var vids=document.getElementsByClassName(className);
+	for(var i=0;i<vids.length;i++){
+       vids[i].style.display="none";
+}
+console.log(className+nb);
+var vid=document.getElementById(className+nb);
+console.log(vid);
+vid.style.display="block";
+vid.currentTime = '0';
+
+ }
+
+</script>
+<style>
+button {
+display: inline-block;
+background-color: #7b38d8;
+border-radius: 10px;
+border: 4px double #cccccc;
+color: #eeeeee;
+text-align: center;
+font-size: 15px;
+padding: 10px;
+width: 80px;
+-webkit-transition: all 0.5s;
+-moz-transition: all 0.5s;
+-o-transition: all 0.5s;
+transition: all 0.5s;
+cursor: pointer;
+margin: 5px;
+}
+button:hover {
+background-color: lightgreen;
+}
+
+.radio-toolbar input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
+}
+
+.titleGetStarted{
+margin-top:0px;
+margin-bottom:0px;
+text-align:center;
+}
+
+.radio-toolbar label {
+    display: inline-block;
+    background-color: #cbc;
+    border-radius: 10px;
+    border: 4px double #cccccc;
+    color: #eeeeee;
+    text-align: center;
+    font-size: 15px;
+    padding: 10px;
+    width: 80px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.radio-toolbar input[type="radio"]:checked + label {
+    background-color:green;
+    border-color: #4c4;
+}
+
+.radio-toolbar input[type="radio"]:focus + label {
+    border: 2px dashed #444;
+}
+
+.radio-toolbar label:hover {
+  background-color: lightgreen;
+}
+
+.figcaption{
+  font-size: 22px;
+  color:#A0A0A0;
+}
+
+d-content li{
+  font-size: 14px;
+  color:#A0A0A0;
+}
+
+d-content {
+    clear: both;
+    float: right;
+    line-height:1.4;
+    padding-top: 1em;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    margin-top: 0;
+    margin-left: 10px;
+    margin-right: calc((100vw - 1500px) / 2 + 168px);
+    width: calc((1500px - 648px) / 2 - 24px);
+}
+
+d-content h5{
+  margin-block-start: 1.5em;
+  margin-block-end: 0em;
+}
+
+d-content ul{
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+}
+
+d-content h2{
+  margin-top:10px;
+}
+@media (max-width: 1300px)
+d-content {
+    display: none;
+}
+.icon {
+    width: 30px;
+    height: 30px;
+    background: steelblue;
+    fill: white;
+    border-radius: 20px;
+    padding: 5px;
+    margin: 2px;
+    cursor: pointer;
+}
+def{
+clear: both;
+float: left;
+margin-top: 0;
+margin-left: 24px;
+width: calc(80% - 1384px / 2);
+padding: 0 0 0 24px;
+border-radius: 20px 20px 20px 20px;
+background-color: rgba(0,0,0,0.05);
+color: rgba(0,0,0,0.5);
+font-size:14px;
+}
+
+/*
+.code {
+white-space: nowrap;
+border-radius: 2px;
+padding: 4px 25px;
+font-size: 15px;
+color: rgba(0, 0, 0, 0.6);
+display: block;
+background: white;
+border-left: 3px solid rgba(0, 0, 0, 0.05);
+text-shadow: 0 1px white;
+font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+text-align: left;
+white-space: pre;
+word-spacing: normal;
+word-break: normal;
+word-wrap: normal;
+line-height: 0.00001;
+tab-size: 4;
+}*/
+
+
+
+
+</style>
+
+
+
+<style>
+button {
+display: inline-block;
+background-color: #7b38d8;
+border-radius: 10px;
+border: 4px double #cccccc;
+color: #eeeeee;
+text-align: center;
+font-size: 15px;
+padding: 10px;
+width: 80px;
+-webkit-transition: all 0.5s;
+-moz-transition: all 0.5s;
+-o-transition: all 0.5s;
+transition: all 0.5s;
+cursor: pointer;
+margin: 5px;
+}
+button:hover {
+background-color: lightgreen;
+}
+
+.radio-toolbar input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
+}
+
+.radio-toolbar label {
+    display: inline-block;
+    background-color: #cbc;
+    border-radius: 10px;
+    border: 4px double #cccccc;
+    color: #eeeeee;
+    text-align: center;
+    font-size: 15px;
+    padding: 10px;
+    width: 80px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.radio-toolbar input[type="radio"]:checked + label {
+    background-color:green;
+    border-color: #4c4;
+}
+
+.radio-toolbar input[type="radio"]:focus + label {
+    border: 2px dashed #444;
+}
+
+.radio-toolbar label:hover {
+  background-color: lightgreen;
+}
+
+.figcaption{
+  font-size: 22px;
+  color:#A0A0A0;
+}
+
+d-content li{
+  font-size: 14px;
+  color:#A0A0A0;
+}
+
+d-content {
+    clear: both;
+    float: right;
+    line-height:1.4;
+    padding-top: 1em;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    margin-top: 0;
+    margin-right: calc((100vw - 15px) / 2 + 1000px);
+<!--    margin-left: 10px;-->
+<!--    margin-right: calc((100vw - 1500px) / 2 + 168px);-->
+    width: calc((1500px - 648px) / 2 - 24px);
+}
+
+d-content h5{
+  margin-block-start: 1.5em;
+  margin-block-end: 0em;
+}
+
+d-content ul{
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+}
+
+d-content h2{
+  margin-top:10px;
+}
+@media (max-width: 1300px)
+d-content {
+    display: none;
+}
+.colab-root {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.75);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px!important;
+      text-decoration: none;
+      color: #5c5c5c;
+      border: none;
+      font-weight: 600;
+      border: solid 1px rgba(0, 0, 0, 0.08);
+      border-bottom-color: rgba(0, 0, 0, 0.15);
+      text-transform: uppercase;
+      line-height: 16px;
+    }
+
+span.colab-span {
+  background-image: url(public/images/colab.svg);
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position-y: 2px;
+  display: inline-block;
+  padding-left: 24px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+a.colab-root:hover{
+  color: #666;
+  background: white;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+/*
+.code {
+white-space: nowrap;
+border-radius: 2px;
+padding: 4px 25px;
+font-size: 15px;
+color: rgba(0, 0, 0, 0.6);
+display: block;
+background: white;
+border-left: 3px solid rgba(0, 0, 0, 0.05);
+text-shadow: 0 1px white;
+font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+text-align: left;
+white-space: pre;
+word-spacing: normal;
+word-break: normal;
+word-wrap: normal;
+line-height: 0.00001;
+tab-size: 4;
+}*/
+
+
+
+</style>
+  
+  <script>
+    const $$$ = q => document.documentElement.querySelectorAll(q);
+    $$$('.vidoverlay').forEach(e => e.onclick = () => {
+      e.parentNode.getElementsByTagName('video')[0].onended = v => {e.style.opacity = 0.8; v.target.load();};
+      e.parentNode.getElementsByTagName('video')[0].currentTime = 0.0;
+      e.parentNode.getElementsByTagName('video')[0].play();
+      e.style.opacity = '0';
+    });
+  </script>
+
+<script type="text/javascript">
+  "use strict";
+  var sliderSpeed = document.getElementById("rangeSpeed");
+  var outputSpeed = document.getElementById("valueSpeed");
+  var videos=document.getElementsByClassName("videoShow");
+  outputSpeed.innerHTML = sliderSpeed.value; // Display the default slider value
+
+  // Update the current slider value (each time you drag the slider handle)
+  sliderSpeed.oninput = function() {
+  outputSpeed.innerHTML = this.value;
+  for (var i = 0; i < videos.length; i++) {
+  	videos[i].playbackRate = this.value;
+  }}
+  function changeImgIMGEP(img)
+        {
+            var schemeIMGEP=document.getElementById("schemeIMGEP");
+            schemeIMGEP.src=img;
+        }
+
+
+</script>
+
+
+
