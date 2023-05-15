@@ -262,24 +262,30 @@ as the training procedure needs to ensure that agents are continuously challenge
 </div>
 </div>
 
-These are the ideas that motivated the computational study we describe next, where we attempt to understand how the complexity of environments,
+<p>
+These are the ideas that motivated the computational study we describe next <dt-cite key="nisioti_plasticity_2022"> </dt-cite>,
+    where we attempt to understand how the complexity of environments,
     both in terms of their temporal dynamics and task diversity acts as a driver for generalist agents.
+</p>
 
-<h3> An eco-evo-devo model for studying the emergence of generalist agents</h3>
+<h3> An eco-evo-devo study of the emergence of generalist agents</h3>
 
     <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
 width: calc((1500px - 648px) / 2 - 24px);">
   <img src="public/tolerance_curves.png" alt="scheme" style="width:90%">
-<p>  An agent with low plasticity (on the left) has small &sigma; and a high peak at their preferred niche, while a
+<sub style="display: block; line-height: 1.5em">
+<i>  An agent with low plasticity (on the left) has small &sigma; and a high peak at their preferred niche, while a
     plastic individual (on the right) has large &sigma; and a lower peak at their preferred niche. Fitness in a
     certain environmental state is computed as the probability density function of the distribution at that point
 the plastic individual has lower fitness (cost of plasticity). If the actual environmental state differs
     significantly from the preferred one the plastic individual has higher fitness.
-
+</i> </sub>
 </p>
 </div>
 
-<p> In our model<dt-cite key="nisioti_plasticity_2022"> </dt-cite>, the environment exhibits both temporal and spatial diversity in terms of resource availability.
+<h4> The model </h4>
+
+<p> the environment exhibits both temporal and spatial diversity in terms of resource availability.
     The amount of resources depends on the latitude of a niche and a climate function that changes with time.
     Agents have three ways to adapt to their environment, all encoded in their genome: a preferred environmental state,
     phenotypic plasticity and a mutation rate.
@@ -310,6 +316,7 @@ the plastic individual has lower fitness (cost of plasticity). If the actual env
     If an agent can survive in multiple niches it will be eligible for reproduction in all of them, and thus has higher chances of reproducing.
 </p>
 
+<h4> Results </h4>
 <p> Here is an illustration of how the population behaves in a world with 100 niches and a climate function that has the form of a sinusoid:</p>
 
 <div align="center" style="margin-bottom:40px">
@@ -323,19 +330,25 @@ the plastic individual has lower fitness (cost of plasticity). If the actual env
 
 <p> In this study we saw that adaptability emerges when the number of niches is large or when there is temporal
     variability.
-    We also saw that different environmental conditions and selection pressures may favor plasticity, while others favor
+    We also saw that some environmental conditions and selection pressures may favor plasticity, while others favor
     evolvability.
     Our study suggests to the AI community that environmental conditions play an important part in the emergence and form of generalism.
     Even if the algorithm is powerful enough to behave as a generalist, this behavior will not emerge if the spatiotemporal dynamics of the environments
     do not require it.
-    We also show that local competition is an important driver of generalism, at a time when most meta RL works favor agents based on performance
-    averages across tasks, which falls under global competition.
+    We also saw that limiting competition within niches is an important driver of generalism, at a time when most meta RL works have agents competing with the whole population.
 </p>
 
+<h4> Next steps </h4>
 <p>
-
+Do our conclusions generalize to meta-RL agents?
+Transferring our computational study to a grounded environment, where plasticity
+is not hard-coded but emerges out of a behavioral policy is an important next step towards showcasing the importance of
+ecological dynamics.
+For this reason we implemented a large-scale environment, where populations of thousands of agents can forage resources
+    in a grid-world with resource density that varies in space and time <dt-cite key="gautier2023EcoevolutionaryDynamicsNonepisodic"> </dt-cite>
 </p>
 
+<p> Link with next project?</p>
 
 
 <h2 id="sapiens"> The effect of social connectivity on collective innovation </h2>
@@ -461,6 +474,21 @@ future studies in ecology.
 </dt-appendix>
 
 <script type="text/bibliography">
+
+
+@misc{gautier2023EcoevolutionaryDynamicsNonepisodic,
+  title = {Eco-Evolutionary {{Dynamics}} of {{Non-episodic Neuroevolution}} in {{Large Multi-agent Environments}}},
+  author = {Gautier, Hamon and Nisioti, Eleni and {Moulin-Frier}, Cl{\'e}ment},
+  year = {2023},
+  month = feb,
+  number = {arXiv:2302.09334},
+  eprint = {2302.09334},
+  primaryclass = {cs},
+  publisher = {{arXiv}},
+  doi = {10.48550/arXiv.2302.09334},
+  urldate = {2023-03-12},
+}
+
 
 @misc{guss2019MineRLLargeScaleDataset,
   title = {{{MineRL}}: {{A Large-Scale Dataset}} of {{Minecraft Demonstrations}}},
