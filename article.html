@@ -270,9 +270,9 @@ These are the ideas that motivated the computational study we describe next <dt-
 
 <h3> An eco-evo-devo study of the emergence of generalist agents</h3>
 
-    <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
 width: calc((1500px - 648px) / 2 - 24px);">
-  <img src="public/tolerance_curves.png" alt="scheme" style="width:90%">
+<img src="public/tolerance_curves.png" alt="scheme" style="width:90%">
 <sub style="display: block; line-height: 1.5em">
 <i>  An agent with low plasticity (on the left) has small &sigma; and a high peak at their preferred niche, while a
     plastic individual (on the right) has large &sigma; and a lower peak at their preferred niche. Fitness in a
@@ -280,7 +280,7 @@ width: calc((1500px - 648px) / 2 - 24px);">
 the plastic individual has lower fitness (cost of plasticity). If the actual environmental state differs
     significantly from the preferred one the plastic individual has higher fitness.
 </i> </sub>
-</p>
+
 </div>
 
 <h4> The model </h4>
@@ -323,6 +323,12 @@ the plastic individual has lower fitness (cost of plasticity). If the actual env
 <img class="80" src="public/Gecco.gif" width="150%" alt="toleranceCurve" />
 <div>
 <sub style="display: block; line-height: 1.5em">
+<i>            An agent with low plasticity (on the left) has small &sigma; and a high peak at their preferred niche, while a
+    plastic individual (on the right) has large &sigma; and a lower peak at their preferred niche. Fitness in a
+    certain environmental state is computed as the probability density function of the distribution at that point
+the plastic individual has lower fitness (cost of plasticity). If the actual environmental state differs
+    significantly from the preferred one the plastic individual has higher fitness.
+    </i>
 </sub>
 </div>
 </div>
@@ -353,29 +359,26 @@ For this reason we implemented a large-scale environment, where populations of t
 
 <h2 id="sapiens"> The effect of social connectivity on collective innovation </h2>
 
-<table>
-<tbody>
-<tr>
-<td style="text-align: center;padding: 10px" ><img src="public/innovation_old.jpg" style="width:94%"  alt="" class="center"/></td>
-<td style="text-align: center;padding: 10px"><img src="public/innovation_research.png" style="width:94%"  alt="" class="center"/></td>
-</tr>
-<tr>
-<td style="text-align: center;padding: 10px">
-    <p style="text-align: justify"> Hypothetical regional networks of cultural networks in Africa about 350 thousand years ago. Image
-        <a href="https://royalsocietypublishing.org/doi/10.1098/rstb.2020.0317"> source </a>) </p></td>
-<td style="text-align: center;padding: 10px">
-<p style="text-align: justify">  Figure : We can analyze the social network structure of today's research networks by visualizing how papers cite
-    each other. Image <a href="https://www.connectedpapers.com/"> connected papers </a>.
-</p></td>
-</tr>
-</tbody>
-</table>
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/culture.gif" height="465" width="665" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> Learning through and alongside others is a behavior encountered in many individuals, including artificial ones.
+What role do social dynamics like group connectivity play and can we find similarities between biological and artificial social learning?
+</i></sub>
+</div>
+</div>
 
-<p> Culture, the ability to create and spread traditions through social learning, is not unique to humans.
-But few other species create new cultural traditions as they evolve.
-Even less of them experience an ever-growing complexification of their cultural artifacts.
-Humans are the only species that uses language, builds aircrafts and writes blogposts.
+<p> Culture, the ability to create and spread traditions through social learning, is often seen as a monopoly of our own species.
+    But there are many species that learn through others (orangutans can only learn how to break coconuts by observing older peers <dt-cite key="whiten1999CulturesChimpanzees"> </dt-cite>).
+    Few of them can change their cultural skills with time (humpback whales change their songs with seasons <dt-cite key="tyarks2022ChangesHumpbackWhale"> </dt-cite>)
+    Some species can even accumulate changes with time, which leads to a continuous “complexification” of a skill (an interesting study of this was performed with carrier pigeons <dt-cite key="sasaki2017CumulativeCultureCan"> </dt-cite>).
+    What is unique in humans is the intensity of accumulation.
+    From programming languages to musical instruments, the fossil record of human innovations has a rather intricate, tree structure, with new innovations arising out
+    of recombination of existing ones.
 </p>
+
+
 
 <p> Why do humans innovate to such an unprecendented degree?
     Some theories point to our increased cognitive capacity or sociality.
@@ -383,6 +386,18 @@ Humans are the only species that uses language, builds aircrafts and writes blog
     topologies. The common feature underlying those is their ability to protect information within sub-parts of the group.
     In this way, the group maintains its cultural diversity, and it is this diversity that may be driving the continuous appearance of innovations.
 </p>
+
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+<img src="public/innovation_networks" alt="scheme" style="width:90%">
+<sub style="display: block; line-height: 1.5em">
+<i> Social networks characterizing human collective innovation often have a clustered structure.
+On the left, reconstructed regional networks of cultural artifacts in Africa about 350, thousand years ago <dt-cite key="migliano_origins_2022"> </dt-cite>.
+On the right, the citation network of a recent research paper (Image credit <a href="https://www.connectedpapers.com/"> connected papers </a>).
+Could there be a link between social connectivity and the ability to innovate collectively?
+</i>
+</sub>
+</div>
 
 
 <p> Reinforcement learning is also interested in the benefits of collective exploration.
@@ -448,7 +463,7 @@ Thus, artificial groups look very different from the partially-connected human g
 </p>
 
 
-<h2> Discussion </h2>
+<h2> Connecting the dots </h2>
 
 <p> With these two works we showed how our research methodology can benefit two very different fields: we started from
 hypotheses from ecology, designed computational studies inspired from them and derived empirical conclusions that can feed
@@ -474,6 +489,52 @@ future studies in ecology.
 </dt-appendix>
 
 <script type="text/bibliography">
+
+@article{sasaki2017CumulativeCultureCan,
+  title = {Cumulative Culture Can Emerge from Collective Intelligence in Animal Groups},
+  author = {Sasaki, Takao and Biro, Dora},
+  year = {2017},
+  month = apr,
+  journal = {Nature Communications},
+  volume = {8},
+  number = {1},
+  pages = {15049},
+  publisher = {{Nature Publishing Group}},
+  issn = {2041-1723},
+  doi = {10.1038/ncomms15049},
+  urldate = {2023-05-15},
+  copyright = {2017 The Author(s)},
+  langid = {english},
+}
+
+
+@article{tyarks2022ChangesHumpbackWhale,
+  title = {Changes in Humpback Whale Song Structure and Complexity Reveal a Rapid Evolution on a Feeding Ground in {{Northern Norway}}},
+  author = {Tyarks, Saskia C. and Aniceto, Ana S. and Ahonen, Heidi and Pedersen, Geir and Lindstr{\o}m, Ulf},
+  year = {2022},
+  journal = {Frontiers in Marine Science},
+  volume = {9},
+  issn = {2296-7745},
+  urldate = {2023-05-15},
+}
+
+
+@article{whiten1999CulturesChimpanzees,
+  title = {Cultures in Chimpanzees},
+  author = {Whiten, A. and Goodall, J. and McGrew, W. C. and Nishida, T. and Reynolds, V. and Sugiyama, Y. and Tutin, C. E. G. and Wrangham, R. W. and Boesch, C.},
+  year = {1999},
+  month = jun,
+  journal = {Nature},
+  volume = {399},
+  number = {6737},
+  pages = {682--685},
+  publisher = {{Nature Publishing Group}},
+  issn = {1476-4687},
+  doi = {10.1038/21415},
+  urldate = {2023-02-18},
+  copyright = {1999 Macmillan Magazines Ltd.},
+  langid = {english},
+}
 
 
 @misc{gautier2023EcoevolutionaryDynamicsNonepisodic,
@@ -1396,23 +1457,6 @@ url ={https://arxiv.org/abs/1708.02190}
     address = {New York, NY, USA},
     url = {https://doi.org/10.1145/2739480.2754662},
     doi = {10.1145/2739480.2754662},
-    abstract = {Soft robots have become increasingly popular in recent years -- and justifiably so.
-    Their compliant structures and (theoretically) infinite degrees of freedom allow them
-    to undertake tasks which would be impossible for their rigid body counterparts, such
-    as conforming to uneven surfaces, efficiently distributing stress, and passing through
-    small apertures. Previous work in the automated deign of soft robots has shown examples
-    of these squishy creatures performing traditional robotic task like locomoting over
-    flat ground. However, designing soft robots for traditional robotic tasks fails to
-    fully utilize their unique advantages. In this work, we present the first example
-    of a soft robot evolutionarily designed for reaching or squeezing through a small
-    aperture -- a task naturally suited to its type of morphology. We optimize these creatures
-    with the CPPN-NEAT evolutionary algorithm, introducing a novel implementation of the
-    algorithm which includes multi-objective optimization while retaining its speciation
-    feature for diversity maintenance. We show that more compliant and deformable soft
-    robots perform more effectively at this task than their less flexible counterparts.
-    This work serves mainly as a proof of concept, but we hope that it helps to open the
-    door for the better matching of tasks with appropriate morphologies in robotic design
-    in the future.},
     booktitle = {Proceedings of the 2015 Annual Conference on Genetic and Evolutionary Computation},
     pages = {935–942},
     numpages = {8},
