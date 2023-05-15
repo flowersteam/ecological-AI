@@ -360,7 +360,7 @@ For this reason we implemented a large-scale environment, where populations of t
 <h2 id="sapiens"> The effect of social connectivity on collective innovation </h2>
 
 <div align="center" style="margin-bottom:40px">
-<img class="80" src="public/culture.gif" height="465" width="665" alt="ORIGINS" />
+<img class="80" src="public/culture.gif"  alt="ORIGINS" style="width:100%" />
 <div>
 <sub style="display: block; line-height: 1.5em">
 <i> Learning through and alongside others is a behavior encountered in many individuals, including artificial ones.
@@ -379,17 +379,16 @@ What role do social dynamics like group connectivity play and can we find simila
 </p>
 
 
-
 <p> Why do humans innovate to such an unprecendented degree?
     Some theories point to our increased cognitive capacity or sociality.
-    But others, point to the benefits of our social connectivity: human societies often self-organize into small-world, hierarchical or dynamic
+    But others point to the benefits of our social connectivity: human societies often self-organize into small-world, hierarchical or dynamic
     topologies. The common feature underlying those is their ability to protect information within sub-parts of the group.
     In this way, the group maintains its cultural diversity, and it is this diversity that may be driving the continuous appearance of innovations.
 </p>
 
 <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
 width: calc((1500px - 648px) / 2 - 24px);">
-<img src="public/innovation_networks" alt="scheme" style="width:90%">
+<img src="public/innovation_networks.png" alt="scheme" style="width:90%">
 <sub style="display: block; line-height: 1.5em">
 <i> Social networks characterizing human collective innovation often have a clustered structure.
 On the left, reconstructed regional networks of cultural artifacts in Africa about 350, thousand years ago <dt-cite key="migliano_origins_2022"> </dt-cite>.
@@ -399,18 +398,25 @@ Could there be a link between social connectivity and the ability to innovate co
 </sub>
 </div>
 
-
-<p> Reinforcement learning is also interested in the benefits of collective exploration.
+<p> Reinforcement learning, the sub-field of AI concerned with learning by interacting with an environment,
+    is also interested in the benefits of collective exploration.
     In distributed RL, multiple agents solve a task in parallel and exchange information on the way <dt-cite key="mnihAsynchronousMethodsDeep2016a"></dt-cite>
     <dt-cite key="horganDistributedPrioritizedExperience2018"> </dt-cite>
     <dt-cite key="espeholt_impala_2018"> </dt-cite>.
     This has shown benefits both in terms of the quality of the final solution and the speed at which it is discovered.
 </p>
 
-<p> Yet this community has considered a single type of group connectivity, the star topology.
-All agents share their information with a central node, which updates a single policy.
-Thus, artificial groups look very different from the partially-connected human groups and this may impact their ability to
-    continuously innovate.
+<p> Yet this community has considered a single type of group connectivity, the star topology:
+all agents interact with the environment to collect information and then share it with a single central node responsible for
+    processing the new information and updating the behavior of the agents.
+    Thus, artificial groups look very different from the partially-connected human groups.
+    If this structure reduces their collective diversity, it may negatively impact the ability of these groups to solvex innovation challenges
+</p>
+
+
+<p>
+    This is the idea that motivated the computational study we describe next <dt-cite key="nisioti2022SocialNetworkStructure"> </dt-cite>,
+    where groups of RL agents solve innovation tasks under different social connectivities.
 </p>
 
 <h3> SAPIENS: a distributed RL framework where social connectivity matters </h3>
@@ -422,13 +428,65 @@ Thus, artificial groups look very different from the partially-connected human g
 <!--</p>-->
 <!--</div>-->
 
+<h4> The model </h4>
+
+<p> To study innovation we employed Wordcraft <dt-cite key="jiangWordCraftEnvironmentBenchmarking2020"> </dt-cite>,
+    an RL text-world inspired from the Little Alchemy 2 game.
+    The player starts with a set of elements, for example fire, water and earth and can combine them in pairs to craft new elements.
+    Not all combinations give rise to new elements; the description of a task includes a list of the possible combinations.
+</p>
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/littlealchemy.gif"  alt="ORIGINS" style="width:100%" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> Our environment is a text-based version of the Little Alchemy 2 game, where a player combines elements to form new elements.
+</i></sub>
+</div>
+</div>
+
+<p> We were interested in studying a variety of challenges a group can encounter when solving innovation tasks, so we designed
+    three tasks inspired from three types of challenges:
+    <ul>
+    <li> a task with a single innovation path, where new innovations arise as modifications of the most recent past innovations.
+        Search is easy in this type of task.
+        The challenge lies in solving it as quickly as possible.
+        We are therefore interested in the speed at which groups innovate.
+        This task can be used to model arms races, such as the invention of aircrafts and their continuous improvement to machine gun-mounted planes like
+        the Fokker during the First World War.
+    </li>
+    <li> a task with two identical paths that merge into a more rewarding path.
+        This task contains a strong local optima: to find the more rewarding path one needs to start exploring both other paths instead of reaching the end of one of them.
+        It can be useful to model the recombination of innovations that often happens in technological progress, as for example in the evolution of gasoline.
+        The distillation of petroleum can be seen as one innovation path, that gave us the inventions of kerosine and gasoline.
+        Kerosine attracted a lot of attention but gasoline was ignored as a volatile by-product.
+        This was until another innovation path gave us the internal combustion engine.
+        In itself this engine was not very popular, but when combined with gasoline, it changed the world.
+    </li>
+    <li>
+        a task with nine identical path and one path that is the most rewarding.
+        Here, the challenge lies in exploring a large search space.
+        Large search spaces are inherent in many fields of innovation, such as biology and medicine.
+    </li>
+
+</ul>
+
+</p>
+
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+<img src="public/task_illustration.png" alt="scheme" style="width:90%">
+<sub style="display: block; line-height: 1.5em">
+<i> Visualization of our innovation tasks
+</i>
+</sub>
+</div>
+
 <p> We recently proposed SAPIENS, a learning framework belonging to the distritbuted RL learning paradigm that connects multiple
     learners based on a pre-defined graph that determines social connectivity. One can imagine many instantiations of it that differ for
     example in the learning algorithm employed and the type of information shared. In this project, we have studied a
     single instantiation with DQN learners that share experience tuples from their replay buffer.
 </p>
-
-
 
 
 
@@ -440,12 +498,7 @@ Thus, artificial groups look very different from the partially-connected human g
 </div>
 </div>
 
-<p> We employed Wordcraft <dt-cite key="jiangWordCraftEnvironmentBenchmarking2020"> </dt-cite>,
-    a test-bed inspired from the Little Alchemy game.
-    With it, we designed different types of innovation tasks.
-    We are particularly interested in tasks that pose a difficult optimization challenge through the presence of local optima.
-    For example, take a look at the task in the following video:
-</p>
+
 
 <div align="center" style="margin-bottom:40px">
 <img class="80" src="public/Recipe.gif" style="width:150%" alt="ORIGINS" />
@@ -490,6 +543,23 @@ future studies in ecology.
 
 <script type="text/bibliography">
 
+
+@misc{nisioti2022SocialNetworkStructure,
+  title = {Social {{Network Structure Shapes Innovation}}: {{Experience-sharing}} in {{RL}} with {{SAPIENS}}},
+  shorttitle = {Social {{Network Structure Shapes Innovation}}},
+  author = {Nisioti, Eleni and Mahaut, Mateo and Oudeyer, Pierre-Yves and Momennejad, Ida and {Moulin-Frier}, Cl{\'e}ment},
+  year = {2022},
+  month = nov,
+  number = {arXiv:2206.05060},
+  eprint = {2206.05060},
+  primaryclass = {cs},
+  publisher = {{arXiv}},
+  doi = {10.48550/arXiv.2206.05060},
+  urldate = {2023-03-13},
+  archiveprefix = {arxiv},
+}
+
+
 @article{sasaki2017CumulativeCultureCan,
   title = {Cumulative Culture Can Emerge from Collective Intelligence in Animal Groups},
   author = {Sasaki, Takao and Biro, Dora},
@@ -504,12 +574,11 @@ future studies in ecology.
   doi = {10.1038/ncomms15049},
   urldate = {2023-05-15},
   copyright = {2017 The Author(s)},
-  langid = {english},
 }
 
 
 @article{tyarks2022ChangesHumpbackWhale,
-  title = {Changes in Humpback Whale Song Structure and Complexity Reveal a Rapid Evolution on a Feeding Ground in {{Northern Norway}}},
+  title = {Changes in Humpback Whale Song Structure and Complexity Reveal a Rapid Evolution on a Feeding Ground in Northern Norway},
   author = {Tyarks, Saskia C. and Aniceto, Ana S. and Ahonen, Heidi and Pedersen, Geir and Lindstr{\o}m, Ulf},
   year = {2022},
   journal = {Frontiers in Marine Science},
@@ -528,17 +597,16 @@ future studies in ecology.
   volume = {399},
   number = {6737},
   pages = {682--685},
-  publisher = {{Nature Publishing Group}},
+  publisher = {Nature Publishing Group},
   issn = {1476-4687},
   doi = {10.1038/21415},
   urldate = {2023-02-18},
   copyright = {1999 Macmillan Magazines Ltd.},
-  langid = {english},
 }
 
 
 @misc{gautier2023EcoevolutionaryDynamicsNonepisodic,
-  title = {Eco-Evolutionary {{Dynamics}} of {{Non-episodic Neuroevolution}} in {{Large Multi-agent Environments}}},
+  title = {Eco-Evolutionary Dynamics of Non-episodic Neuroevolution in Large Multi-agent Environments},
   author = {Gautier, Hamon and Nisioti, Eleni and {Moulin-Frier}, Cl{\'e}ment},
   year = {2023},
   month = feb,
@@ -552,7 +620,7 @@ future studies in ecology.
 
 
 @misc{guss2019MineRLLargeScaleDataset,
-  title = {{{MineRL}}: {{A Large-Scale Dataset}} of {{Minecraft Demonstrations}}},
+  title = {MineRL: A Large-Scale Dataset of Minecraft Demonstrations},
   shorttitle = {{{MineRL}}},
   author = {Guss, William H. and Houghton, Brandon and Topin, Nicholay and Wang, Phillip and Codel, Cayden and Veloso, Manuela and Salakhutdinov, Ruslan},
   year = {2019},
@@ -568,7 +636,7 @@ future studies in ecology.
 
 
 @techreport{openendedlearningteamOpenEndedLearningLeads2021,
-  title = {Open-{{Ended Learning Leads}} to {{Generally Capable Agents}}},
+  title = {Open-Ended Learning Leads to Generally Capable Agents},
   author = {Open Ended Learning Team and Stooke, Adam and Mahajan, Anuj and Barros, Catarina and Deck, Charlie and Bauer, Jakob and Sygnowski, Jakub and Trebacz, Maja and Jaderberg, Max and Mathieu, Michael and McAleese, Nat and {Bradley-Schmieg}, Nathalie and Wong, Nathaniel and Porcel, Nicolas and Raileanu, Roberta and {Hughes-Fitt}, Steph and Dalibard, Valentin and Czarnecki, Wojciech Marian},
   year = {2021},
   month = jul,
@@ -593,14 +661,14 @@ future studies in ecology.
 
 
 @article{mnihPlayingAtariDeep,
-  title = {Playing {{Atari}} with {{Deep Reinforcement Learning}}},
+  title = {Playing Atari with Deep Reinforcement Learning},
   author = {Mnih, Volodymyr and Kavukcuoglu, Koray and Silver, David and Graves, Alex and Antonoglou, Ioannis and Wierstra, Daan and Riedmiller, Martin},
   langid = {english},
 }
 
 
 @misc{silver2017MasteringChessShogi,
-  title = {Mastering {{Chess}} and {{Shogi}} by {{Self-Play}} with a {{General Reinforcement Learning Algorithm}}},
+  title = {Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm},
   author = {Silver, David and Hubert, Thomas and Schrittwieser, Julian and Antonoglou, Ioannis and Lai, Matthew and Guez, Arthur and Lanctot, Marc and Sifre, Laurent and Kumaran, Dharshan and Graepel, Thore and Lillicrap, Timothy and Simonyan, Karen and Hassabis, Demis},
   year = {2017},
   month = dec,
@@ -791,7 +859,6 @@ future studies in ecology.
 	month = dec,
 	year = {2013},
 	pages = {S371--S387},
-	file = {d’Errico and Banks - 2013 - Identifying Mechanisms behind Middle Paleolithic a.pdf:/Users/eleninisioti/Zotero/storage/MCKLJKWZ/d’Errico and Banks - 2013 - Identifying Mechanisms behind Middle Paleolithic a.pdf:application/pdf},
 }
 
 
@@ -812,7 +879,6 @@ future studies in ecology.
 	month = jul,
 	year = {2017},
 	pages = {7869--7876},
-	file = {d’Errico et al. - 2017 - Identifying early modern human ecological niche ex.pdf:/Users/eleninisioti/Zotero/storage/QCTZQ3LW/d’Errico et al. - 2017 - Identifying early modern human ecological niche ex.pdf:application/pdf},
 }
 
 
@@ -833,7 +899,6 @@ future studies in ecology.
 	month = apr,
 	year = {2011},
 	pages = {1060--1069},
-	file = {d'Errico and Stringer - 2011 - Evolution, revolution or saltation scenario for th.pdf:/Users/eleninisioti/Zotero/storage/VRYEAMST/d'Errico and Stringer - 2011 - Evolution, revolution or saltation scenario for th.pdf:application/pdf},
 }
 
 
@@ -879,7 +944,6 @@ future studies in ecology.
 	year = {2018},
 	note = {arXiv:1810.03548 [cs, stat]},
 	keywords = {Computer Science - Machine Learning, Statistics - Machine Learning},
-	file = {arXiv Fulltext PDF:/Users/eleninisioti/Zotero/storage/VLE24W27/Vanschoren - 2018 - Meta-Learning A Survey.pdf:application/pdf;arXiv.org Snapshot:/Users/eleninisioti/Zotero/storage/K9ECMX5X/1810.html:text/html},
 }
 
 
@@ -898,7 +962,6 @@ future studies in ecology.
 	year = {2014},
 	keywords = {Cenozoic climate transitions, East Africa, Hominin, Human evolution, Orbital forcing, Palaeoclimatology, Palaeoliminology, Pulsed climate variability hypothesis, Tectonics},
 	pages = {1--17},
-	file = {ScienceDirect Full Text PDF:/Users/eleninisioti/Zotero/storage/5E5M2QKF/Maslin et al. - 2014 - East African climate pulses and early human evolut.pdf:application/pdf;ScienceDirect Snapshot:/Users/eleninisioti/Zotero/storage/AJQU8IU6/S0277379114002418.html:text/html},
 }
 
 @article{potts_hominin_2013,
@@ -1073,7 +1136,6 @@ future studies in ecology.
 	year = {2014},
 	note = {Publisher: Proceedings of the National Academy of Sciences},
 	pages = {16784--16789},
-	file = {Full Text PDF:/Users/eleninisioti/Zotero/storage/PY94JZLD/Botero et al. - 2014 - The ecology of religious beliefs.pdf:application/pdf},
 }
 
 @article{larrasoana_dynamics_2013,
