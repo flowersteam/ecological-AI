@@ -72,7 +72,7 @@
 <h2 id='subtitle'> Grounding Artificial Intelligence in the Origins of Human Behavior </h2>
 
 <div align="center" style="margin-bottom:40px">
-  <img src="public/introblog_ecoAI.png" alt="scheme" style="width:150%">
+  <img src="public/introblog_ecoAI.png" alt="scheme" style="width:120%">
 </div>
 
 <p> 'Can machines think?' When Turing posed this question in his seminal paper
@@ -146,8 +146,8 @@
 <h2 id="framework"> A conceptual framework for linking human and artificial ecologies </h2>
 
 <p> We recently proposed <dt-cite key="nisioti_grounding_2021"> </dt-cite> <dt-cite key="clement_thesis"> </dt-cite> that a possible pathway
-    to getting AI that exhibits the ability to continuously acquire skills in an open-ended way is to ground our research in AI
-    in our knowledge of a natural species with an impressively open-ended behavioral repertoire: our own.
+    to getting artificial agents that exhibit the ability to continuously acquire skills in an open-ended way is to find inspiration in a biological
+    species with an impressively open-ended behavioral repertoire: our own.
 </p>
 
 
@@ -189,17 +189,16 @@
 
 <p> <em> Environmental complexity  has a key role in  skill acquisition.
     It bootstraps the emergence of skills at both an individual and a collective level.
-    At an individual level, it modulates reproduction pressures and creates the need for cognitive mechanism.
+    At an individual level, it modulates reproduction pressures and creates the need for cognitive mechanisms.
     At a collective level, cooperation and competition pressures drive the need for social skills.
     The skills themselves then act as drivers for further skill acquisition in two ways:
     a) they interact with each other to give rise to the uniquely complex human cultural repertoire b)  they modulate
     environmental complexity through the process of niche construction.
-    It is this latter process that makes skill acquisition open-ended, as it creates a positive feedback look that
+    It is this latter process that makes skill acquisition open-ended, as it creates a positive feedback loop that
 continuously complexifies the environment.</em> </p>
 
 <p> <em> ORIGINS </em>  can be a useful tool for both AI and HBE communities:  AI researchers can borrow existing hypotheses from
-    HBE about which environmental conditions affect which skills to appropriately shape their environments, an approach
-    that we refer to as ecologically-inspired AI. At the same time, HBE researchers can use AI as a computational tool
+    HBE about which environmental conditions affect which skills to appropriately shape their environments. At the same time, HBE researchers can use AI as a computational tool
     for studying their hypotheses.</p>
 
 <p> In the rest of the post we describe two of our projects that can be seen as following the ecological approach we are proposing.
@@ -225,9 +224,9 @@ continuously complexifies the environment.</em> </p>
 <p> When we trace back the history of our planet, we find climatic records of very ''busy" periods : many rapid and
     large-amplitude climatic cycles have taken place in the last few million years, leading to high levels of climate
     change that must have significantly shaped populations at a global and local scale. Our own species appeared
-    and dispersed during such periods.
+    and dispersed during such periods
     <dt-cite key="maslin_synthesis_2015"> </dt-cite> <dt-cite key="sanchez_goni_regional_2020"> </dt-cite>
-    <dt-cite key="potts_hominin_2013"> </dt-cite>
+    <dt-cite key="potts_hominin_2013"> </dt-cite>.
 </p>
 
 <p> Could there be a link between this climatic complexity and the birth of one of the most generalist species?
@@ -236,12 +235,11 @@ Understanding the mechanisms with which temporal and spatial diversity in an env
 
 <p> A similar story has been unfolding in AI.
     The first impressive agents in AI where created to be extremely specialized in a single task, like playing Chess.
-    But recently, the focus is on generalist agents that can adapt to physical damages during their deployment and learn to solve problems
-    that they have never encountered during their design
+    But recently, the focus is on generalist agents that can adapt to changes in tasks that they have never encountered during their design.
 </p>
 
 <p> The consensus of the community is that, when it comes to creating generalist agents,
-    the training environments plays a big part.
+    training environments play a big part.
     In meta learning <dt-cite key="vanschoren_meta-learning_2018"> </dt-cite>, the focus is on ensuring a wide diversity of environments.
     In curriculum learning <dt-cite key="vanschoren_meta-learning_2018"> </dt-cite> the focus is on the order in which environments are encountered,
 as the training procedure needs to ensure that agents are continuously challenged but able to improve.
@@ -251,10 +249,21 @@ as the training procedure needs to ensure that agents are continuously challenge
 <img class="80" src="public/benchmark_evo.png" height="465" width="665" alt="ORIGINS" />
 <div>
 <sub style="display: block; line-height: 1.5em">
-<i> Benchmarks used to evaluate agents are becoming increasingly complex and diverse. </i></sub>
+<i> Benchmarks used to evaluate agents are becoming increasingly complex and diverse: chess and Go <dt-cite key="silver2017MasteringChessShogi"> </dt-cite>
+    require strategic reasoning in a large-dimensional space, Atari games <dt-cite key="mnihPlayingAtariDeep"> </dt-cite>
+    pose diverse challenges such as partial observability, sparse rewards and were one of the first benchmarks where agents
+    operated solely based on pixel values.
+    Multi-agent environments initially tested for a single skill, such as cooperation in foraging tasks <dt-cite key="perolatMultiagentReinforcementLearning2017b"> </dt-cite>.
+    XLand <dt-cite key="openendedlearningteamOpenEndedLearningLeads2021"> </dt-cite> is a vast world of single-agent and multi-agent tasks that require navigation and object manipulation in 3D space.
+    Minecraft <dt-cite key="guss2019MineRLLargeScaleDataset"> </dt-cite> comes very close to our need for open-ended environments, as the agent can craft items and
+    continuously complexify the environment.
+
+</i></sub>
 </div>
 </div>
 
+These are the ideas that motivated the computational study we describe next, where we attempt to understand how the complexity of environments,
+    both in terms of their temporal dynamics and task diversity acts as a driver for generalist agents.
 
 <h3> An eco-evo-devo model for studying the emergence of generalist agents</h3>
 
@@ -270,11 +279,7 @@ the plastic individual has lower fitness (cost of plasticity). If the actual env
 </p>
 </div>
 
-<p> Recently  we proposed a simple model for studying how populations of adaptive agents evolve  in variable
-    environments <dt-cite key="nisioti_plasticity_2022"> </dt-cite>.
-</p>
-
-<p>  In our model, the environment exhibits both temporal and spatial diversity in terms of resource availability.
+<p> In our model<dt-cite key="nisioti_plasticity_2022"> </dt-cite>, the environment exhibits both temporal and spatial diversity in terms of resource availability.
     The amount of resources depends on the latitude of a niche and a climate function that changes with time.
     Agents have three ways to adapt to their environment, all encoded in their genome: a preferred environmental state,
     phenotypic plasticity and a mutation rate.
@@ -282,8 +287,6 @@ the plastic individual has lower fitness (cost of plasticity). If the actual env
     in diverse environments within
     a single lifetime, while mutations enable adaptation at a slower, evolutionary time-scale.
 </p>
-
-
 
 <p> To model phenotypic plasticity  we have adopted tolerance curves, a tool originally  developed in ecology  <dt-cite
             key="grove_evolution_2014"> </dt-cite>.
@@ -322,6 +325,15 @@ the plastic individual has lower fitness (cost of plasticity). If the actual env
     variability.
     We also saw that different environmental conditions and selection pressures may favor plasticity, while others favor
     evolvability.
+    Our study suggests to the AI community that environmental conditions play an important part in the emergence and form of generalism.
+    Even if the algorithm is powerful enough to behave as a generalist, this behavior will not emerge if the spatiotemporal dynamics of the environments
+    do not require it.
+    We also show that local competition is an important driver of generalism, at a time when most meta RL works favor agents based on performance
+    averages across tasks, which falls under global competition.
+</p>
+
+<p>
+
 </p>
 
 
@@ -449,6 +461,66 @@ future studies in ecology.
 </dt-appendix>
 
 <script type="text/bibliography">
+
+@misc{guss2019MineRLLargeScaleDataset,
+  title = {{{MineRL}}: {{A Large-Scale Dataset}} of {{Minecraft Demonstrations}}},
+  shorttitle = {{{MineRL}}},
+  author = {Guss, William H. and Houghton, Brandon and Topin, Nicholay and Wang, Phillip and Codel, Cayden and Veloso, Manuela and Salakhutdinov, Ruslan},
+  year = {2019},
+  month = jul,
+  number = {arXiv:1907.13440},
+  eprint = {1907.13440},
+  primaryclass = {cs, stat},
+  publisher = {{arXiv}},
+  doi = {10.48550/arXiv.1907.13440},
+  urldate = {2023-05-15},
+}
+
+
+
+@techreport{openendedlearningteamOpenEndedLearningLeads2021,
+  title = {Open-{{Ended Learning Leads}} to {{Generally Capable Agents}}},
+  author = {Open Ended Learning Team and Stooke, Adam and Mahajan, Anuj and Barros, Catarina and Deck, Charlie and Bauer, Jakob and Sygnowski, Jakub and Trebacz, Maja and Jaderberg, Max and Mathieu, Michael and McAleese, Nat and {Bradley-Schmieg}, Nathalie and Wong, Nathaniel and Porcel, Nicolas and Raileanu, Roberta and {Hughes-Fitt}, Steph and Dalibard, Valentin and Czarnecki, Wojciech Marian},
+  year = {2021},
+  month = jul,
+  number = {arXiv:2107.12808},
+  eprint = {2107.12808},
+  primaryclass = {cs},
+  institution = {{arXiv}},
+  doi = {10.48550/arXiv.2107.12808},
+  urldate = {2022-06-01},
+}
+
+
+@inproceedings{perolatMultiagentReinforcementLearning2017b,
+  title = {A Multi-Agent Reinforcement Learning Model of Common-Pool Resource Appropriation},
+  booktitle = {Advances in {{Neural Information Processing Systems}} 30 ({{NIPS}} 2017)},
+  author = {P{\'e}rolat, Julien and Leibo, Joel Z. and Zambaldi, Vinicius and Beattie, Charles and Tuyls, Karl and Graepel, Thore},
+  year = {2017},
+  pages = {3643--3652},
+  urldate = {2018-12-10},
+  keywords = {read},
+}
+
+
+@article{mnihPlayingAtariDeep,
+  title = {Playing {{Atari}} with {{Deep Reinforcement Learning}}},
+  author = {Mnih, Volodymyr and Kavukcuoglu, Koray and Silver, David and Graves, Alex and Antonoglou, Ioannis and Wierstra, Daan and Riedmiller, Martin},
+  langid = {english},
+}
+
+
+@misc{silver2017MasteringChessShogi,
+  title = {Mastering {{Chess}} and {{Shogi}} by {{Self-Play}} with a {{General Reinforcement Learning Algorithm}}},
+  author = {Silver, David and Hubert, Thomas and Schrittwieser, Julian and Antonoglou, Ioannis and Lai, Matthew and Guez, Arthur and Lanctot, Marc and Sifre, Laurent and Kumaran, Dharshan and Graepel, Thore and Lillicrap, Timothy and Simonyan, Karen and Hassabis, Demis},
+  year = {2017},
+  month = dec,
+  number = {arXiv:1712.01815},
+  eprint = {1712.01815},
+  primaryclass = {cs},
+  publisher = {{arXiv}},
+}
+
 
 @phdthesis{clement_thesis,
   TITLE = {The Ecology of Open-Ended Skill Acquisition},
