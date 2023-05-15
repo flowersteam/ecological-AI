@@ -482,10 +482,34 @@ width: calc((1500px - 648px) / 2 - 24px);">
 </sub>
 </div>
 
-<p> We recently proposed SAPIENS, a learning framework belonging to the distritbuted RL learning paradigm that connects multiple
-    learners based on a pre-defined graph that determines social connectivity. One can imagine many instantiations of it that differ for
-    example in the learning algorithm employed and the type of information shared. In this project, we have studied a
-    single instantiation with DQN learners that share experience tuples from their replay buffer.
+<p> In our experiments, this game is played by a group of RL agents.
+    An RL agent embodies the paradigm of learning through trial and error.
+    In an RL task, the agent interacts with an environment. It does so by executing <i> actions </i> and receivng <i> observations</i> and <i> rewards</i>.
+    For example, in a Little Alchemy 2 task, an agent defines which elements it will combine and the environment returns the newly created elements and the points added to the player's score.
+    The main idea in RL is that an agent can learn a policy that solves a task optimally if it is exposed to multiple trials of it and uses this experience to maximize
+    the rewards it receives.
+</p>
+
+<p> The RL algorithm that we employed was DQN <dt-cite key="mnihPlayingAtariDeep"> </dt-cite>, a deep RL algorithm where
+    an agent has an explicit memory of past experiences that is periodically sampled
+    to update its policy.
+    These experiences have the form <i> [observation, action, reward] </i> and in our model are also employed for sharing information with others.
+    When we say that an agent shares an experience with another agent we mean that it samples a random experiences from its memory
+    and directly inserts it to the other's memory.
+</p>
+
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+<img src="public/agents.png" alt="scheme" style="width:90%">
+<sub style="display: block; line-height: 1.5em">
+<i> Visualization of our innovation tasks
+</i>
+</sub>
+</div>
+
+
+<p> An agent shares experiences only with its neighbors, which are determined by the social connectivity of the group.
+In our study, we considered the following social connectivities:
 </p>
 
 
@@ -494,11 +518,12 @@ width: calc((1500px - 648px) / 2 - 24px);">
 <img class="80" src="public/Sapiens.gif" style="width:150%" alt="ORIGINS" />
 <div>
 <sub style="display: block; line-height: 1.5em">
-<i> The different social connectivities </i></sub>
+<i> The social connectivities we studied empirically. The dynamic connectivity is inspired from a previous study in human
+ecology <dt-cite key="derexPartialConnectivityIncreases2016"> </dt-cite></i></sub>
 </div>
 </div>
 
-
+<h4> Results </h4>
 
 <div align="center" style="margin-bottom:40px">
 <img class="80" src="public/Recipe.gif" style="width:150%" alt="ORIGINS" />
@@ -514,6 +539,8 @@ width: calc((1500px - 648px) / 2 - 24px);">
     but, at the level of the collective, were the least diverse.
 
 </p>
+
+<h4> Next steps </h4>
 
 
 <h2> Connecting the dots </h2>
