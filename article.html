@@ -212,7 +212,7 @@ continuously complexifies the environment.</em> </p>
 <img class="80" src="public/earth_species.gif" height="465" width="665" alt="ORIGINS" />
 <div>
 <sub style="display: block; line-height: 1.5em">
-<i> Earth: a diversity of species and a diversity of ecological conditions co-exist </i></sub>
+<i> Earth: the apparent genomic diversity of species in our planet could not have existed without an equally impressive diversity of ecological niches.</i></sub>
 </div>
 </div>
 
@@ -231,18 +231,18 @@ continuously complexifies the environment.</em> </p>
 
 <p> Could there be a link between this climatic complexity and the birth of one of the most generalist species?
 Understanding the mechanisms with which temporal and spatial diversity in an environment influences individuals and populations
-    is a crucial step towards answering this question.</p>.
+    is a crucial step towards answering this question.
+</p>.
 
-<p> A similar story has been unfolding in AI.
-    The first impressive agents in AI where created to be extremely specialized in a single task, like playing Chess.
+<p> A similar story has been unfolding in AI, where the first impressive agents were extremely specialized, solving a single task like Chess.
     But recently, the focus is on generalist agents that can adapt to changes in tasks that they have never encountered during their design.
 </p>
 
 <p> The consensus of the community is that, when it comes to creating generalist agents,
-    training environments play a big part.
-    In meta learning <dt-cite key="vanschoren_meta-learning_2018"> </dt-cite>, the focus is on ensuring a wide diversity of environments.
+    the environments used for training play a big part.
+    In meta-learning <dt-cite key="vanschoren_meta-learning_2018"> </dt-cite>, the focus is on ensuring a wide diversity of environments.
     In curriculum learning <dt-cite key="vanschoren_meta-learning_2018"> </dt-cite> the focus is on the order in which environments are encountered,
-as the training procedure needs to ensure that agents are continuously challenged but able to improve.
+as the training procedure needs to ensure that agents are continuously challenged but are able to improve.
 </p>
 
 <div align="center" style="margin-bottom:40px">
@@ -265,7 +265,7 @@ as the training procedure needs to ensure that agents are continuously challenge
 <p>
 These are the ideas that motivated the computational study we describe next <dt-cite key="nisioti_plasticity_2022"> </dt-cite>,
     where we attempt to understand how the complexity of environments,
-    both in terms of their temporal dynamics and task diversity acts as a driver for generalist agents.
+    both in terms of their temporal dynamics and task diversity, acts as a driver for generalism.
 </p>
 
 <h3> An eco-evo-devo study of the emergence of generalist agents</h3>
@@ -285,7 +285,7 @@ the plastic individual has lower fitness (cost of plasticity). If the actual env
 
 <h4> The model </h4>
 
-<p> the environment exhibits both temporal and spatial diversity in terms of resource availability.
+<p> In this project we designed an environment that exhibits both temporal and spatial diversity in terms of resource availability.
     The amount of resources depends on the latitude of a niche and a climate function that changes with time.
     Agents have three ways to adapt to their environment, all encoded in their genome: a preferred environmental state,
     phenotypic plasticity and a mutation rate.
@@ -302,7 +302,7 @@ the plastic individual has lower fitness (cost of plasticity). If the actual env
 
 <p> Tolerance curves elegantly capture the cost and benefit of plasticity: if a plastic and non-plastic agent compete
     in an environment that is identical to their preferred niche, the plastic one will lose as its peak is lower. But
-    if, for some reason, the environment changes in the next generation so that it differs from the preferred niche
+    if, for some reason, the environment changes in the next generation so that it differs significantly from the preferred niche
     of the two individuals, the plastic one will be at an advantage.
 </p>
 
@@ -313,11 +313,16 @@ the plastic individual has lower fitness (cost of plasticity). If the actual env
 
 <p> At each generation, an agent surviving in a niche can reproduce until the capacity of the niche is filled.
     Agents are chosen based on their fitness, which depends on their preferred state, their plasticity and the state of the niche.
-    If an agent can survive in multiple niches it will be eligible for reproduction in all of them, and thus has higher chances of reproducing.
+    If an agent can survive in multiple niches it will be eligible for reproduction in all of them, and thus, will have higher chances of reproducing.
+    We refer to this selection mechanism as <i> niche-limited competition </i>.
+    We also compared against a condition where selection does not happen independently in each niche, but agents compete against everyone based on their average
+    fitness across all niches.
+    This condition corresponds to survival-of-the-fittest, the most widely used evolutionary algorithm.
 </p>
 
 <h4> Results </h4>
-<p> Here is an illustration of how the population behaves in a world with 100 niches and a climate function that has the form of a sinusoid:</p>
+<p> Here is an illustration of how the population behaves in a world with 100 niches and a climate function that has the
+    form of a sinusoid when the selection mechanism is niche-limited competition:</p>
 
 <div align="center" style="margin-bottom:40px">
 <img class="80" src="public/Gecco.gif" width="150%" alt="toleranceCurve" />
@@ -338,7 +343,7 @@ the plastic individual has lower fitness (cost of plasticity). If the actual env
     Our study suggests to the AI community that environmental conditions play an important part in the emergence and form of generalism.
     Even if the algorithm is powerful enough to behave as a generalist, this behavior will not emerge if the spatiotemporal dynamics of the environments
     do not require it.
-    We also saw that limiting competition within niches is an important driver of generalism, at a time when most meta RL works have agents competing with the whole population.
+    We also saw that limiting competition within niches is an important driver of generalism, at a time when most meta RL works use survival-of-the-fittest.
 </p>
 
 <!--<h4> Next steps </h4>-->
@@ -351,7 +356,10 @@ For this reason we implemented a large-scale environment, where populations of t
     in a grid-world with resource density that varies in space and time <dt-cite key="gautier2023EcoevolutionaryDynamicsNonepisodic"> </dt-cite>
 </p>
 
-<p> Link with next project?</p>
+<p> We now zoom-out of the link between environmental dynamics and adaptability in our conceptual framework and move our gaze to the right.
+    There we meet the cultural repertoire, a set of rather advanced skills that presuppose the existence of both individual cognitive mechanisms and social dynamics.
+    Next, we will describe a study how multi-agent dynamics influence the formation of a cultural repertoire.
+</p>
 
 
 <h2 id="sapiens"> The effect of social connectivity on collective innovation </h2>
@@ -371,25 +379,25 @@ width: calc((1500px - 648px) / 2 - 24px);">
 <img src="public/innovation_networks.png" alt="scheme" style="width:90%">
 <sub style="display: block; line-height: 1.5em">
 <i> Social networks characterizing human collective innovation often have a clustered structure.
-On the left, reconstructed regional networks of cultural artifacts in Africa about 350, thousand years ago <dt-cite key="migliano_origins_2022"> </dt-cite>.
+On the left, reconstructed regional networks of cultural artifacts in Africa about 350, thousand years ago<dt-cite key="migliano_origins_2022"> </dt-cite>.
 On the right, the citation network of a recent research paper (Image credit <a href="https://www.connectedpapers.com/"> connected papers </a>).
-Could there be a link between social connectivity and the ability to innovate collectively?
+Does this pattern suggest a link between social connectivity and the ability to innovate collectively?
 </i>
 </sub>
 </div>
 
 <p> Culture, the ability to create and spread traditions through social learning, is often seen as a monopoly of our own species.
-    But there are many species that learn through others  <dt-cite key="whiten1999CulturesChimpanzees"> </dt-cite>.
-    Few of them can change their cultural skills with time <dt-cite key="tyarks2022ChangesHumpbackWhale"> </dt-cite>
-    Some species can even accumulate changes with time, which leads to a continuous “complexification” of a skill <dt-cite key="sasaki2017CumulativeCultureCan"> </dt-cite>.
-    What is unique in humans is the intensity of accumulation.
-    From programming languages to musical instruments, the fossil record of human innovations has a rather intricate, tree structure, with new innovations arising out
+    But there are many species that learn through others <dt-cite key="whiten1999CulturesChimpanzees"> </dt-cite>.
+    Few of them can change their cultural skills with time <dt-cite key="tyarks2022ChangesHumpbackWhale"> </dt-cite>.
+    Some species can even accumulate changes with time, which leads to a continuous “complexification” of their skills <dt-cite key="sasaki2017CumulativeCultureCan"> </dt-cite>.
+    What is unique in humans, however, is the intensity of accumulation.
+    From programming languages to musical instruments <dt-cite key="solee2013EvolutionaryEcologyTechnological"> </dt-cite>, the fossil record of human innovations has a rather intricate, tree structure, with new innovations arising out
     of recombination of existing ones.
 </p>
 
 
 <p> Why do humans innovate to such an unprecendented degree?
-    Some theories point to our increased cognitive capacity or sociality.
+    Some theories point to our increased cognitive capacity or sociality <dt-cite key="klinePopulationSizePredicts2010"> </dt-cite>.
     But others point to the benefits of our social connectivity: human societies often self-organize into small-world, hierarchical or dynamic
     topologies. The common feature underlying those is their ability to protect information within sub-parts of the group.
     In this way, the group maintains its cultural diversity, and it is this diversity that may be driving the continuous appearance of innovations.
@@ -409,13 +417,13 @@ Could there be a link between social connectivity and the ability to innovate co
 all agents interact with the environment to collect information and then share it with a single central node responsible for
     processing the new information and updating the behavior of the agents.
     Thus, artificial groups look very different from the partially-connected human groups.
-    If this structure reduces their collective diversity, it may negatively impact the ability of these groups to solvex innovation challenges
+    If this structure reduces their collective diversity, it may negatively impact the ability of these groups to solvex innovation challenges.
 </p>
 
 
 <p>
     This is the idea that motivated the computational study we describe next <dt-cite key="nisioti2022SocialNetworkStructure"> </dt-cite>,
-    where groups of RL agents solve innovation tasks under different social connectivities.
+    where groups of RL agents solve innovation tasks under different topologies.
 </p>
 
 <h3> SAPIENS: a distributed RL framework where social connectivity matters </h3>
@@ -446,7 +454,7 @@ all agents interact with the environment to collect information and then share i
 
 <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
 width: calc((1500px - 648px) / 2 - 24px);">
-<img src="public/task_illustration.png" alt="scheme" style="width:90%">
+<img src="public/task_illustration.png" alt="scheme" style="width:100%">
 <sub style="display: block; line-height: 1.5em">
 <i> Visualization of our innovation tasks
 </i>
@@ -456,14 +464,14 @@ width: calc((1500px - 648px) / 2 - 24px);">
 <p> We were interested in studying a variety of challenges a group can encounter when solving innovation tasks, so we designed
     three different tasks:
     <ul>
-    <li> a task with a single innovation path, where new innovations arise as modifications of the most recent past innovations.
+    <li> the single-path task, where new innovations arise as modifications of the most recent past innovations.
         Search is easy in this type of task.
         The challenge lies in solving it as quickly as possible.
         We are therefore interested in the speed at which groups innovate.
         This task can be used to model arms races, such as the invention of aircrafts and their continuous improvement to machine gun-mounted planes like
         the Fokker during the First World War.
     </li>
-    <li> a task with two identical paths that merge into a more rewarding path.
+    <li> the merging-paths task, where two identical paths merge into a more rewarding path.
         This task contains a strong local optima: to find the more rewarding path one needs to start exploring both other paths instead of reaching the end of one of them.
         It can be useful to model the recombination of innovations that often happens in technological progress, as for example in the evolution of gasoline.
         The distillation of petroleum can be seen as one innovation path, that gave us the inventions of kerosine and gasoline.
@@ -471,8 +479,7 @@ width: calc((1500px - 648px) / 2 - 24px);">
         This was until another innovation path gave us the internal combustion engine.
         In itself this engine was not very popular, but when combined with gasoline, it changed the world.
     </li>
-    <li>
-        a task with nine identical path and one path that is the most rewarding.
+    <li> the best-of-ten paths task, with nine identical <paths></paths> and one path that is the most rewarding.
         Here, the challenge lies in exploring a large search space.
         Large search spaces are inherent in many fields of innovation, such as biology and medicine.
     </li>
@@ -490,9 +497,9 @@ width: calc((1500px - 648px) / 2 - 24px);">
 </sub>
 </div>
 
-<p> In our experiments, this game is played by a group of RL agents.
+<p> In our experiments, a game is played by a group of RL agents.
     An RL agent embodies the paradigm of learning through trial and error.
-    In an RL task, the agent interacts with an environment. It does so by executing <i> actions </i> and receivng <i> observations</i> and <i> rewards</i>.
+    It interacts with an environment by executing <i> actions </i> and receiving <i> observations</i> and <i> rewards</i>.
     For example, in a Little Alchemy 2 task, an agent defines which elements it will combine and the environment returns the newly created elements and the points added to the player's score.
     The main idea in RL is that an agent can learn a policy that solves a task optimally if it is exposed to multiple trials of it and uses this experience to maximize
     the rewards it receives.
@@ -501,7 +508,7 @@ width: calc((1500px - 648px) / 2 - 24px);">
 <p> The RL algorithm that we employed was DQN <dt-cite key="mnihPlayingAtariDeep"> </dt-cite>, a deep RL algorithm where
     an agent has an explicit memory of past experiences that is periodically sampled
     to update its policy.
-    These experiences have the form <i> [observation, action, reward] </i> and in our model are also employed for sharing information with others.
+    These experiences have the form <i> [observation, action, reward] </i> and are also employed for sharing information with others.
     When we say that an agent shares an experience with another agent we mean that it samples a random experiences from its memory
     and directly inserts it to the other's memory.
 </p>
@@ -509,8 +516,6 @@ width: calc((1500px - 648px) / 2 - 24px);">
 <p> An agent shares experiences only with its neighbors, which are determined by the social connectivity of the group.
 In our study, we considered the following social connectivities:
 </p>
-
-
 
 <div align="center" style="margin-bottom:40px">
 <img class="80" src="public/Sapiens.gif" style="width:100%" alt="ORIGINS" />
@@ -525,9 +530,9 @@ ecology <dt-cite key="derexPartialConnectivityIncreases2016"> </dt-cite></i></su
 
 <p>
 Our empirical evaluation of the four types of social connectivites showed that fully-connected groups perform worse in all three tasks.
-In the task with a single path, they are the slowest to find the optimal solution.
-In the task that requires recombination, they converge to the local optima.
-In the task with the large search space, they explore too slowly to discover the optimal path.
+In the single-path task, they are the slowest to find the optimal solution.
+In the merging-paths task, they converge to the local optima.
+In the best-of-ten paths, they explore too slowly to discover the optimal path.
 </p>
 
 <p>
@@ -552,7 +557,8 @@ As we see, agents in fully-connected group end up all exploring the same branch 
 
 <p>
 Do our empirical conclusions generalize to more complex environments, such as grid-worlds and Atari games?
-What is the optimal social connectivity for a given task?
+And how can we use our new understanding to guide the design of social connectivity for improving performance in certain tasks?
+These are examples of the research questions we plan to explore in future work.
 </p>
 
 <h2> Connecting the dots </h2>
@@ -565,8 +571,8 @@ future studies both in ecology and AI.
 <p> At a first glance our two studies may seem disconnected.
     One is concerned with the effect of ecological dynamics on a populations' dispersal and adaptability and the other with
     the effect of social connectivity on collective innovation.
-    But isn't the social connectivity of a group a direct result of its dispersal?
-    This allows us to draw a link between ecological dynamics and collective innovation.
+    But isn't the social connectivity of a a population related to its dispersal?
+    This observation allows us to draw a link between ecological dynamics and collective innovation.
     This link is actually ...
 </p>
 
@@ -594,6 +600,37 @@ Could this have played a role in the early cultural evolution of our species?
 </dt-appendix>
 
 <script type="text/bibliography">
+
+
+@article{klinePopulationSizePredicts2010,
+  title = {Population Size Predicts Technological Complexity in {{Oceania}}},
+  author = {Kline, Michelle A. and Boyd, Robert},
+  year = {2010},
+  month = aug,
+  journal = {Proceedings of the Royal Society B: Biological Sciences},
+  volume = {277},
+  number = {1693},
+  pages = {2559--2564},
+  issn = {0962-8452, 1471-2954},
+  doi = {10.1098/rspb.2010.0452},
+  urldate = {2021-03-01},
+}
+
+
+
+@article{solee2013EvolutionaryEcologyTechnological,
+  title = {The Evolutionary Ecology of Technological Innovations},
+  author = {Sole}e, Ricard V. and Valverde, Sergi and Casals, Marti Rosas and Kauffman, Stuart A. and Farmer, Doyne and Eldredge, Niles},
+  year = {2013},
+  journal = {Complexity},
+  volume = {18},
+  number = {4},
+  pages = {15--27},
+  issn = {1099-0526},
+  doi = {10.1002/cplx.21436},
+  urldate = {2023-02-18},
+  abstract = {Technological evolution has been compared to biological evolution by many authors over the last two centuries. As a parallel experiment of innovation involving economic, historical, and social components, artifacts define a universe of evolving properties that displays episodes of diversification and extinction. Here, we critically review previous work comparing the two types of evolution. Like biological evolution, technological evolution is driven by descent with variation and selection, and includes tinkering, convergence, and contingency. At the same time, there are essential differences that make the two types of evolution quite distinct. Major distinctions are illustrated by current specific examples, including the evolution of cornets and the historical dynamics of information technologies. Due to their fast and rich development, the later provide a unique opportunity to study technological evolution at all scales with unprecedented resolution. Despite the presence of patterns suggesting convergent trends between man-made systems end biological ones, they provide examples of planned design that have no equivalent with natural evolution.},
+}
 
 
 @misc{nisioti2022SocialNetworkStructure,
