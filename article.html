@@ -206,7 +206,385 @@ continuously complexifies the environment.</em> </p>
     and explain the computational models we designed to study them.
 </p>
 
+<h2 id="Study-A"> Evolution of adaptability in complex environments </h2>
 
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/earth_species.gif" height="465" width="665" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> Earth: the apparent genomic diversity of species in our planet could not have existed without an equally impressive diversity of ecological niches.</i></sub>
+</div>
+</div>
+
+
+<p> What makes us human? For HBE researchers, this is not a philosophical inquiry, but a rather pressing scientific
+    question: why did the first hominin species appear about 5 million years ago and which skills did they evolve
+    that allowed them to expand into a  population that today holds a powerful position in the Earth's  ecosystem?</p>
+
+<p> When we trace back the history of our planet, we find climatic records of very ''busy" periods : many rapid and
+    large-amplitude climatic cycles have taken place in the last few million years, leading to high levels of climate
+    change that must have significantly shaped populations at a global and local scale. Our own species appeared
+    and dispersed during such periods
+    <dt-cite key="maslin_synthesis_2015"> </dt-cite> <dt-cite key="sanchez_goni_regional_2020"> </dt-cite>
+    <dt-cite key="potts_hominin_2013"> </dt-cite>.
+</p>
+
+<p> Could there be a link between this climatic complexity and the birth of one of the most generalist species?
+Understanding the mechanisms with which temporal and spatial diversity in an environment influences individuals and populations
+    is a crucial step towards answering this question.
+</p>.
+
+<p> A similar story has been unfolding in AI, where the first impressive agents were extremely specialized, solving a single task like Chess.
+    But recently, the focus is on generalist agents that can adapt to changes in tasks that they have never encountered during their design.
+</p>
+
+<p> The consensus of the community is that, when it comes to creating generalist agents,
+    the environments used for training play a big part.
+    In meta-learning <dt-cite key="vanschoren_meta-learning_2018"> </dt-cite>, the focus is on ensuring a wide diversity of environments.
+    In curriculum learning <dt-cite key="vanschoren_meta-learning_2018"> </dt-cite> the focus is on the order in which environments are encountered,
+as the training procedure needs to ensure that agents are continuously challenged but are able to improve.
+</p>
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/benchmark_evo.png" height="465" width="665" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> Benchmarks used to evaluate agents are becoming increasingly complex and diverse: chess and Go <dt-cite key="silver2017MasteringChessShogi"> </dt-cite>
+    require strategic reasoning in a large-dimensional space, Atari games <dt-cite key="mnihPlayingAtariDeep"> </dt-cite>
+    pose diverse challenges such as partial observability, sparse rewards and were one of the first benchmarks where agents
+    operated solely based on pixel values.
+    Multi-agent environments initially tested for a single skill, such as cooperation in foraging tasks <dt-cite key="perolatMultiagentReinforcementLearning2017b"> </dt-cite>.
+    XLand <dt-cite key="openendedlearningteamOpenEndedLearningLeads2021"> </dt-cite> is a vast world of single-agent and multi-agent tasks that require navigation and object manipulation in 3D space.
+    Minecraft <dt-cite key="guss2019MineRLLargeScaleDataset"> </dt-cite> comes very close to our need for open-ended environments, as the agent can craft items and
+    continuously complexify the environment.
+
+</i></sub>
+</div>
+</div>
+
+<p>
+These are the ideas that motivated the computational study we describe next <dt-cite key="nisioti_plasticity_2022"> </dt-cite>,
+    where we attempt to understand how the complexity of environments,
+    both in terms of their temporal dynamics and task diversity, acts as a driver for generalism.
+</p>
+
+<h3> An eco-evo-devo study of the emergence of generalist agents</h3>
+
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+<img src="public/tolerance_curves.png" alt="scheme" style="width:90%">
+<sub style="display: block; line-height: 1.5em">
+<i>  An agent with low plasticity (on the left) has small &sigma; and a high peak at their preferred niche, while a
+    plastic individual (on the right) has large &sigma; and a lower peak at their preferred niche. Fitness in a
+    certain environmental state is computed as the probability density function of the distribution at that point
+the plastic individual has lower fitness (cost of plasticity). If the actual environmental state differs
+    significantly from the preferred one the plastic individual has higher fitness.
+</i> </sub>
+
+</div>
+
+<h4> The model </h4>
+
+<p> In this project we designed an environment that exhibits both temporal and spatial diversity in terms of resource availability.
+    The amount of resources depends on the latitude of a niche and a climate function that changes with time.
+    Agents have three ways to adapt to their environment, all encoded in their genome: a preferred environmental state,
+    phenotypic plasticity and a mutation rate.
+    Thus, agents can adapt at two time-scales: phenotypic plasticity is a developmental mechanism that enables survival
+    in diverse environments within
+    a single lifetime, while mutations enable adaptation at a slower, evolutionary time-scale.
+</p>
+
+<p> To model phenotypic plasticity  we have adopted tolerance curves, a tool originally  developed in ecology  <dt-cite key="grove_evolution_2014"> </dt-cite>.
+    Tolerance curves have the form of a Gaussian whose mean corresponds to the preferred environmental state of an individual and
+    variance to its plasticity, i.e., its ability to survive under different environmental conditions. </p>
+
+
+<p> Tolerance curves elegantly capture the cost and benefit of plasticity: if a plastic and non-plastic agent compete
+    in an environment that is identical to their preferred niche, the plastic one will lose as its peak is lower. But
+    if, for some reason, the environment changes in the next generation so that it differs significantly from the preferred niche
+    of the two individuals, the plastic one will be at an advantage.
+</p>
+
+<!--<p> The world consists of a number of niches N and a climate function that shows how the state of all niches changes with time.-->
+<!--The state of a niche at a given generation depends on the value of the climate function and the latitude of the niches,-->
+<!--with southern niches having better states.</p>-->
+
+
+<p> At each generation, an agent surviving in a niche can reproduce until the capacity of the niche is filled.
+    Agents are chosen based on their fitness, which depends on their preferred state, their plasticity and the state of the niche.
+    If an agent can survive in multiple niches it will be eligible for reproduction in all of them, and thus, will have higher chances of reproducing.
+    We refer to this selection mechanism as <i> niche-limited competition </i>.
+    We also compared against a condition where selection does not happen independently in each niche, but agents compete against everyone based on their average
+    fitness across all niches.
+    This condition corresponds to survival-of-the-fittest, the most widely used evolutionary algorithm.
+</p>
+
+<h4> Results </h4>
+<p> Here is an illustration of how the population behaves in a world with 100 niches and a climate function that has the
+    form of a sinusoid when the selection mechanism is niche-limited competition:</p>
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/Gecco.gif" width="150%" alt="toleranceCurve" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i>  Illustration of a simulation in our environment. The population evolves under niche-limited competition in an environment where south niches have higher
+    quality than norther niches.
+</i>
+</sub>
+</div>
+</div>
+
+
+<p> In this study we saw that adaptability emerges when the number of niches is large or when there is temporal
+    variability.
+    We also saw that some environmental conditions and selection pressures may favor plasticity, while others favor
+    evolvability.
+    Our study suggests to the AI community that environmental conditions play an important part in the emergence and form of generalism.
+    Even if the algorithm is powerful enough to behave as a generalist, this behavior will not emerge if the spatiotemporal dynamics of the environments
+    do not require it.
+    We also saw that limiting competition within niches is an important driver of generalism, at a time when most meta RL works use survival-of-the-fittest.
+</p>
+
+<!--<h4> Next steps </h4>-->
+<p>
+Do our conclusions generalize to meta-RL agents?
+Transferring our computational study to a grounded environment, where plasticity
+is not hard-coded but emerges out of a behavioral policy is an important next step towards showcasing the importance of
+ecological dynamics.
+For this reason we implemented a large-scale environment, where populations of thousands of agents can forage resources
+    in a grid-world with resource density that varies in space and time <dt-cite key="gautier2023EcoevolutionaryDynamicsNonepisodic"> </dt-cite>
+</p>
+
+<p> We now zoom-out of the link between environmental dynamics and adaptability in our conceptual framework and move our gaze to the right.
+    There we meet the cultural repertoire, a set of rather advanced skills that presuppose the existence of both individual cognitive mechanisms and social dynamics.
+    Next, we will describe a study how multi-agent dynamics influence the formation of a cultural repertoire.
+</p>
+
+
+<h2 id="sapiens"> The effect of social connectivity on collective innovation </h2>
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/culture.gif"  alt="ORIGINS" style="width:100%" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> Learning through and alongside others is a behavior encountered in many individuals, including artificial ones.
+What role do social dynamics like group connectivity play and can we find similarities between biological and artificial social learning?
+</i></sub>
+</div>
+</div>
+
+<div align="center" style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+<img src="public/innovation_networks.png" alt="scheme" style="width:90%">
+<sub style="display: block; line-height: 1.5em">
+<i> Social networks characterizing human collective innovation often have a clustered structure.
+On the left, reconstructed regional networks of cultural artifacts in Africa about 350, thousand years ago <dt-cite key="migliano_origins_2022"> </dt-cite>.
+On the right, the citation network of a recent research paper (Image credit <a href="https://www.connectedpapers.com/"> connected papers </a>).
+Does this pattern suggest a link between social connectivity and the ability to innovate collectively?
+</i>
+</sub>
+</div>
+
+<p> Culture, the ability to create and spread traditions through social learning, is often seen as a monopoly of our own species.
+    But there are many species that learn through others <dt-cite key="whiten1999CulturesChimpanzees"> </dt-cite>.
+    Few of them can change their cultural skills with time <dt-cite key="tyarks2022ChangesHumpbackWhale"> </dt-cite>.
+    Some species can even accumulate changes with time, which leads to a continuous “complexification” of their skills <dt-cite key="sasaki2017CumulativeCultureCan"> </dt-cite>.
+    What is unique in humans, however, is the intensity of accumulation.
+    From programming languages to musical instruments <dt-cite key="solee2013EvolutionaryEcologyTechnological"> </dt-cite>, the fossil record of human innovations has a rather intricate, tree structure, with new innovations arising out
+    of recombination of existing ones.
+</p>
+
+
+<p> Why do humans innovate to such an unprecendented degree?
+    Some theories point to our increased cognitive capacity or sociality <dt-cite key="klinePopulationSizePredicts2010"> </dt-cite>.
+    But others point to the benefits of our social connectivity: human societies often self-organize into small-world, hierarchical or dynamic
+    topologies. The common feature underlying those is their ability to protect information within sub-parts of the group.
+    In this way, the group maintains its cultural diversity, and it is this diversity that may be driving the continuous appearance of innovations.
+</p>
+
+
+
+<p> Reinforcement learning, the sub-field of AI concerned with learning by interacting with an environment,
+    is also interested in the benefits of collective exploration.
+    In distributed RL, multiple agents solve a task in parallel and exchange information on the way <dt-cite key="mnihAsynchronousMethodsDeep2016a"></dt-cite>
+    <dt-cite key="horganDistributedPrioritizedExperience2018"> </dt-cite>
+    <dt-cite key="espeholt_impala_2018"> </dt-cite>.
+    This has shown benefits both in terms of the quality of the final solution and the speed at which it is discovered.
+</p>
+
+<p> Yet this community has considered a single type of group connectivity, the star topology:
+all agents interact with the environment to collect information and then share it with a single central node responsible for
+    processing the new information and updating the behavior of the agents.
+    Thus, artificial groups look very different from the partially-connected human groups.
+    If this structure reduces their collective diversity, it may negatively impact the ability of these groups to solvex innovation challenges.
+</p>
+
+
+<p>
+    This is the idea that motivated the computational study we describe next <dt-cite key="nisioti2022SocialNetworkStructure"> </dt-cite>,
+    where groups of RL agents solve innovation tasks under different topologies.
+</p>
+
+<h3> SAPIENS: a distributed RL framework where social connectivity matters </h3>
+
+<!--    <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);-->
+<!--width: calc((1500px - 648px) / 2 - 24px);">-->
+<!--  <img src="public/sharing_DQN.svg" alt="scheme" style="width:90%">-->
+<!--<p>  Schematic of a SAPIENS algorithm with 2 DQN learners exchanging experiences from their replay buffer.-->
+<!--</p>-->
+<!--</div>-->
+
+<h4> The model </h4>
+
+<p> To study innovation we employed Wordcraft <dt-cite key="jiangWordCraftEnvironmentBenchmarking2020"> </dt-cite>,
+    an RL text-world inspired from the Little Alchemy 2 game.
+    The player starts with a set of elements, for example "fire", "water" and "earth" and can combine them in pairs to craft new elements.
+    Not all combinations give rise to new elements; the description of a task includes a list of the possible combinations.
+</p>
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/littlealchemy.gif"  alt="ORIGINS" style="width:100%" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> Our environment is a text-based version of the Little Alchemy 2 game, where a player combines elements to form new elements.
+</i></sub>
+</div>
+</div>
+
+<div align="center" style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+<img src="public/task_illustration.png" alt="scheme" style="width:100%">
+<sub style="display: block; line-height: 1.5em">
+<i> Visualization of our innovation tasks
+</i>
+</sub>
+</div>
+
+<p> We were interested in studying a variety of challenges a group can encounter when solving innovation tasks, so we designed
+    three different tasks:
+    <ul>
+    <li> the single-path task, where new innovations arise as modifications of the most recent past innovations.
+        Search is easy in this type of task.
+        The challenge lies in solving it as quickly as possible.
+        We are therefore interested in the speed at which groups innovate.
+        This task can be used to model arms races, such as the invention of aircrafts and their continuous improvement to machine gun-mounted planes like
+        the Fokker during the First World War.
+    </li>
+    <li> the merging-paths task, where two identical paths merge into a more rewarding path.
+        This task contains a strong local optima: to find the more rewarding path one needs to start exploring both other paths instead of reaching the end of one of them.
+        It can be useful to model the recombination of innovations that often happens in technological progress, as for example in the evolution of gasoline.
+        The distillation of petroleum can be seen as one innovation path, that gave us the inventions of kerosine and gasoline.
+        Kerosine attracted a lot of attention but gasoline was ignored as a volatile by-product.
+        This was until another innovation path gave us the internal combustion engine.
+        In itself this engine was not very popular, but when combined with gasoline, it changed the world.
+    </li>
+    <li> the best-of-ten paths task, with nine identical paths and one path that is the most rewarding.
+        Here, the challenge lies in exploring a large search space.
+        Large search spaces are inherent in many fields of innovation, such as biology and medicine.
+    </li>
+
+</ul>
+
+</p>
+
+    <div align="center" style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+<img src="public/agents.png" alt="scheme" style="width:100%">
+<sub style="display: block; line-height: 1.5em">
+<i> Visualization of two RL agents interacting with the environment and sharing experiences
+</i>
+</sub>
+</div>
+
+<p> In our experiments, a game is played by a group of RL agents.
+    An RL agent embodies the paradigm of learning through trial and error.
+    It interacts with an environment by executing <i> actions </i> and receiving <i> observations</i> and <i> rewards</i>.
+    For example, in a Little Alchemy 2 task, an agent defines which elements it will combine and the environment returns the newly created elements and the points added to the player's score.
+    The main idea in RL is that an agent can learn a policy that solves a task optimally if it is exposed to multiple trials of it and uses this experience to maximize
+    the rewards it receives.
+</p>
+
+<p> The RL algorithm that we employed was DQN <dt-cite key="mnihPlayingAtariDeep"> </dt-cite>, a deep RL algorithm where
+    an agent has an explicit memory of past experiences that is periodically sampled
+    to update its policy.
+    These experiences have the form <i> [observation, action, reward] </i> and are also employed for sharing information with others.
+    When we say that an agent shares an experience with another agent we mean that it samples a random experiences from its memory
+    and directly inserts it to the other's memory.
+</p>
+
+<p> An agent shares experiences only with its neighbors, which are determined by the social connectivity of the group.
+In our study, we considered the following social connectivities:
+</p>
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/Sapiens.gif" style="width:100%" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> The social connectivities we studied empirically. The dynamic connectivity is inspired from a previous study in human
+ecology <dt-cite key="derexPartialConnectivityIncreases2016"> </dt-cite></i></sub>
+</div>
+</div>
+
+<h4> Results </h4>
+
+<p>
+Our empirical evaluation of the four types of social connectivites showed that fully-connected groups perform worse in all three tasks.
+In the single-path task, they are the slowest to find the optimal solution.
+In the merging-paths task, they converge to the local optima.
+In the best-of-ten paths, they explore too slowly to discover the optimal path.
+</p>
+
+<p>
+To explain these behaviors we measured the diversity of memories that agents have.
+We observed that agents in fully-connected groups had high diversity as individuals, but the group as a whole had the lowest diversity.
+Low diversity indicates that the group is collectively exploring a small party of the search space and can thus explain the failure of fully-connected groups.
+</p>
+
+<p> The animation below illustrates how a group with partial connectivity and full connectivity behave in the merging-paths task.
+As we see, agents in fully-connected group end up all exploring the same branch and fail to discover the global optimum:
+</p>
+
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/Recipe.gif" style="width:150%" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> Illustration of how a dynamic group is better at avoiding local optima compared to a fully-connected group.
+</i></sub>
+</div>
+</div>
+
+<p>
+Do our empirical conclusions generalize to more complex environments, such as grid-worlds and Atari games?
+And how can we use our new understanding to guide the design of social connectivity for improving performance in certain tasks?
+These are examples of the research questions we plan to explore in future work.
+</p>
+
+<h2> Connecting the dots </h2>
+
+<p> With these two works we showed how our research methodology can benefit two very different fields: we started from
+hypotheses in ecology, designed computational studies inspired from them and derived empirical conclusions that can feed
+future studies both in ecology and AI.
+</p>
+
+<p> At a first glance our two studies may seem disconnected.
+    One is concerned with the effect of ecological dynamics on a populations' dispersal and adaptability and the other with
+    the effect of social connectivity on collective innovation.
+    But isn't the social connectivity of a a population related to its dispersal?
+    This observation allows us to draw a link between ecological dynamics and collective innovation.
+    Can certain ecological conditions favor certain social connectivities and what would this mean for the evolution of our species?
+</p>
+
+<p> This connection may not be far-fetched. Ecological studies posit that elements in our environment such as the Sahara desert act as
+    ecological barriers that prohibit immigration but can disappear during periods of extreme climatic variability
+    (<a href="https://www.youtube.com/watch?v=ZQP-7BPvvq0"> did you know the Sahara was green a few tens of thousands
+        of years ago?  </a> <dt-cite key="larrasoana_dynamics_2013"> </dt-cite>.
+    And studies of human cultural innovation posit that such barriers played an important part
+    in the spread of cultural artifacts <dt-cite key="derricoIdentifyingEarlyModern2017"> </dt-cite>.
+</p>
+
+<p> Would an artificial ecology with RL agents navigating a world with continents and oceans remind us of our own societies?
+</p>
 
 </dt-article>
 
