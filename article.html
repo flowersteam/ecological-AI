@@ -323,12 +323,9 @@ the plastic individual has lower fitness (cost of plasticity). If the actual env
 <img class="80" src="public/Gecco.gif" width="150%" alt="toleranceCurve" />
 <div>
 <sub style="display: block; line-height: 1.5em">
-<i>            An agent with low plasticity (on the left) has small &sigma; and a high peak at their preferred niche, while a
-    plastic individual (on the right) has large &sigma; and a lower peak at their preferred niche. Fitness in a
-    certain environmental state is computed as the probability density function of the distribution at that point
-the plastic individual has lower fitness (cost of plasticity). If the actual environmental state differs
-    significantly from the preferred one the plastic individual has higher fitness.
-    </i>
+<i>  Illustration of a simulation in our environment. The population evolves under niche-limited competition in an environment where south niches have higher
+    quality than norther niches.
+</i>
 </sub>
 </div>
 </div>
@@ -344,7 +341,7 @@ the plastic individual has lower fitness (cost of plasticity). If the actual env
     We also saw that limiting competition within niches is an important driver of generalism, at a time when most meta RL works have agents competing with the whole population.
 </p>
 
-<h4> Next steps </h4>
+<!--<h4> Next steps </h4>-->
 <p>
 Do our conclusions generalize to meta-RL agents?
 Transferring our computational study to a grounded environment, where plasticity
@@ -369,10 +366,22 @@ What role do social dynamics like group connectivity play and can we find simila
 </div>
 </div>
 
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+<img src="public/innovation_networks.png" alt="scheme" style="width:90%">
+<sub style="display: block; line-height: 1.5em">
+<i> Social networks characterizing human collective innovation often have a clustered structure.
+On the left, reconstructed regional networks of cultural artifacts in Africa about 350, thousand years ago <dt-cite key="migliano_origins_2022"> </dt-cite>.
+On the right, the citation network of a recent research paper (Image credit <a href="https://www.connectedpapers.com/"> connected papers </a>).
+Could there be a link between social connectivity and the ability to innovate collectively?
+</i>
+</sub>
+</div>
+
 <p> Culture, the ability to create and spread traditions through social learning, is often seen as a monopoly of our own species.
-    But there are many species that learn through others (orangutans can only learn how to break coconuts by observing older peers <dt-cite key="whiten1999CulturesChimpanzees"> </dt-cite>).
-    Few of them can change their cultural skills with time (humpback whales change their songs with seasons <dt-cite key="tyarks2022ChangesHumpbackWhale"> </dt-cite>)
-    Some species can even accumulate changes with time, which leads to a continuous “complexification” of a skill (an interesting study of this was performed with carrier pigeons <dt-cite key="sasaki2017CumulativeCultureCan"> </dt-cite>).
+    But there are many species that learn through others  <dt-cite key="whiten1999CulturesChimpanzees"> </dt-cite>.
+    Few of them can change their cultural skills with time <dt-cite key="tyarks2022ChangesHumpbackWhale"> </dt-cite>
+    Some species can even accumulate changes with time, which leads to a continuous “complexification” of a skill <dt-cite key="sasaki2017CumulativeCultureCan"> </dt-cite>.
     What is unique in humans is the intensity of accumulation.
     From programming languages to musical instruments, the fossil record of human innovations has a rather intricate, tree structure, with new innovations arising out
     of recombination of existing ones.
@@ -386,17 +395,7 @@ What role do social dynamics like group connectivity play and can we find simila
     In this way, the group maintains its cultural diversity, and it is this diversity that may be driving the continuous appearance of innovations.
 </p>
 
-<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
-width: calc((1500px - 648px) / 2 - 24px);">
-<img src="public/innovation_networks.png" alt="scheme" style="width:90%">
-<sub style="display: block; line-height: 1.5em">
-<i> Social networks characterizing human collective innovation often have a clustered structure.
-On the left, reconstructed regional networks of cultural artifacts in Africa about 350, thousand years ago <dt-cite key="migliano_origins_2022"> </dt-cite>.
-On the right, the citation network of a recent research paper (Image credit <a href="https://www.connectedpapers.com/"> connected papers </a>).
-Could there be a link between social connectivity and the ability to innovate collectively?
-</i>
-</sub>
-</div>
+
 
 <p> Reinforcement learning, the sub-field of AI concerned with learning by interacting with an environment,
     is also interested in the benefits of collective exploration.
@@ -432,7 +431,7 @@ all agents interact with the environment to collect information and then share i
 
 <p> To study innovation we employed Wordcraft <dt-cite key="jiangWordCraftEnvironmentBenchmarking2020"> </dt-cite>,
     an RL text-world inspired from the Little Alchemy 2 game.
-    The player starts with a set of elements, for example fire, water and earth and can combine them in pairs to craft new elements.
+    The player starts with a set of elements, for example "fire", "water" and "earth" and can combine them in pairs to craft new elements.
     Not all combinations give rise to new elements; the description of a task includes a list of the possible combinations.
 </p>
 
@@ -445,8 +444,17 @@ all agents interact with the environment to collect information and then share i
 </div>
 </div>
 
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+<img src="public/task_illustration.png" alt="scheme" style="width:90%">
+<sub style="display: block; line-height: 1.5em">
+<i> Visualization of our innovation tasks
+</i>
+</sub>
+</div>
+
 <p> We were interested in studying a variety of challenges a group can encounter when solving innovation tasks, so we designed
-    three tasks inspired from three types of challenges:
+    three different tasks:
     <ul>
     <li> a task with a single innovation path, where new innovations arise as modifications of the most recent past innovations.
         Search is easy in this type of task.
@@ -473,11 +481,11 @@ all agents interact with the environment to collect information and then share i
 
 </p>
 
-<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+    <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
 width: calc((1500px - 648px) / 2 - 24px);">
-<img src="public/task_illustration.png" alt="scheme" style="width:90%">
+<img src="public/agents.png" alt="scheme" style="width:90%">
 <sub style="display: block; line-height: 1.5em">
-<i> Visualization of our innovation tasks
+<i> Visualization of two RL agents interacting with the environment and sharing experiences
 </i>
 </sub>
 </div>
@@ -498,16 +506,6 @@ width: calc((1500px - 648px) / 2 - 24px);">
     and directly inserts it to the other's memory.
 </p>
 
-<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
-width: calc((1500px - 648px) / 2 - 24px);">
-<img src="public/agents.png" alt="scheme" style="width:90%">
-<sub style="display: block; line-height: 1.5em">
-<i> Visualization of our innovation tasks
-</i>
-</sub>
-</div>
-
-
 <p> An agent shares experiences only with its neighbors, which are determined by the social connectivity of the group.
 In our study, we considered the following social connectivities:
 </p>
@@ -515,7 +513,7 @@ In our study, we considered the following social connectivities:
 
 
 <div align="center" style="margin-bottom:40px">
-<img class="80" src="public/Sapiens.gif" style="width:150%" alt="ORIGINS" />
+<img class="80" src="public/Sapiens.gif" style="width:100%" alt="ORIGINS" />
 <div>
 <sub style="display: block; line-height: 1.5em">
 <i> The social connectivities we studied empirically. The dynamic connectivity is inspired from a previous study in human
@@ -524,6 +522,24 @@ ecology <dt-cite key="derexPartialConnectivityIncreases2016"> </dt-cite></i></su
 </div>
 
 <h4> Results </h4>
+
+<p>
+Our empirical evaluation of the four types of social connectivites showed that fully-connected groups perform worse in all three tasks.
+In the task with a single path, they are the slowest to find the optimal solution.
+In the task that requires recombination, they converge to the local optima.
+In the task with the large search space, they explore too slowly to discover the optimal path.
+</p>
+
+<p>
+To explain these behaviors we measured the diversity of memories that agents have.
+We observed that agents in fully-connected groups had high diversity as individuals, but the group as a whole had the lowest diversity.
+Low diversity indicates that the group is collectively exploring a small party of the search space and can thus explain the failure of fully-connected groups.
+</p>
+
+<p> The animation below illustrates how a group with partial connectivity and full connectivity behave in the merging-paths task.
+As we see, agents in fully-connected group end up all exploring the same branch and fail to discover the global optimum:
+</p>
+
 
 <div align="center" style="margin-bottom:40px">
 <img class="80" src="public/Recipe.gif" style="width:150%" alt="ORIGINS" />
@@ -534,24 +550,33 @@ ecology <dt-cite key="derexPartialConnectivityIncreases2016"> </dt-cite></i></su
 </div>
 </div>
 
-<p> Our evaluation showed that fully-connected groups explored more slowly and converged to local optima.
-    Looking into the replay buffers of the agents, we observed that agents in the fully-connected group had the most diverse experiences as individuals
-    but, at the level of the collective, were the least diverse.
-
+<p>
+Do our empirical conclusions generalize to more complex environments, such as grid-worlds and Atari games?
+What is the optimal social connectivity for a given task?
 </p>
-
-<h4> Next steps </h4>
-
 
 <h2> Connecting the dots </h2>
 
 <p> With these two works we showed how our research methodology can benefit two very different fields: we started from
-hypotheses from ecology, designed computational studies inspired from them and derived empirical conclusions that can feed
-future studies in ecology.
+hypotheses in ecology, designed computational studies inspired from them and derived empirical conclusions that can feed
+future studies both in ecology and AI.
 </p>
 
-<p> At a first glance these two studies have nothing in common, except perhaps for their ecological attitude towards
-    skill acquisition. At the end of this post we will see, however, that there is room for exchanging ideas between
+<p> At a first glance our two studies may seem disconnected.
+    One is concerned with the effect of ecological dynamics on a populations' dispersal and adaptability and the other with
+    the effect of social connectivity on collective innovation.
+    But isn't the social connectivity of a group a direct result of its dispersal?
+    This allows us to draw a link between ecological dynamics and collective innovation.
+    This link is actually ...
+</p>
+
+<p>
+    Are there ecological conditions that can favor certain social network structures?
+Could this have played a role in the early cultural evolution of our species?
+
+</p>
+<p> At a first glance these two studies have nothing in common.
+    At the end of this post we will see, however, that there is room for exchanging ideas between
     the two: recent ecological theories posit that elements in our environment such as the Sahara desert act as
     ecological barriers that prohibit immigration but can disappear during periods of extreme climatic variability
     (<a href="https://www.youtube.com/watch?v=ZQP-7BPvvq0"> did you know the Sahara was green a few tens of thousands
