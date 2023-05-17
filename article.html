@@ -221,6 +221,30 @@ Understanding the mechanisms with which temporal and spatial diversity in an env
 as the training procedure needs to ensure that agents are continuously challenged but are able to improve.
 </p>
 
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/benchmark_evo.png" height="465" width="665" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> Benchmarks used to evaluate agents are becoming increasingly complex and diverse: chess and Go <dt-cite key="silver2017MasteringChessShogi"> </dt-cite>
+require strategic reasoning in a large-dimensional space, Atari games <dt-cite key="mnihPlayingAtariDeep"> </dt-cite>
+pose diverse challenges such as partial observability, sparse rewards and were one of the first benchmarks where agents
+operated solely based on pixel values.
+Multi-agent environments initially tested for a single skill, such as cooperation in foraging tasks <dt-cite key="perolatMultiagentReinforcementLearning2017b"> </dt-cite>.
+XLand <dt-cite key="openendedlearningteamOpenEndedLearningLeads2021"> </dt-cite> is a vast world of single-agent and multi-agent tasks that require navigation and object manipulation in 3D space.
+Minecraft <dt-cite key="guss2019MineRLLargeScaleDataset"> </dt-cite> comes very close to our need for open-ended environments, as the agent can craft items and
+continuously complexify the environment.
+
+</i></sub>
+</div>
+</div>
+
+<p>
+These are the ideas that motivated the computational study we describe next <dt-cite key="nisioti_plasticity_2022"> </dt-cite>,
+    where we attempt to understand how the complexity of environments,
+    both in terms of their temporal dynamics and task diversity, acts as a driver for generalism.
+</p>
+
 </dt-article>
 
 <dt-appendix>
@@ -230,6 +254,73 @@ as the training procedure needs to ensure that agents are continuously challenge
 </dt-appendix>
 
 <script type="text/bibliography">
+
+@inproceedings{nisioti_plasticity_2022,
+	address = {Boston / Hybrid, United States},
+	title = {Plasticity and evolvability under environmental variability: the joint role of fitness-based selection and niche-limited competition},
+	shorttitle = {Plasticity and evolvability under environmental variability},
+	url = {https://hal.archives-ouvertes.fr/hal-03715928},
+	abstract = {The diversity and quality of natural systems have been a puzzle and inspiration for communities studying artificial life. It is now widely admitted that the adaptation mechanisms enabling these properties are largely influenced by the environments they inhabit. Organisms facing environmental variability have two alternative adaptation mechanisms operating at different timescales: {\textbackslash}textit\{plasticity\}, the ability of a phenotype to survive in diverse environments and {\textbackslash}textit\{evolvability\}, the ability to adapt through mutations. Although vital under environmental variability, both mechanisms are associated with fitness costs hypothesized to render them unnecessary in stable environments. In this work, we study the interplay between environmental dynamics and adaptation in a minimal model of the evolution of plasticity and evolvability. We experiment with different types of environments characterized by the presence of niches and a climate function that determines the fitness landscape. We empirically show that environmental dynamics affect plasticity and evolvability differently and that the presence of diverse ecological niches favors adaptability even in stable environments. We perform ablation studies of the selection mechanisms to separate the role of fitness-based selection and niche-limited competition. Results obtained from our minimal model allow us to propose promising research directions in the study of open-endedness in biological and artificial systems.},
+	urldate = {2022-12-14},
+	booktitle = {GECCO 2022 - The Genetic and Evolutionary Computation Conference},
+	author = {Nisioti, Eleni and Moulin-Frier, Clément},
+	month = jul,
+	year = {2022},
+}
+
+@misc{guss2019MineRLLargeScaleDataset,
+  title = {MineRL: A Large-Scale Dataset of Minecraft Demonstrations},
+  author = {Guss, William H. and Houghton, Brandon and Topin, Nicholay and Wang, Phillip and Codel, Cayden and Veloso, Manuela and Salakhutdinov, Ruslan},
+  year = {2019},
+  month = jul,
+  number = {arXiv:1907.13440},
+  eprint = {1907.13440},
+  primaryclass = {cs, stat},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.1907.13440},
+  urldate = {2023-05-15},
+}
+
+@inproceedings{perolatMultiagentReinforcementLearning2017b,
+  title = {A Multi-Agent Reinforcement Learning Model of Common-Pool Resource Appropriation},
+  booktitle = {Advances in Neural Information Processing Systems 30 (NIPS 2017)},
+  author = {Perolat, Julien and Leibo, Joel Z. and Zambaldi, Vinicius and Beattie, Charles and Tuyls, Karl and Graepel, Thore},
+  year = {2017},
+  pages = {3643--3652},
+  urldate = {2018-12-10},
+}
+
+@misc{silver2017MasteringChessShogi,
+  title = {Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm},
+  author = {Silver, David and Hubert, Thomas and Schrittwieser, Julian and Antonoglou, Ioannis and Lai, Matthew and Guez, Arthur and Lanctot, Marc and Sifre, Laurent and Kumaran, Dharshan and Graepel, Thore and Lillicrap, Timothy and Simonyan, Karen and Hassabis, Demis},
+  year = {2017},
+  month = dec,
+  number = {arXiv:1712.01815},
+  eprint = {1712.01815},
+  primaryclass = {cs},
+  publisher = {arXiv},
+}
+
+@techreport{openendedlearningteamOpenEndedLearningLeads2021,
+  title = {Open-Ended Learning Leads to Generally Capable Agents},
+  author = {Open Ended Learning Team and Stooke, Adam and Mahajan, Anuj and Barros, Catarina and Deck, Charlie and Bauer, Jakob and Sygnowski, Jakub and Trebacz, Maja and Jaderberg, Max and Mathieu, Michael and McAleese, Nat and Bradley-Schmieg, Nathalie and Wong, Nathaniel and Porcel, Nicolas and Raileanu, Roberta and Hughes-Fitt, Steph and Dalibard, Valentin and Czarnecki, Wojciech Marian},
+  year = {2021},
+  month = jul,
+  number = {arXiv:2107.12808},
+  eprint = {2107.12808},
+  primaryclass = {cs},
+  institution = {arXiv},
+  doi = {10.48550/arXiv.2107.12808},
+  urldate = {2022-06-01},
+}
+
+
+@article{mnihPlayingAtariDeep,
+  title = {Playing Atari with Deep Reinforcement Learning},
+  author = {Mnih, Volodymyr and Kavukcuoglu, Koray and Silver, David and Graves, Alex and Antonoglou, Ioannis and Wierstra, Daan and Riedmiller, Martin},
+  year={2013}
+}
+
 
 @misc{vanschoren_meta-learning_2018,
 	title = {Meta-{Learning}: {A} {Survey}},
