@@ -412,6 +412,158 @@ all agents interact with the environment to collect information and then share i
 
 <h4> The model </h4>
 
+<p> To study innovation we employed Wordcraft <dt-cite key="jiangWordCraftEnvironmentBenchmarking2020"> </dt-cite>,
+an RL text-world inspired from the Little Alchemy 2 game.
+The player starts with a set of elements, for example "fire", "water" and "earth" and can combine them in pairs to craft new elements.
+Not all combinations give rise to new elements; the description of a task includes a list of the possible combinations.
+</p>
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/littlealchemy.gif"  alt="ORIGINS" style="width:100%" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> Our environment is a text-based version of the Little Alchemy 2 game, where a player combines elements to form new elements.
+</i></sub>
+</div>
+</div>
+
+<div align="center" style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+<img src="public/task_illustration.png" alt="scheme" style="width:100%">
+<sub style="display: block; line-height: 1.5em">
+<i> Visualization of our innovation tasks
+</i>
+</sub>
+</div>
+
+
+<p> We were interested in studying a variety of challenges a group can encounter when solving innovation tasks, so we designed
+    three different tasks:
+    <ul>
+    <li> the single-path task, where new innovations arise as modifications of the most recent past innovations.
+        Search is easy in this type of task.
+        The challenge lies in solving it as quickly as possible.
+        We are therefore interested in the speed at which groups innovate.
+        This task can be used to model arms races, such as the invention of aircrafts and their continuous improvement to machine gun-mounted planes like
+        the Fokker during the First World War.
+    </li>
+    <li> the merging-paths task, where two identical paths merge into a more rewarding path.
+        This task contains a strong local optima: to find the more rewarding path one needs to start exploring both other paths instead of reaching the end of one of them.
+        It can be useful to model the recombination of innovations that often happens in technological progress, as for example in the evolution of gasoline.
+        The distillation of petroleum can be seen as one innovation path, that gave us the inventions of kerosine and gasoline.
+        Kerosine attracted a lot of attention but gasoline was ignored as a volatile by-product.
+        This was until another innovation path gave us the internal combustion engine.
+        In itself this engine was not very popular, but when combined with gasoline, it changed the world.
+    </li>
+    <li> the best-of-ten paths task, with nine identical paths and one path that is the most rewarding.
+        Here, the challenge lies in exploring a large search space.
+        Large search spaces are inherent in many fields of innovation, such as biology and medicine.
+    </li>
+
+</ul>
+
+</p>
+
+    <div align="center" style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+<img src="public/agents.png" alt="scheme" style="width:100%">
+<sub style="display: block; line-height: 1.5em">
+<i> Visualization of two RL agents interacting with the environment and sharing experiences
+</i>
+</sub>
+</div>
+
+<p> In our experiments, a game is played by a group of RL agents.
+    An RL agent embodies the paradigm of learning through trial and error.
+    It interacts with an environment by executing <i> actions </i> and receiving <i> observations</i> and <i> rewards</i>.
+    For example, in a Little Alchemy 2 task, an agent defines which elements it will combine and the environment returns the newly created elements and the points added to the player's score.
+    The main idea in RL is that an agent can learn a policy that solves a task optimally if it is exposed to multiple trials of it and uses this experience to maximize
+    the rewards it receives.
+</p>
+
+<p> The RL algorithm that we employed was DQN <dt-cite key="mnihPlayingAtariDeep"> </dt-cite>, a deep RL algorithm where
+    an agent has an explicit memory of past experiences that is periodically sampled
+    to update its policy.
+    These experiences have the form <i> [observation, action, reward] </i> and are also employed for sharing information with others.
+    When we say that an agent shares an experience with another agent we mean that it samples a random experiences from its memory
+    and directly inserts it to the other's memory.
+</p>
+
+<p> An agent shares experiences only with its neighbors, which are determined by the social connectivity of the group.
+In our study, we considered the following social connectivities:
+</p>
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/Sapiens.gif" style="width:100%" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> The social connectivities we studied empirically. The dynamic connectivity is inspired from a previous study in human
+ecology <dt-cite key="derexPartialConnectivityIncreases2016"> </dt-cite></i></sub>
+</div>
+</div>
+
+<h4> Results </h4>
+
+<p>
+Our empirical evaluation of the four types of social connectivites showed that fully-connected groups perform worse in all three tasks.
+In the single-path task, they are the slowest to find the optimal solution.
+In the merging-paths task, they converge to the local optima.
+In the best-of-ten paths, they explore too slowly to discover the optimal path.
+</p>
+
+<p>
+To explain these behaviors we measured the diversity of memories that agents have.
+We observed that agents in fully-connected groups had high diversity as individuals, but the group as a whole had the lowest diversity.
+Low diversity indicates that the group is collectively exploring a small party of the search space and can thus explain the failure of fully-connected groups.
+</p>
+
+<p> The animation below illustrates how a group with partial connectivity and full connectivity behave in the merging-paths task.
+As we see, agents in fully-connected group end up all exploring the same branch and fail to discover the global optimum:
+</p>
+
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/Recipe.gif" style="width:150%" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+<i> Illustration of how a dynamic group is better at avoiding local optima compared to a fully-connected group.
+</i></sub>
+</div>
+</div>
+
+<p>
+Do our empirical conclusions generalize to more complex environments, such as grid-worlds and Atari games?
+And how can we use our new understanding to guide the design of social connectivity for improving performance in certain tasks?
+These are examples of the research questions we plan to explore in future work.
+</p>
+
+<h2> Connecting the dots </h2>
+
+<p> With these two works we showed how our research methodology can benefit two very different fields: we started from
+hypotheses in ecology, designed computational studies inspired from them and derived empirical conclusions that can feed
+future studies both in ecology and AI.
+</p>
+
+<p> At a first glance our two studies may seem disconnected.
+    One is concerned with the effect of ecological dynamics on a populations' dispersal and adaptability and the other with
+    the effect of social connectivity on collective innovation.
+    But isn't the social connectivity of a a population related to its dispersal?
+    This observation allows us to draw a link between ecological dynamics and collective innovation.
+    Can certain ecological conditions favor certain social connectivities and what would this mean for the evolution of our species?
+</p>
+
+<p> This connection may not be far-fetched. Ecological studies posit that elements in our environment such as the Sahara desert act as
+    ecological barriers that prohibit immigration but can disappear during periods of extreme climatic variability
+    (<a href="https://www.youtube.com/watch?v=ZQP-7BPvvq0"> did you know the Sahara was green a few tens of thousands
+        of years ago?  </a> <dt-cite key="larrasoana_dynamics_2013"> </dt-cite>.
+    And studies of human cultural innovation posit that such barriers played an important part
+    in the spread of cultural artifacts <dt-cite key="derricoIdentifyingEarlyModern2017"> </dt-cite>.
+</p>
+
+<p> Would an artificial ecology with RL agents navigating a world with continents and oceans remind us of our own societies?
+</p>
+
+
 </dt-article>
 
 <dt-appendix>
@@ -421,6 +573,68 @@ all agents interact with the environment to collect information and then share i
 </dt-appendix>
 
 <script type="text/bibliography">
+
+@article{derricoIdentifyingEarlyModern2017,
+  title = {Identifying Early Modern Human Ecological Niche Expansions and Associated Cultural Dynamics in the South African Middle Stone Age},
+  author = {d'Errico, Francesco and Banks, William E. and Warren, Dan L. and Sgubin, Giovanni and van Niekerk, Karen and Henshilwood, Christopher and Daniau, Anne-Laure and Sanchez Goni, Maria Fernanda},
+  year = {2017},
+  month = jul,
+  journal = {Proceedings of the National Academy of Sciences},
+  volume = {114},
+  number = {30},
+  pages = {7869--7876},
+  issn = {0027-8424, 1091-6490},
+  doi = {10.1073/pnas.1620752114},
+  urldate = {2022-11-30},
+}
+
+
+@article{larrasoana_dynamics_2013,
+	title = {Dynamics of Green Sahara Periods and Their Role in Hominin Evolution},
+	volume = {8},
+	issn = {1932-6203},
+	url = {https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0076514},
+	doi = {10.1371/journal.pone.0076514},
+	language = {en},
+	number = {10},
+	urldate = {2022-12-14},
+	journal = {PLOS ONE},
+	author = {Larrasoaña, Juan C. and Roberts, Andrew P. and Rohling, Eelco J.},
+	month = oct,
+	year = {2013},
+	note = {Publisher: Public Library of Science},
+	pages = {e76514},
+}
+
+
+@article{derexPartialConnectivityIncreases2016,
+	title = {Partial connectivity increases cultural accumulation within groups},
+	volume = {113},
+	issn = {0027-8424, 1091-6490},
+	url = {http://www.pnas.org/lookup/doi/10.1073/pnas.1518798113},
+	doi = {10.1073/pnas.1518798113},
+	language = {en},
+	number = {11},
+	urldate = {2021-02-07},
+	journal = {Proceedings of the National Academy of Sciences},
+	author = {Derex, Maxime and Boyd, Robert},
+	month = mar,
+	year = {2016},
+	pages = {2982--2987},
+}
+
+@article{jiangWordCraftEnvironmentBenchmarking2020,
+	title = {WordCraft: An Environment for Benchmarking Commonsense Agents},
+	shorttitle = {WordCraft},
+	url = {http://arxiv.org/abs/2007.09185},
+	language = {en},
+	urldate = {2021-02-10},
+	journal = {arXiv:2007.09185 [cs]},
+	author = {Jiang, Minqi and Luketina, Jelena and Nardelli, Nantas and Minervini, Pasquale and Torr, Philip H. S. and Whiteson, Shimon and Rocktäschel, Tim},
+	month = jul,
+	year = {2020},
+	note = {arXiv: 2007.09185},
+}
 
 @article{mnihAsynchronousMethodsDeep2016a,
 	title = {Asynchronous Methods for Deep Reinforcement Learning},
