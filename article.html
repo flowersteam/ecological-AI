@@ -118,6 +118,69 @@
 </p>
 
 
+<h2 id="framework"> A conceptual framework for linking human and artificial ecologies </h2>
+
+<p> We recently proposed <dt-cite key="nisioti_grounding_2021"> </dt-cite> <dt-cite key="clement_thesis"> </dt-cite> that a possible pathway
+    to getting artificial agents that exhibit the ability to continuously acquire skills in an open-ended way is to find inspiration in a biological
+    species with an impressively open-ended behavioral repertoire: our own.
+</p>
+
+
+<p> Our methodology was three-step: </p>
+
+
+<ol type="1">
+
+
+    <li style="..."> skim the Human Behavioral Ecology (HBE) literature to identify the key factors that this
+        community proposes as conducive for the evolution of the uniquely diverse human cultural repertoire
+</li>
+    <li style="..."> identify similar research questions and hypotheses in AI, in particular the sub-fields of
+        meta and multi-agent reinforcement learning
+</li>
+    <li style="..."> abstract away the particularities of the two fields to arrive at a  conceptual framework that
+        unifies their terminologies and research agendas.
+</li>
+
+</ol>
+
+
+<p> Here is our conceptual framework, <em> ORIGINS </em>, that our work led to: </p>
+
+
+
+<div align="center" style="margin-bottom:40px">
+<img class="80" src="public/framework.png" height="465" width="665" alt="ORIGINS" />
+<div>
+<sub style="display: block; line-height: 1.5em">
+    <i> <em> ORIGINS </em> is conceptual framework for studying skill acquisition in both human and artificial ecologies. </i></sub>
+</div>
+</div>
+
+
+
+<p> The story that the framework tells, put succinctly, is:
+</p>
+
+<p> <em> Environmental complexity  has a key role in  skill acquisition.
+    It bootstraps the emergence of skills at both an individual and a collective level.
+    At an individual level, it modulates reproduction pressures and creates the need for cognitive mechanisms.
+    At a collective level, cooperation and competition pressures drive the need for social skills.
+    The skills themselves then act as drivers for further skill acquisition in two ways:
+    a) they interact with each other to give rise to the uniquely complex human cultural repertoire b)  they modulate
+    environmental complexity through the process of niche construction.
+    It is this latter process that makes skill acquisition open-ended, as it creates a positive feedback loop that
+continuously complexifies the environment.</em> </p>
+
+<p> <em> ORIGINS </em>  can be a useful tool for both AI and HBE communities:  AI researchers can borrow existing hypotheses from
+    HBE about which environmental conditions affect which skills to appropriately shape their environments. At the same time, HBE researchers can use AI as a computational tool
+    for studying their hypotheses.</p>
+
+<p> In the rest of the post we describe two of our projects that can be seen as following the ecological approach we are proposing.
+    We will zoom-in in different parts of the conceptual framework, discuss the ecological hypotheses they were inspired from,
+    and explain the computational models we designed to study them.
+</p>
+
 </dt-article>
 
 <dt-appendix>
@@ -127,6 +190,29 @@
 </dt-appendix>
 
 <script type="text/bibliography">
+
+@phdthesis{clement_thesis,
+  TITLE = {The Ecology of Open-Ended Skill Acquisition},
+  AUTHOR = {Moulin-Frier, Clement},
+  URL = {https://inria.hal.science/tel-03875448},
+  SCHOOL = {Universitee de Bordeaux (UB)},
+  YEAR = {2022},
+  MONTH = Dec,
+  TYPE = {Habilitation a diriger des recherches},
+  HAL_ID = {tel-03875448},
+  HAL_VERSION = {v1},
+}
+
+@inproceedings{nisioti_grounding_2021,
+	address = {virtual event},
+	title = {Grounding an Ecological Theory of Artificial Intelligence in Human Evolution},
+	url = {https://hal.archives-ouvertes.fr/hal-03446961},
+	urldate = {2022-12-14},
+	booktitle = {NeurIPS 2021 - Conference on Neural {Information} {Processing} {Systems} / {Workshop}: {Ecological} {Theory} of {Reinforcement} {Learning}},
+	author = {Nisioti, Eleni and Jodogne-del Litto, Katia and Moulin-Frier, Clément},
+	month = dec,
+	year = {2021},
+}
 
 @article{botero_ecology_2014,
 	title = {The ecology of religious beliefs},
