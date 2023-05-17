@@ -153,7 +153,7 @@
 <img class="80" src="public/framework.png" height="465" width="665" alt="ORIGINS" />
 <div>
 <sub style="display: block; line-height: 1.5em">
-    <i> <em> ORIGINS </em> is conceptual framework for studying skill acquisition in both human and artificial ecologies. </i></sub>
+    <i> <em> ORIGINS </em> is conceptual framework for studying skill acquisition in both human and artificial ecologies </i></sub>
 </div>
 </div>
 
@@ -172,12 +172,12 @@
     It is this latter process that makes skill acquisition open-ended, as it creates a positive feedback loop that
 continuously complexifies the environment.</em> </p>
 
-<p> <em> ORIGINS </em>  can be a useful tool for both AI and HBE communities:  AI researchers can borrow existing hypotheses from
+<p> <em> ORIGINS </em>  can be a useful tool for both the AI and HBE communities:  AI researchers can borrow existing hypotheses from
     HBE about which environmental conditions affect which skills to appropriately shape their environments. At the same time, HBE researchers can use AI as a computational tool
     for studying their hypotheses.</p>
 
 <p> In the rest of the post we describe two of our projects that can be seen as following the ecological approach we are proposing.
-    We will zoom-in in different parts of the conceptual framework, discuss the ecological hypotheses they were inspired from,
+    We will zoom-in into different parts of the conceptual framework, discuss the ecological hypotheses they were inspired from,
     and explain the computational models we designed to study them.
 </p>
 
@@ -188,7 +188,8 @@ continuously complexifies the environment.</em> </p>
 <img class="80" src="public/earth_species.gif" height="465" width="665" alt="ORIGINS" />
 <div>
 <sub style="display: block; line-height: 1.5em">
-<i> Earth: the apparent genomic diversity of species in our planet could not have existed without an equally impressive diversity of ecological niches.</i></sub>
+<i> Earth: the apparent genomic diversity of species in our planet could not have existed without an equally impressive diversity in environmental conditions.</i></sub>
+    Which are the conditions that lead to the emergence of generalists?
 </div>
 </div>
 
@@ -217,7 +218,7 @@ Understanding the mechanisms with which temporal and spatial diversity in an env
 <p> The consensus of the community is that, when it comes to creating generalist agents,
     the environments used for training play a big part.
     In meta-learning <dt-cite key="vanschoren_meta-learning_2018"> </dt-cite>, the focus is on ensuring a wide diversity of environments.
-    In curriculum learning <dt-cite key="vanschoren_meta-learning_2018"> </dt-cite> the focus is on the order in which environments are encountered,
+    In curriculum learning <dt-cite key="curriculumNarvekar2020"> </dt-cite> the focus is on the order in which environments are encountered,
 as the training procedure needs to ensure that agents are continuously challenged but are able to improve.
 </p>
 
@@ -329,12 +330,12 @@ Transferring our computational study to a grounded environment, where plasticity
 is not hard-coded but emerges out of a behavioral policy is an important next step towards showcasing the importance of
 ecological dynamics.
 For this reason we implemented a large-scale environment, where populations of thousands of agents can forage resources
-    in a grid-world with resource density that varies in space and time <dt-cite key="gautier2023EcoevolutionaryDynamicsNonepisodic"> </dt-cite>
+    in a grid-world with resource density that varies in space and time <dt-cite key="gautier2023EcoevolutionaryDynamicsNonepisodic"> </dt-cite>.
 </p>
 
 <p> We now zoom-out of the link between environmental dynamics and adaptability in our conceptual framework and move our gaze to the right.
     There we meet the cultural repertoire, a set of rather advanced skills that presuppose the existence of both individual cognitive mechanisms and social dynamics.
-    Next, we will describe a study how multi-agent dynamics influence the formation of a cultural repertoire.
+    Next, we will describe a study of how multi-agent dynamics influence the formation of a cultural repertoire.
 </p>
 
 <h2 id="sapiens"> The effect of social connectivity on collective innovation </h2>
@@ -354,8 +355,8 @@ width: calc((1500px - 648px) / 2 - 24px);">
 <img src="public/innovation_networks.png" alt="scheme" style="width:90%">
 <sub style="display: block; line-height: 1.5em">
 <i> Social networks characterizing human collective innovation often have a clustered structure.
-On the left, reconstructed regional networks of cultural artifacts in Africa about 350, thousand years ago <dt-cite key="migliano_origins_2022"> </dt-cite>.
-On the right, the citation network of a recent research paper (Image credit <a href="https://www.connectedpapers.com/"> connected papers </a>).
+On the top, reconstructed regional networks of cultural artifacts in Africa about 350, thousand years ago <dt-cite key="migliano_origins_2022"> </dt-cite>.
+On the bottom, the citation network of a recent research paper (Image credit <a href="https://www.connectedpapers.com/"> connected papers </a>).
 Does this pattern suggest a link between social connectivity and the ability to innovate collectively?
 </i>
 </sub>
@@ -560,7 +561,8 @@ future studies both in ecology and AI.
     in the spread of cultural artifacts <dt-cite key="derricoIdentifyingEarlyModern2017"> </dt-cite>.
 </p>
 
-<p> Would an artificial ecology with RL agents navigating a world with continents and oceans remind us of our own societies?
+<p> Would an artificial ecology with RL agents navigating a world where diverse continents are separated
+    by oceans lead to societies that remind us of our own?
 </p>
 
 
@@ -573,6 +575,26 @@ future studies both in ecology and AI.
 </dt-appendix>
 
 <script type="text/bibliography">
+
+@article{curriculumNarvekar2020,
+  author       = {Sanmit Narvekar and
+                  Bei Peng and
+                  Matteo Leonetti and
+                  Jivko Sinapov and
+                  Matthew E. Taylor and
+                  Peter Stone},
+  title        = {Curriculum Learning for Reinforcement Learning Domains: A Framework
+                  and Survey},
+  journal      = {CoRR},
+  volume       = {abs/2003.04960},
+  year         = {2020},
+  url          = {https://arxiv.org/abs/2003.04960},
+  eprinttype    = {arXiv},
+  eprint       = {2003.04960},
+  timestamp    = {Sun, 18 Dec 2022 19:02:47 +0100},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2003-04960.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
 
 @article{derricoIdentifyingEarlyModern2017,
   title = {Identifying Early Modern Human Ecological Niche Expansions and Associated Cultural Dynamics in the South African Middle Stone Age},
