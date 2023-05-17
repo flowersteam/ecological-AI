@@ -371,6 +371,47 @@ Does this pattern suggest a link between social connectivity and the ability to 
 </p>
 
 
+<p> Why do humans innovate to such an unprecendented degree?
+    Some theories point to our increased cognitive capacity or sociality <dt-cite key="klinePopulationSizePredicts2010"> </dt-cite>.
+    But others point to the benefits of our social connectivity: human societies often self-organize into small-world, hierarchical or dynamic
+    topologies. The common feature underlying those is their ability to protect information within sub-parts of the group.
+    In this way, the group maintains its cultural diversity, and it is this diversity that may be driving the continuous appearance of innovations.
+</p>
+
+
+
+<p> Reinforcement learning, the sub-field of AI concerned with learning by interacting with an environment,
+    is also interested in the benefits of collective exploration.
+    In distributed RL, multiple agents solve a task in parallel and exchange information on the way <dt-cite key="mnihAsynchronousMethodsDeep2016a"></dt-cite>
+    <dt-cite key="horganDistributedPrioritizedExperience2018"> </dt-cite>
+    <dt-cite key="espeholt_impala_2018"> </dt-cite>.
+    This has shown benefits both in terms of the quality of the final solution and the speed at which it is discovered.
+</p>
+
+<p> Yet this community has considered a single type of group connectivity, the star topology:
+all agents interact with the environment to collect information and then share it with a single central node responsible for
+    processing the new information and updating the behavior of the agents.
+    Thus, artificial groups look very different from the partially-connected human groups.
+    If this structure reduces their collective diversity, it may negatively impact the ability of these groups to solvex innovation challenges.
+</p>
+
+
+<p>
+    This is the idea that motivated the computational study we describe next <dt-cite key="nisioti2022SocialNetworkStructure"> </dt-cite>,
+    where groups of RL agents solve innovation tasks under different topologies.
+</p>
+
+<h3> SAPIENS: a distributed RL framework where social connectivity matters </h3>
+
+<!--    <div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);-->
+<!--width: calc((1500px - 648px) / 2 - 24px);">-->
+<!--  <img src="public/sharing_DQN.svg" alt="scheme" style="width:90%">-->
+<!--<p>  Schematic of a SAPIENS algorithm with 2 DQN learners exchanging experiences from their replay buffer.-->
+<!--</p>-->
+<!--</div>-->
+
+<h4> The model </h4>
+
 </dt-article>
 
 <dt-appendix>
@@ -380,6 +421,78 @@ Does this pattern suggest a link between social connectivity and the ability to 
 </dt-appendix>
 
 <script type="text/bibliography">
+
+@article{mnihAsynchronousMethodsDeep2016a,
+	title = {Asynchronous Methods for Deep Reinforcement Learning},
+	url = {http://arxiv.org/abs/1602.01783},
+	language = {en},
+	urldate = {2022-02-09},
+	journal = {arXiv:1602.01783 [cs]},
+	author = {Mnih, Volodymyr and Badia, Adrià Puigdomènech and Mirza, Mehdi and Graves, Alex and Lillicrap, Timothy P. and Harley, Tim and Silver, David and Kavukcuoglu, Koray},
+	month = jun,
+	year = {2016},
+	note = {arXiv: 1602.01783},
+	keywords = {Computer Science - Machine Learning},
+}
+
+
+@misc{nisioti2022SocialNetworkStructure,
+  title = {Social Network Structure Shapes Innovation: Experience-sharing in RL with SAPIENS},
+  author = {Nisioti, Eleni and Mahaut, Mateo and Oudeyer, Pierre-Yves and Momennejad, Ida and Moulin-Frier, Clement},
+  year = {2022},
+  month = nov,
+  number = {arXiv:2206.05060},
+  eprint = {2206.05060},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2206.05060},
+  urldate = {2023-03-13},
+  archiveprefix = {arxiv},
+}
+
+
+
+@techreport{espeholt_impala_2018,
+	title = {IMPALA: Scalable Distributed Deep-RL with Importance Weighted Actor-Learner Architectures},
+	shorttitle = {IMPALA},
+	url = {http://arxiv.org/abs/1802.01561},
+	language = {en},
+	number = {arXiv:1802.01561},
+	urldate = {2022-05-15},
+	institution = {arXiv},
+	author = {Espeholt, Lasse and Soyer, Hubert and Munos, Remi and Simonyan, Karen and Mnih, Volodymir and Ward, Tom and Doron, Yotam and Firoiu, Vlad and Harley, Tim and Dunning, Iain and Legg, Shane and Kavukcuoglu, Koray},
+	month = jun,
+	year = {2018},
+	note = {arXiv:1802.01561 [cs]},
+	keywords = {Computer Science - Artificial Intelligence, Computer Science - Machine Learning},
+}
+
+@article{horganDistributedPrioritizedExperience2018,
+	title = {Distributed Prioritized Experience Replay},
+	url = {http://arxiv.org/abs/1803.00933},
+	language = {en},
+	urldate = {2021-04-26},
+	journal = {arXiv:1803.00933 [cs]},
+	author = {Horgan, Dan and Quan, John and Budden, David and Barth-Maron, Gabriel and Hessel, Matteo and van Hasselt, Hado and Silver, David},
+	month = mar,
+	year = {2018},
+	note = {arXiv: 1803.00933},
+	keywords = {Computer Science - Machine Learning},
+}
+
+@article{klinePopulationSizePredicts2010,
+  title = {Population Size Predicts Technological Complexity in Oceania},
+  author = {Kline, Michelle A. and Boyd, Robert},
+  year = {2010},
+  month = aug,
+  journal = {Proceedings of the Royal Society B: Biological Sciences},
+  volume = {277},
+  number = {1693},
+  pages = {2559--2564},
+  issn = {0962-8452, 1471-2954},
+  doi = {10.1098/rspb.2010.0452},
+  urldate = {2021-03-01},
+}
 
 
 @article{solee2013EvolutionaryEcologyTechnological,
