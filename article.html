@@ -319,6 +319,8 @@ the plastic individual has lower fitness (cost of plasticity). If the actual env
     of the two individuals, the plastic one will be at an advantage.
 </p>
 
+
+
 <!--<p> The world consists of a number of niches N and a climate function that shows how the state of all niches changes with time.-->
 <!--The state of a niche at a given generation depends on the value of the climate function and the latitude of the niches,-->
 <!--with southern niches having better states.</p>-->
@@ -361,7 +363,6 @@ width: calc((1500px - 648px) / 2 - 24px);">
 <i> Visualization of the environment we used to study foraging behaviors at scale <dt-cite key="gautier2023EcoevolutionaryDynamicsNonepisodic"> </dt-cite>.
     Resources are in green and their regeneration frequency is higher in the south, while agents are in black. (See <a href="https://www.youtube.com/watch?v=LiTdUp8rOic&ab_channel=AnoNymous"> this video</a> for a visualization
     of the whole duration of training.)
-    .
 </i>
 </sub>
 </div>
@@ -370,14 +371,16 @@ width: calc((1500px - 648px) / 2 - 24px);">
     variability.
     We also saw that some environmental conditions and selection pressures may favor plasticity, while others favor
     evolvability.
-    Our study suggests to the AI community that environmental conditions play an important part in the emergence and form of generalism.
-    Even if the algorithm is powerful enough to behave as a generalist, this behavior will not emerge if the spatiotemporal dynamics of the environments
-    do not require it.
     We also saw that limiting competition within niches is an important driver of generalism, at a time when most meta RL works use survival-of-the-fittest.
-
 </p>
 
-
+<p> If there is one take-away message from this study to the AI community that is that there is no such thing as a generalist agent.
+    Discussions of the generality of an agent need to consider its ecological niche.
+    This niche is necessarily bounded because, to occupy it, an agent needs to spend time and energy.
+    What is more, an agent will be only as generalist as its personal history and environment require.
+    Even if we design an agent with powerful cognitive mechanisms, such as a large artificial neural network, generalisation will not emerge
+    unless the spatiotemporal dynamics of the environment require it.
+</p>
 
 <!--<h4> Next steps </h4>-->
 <p>
