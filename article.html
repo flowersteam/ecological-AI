@@ -94,7 +94,7 @@
 
 <p> Ecological perspectives abide in the study of biological organisms.
     From the emergence of vision systems <dt-cite key="gibson__2014"> </dt-cite>
-    to that of religion <dt-cite key="botero_ecology_2014"> </dt-cite>, the environments encountered in the
+    to that of religion <dt-cite key="botero_ecology_2014"> </dt-cite>, environments encountered in the
     evolutionary trajectory of a species can help us understand why certain functions persist over others.
     If we look at the evolution of our own species, we will find that many behaviors that we consider simple,
     like using language and tools, took the longest time to evolve.
@@ -117,6 +117,30 @@
 
     Our second objective is to see how leveraging these similarities can be useful in practice for AI studies.
     In particular we: </p>
+
+<ul>
+    <li > <b> present a conceptual framework for grounding an ecological approach to AI in Human
+        Behavioral Ecology (HBE), a research field studying the evolution of humans in interaction with their environments</b> </li>
+    <li > <b> illustrate how an ecological perspective to AI looks in practise through two of our recent
+        computational studies. </b> </li>
+<!--    <table cellpadding="10" cellspacing="10">-->
+<!--<tbody>-->
+<!--<td style="text-align: center;padding:10px"> <h4>  How does environmental variability affect the evolution of adaptability? </h4>-->
+<!--    <p style="text-align: justify;padding:10px" >   In a world with temporal and spatial variability, a population of agents evolves its adaptability-->
+<!--        in order to survive. Agents can adapt using evolvability and phenotypic plasticity and the fittest ones in a-->
+<!--        niche leave offspring. Can these agents survive in the face of extreme climatic variability? In this work,-->
+<!--        we will see how populations adapt, diversify and disperse under different climatic conditions. </p></td>-->
+<!--<td style="text-align: center;padding:10px"> <h4> How does social connectivity affect collective innovation? </h4>-->
+<!--<p style="text-align: justify;padding:10px">  From drug discovery to music composition, our human cultural repertoire relies on innovations produced-->
+<!--    by collectives that jointly explore, communicate and recombine solutions. Can artificial agents also innovate in-->
+<!--    collectives? In the learning paradigm of distributed RL, groups of agents solve tasks in parallel and share their-->
+<!--    experiences with observed benefits to performance. But, while biological organisms exhibit a variety of social-->
+<!--    network structures,, distributed RL agents always share with everyone. Here, we study the effect of social network-->
+<!--    structure in a group of DQN agents playing the <a href='https://littlealchemy2.com/'> Little Alchemy game </a>.-->
+<!--</p></td>-->
+<!--</tbody>-->
+<!--</table>-->
+</ul>
 
 
 <h2 id="framework"> A conceptual framework for linking human and artificial ecologies </h2>
@@ -190,8 +214,20 @@ continuously complexifies the environment.</em> </p>
 <div>
 <sub style="display: block; line-height: 1.5em">
 <i> Earth: the apparent genomic diversity of species in our planet could not have existed without an equally impressive diversity in environmental conditions.</i></sub>
-    Which are the conditions that lead to the emergence of generalists?
 </div>
+</div>
+
+<div style="clear: both;float: right; margin-top: 10px; margin-left: 10px; margin-right: calc((100vw - 1500px) / 2 + 168px);
+width: calc((1500px - 648px) / 2 - 24px);">
+<img src="public/tolerance_curves.png" alt="scheme" style="width:90%">
+<sub style="display: block; line-height: 1.5em">
+<i>  An agent with low plasticity (on the left) has small &sigma; and a high peak at their preferred niche, while a
+    plastic individual (on the right) has large &sigma; and a lower peak at their preferred niche. Fitness in a
+    certain environmental state is computed as the probability density function of the distribution at that point
+the plastic individual has lower fitness (cost of plasticity). If the actual environmental state differs
+    significantly from the preferred one the plastic individual has higher fitness.
+</i> </sub>
+
 </div>
 
 
